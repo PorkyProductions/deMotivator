@@ -3,4 +3,4 @@ To download, simply download the code in a .zip format using the big green butto
 If you don't understand that, you are probably too dumb to use this app.
 
 
-ATTN: If you are on our actual website (porkyproductions.github.io/-de-motivator by the way), please use the big blue "view on GitHub" button to get to our repo to download the code.
+ATTN: If you are on our actual website (https://porkyproductions.github.io/-de-Motivator/ by the way), please use the big blue "view on GitHub" button to get to our repo to download the code.
