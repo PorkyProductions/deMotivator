@@ -1,4 +1,5 @@
 CHANGELOG (STABLE):
 v2.0 (PUBLIC)
 Added a lot more insults, and a brand-new, shiny, beautiful button
+We also added a python test to make sure python is working properly. (de)Motivator does not use python yet, but there are plans to implemnt it in the future. So for now, the file is completely optional.
 This should be the best update yet. Becuase this is our first major update.
