@@ -1,3 +1,4 @@
 CHANGELOG (STABLE):
-v1.0 (PUBLIC)
-NONE. This is the first release. Stop asking if there is new stuff. Everything is new.
+v2.0 (PUBLIC)
+Added a lot more insults, and a brand-new, shiny, beautiful button
+This should be the best update yet. Becuase this is our first major update.
