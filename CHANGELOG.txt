@@ -3,3 +3,8 @@ v2.0 (PUBLIC)
 Added a lot more insults, and a brand-new, shiny, beautiful button
 We also added a python and a Java test to make sure python and Java are working properly. (de)Motivator does not use python and/or java yet, but there are plans to implemnt it in the future. So for now, the files are completely optional.
 This should be the best update yet. Becuase this is our first major update.
+
+CHANGELOG (STABLE):
+v2.1 (PUBLIC)
+Added a few more insults
+fix bug
