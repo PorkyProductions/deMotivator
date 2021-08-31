@@ -1,8 +1,28 @@
-div {
-    width:auto 100%;
-    height:auto 100%;
-    background-color: black;
+#textInput {
+    border: none;
+    border-bottom: 3px solid hsl(247, 79%, 32%);
 }
-p {
-    color: white;
+.userText {
+    color: whitesmoke;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: larger;
+    text-align: right;
+    line-height: 30px;
+}
+.userText span {
+    background-color: black
+    padding: 10px;
+    border-radius: 2px;
+}
+.botText {
+    color: antiquewhite;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: larger;
+    text-align: left;
+    line-height: 30px;
+}
+.botText span {
+    background-color: black;
+    padding: 10px;
+    border-radius: 2px;
 }
