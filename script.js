@@ -91,17 +91,54 @@ const insults =
     "It sure would be a shame if you suddenly got struck by lightning at 12:32 PM on October 19, 2041",
     "Wouldn't it just be great if suddenly became interesting",
     "You're the dumbest person I've ever met. <br> You're the dumbest person I've ever known. <br> You're the dumbest person I've ever been. <br> You're the dumbest person I've ever had the chance to meet. <br> You're the dumbest person I've ever been a part of. <br> You're the dumbest person I've ever known. <br> You're the dumbest person I've ever met. <br> You're the dumbest person I've ever known. <br> You're the dumbest person I've ever been. <br> You're the dumbest person I've ever had the chance to meet. <br> You're the dumbest person I've ever been a part of. <br> You're the dumbest person I've ever known. <br> You're the dumbest person I've ever met. <br> You're the dumbest person I've ever known. <br> You're the dumbest person I've ever been. <br> You're the dumbest person I've ever had the chance to meet. <br> You're the dumbest person I've ever been a part of. <br> You're the dumbest person I've ever known. <br> You're the dumbest person I've ever met. <br> You're the dumbest person I've ever known. <br> You're the dumbest person I've ever been. <br> You're the dumbest person I've ever had the chance to meet. <br> You're the dumbest person I've ever been a part of. <br> You're the dumbest person I've ever known. <br> You're the dumbest person I've ever met. <br> You're the dumbest person I've ever known. <br> You're the dumbest person I've ever been. <br> You're the dumbest person I've ever had the chance to meet. <br> You're the dumbest person I've ever been a part of. <br> You're the dumbest person I've ever known. <br> You're the dumbest person I've ever met. <br> You're the dumbest person I've ever known. <br> You're the dumbest person I've ever been.",
+    "You are the dumbest person I've ever met",
+    "I'm sorry, I can't hear you",
+    "You are the dumbest person I've ever known",
+    "You are the dumbest person I've ever been",
+    "You are the dumbest person I've ever had the chance to meet",
+    "You are the dumbest person I've ever been a part of",
+    "What IS the point of you",
+    "It will take years for you to forget me <3",
+    "What is a chicken?",
+    "You must be sad",
+    "What IS the point of you",
+    Geolocation,
+    "There is a very small chance that when you hit this button, your geolocation will show up; I know everything :)",
+    "Suprising that you family hasn't ditched you yet",
+    "It's better to let someone think you are an Idiot than to open your mouth and prove it.",
+    "You have two parts of brain, 'left' and 'right'. In the left side, there's nothing right. In the right side, there's nothing left.",
+    "Two wrongs don't make a right, take your parents as an example.",
+    "You are so old that you get nostalgic when you see the Neolithic cave paintings.",
+    "You're old enough to remember when emojis were called hieroglyphics",
+    "Talking to you is like trying to explain technology to a 100-year-old",
+    "I don't engage in mental combat with the unarmed.",
+    "You must have been born on a highway because that's where most accidents happen.",
+    "My psychiatrist told me I was crazy and I said I want a second opinion. He said okay, you're ugly too.",
+    "You sound reasonable. It must be time to up my medication!",
+    "You're so ugly, when your mom dropped you off at school she got a fine for littering.",
+    "The last thing I want to do is hurt you. But it's still on the list",
+    "I'm not insulting you. I'm describing you.",
+    "It looks like your face caught on fire and someone tried to put it out with a hammer.",
+    "If laughter is the best medicine, your face must be curing the world.",
+    "I'm jealous of all the people that haven't met you!",
+    "Don't you love nature, despite what it did to you?",
+    "So, a thought crossed your mind? Must have been a long and lonely journey.",
+    "You're so fake, Barbie is jealous.",
+    "You are so ugly when you looked in the mirror your reflection walked away.",
+    "Brains aren't everything. In your case they're nothing.",
+    "There's only one problem with your face, I can see it.",
+    "You are proof that evolution CAN go in reverse",
+    "I would ask you how old you are but I know you can't count that high.",
+    "Hell is wallpapered with all your deleted selfies.",
+    "Ordinarily people live and learn. You just live.",
+    "I dont know what your problem is, but Ill bet its hard to pronounce.",
+    "Your gene pool could use a little chlorine.",
     ""
 
 
 
+
     
     
 
-]
-
-function GenerateInsult(){
-insult = insults[Math.floor(Math.random() * (insults.length-0.01))];
-console.log(insult);
-document.getElementById("insult").innerHTML = insult;
-}
+];
