@@ -133,12 +133,39 @@ const insults =
     "Ordinarily people live and learn. You just live.",
     "I dont know what your problem is, but Ill bet its hard to pronounce.",
     "Your gene pool could use a little chlorine.",
-    ""
-
-
-
-
+    "The human brain is one of the most complex objects in the universe. Is it any wonder that so many people never learn to use it.",
+    "You're so ugly, when you popped out the doctor said 'Aww what a treasure' and your mom said 'Yeah, lets bury it.'",
+    "You're so fat, you could sell shade.",
+    "You're so ugly, when you got robbed, the robbers made you wear their masks to look like your clothes.",
+    "You're so ugly, when you went to the therapist, he gave you injections for your face.",
+    "You're so ugly, when you went to the DMV, they had to roll out your windows so that other drivers could see your face.",
+    "You're so ugly, when you went to the DMV, they didn't let you in because you were in the front seat.",
+    "You're so ugly, when you went to the DMV, they didn't let you in because the mirrors on the wall were crooked.",
+    "You're so ugly, when you went to the DMV, they didn't let you in because the cashier was distracted by your stare.",
+    "You're so ugly, when you went to the DMV, they didn't let you in because the shoes were old.",
+    "Whats the difference between your girlfriend and a walrus? One has a moustache and smells of fish and the other is a walrus.",
+    "You're so ugly, when you went to the zoo the person that brought you in was wearing a Parasol and your face was at the zoo. (this one is AI generated)",
+    "You are not as bad as people say, you are much, much worse.",
+    "You so ugly when who were born the doctor threw you out the window and the window threw you back.",
+    "Roses are red, Violets are blue. I've got five fingers, The middle one is for you.",
+    "I think you press 0 to be connected with customer service because that's the amount of help they give you.",
+    "It's scary to think that people like you are graduating from college.",
+    "You're like school in the summertime - no class.",
+    "You stare at frozen juice cans because they say, concentrate.",
+    "You've got two brain cells: one is in a wheelchair and the other one is pushing.",
+    "You're so ugly, you have to use a mirror to look in the mirror.",
+    "You sound a lot like the Terms and Conditions, that's why I don't care about what you have to say.",
+    "You would never be able to live down to your reputation, but I see you're doing your best.",
+    "Where did you buy your stupidity? Or it was given for free and you took an overdose?",
+    "You're street smart. Sesame Street smart.",
+    "You're IQ's lower than your shoe size.",
+    "80 % of the brain is fluid. Unfortunately, in your case, it's windshield wiper fluid.",
+    "I had prepared for a battle of wits but I see you came unarmed.",
+    "We're you made in a lab, cause wow, you are one failed experiment.",
+    "You have a room temperature IQ - if the room is in Antarctica.",
+    "Do you want to know how I get all these insults? I use something called intelligence.",
+    "You are so poor when you saw the garbage truck pass you took a shopping list with.",
+    function() {getSelection();},
+    "You're so ugly, when you got robbed, the robbers made you wear their masks to look like your clothes.",
     
-    
-
 ];
