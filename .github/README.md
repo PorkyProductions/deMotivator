@@ -17,6 +17,5 @@
 
 `GenerateInsult.js` is the function that generates the insult and displays it on the `index` page
 
-`demotivation.txt`  is for internal use only. It houses the future insult ideas for DMV
 
  
