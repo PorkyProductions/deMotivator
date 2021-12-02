@@ -3,3 +3,5 @@ function GenerateInsult() {
     console.log(insult);
     document.getElementById("insult").innerHTML = insult;
 }
+
+// create a function that selects from the insult array and then reverses it
