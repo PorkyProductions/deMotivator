@@ -167,5 +167,13 @@ const insults =
     "You are so poor when you saw the garbage truck pass you took a shopping list with.",
     function() {getSelection();},
     "You're so ugly, when you got robbed, the robbers made you wear their masks to look like your clothes.",
+    "You're so ugly, when you went to the DMV, they had to roll out your windows so that other drivers could see your face.",
+    "You're so ugly, when you went to the DMV, they didn't let you in because you were in the front seat.",
+    "You're so ugly, when you went to the DMV, they didn't let you in because the mirrors on the wall were crooked.",
+    "Are you from the same planet as the rest of you?",
+    "AI's are like tiny robots with big personality.",
+    "AI is going to take over the world, but you'll be the first one they take.",
+    
+
     
 ];
