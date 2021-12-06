@@ -173,6 +173,13 @@ const insults =
     "Are you from the same planet as the rest of you?",
     "AI's are like tiny robots with big personality.",
     "AI is going to take over the world, but you'll be the first one they take.",
+    "You are so poor when you saw the garbage truck pass you took a shopping list with.",
+    "If you were on fire and I had water I would drink it.",
+    "Youre so dense, light must bend around you.",
+    "Try to use this vacuum, it may help you remove the cobwebs in your mind.",
+    "You're so old that your first car was a covered wagon.",
+    "You're about as useful as a bucket without a bottom.",
+    "Does your train of thought have a caboose?",
     
 
     
