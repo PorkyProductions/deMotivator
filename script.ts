@@ -180,6 +180,21 @@ const insults =
     "You're so old that your first car was a covered wagon.",
     "You're about as useful as a bucket without a bottom.",
     "Does your train of thought have a caboose?",
+    "You're so ugly, when you got robbed, the robbers made you wear their masks to look like your clothes.",
+    "You're so ugly, when you went to the DMV, they had to roll out your windows so that other drivers could see your face.",
+    "You're so ugly, when you went to the DMV, they didn't let you in because you were in the front seat.",
+    "You're so ugly, when you went to the DMV, they didn't let you in because the mirrors on the wall were crooked.",
+    "You're so ugly, when you went to the DMV, they didn't let you in because the cashier was distracted by your stare.",
+    "You're so ugly, when you went to the DMV, they didn't let you in because the shoes were old.",
+    "I'm not insulting you. I'm describing you.",
+    "I don't know what your problem is, but Ill bet its hard to pronounce.",
+    "Your gene pool could use a little chlorine.",
+    "The human brain is one of the most complex objects in the universe. Is it any wonder that so many people never learn to use it.",
+    "You're so ugly, when you popped out the doctor said 'Aww what a treasure' and your mom said 'Yeah, lets bury it.'",
+    "You're so fat, you could sell shade.",
+    "You're so ugly, when you got robbed, the robbers made you wear their masks to look like your clothes.",
+    "You're so ugly, when you went to the therapist, he gave you injections for your face.",
+
     
 
     
