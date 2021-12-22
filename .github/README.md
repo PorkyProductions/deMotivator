@@ -21,7 +21,9 @@
 
 `404` is our error page.
  
-`style.css` is the CSS settings for both the `index` and `404` files
+`DMVstyle.css` is the CSS settings for the `index` file
+
+`404style.css` is the CSS settings for the `404` file
 
 `script.ts` is the insult array
 
