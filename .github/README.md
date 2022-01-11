@@ -2,6 +2,8 @@
 
 **Welcome to (de)Motivator!**   
 
+## Technologies Used
+
 <img alt="HTML5" width="26px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/html/html.png" />
 
 <img alt="TypeScript" width="26px" src="https://blog.jeremylikness.com/blog/2019-03-05_typescript-for-javascript-developers-by-refactoring-part-1-of-2/images/1.jpeg"/>
@@ -10,24 +12,39 @@
 
 <img alt="JavaScript" width="26px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/javascript/javascript.png" />
 
-
+## Description
 
 (de)Motivator is a simple push-button way of lowering your self-esteem.
 
-(de)Motivator is run off of two HTML files, each with its own CSS and JavaScript.  
+## Files
 
+### HTML
 
-`index.html` is the main page of the website. It houses everything in one file. 
+`index.html` is the main page of the website.
 
-`404` is our error page.
+`404.html` is our error page.
+
+`about.html` is our about page.
+
+`credit.html` is our credit page.
+
+### CSS
  
 `DMVstyle.css` is the CSS settings for the `index` file
 
 `404style.css` is the CSS settings for the `404` file
 
-`script.ts` is the insult array
+`aboutstyle.css` is the CSS settings for the `about` file
 
-`GenerateInsult.js` is the function that generates the insult and displays it on the `index` page
+`contactstyle.css` is the CSS settings for the `credit` file
+
+### TypeScript
+
+`script.ts` is the insult array before compilation
+
+### JavaScript
+
+`script.js` is the insult array after compilation
 
 
  
