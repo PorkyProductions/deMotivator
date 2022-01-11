@@ -1,5 +1,4 @@
-const insults = 
-[
+var insults = [
     "you are dog water",
     "you bad",
     "you have the same chance of reproducing as a computer mouse",
@@ -102,7 +101,6 @@ const insults =
     "What is a chicken?",
     "You must be sad",
     "What IS the point of you",
-    Geolocation,
     "There is a very small chance that when you hit this button, your geolocation will show up; I know everything :)",
     "Suprising that you family hasn't ditched you yet",
     "It's better to let someone think you are an Idiot than to open your mouth and prove it.",
@@ -165,7 +163,6 @@ const insults =
     "You have a room temperature IQ - if the room is in Antarctica.",
     "Do you want to know how I get all these insults? I use something called intelligence.",
     "You are so poor when you saw the garbage truck pass you took a shopping list with.",
-    function() {getSelection();},
     "You're so ugly, when you got robbed, the robbers made you wear their masks to look like your clothes.",
     "You're so ugly, when you went to the DMV, they had to roll out your windows so that other drivers could see your face.",
     "You're so ugly, when you went to the DMV, they didn't let you in because you were in the front seat.",
@@ -178,6 +175,7 @@ const insults =
     "Youre so dense, light must bend around you.",
     "Try to use this vacuum, it may help you remove the cobwebs in your mind.",
     "You're so old that your first car was a covered wagon.",
+    geolocation,
     "You're about as useful as a bucket without a bottom.",
     "Does your train of thought have a caboose?",
     "You're so ugly, when you got robbed, the robbers made you wear their masks to look like your clothes.",
@@ -194,8 +192,18 @@ const insults =
     "You're so fat, you could sell shade.",
     "You're so ugly, when you got robbed, the robbers made you wear their masks to look like your clothes.",
     "You're so ugly, when you went to the therapist, he gave you injections for your face.",
-
-    
-
-    
+    "Robots will take over the world, but you'll be the first one they take.",
+    "Artists use you as a refrence point, for what to throw out",
 ];
+function GenerateInsult() {
+    insult = insults[Math.floor(Math.random() * (insults.length - 0.01))];
+    console.log(insults);
+    document.getElementById("insult").innerHTML = insult;
+}
+function geolocation() {
+    new Geolocation().then(function (pos) {
+        console.log(pos);
+    })["catch"](function (err) {
+        console.log(err);
+    });
+}

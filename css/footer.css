@@ -1,0 +1,16 @@
+.footer {
+    background-color: #969696;
+    font-size: small;
+    font-family: Arial;
+    font-weight: bold;
+    border-radius: 13px;
+    margin-right: auto;
+    display: block;
+}
+
+.text-center {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
