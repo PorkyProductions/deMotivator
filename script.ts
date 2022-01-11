@@ -164,7 +164,6 @@ let insults =
     "You have a room temperature IQ - if the room is in Antarctica.",
     "Do you want to know how I get all these insults? I use something called intelligence.",
     "You are so poor when you saw the garbage truck pass you took a shopping list with.",
-    function() {getSelection();},
     "You're so ugly, when you got robbed, the robbers made you wear their masks to look like your clothes.",
     "You're so ugly, when you went to the DMV, they had to roll out your windows so that other drivers could see your face.",
     "You're so ugly, when you went to the DMV, they didn't let you in because you were in the front seat.",
