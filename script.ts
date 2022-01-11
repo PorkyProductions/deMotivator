@@ -192,6 +192,7 @@ let insults =
     "You're so fat, you could sell shade.",
     "You're so ugly, when you got robbed, the robbers made you wear their masks to look like your clothes.",
     "You're so ugly, when you went to the therapist, he gave you injections for your face.",
+    "Robots will take over the world, but you'll be the first one they take.",
 
     
 
