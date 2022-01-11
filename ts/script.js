@@ -1,5 +1,4 @@
-const insults = 
-[
+var insults = [
     "you are dog water",
     "you bad",
     "you have the same chance of reproducing as a computer mouse",
@@ -195,25 +194,16 @@ const insults =
     "You're so ugly, when you went to the therapist, he gave you injections for your face.",
     "Robots will take over the world, but you'll be the first one they take.",
     "Artists use you as a refrence point, for what to throw out",
-    
-
-    
-
-    
 ];
-
-function GenerateInsult(){
-    insult = insults[Math.floor(Math.random() * (insults.length-0.01))];
+function GenerateInsult() {
+    insult = insults[Math.floor(Math.random() * (insults.length - 0.01))];
     console.log(insults);
     document.getElementById("insult").innerHTML = insult;
-  }
-
-
-  function geolocation(): void {
-    new Geolocation().then(pos => {
-      console.log(pos);}
-    )
-    .catch(err => {
-      console.log(err);
+}
+function geolocation() {
+    new Geolocation().then(function (pos) {
+        console.log(pos);
+    })["catch"](function (err) {
+        console.log(err);
     });
-  }
+}
