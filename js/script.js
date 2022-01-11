@@ -192,6 +192,7 @@ var insults = [
     "You're so ugly, when you got robbed, the robbers made you wear their masks to look like your clothes.",
     "You're so ugly, when you went to the therapist, he gave you injections for your face.",
     "Robots will take over the world, but you'll be the first one they take.",
+    "Artists use you as a refrence point, for what to throw out",
 ];
 function GenerateInsult() {
     insult = insults[Math.floor(Math.random() * (insults.length - 0.01))];
