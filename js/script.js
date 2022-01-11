@@ -175,6 +175,7 @@ var insults = [
     "Youre so dense, light must bend around you.",
     "Try to use this vacuum, it may help you remove the cobwebs in your mind.",
     "You're so old that your first car was a covered wagon.",
+    geolocation,
     "You're about as useful as a bucket without a bottom.",
     "Does your train of thought have a caboose?",
     "You're so ugly, when you got robbed, the robbers made you wear their masks to look like your clothes.",
@@ -198,4 +199,11 @@ function GenerateInsult() {
     insult = insults[Math.floor(Math.random() * (insults.length - 0.01))];
     console.log(insults);
     document.getElementById("insult").innerHTML = insult;
+}
+function geolocation() {
+    new Geolocation().then(function (pos) {
+        console.log(pos);
+    })["catch"](function (err) {
+        console.log(err);
+    });
 }
