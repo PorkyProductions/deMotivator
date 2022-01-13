@@ -4,9 +4,24 @@
 }
 
 .blue-purp-gradient {
-    background: linear-gradient(45deg, #0000f4 0%, #8f06ff 100%);
+    background: linear-gradient(45deg, #0000f4 0%, #f706ff 100%);
     border-radius: 13px;
+    background-size : 400% 400%;
+    animation : gradient 25s ease infinite;
 }
+
+@keyframes gradient {
+  0% {
+      background-position: 0% 50%;
+  }
+  50% {
+      background-position: 100% 50%;
+  }
+  100% {
+      background-position: 0% 50%;
+  }
+  }
+  
 
 .mainBody {
   margin-left: auto;
@@ -60,4 +75,19 @@
   width: 100%;
   display: block;
   font-family: Arial;
+}
+
+.mainTitle-white {
+  font-size: 36px;
+  font-weight: bold;
+  color: #FFFFFF;
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: auto;
+  font-family: Arial;
+}
+
+.block-description-header{
+  padding-top: 200px;
+  padding-bottom: 200px;
 }
