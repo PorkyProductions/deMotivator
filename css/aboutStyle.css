@@ -70,17 +70,7 @@
   font-family: Arial;
 }
 
-.mainTitle-white {
-  font-size: 36px;
-  font-weight: bold;
-  color: #FFFFFF;
-  text-align: center;
-  margin-top: auto;
-  margin-bottom: auto;
-  font-family: Arial;
-}
-
-.block-description-header{
+.padding-xlarge{
   padding-top: 200px;
   padding-bottom: 200px;
 }
