@@ -44,6 +44,12 @@ body {
     font-weight: 600;
   }
 
+.insult-line {
+    font-family: 'Raleway', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+}
+
 
 .padding-small {
     padding-top: 10px;
