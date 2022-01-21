@@ -209,11 +209,11 @@ function GenerateInsult(){
   }
 
 
-  function geolocation(): void {
-    new Geolocation().then(pos => {
-      console.log(pos);}
-    )
-    .catch(err => {
-      console.log(err);
-    });
-  }
+function geolocation(): void {
+  new Geolocation().then(pos => {
+    console.log(pos);}
+  )
+  .catch((err: any) => {
+    console.log(err);
+  });
+}
