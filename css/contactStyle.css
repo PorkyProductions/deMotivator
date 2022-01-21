@@ -60,6 +60,30 @@
   font-family: Arial;
 }
 
+.mainTitleRale {
+  font-size: 36px;
+  font-weight: bold;
+  color: #000000;
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: auto;
+  font-family: 'Raleway', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+}
+
+.mainTitleRale-white {
+  font-size: 36px;
+  font-weight: bold;
+  color: #FFFFFF;
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: auto;
+  font-family: 'Raleway', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+}
+
 .center {
   text-align: center;
   margin-left: auto;
