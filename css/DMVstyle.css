@@ -49,24 +49,3 @@ body {
     font-style: normal;
     font-weight: 400;
 }
-
-
-.padding-small {
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-
-.padding-medium {
-    padding-top: 50px;
-    padding-bottom: 50px;
-}
-
-.padding-large {
-    padding-top: 100px;
-    padding-bottom: 100px;
-}
-
-.padding-xlarge {
-    padding-top: 150px;
-    padding-bottom: 150px;
-}
