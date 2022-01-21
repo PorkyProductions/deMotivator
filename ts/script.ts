@@ -195,6 +195,9 @@ const insults =
     "You're so ugly, when you went to the therapist, he gave you injections for your face.",
     "Robots will take over the world, but you'll be the first one they take.",
     "Artists use you as a refrence point, for what to throw out",
+    "You are the type of person to use the screen of a laptop as the kepboard",
+    "I know everything about you, and I won't say anything because it's too disturbing",
+    "People would love to pay you...to go away",
     
 
     
