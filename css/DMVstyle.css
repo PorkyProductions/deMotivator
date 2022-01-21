@@ -32,3 +32,35 @@ body {
     font-style: normal;
     font-weight: 600;
 }
+.mainTitleRale {
+    font-size: 36px;
+    font-weight: bold;
+    color: #000000;
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+    font-family: 'Raleway', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+  }
+
+
+.padding-small {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.padding-medium {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.padding-large {
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+.padding-xlarge {
+    padding-top: 150px;
+    padding-bottom: 150px;
+}
