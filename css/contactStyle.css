@@ -3,6 +3,11 @@
     border-radius: 13px;
 }
 
+img {
+    width: 5%;
+    height: auto;
+}
+
 .blue-purp-gradient {
     background: linear-gradient(45deg, #0000f4 0%, #f706ff 100%);
     border-radius: 13px;
