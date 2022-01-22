@@ -1,5 +1,14 @@
 # (de)Motivator
 
+- [(de)Motivator](#demotivator)
+  - [Technologies Used](#technologies-used)
+  - [Description](#description)
+  - [Files](#files)
+    - [HTML](#html)
+    - [CSS](#css)
+    - [TypeScript](#typescript)
+    - [JavaScript](#javascript)
+
 **Welcome to (de)Motivator!**   
 
 ## Technologies Used
