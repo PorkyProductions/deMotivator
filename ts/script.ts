@@ -1,3 +1,9 @@
+// TypeScript Source Code
+// Language: typescript
+// Path: ts\script.ts
+// Author: PorkyProductions
+// License: Apache 2.0
+// Compile Location: js\script.js
 const insults = 
 [
     "you are dog water",
