@@ -1,3 +1,9 @@
+// TypeScript Source Code
+// Language: typescript
+// Path: ts\script.ts
+// Author: PorkyProductions
+// License: Apache 2.0
+// Compile Location: js\script.js
 const insults = 
 [
     "you are dog water",
@@ -163,11 +169,6 @@ const insults =
     "We're you made in a lab, cause wow, you are one failed experiment.",
     "You have a room temperature IQ - if the room is in Antarctica.",
     "Do you want to know how I get all these insults? I use something called intelligence.",
-    "You are so poor when you saw the garbage truck pass you took a shopping list with.",
-    "You're so ugly, when you got robbed, the robbers made you wear their masks to look like your clothes.",
-    "You're so ugly, when you went to the DMV, they had to roll out your windows so that other drivers could see your face.",
-    "You're so ugly, when you went to the DMV, they didn't let you in because you were in the front seat.",
-    "You're so ugly, when you went to the DMV, they didn't let you in because the mirrors on the wall were crooked.",
     "Are you from the same planet as the rest of you?",
     "AI's are like tiny robots with big personality.",
     "AI is going to take over the world, but you'll be the first one they take.",
@@ -179,12 +180,6 @@ const insults =
     geolocation,
     "You're about as useful as a bucket without a bottom.",
     "Does your train of thought have a caboose?",
-    "You're so ugly, when you got robbed, the robbers made you wear their masks to look like your clothes.",
-    "You're so ugly, when you went to the DMV, they had to roll out your windows so that other drivers could see your face.",
-    "You're so ugly, when you went to the DMV, they didn't let you in because you were in the front seat.",
-    "You're so ugly, when you went to the DMV, they didn't let you in because the mirrors on the wall were crooked.",
-    "You're so ugly, when you went to the DMV, they didn't let you in because the cashier was distracted by your stare.",
-    "You're so ugly, when you went to the DMV, they didn't let you in because the shoes were old.",
     "I'm not insulting you. I'm describing you.",
     "I don't know what your problem is, but Ill bet its hard to pronounce.",
     "Your gene pool could use a little chlorine.",
@@ -195,7 +190,41 @@ const insults =
     "You're so ugly, when you went to the therapist, he gave you injections for your face.",
     "Robots will take over the world, but you'll be the first one they take.",
     "Artists use you as a refrence point, for what to throw out",
-    
+    "You are the type of person to use the screen of a laptop as the kepboard",
+    "I know everything about you, and I won't say anything because it's too disturbing",
+    "People would love to pay you...to go away",
+    "When you're sleeping, you're sleeping with your eyes open. This is to make sure nobody sees your ugly face.",
+    "Google wants to hire you... as an example of what not to hire",
+    "You remind me of a zebra on a jetski, unorthodox and dangerous at the same time.",
+    "You're so ugly, when you popped out the doctor said 'Aww what a treasure' and your mom said 'Yeah, lets bury it.'",
+    "If you were a vegetable, you'd be a hot pepper.",
+    "Realistically, you're not as bad as people say, you are much, much worse.",
+    "You never stopped looking in the mirror once you started, its either because you are too egotistical, or you couldnt believe how bad you looked",
+    "God gave us the brain to work out problems. However, we use it to create more problems",
+    "You're such a bad cook, you use the smoke alarm as a timer",
+    "If your going to be two faced at least make one of them pretty.",
+    "You look like a before picture.",
+    "The human brain is one of the most complex objects in the universe. Is it any wonder that so many people never learn to use it.",
+    "Whats the difference between you  and a walrus? One has a moustache and smells of fish and the other is a walrus.",
+    "I've seen people like you, but I had to pay admission!",
+    "She's so ugly she has to sneak up on a mirror.",
+    "It's scary to think that people like you are graduating from college. Oh, sorry, I just remembered that you didnt",
+    "You've got two brain cells: one is in a wheelchair and the other one is pushing.",
+    "For those who never forget a face, you are an exception.",
+    "When I look into your eyes, I see straight through to the back of your head.",
+    "If ignorance is bliss, you must be the happiest person on earth.",
+    "You are as sharp as a sphere",
+    "Ever since I saw you in your family tree I've wanted to cut it down.",
+    "I can feel my personality turning a dull shade of grey when I talk to you.",
+    "You would never be able to live down to your reputation, but I see you're doing your best.",
+    "It's not often that one gets the opportunity to speak about someone intelligent, respected and admired. Unfortunately today I have to talk about you.",
+    "If you don't like my opinion of you - improve yourself!",
+    "You look like a person that would exchange one of your chromosomes for a Big Mac",
+    "The janitor said he took out the trash last night, he must forgot a piece, what are you still doing here?",
+    "Please, keep talking. I always yawn when I am interested.",
+    "Your teeth remind me of starts - yellow and far apart.",
+    "I will boil your teeth",
+    "You look like somebody stepped on a goldfish.",``
 
     
 
@@ -203,17 +232,17 @@ const insults =
 ];
 
 function GenerateInsult(){
-    insult = insults[Math.floor(Math.random() * (insults.length-0.01))];
+  insult = insults[Math.floor(Math.random() * (insults.length-0.01))];
     console.log(insults);
     document.getElementById("insult").innerHTML = insult;
   }
 
 
-  function geolocation(): void {
-    new Geolocation().then(pos => {
-      console.log(pos);}
-    )
-    .catch(err => {
-      console.log(err);
-    });
-  }
+function geolocation(): void {
+  new Geolocation().then(pos => {
+    console.log(pos);}
+  )
+  .catch((err: any) => {
+    console.log(err);
+  });
+}

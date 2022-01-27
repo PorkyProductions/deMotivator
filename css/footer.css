@@ -1,7 +1,7 @@
 .footer {
     background-color: #969696;
     font-size: small;
-    font-family: Arial;
+    font-family: 'Raleway', sans-serif;
     font-weight: bold;
     border-radius: 13px;
     margin-right: auto;
@@ -13,4 +13,8 @@
     margin-left: auto;
     margin-right: auto;
     display: block;
+}
+
+.large-text {
+    font-size: large;
 }

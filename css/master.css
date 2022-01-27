@@ -1,0 +1,82 @@
+.mainBody {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    text-align: center;
+    font-family: Arial;
+}
+
+.mainBodyAlt {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    text-align: center;
+    font-family: Arial;
+    padding: 7px;
+}
+
+.mainTitle {
+    font-size: 36px;
+    font-weight: bold;
+    color: #000000;
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+    font-family: Arial;
+}
+
+.mainTitle-white {
+    font-size: 36px;
+    font-weight: bold;
+    color: #FFFFFF;
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+    font-family: Arial;
+}
+
+.mainTitleRale {
+    font-size: 36px;
+    font-weight: bold;
+    color: #000000;
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+    font-family: 'Raleway', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+}
+
+.mainTitleRale-white {
+    font-size: 36px;
+    font-weight: bold;
+    color: #FFFFFF;
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+    font-family: 'Raleway', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+}
+
+.center {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    display: block;
+}
+
+.centerAri {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    display: block;
+    font-family: Arial;
+}
+
+.padding-xlarge {
+    padding-top: 200px;
+    padding-bottom: 200px;
+}

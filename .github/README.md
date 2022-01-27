@@ -1,5 +1,14 @@
 # (de)Motivator
 
+- [(de)Motivator](#demotivator)
+  - [Technologies Used](#technologies-used)
+  - [Description](#description)
+  - [Files](#files)
+    - [HTML](#html)
+    - [CSS](#css)
+    - [TypeScript](#typescript)
+    - [JavaScript](#javascript)
+
 **Welcome to (de)Motivator!**   
 
 ## Technologies Used
@@ -37,6 +46,8 @@
 `aboutstyle.css` is the CSS settings for the `about` file
 
 `contactstyle.css` is the CSS settings for the `credit` file
+
+`master.css` is the shared CSS settings for all files
 
 ### TypeScript
 
