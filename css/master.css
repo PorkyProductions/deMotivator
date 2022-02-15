@@ -1,3 +1,5 @@
+
+
 .mainBody {
     margin-left: auto;
     margin-right: auto;
@@ -80,3 +82,7 @@
     padding-top: 200px;
     padding-bottom: 200px;
 }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
