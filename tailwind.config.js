@@ -1,9 +1,5 @@
 module.exports = {
-  content: [
-    ".\index.html",
-    ".\credits.html",
-    ".\about.html",
-  ],
+  content: ["index.html", "about.html", "create.html"],
   theme: {
     extend: {},
   },
