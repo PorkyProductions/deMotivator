@@ -1,3 +1,31 @@
+<!--
+MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWWWWWWMMMMMMMMMMMMMMMMMMMMMM
+MMMMMMMMMMMMMMMMMMMMMNKOxdolcc::,,,,;;cxNMMMMMMMMMMMMMMMMMMM
+MMMMMMMMMMMMMMMMMWKxc'..    .  ......   lNMMMMMMMMMMMMMMMMMM
+MMMMMMMMMMMMMMNOo;.  .................  .OMMMMMMMMMMMMMMMMMM
+MMMMMMMMMMMN0o,. .........  .........  ..;0WMMMMMMW0ONMMMMMM
+MMMMMMMMMNk;. ............   ........ 'xo..lO000Oxc.'OMMMMMM
+MMMMMMMMKc. .....  .................  l0xoc,,,,,.   :XMMMMMM
+MMMMMMM0, ......   ................  ;0O,,ONXKKK0d' cNMMMMMM
+MMMMMMNc .............   ........  .l0NX0OXWWNWWW0,.xWMMMMMM
+MMMMMMk. ...  ...............   .'o0NXo;o0XNNNXNO;.lXMMMMMMM
+MMMMMNc ....  ........... ..,:cokXNNWNk;'',,;,,,..dNMMMMMMMM
+MMMMM0' ............  .':ok0XNWWWWWWWWNNKOko:. .:0WMMMMMMMMM
+MMMMM0' .......  ..,lx0XNWWWWWWWWWWWWWNKkoc,. ;OWMMMMMMMMMMM
+MMMMMNc    ...,:okKNWWWWWNWWWNNNNKOkdl;..,::..dWMMMMMMMMMMMM
+MMMMMMXl..ckOKNNWWWNWWWNNX0kdl::,'',;:;..,;'.cKMMMMMMMMMMMMM
+MMMMMMMNc.:0NNNNNNXKOxl:;,',;:loxOXNWMW0xodx0WMMMMMMMMMMMMMM
+MMMMMMMM0, .,::;;,,'',:ldk0XWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+MMMMMMMMK; .,'. :xO0KNWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+MMMMMMMMNx;,,,,lKMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+MMMMMMMMMMWNXXNWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+
+Portable, cross-platform, and open-source.
+PorkyProductions.github.io
+
+
+-->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,19 +34,19 @@
     <link rel="preconnect" href="https://fonts.googleapis.com"> 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
     <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet"> 
-    <link rel="stylesheet" href="css/DMVstyle.css" />
+    <link rel="stylesheet" href="css/output.css" />
     <link rel="stylesheet" href="css/footer.css" />
+    <link rel="stylesheet" href="css/DMVstyle.css" />
     <link rel="icon" href="https://www.graphicsfuel.com/wp-content/uploads/2012/07/push-button-green-512.png" type="image/x-icon">
     <script type="text/javascript" src="js/script.js"></script>
 </head>
-    
-    <body>
-        <h1 class="mainTitleRale">(de)Motivator</h1>
+    <body class="dark:bg-black">
     <br>
-    <image src = "https://i0.wp.com/jeasprc.org/wp-content/uploads/2012/05/PanicButton2.png?fit=256%2C256&ssl=1"  onclick = "GenerateInsult()" class = "center padding-top-medium"> 
+    <h1 class="mainTitleRale dark:text-white">(de)Motivator</h1>
+    <image src = "https://i0.wp.com/jeasprc.org/wp-content/uploads/2012/05/PanicButton2.png?fit=256%2C256&ssl=1"  onclick = "GenerateInsult(); countClick()" class = "center padding-top-medium imgCenter" id="counter" > 
     <br/>
-    <div  class = "center insult-line">
-        <p id = "insult"></p>
+    <div  class = "center insult-line dark:bg-black dark:text-white">
+        <p id = "insult" class="dark:text-white"></p>
         
     </div>
        <div class="padding-large">
@@ -29,7 +57,11 @@
         <br>
         <a href="credits.html" class="center">Credits</a>
         <br>
+        <a href="dmv1.html" class="center">(de)Motivator 1.0</a>
+        <br>
         <a href="https://github.com/PorkyProductions/-de-Motivator" class="center">Source</a>
+        <br>
+        <a href="api.html" class="center">API</a>
         
     </div>
     </body>

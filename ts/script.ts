@@ -224,7 +224,46 @@ const insults =
     "Please, keep talking. I always yawn when I am interested.",
     "Your teeth remind me of starts - yellow and far apart.",
     "I will boil your teeth",
-    "You look like somebody stepped on a goldfish.",``
+    "You look like somebody stepped on a goldfish.",
+    "I will invert your ribcage",
+    "I'd like to help you out. Which way did you come in?",
+    "I love to shop, but i'm not buying anything you say",
+    "Someday you'll go far. And I really hope you stay there.",
+    "Oops, my bad. I could've sworn I was dealing with an adult.",
+    "Remember that time you were saying that thing I didn't care about? Yeah, that is now.",
+    "I'm busy right now, can I ignore you another time?",
+    "I wish I had a flip phone, so I could slam it shut on this conversation.",
+    " NSync said it best, “BYE, BYE, BYE!”",
+    "You're a gray sprinkle on a rainbow cupcake.",
+    "Your secrets are always safe with me. I never even listen when you tell me them.",
+    "Mirrors can't talk. Lucky for you, they can't laugh either",
+    "Keep rolling your eyes, you might eventually find a brain.",
+    "Did I invite you to the barbecue? Then why are you all up in my grill?",
+    "You have so many gaps in your teeth it looks like your tongue is in jail.",
+    "Oh, I'm sorry. Did the middle of my sentence interrupt the beginning of yours?",
+    "You are like a cloud. When you disappear, it's a beautiful day.",
+    " You have an entire life to be an idiot. Why not take today off?",
+    "Your kid is so annoying, he makes his Happy Meal cry.",
+    "Your face is just fine, but we'll have to put a bag over that personality.",
+    "I'm not a nerd. I'm just smarter than you.",
+    "Bye. Hope to see you never.",
+    "Don't worry, the first 40 years of childhood are always the hardest.",
+    "If you're going to be two-faced, at least make one of them pretty.",
+    "The only way you'd ever get hurt during an activity is if the TV exploded.",
+    "I thought of you today. It reminded me to take out the trash.",
+    "Did the mental hospital test too many drugs on you today?",
+    "OH MY GOD! IT SPEAKS!",
+    "Beauty is only skin deep, but ugly goes clean to the bone.",
+    "I forgot the world revolves around you. My apologies, how silly of me.",
+    "When you look in the mirror, say hi to the clown you see in there for me, would you?",
+    "Somewhere out there is a tree tirelessly producing oxygen for you. You owe it an apology.",
+    "That sounds like a you problem.",
+    "You have miles to go before you reach mediocre.",
+    "I see no evil, and I definitely don't hear your evil.",
+    "Don't worry about me. Worry about your eyebrows.",
+    "Grab a straw, because you suck.",
+    "You're the reason the gene pool needs a lifeguard.",
+    " ",
 
     
 
@@ -245,4 +284,15 @@ function geolocation(): void {
   .catch((err: any) => {
     console.log(err);
   });
+}
+
+var counter = 0;
+
+function countClick(): void {
+  counter++;
+  document.getElementById("counter").innerHTML = counter.toString();
+  console.log(counter)
+  document.cookie = "counter=" + counter;
+  let cookie = document.cookie;
+  console.log(cookie);
 }
