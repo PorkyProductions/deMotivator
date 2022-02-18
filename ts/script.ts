@@ -246,3 +246,12 @@ function geolocation(): void {
     console.log(err);
   });
 }
+
+function countClick(): void {
+  let counter = 0;
+  counter++;
+  document.getElementById("counter").innerHTML = counter.toString();
+  document.cookie = "counter=" + counter;
+  let cookie = document.cookie;
+  console.log(cookie);
+}
