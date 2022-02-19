@@ -295,4 +295,8 @@ function countClick(): void {
   document.cookie = "counter=" + counter;
   let cookie = document.cookie;
   console.log(cookie);
+};
+
+if counter == 500 {
+  alert("WOAH! Slow down there. Maybe take a break? Thats 500 clicks!");
 }
