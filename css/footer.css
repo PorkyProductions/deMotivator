@@ -3,16 +3,32 @@
     font-size: small;
     font-family: 'Raleway', sans-serif;
     font-weight: bold;
-    border-radius: 13px;
-    margin-right: auto;
-    display: block;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    //    border-radius: 13px;
+//    margin-right: auto;
+    
 }
 
-.text-center {
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
+.footer h3{
+    font-size: large;
+    margin-left: 20px;
+    font-family: 'Raleway', sans-serif;
+    font-style: normal;
+    font-weight: 600;;
+}
+
+.footer-links {
+    display:flex;
+}
+
+.footer-links li{
+    padding: 10px 20px;
+}
+
+.footer-links a:hover{
+    color:white;
 }
 
 .large-text {
