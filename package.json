@@ -1,0 +1,22 @@
+{
+  "name": "-de-motivator",
+  "version": "1.0.0",
+  "description": "A simple, push-button way of lowering your self-esteem",
+  "main": "index.html",
+  "scripts": {
+    "test": "node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PorkyProductions/deMotivator.git"
+  },
+  "author": "PorkyProductions",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/PorkyProductions/deMotivator/issues"
+  },
+  "homepage": "https://github.com/PorkyProductions/deMotivator#readme",
+  "dependencies": {
+    "demotivator": "^7.0.1"
+  }
+}
