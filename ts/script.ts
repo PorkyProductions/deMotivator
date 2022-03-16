@@ -300,3 +300,16 @@ function countClick(): void {
 if counter == 500 {
   alert("WOAH! Slow down there. Maybe take a break? Thats 500 clicks!");
 }
+
+
+const installApp = document.getElementById('installApp');
+
+installApp.addEventListener('click', async () => {
+    if (deferredPrompt !== null) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+            deferredPrompt = null;
+        }
+    }
+});
