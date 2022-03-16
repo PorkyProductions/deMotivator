@@ -45,6 +45,16 @@ PorkyProductions.github.io
     <script type="text/javascript" src="js/script.js" defer></script>
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.0.min.js" defer></script>
     <script src="js/UADetect.js" defer></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+             navigator.serviceWorker.register('./service-worker.js')
+    .        then(function(registration) {
+                console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            }).catch(function(err) {
+                console.log('ServiceWorker registration failed: ', err);
+                });
+}
+    </script>
 
     <!--Below is everything apple requires for a PWA-->
     <link rel="apple-touch-icon" href="icons/apple-icon-180.png">
@@ -83,11 +93,6 @@ PorkyProductions.github.io
                 <li><a href="api.html" class="center">API</a></li>
             </ul>  
         </div>
-        <script>
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('js/service-worker.js');
-            }
-        </script>
     </body>
 </html>
 

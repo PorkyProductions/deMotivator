@@ -1,7 +1,7 @@
 {
     "name": "(de)Motivator",
     "short_name": "deMotivator",
-    "url": "https://porkyproductions.github.io/deMotivator/",
+    "url": "/index.html",
     "icons": [
         {
           "src": "icons/manifest-icon-192.maskable.png",
@@ -29,5 +29,7 @@
         }
       ],
     "display": "fullscreen",
-    "orientation": "portrait"
+    "orientation": "portrait",
+    "theme_color": "#000000",
+    "background_color": "#000000"
 }
