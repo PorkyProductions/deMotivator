@@ -270,7 +270,7 @@ const insults =
     
 ];
 
-function GenerateInsult(){
+function GenerateInsult(): void{
   insult = insults[Math.floor(Math.random() * (insults.length-0.01))];
     console.log(insults);
     document.getElementById("insult").innerHTML = insult;
