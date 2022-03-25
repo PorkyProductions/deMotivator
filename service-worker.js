@@ -7,3 +7,4 @@ workbox.routing.registerRoute(
   new workbox.strategies.CacheFirst()
 
 );
+// hi
