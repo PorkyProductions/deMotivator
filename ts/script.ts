@@ -264,7 +264,7 @@ const insults =
     "Grab a straw, because you suck.",
     "You're the reason the gene pool needs a lifeguard.",
     " ",
-
+    
     
 
     
