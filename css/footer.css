@@ -4,11 +4,8 @@
     font-family: 'Raleway', sans-serif;
     font-weight: bold;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    //    border-radius: 13px;
-//    margin-right: auto;
-    
+    border-radius: 13px;
 }
 
 .footer h3{
@@ -21,10 +18,14 @@
 
 .footer-links {
     display:flex;
+    justify-content: right;
+    text-align: right;
 }
 
 .footer-links li{
     padding: 10px 20px;
+    justify-content: right;
+    text-align: right;
 }
 
 .footer-links a:hover{

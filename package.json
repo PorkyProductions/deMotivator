@@ -17,6 +17,11 @@
   },
   "homepage": "https://github.com/PorkyProductions/deMotivator#readme",
   "dependencies": {
-    "demotivator": "^7.0.1"
+    "demotivator": "^7.0.1",
+    "pwa-asset-generator": "^6.0.6",
+    "tailwindcss": "^3.0.23"
+  },
+  "devDependencies": {
+    "@types/jquery": "^3.5.14"
   }
 }
