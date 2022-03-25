@@ -1,8 +1,8 @@
 {
   "name": "(de)Motivator",
   "short_name": "deMotivator",
-  "start_url": "/",
-  "scope": "/",
+  "start_url": "/deMotivator",
+  "scope": "/deMotivator",
   "icons": [
       {
         "src": "icons/manifest-icon-192.maskable.png",
