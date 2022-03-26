@@ -42,6 +42,9 @@ if (DEVICE_type == "mobile") {
     document.getElementById("footer").style.display = "none";
     alert("Hey! It looks like you're using a mobile device. Did you know you can get better performance if you install our free app, and get offline mode. Just click 'add to home screen'!");
 }
+else if (DEVICE_type == "desktop") {
+    alert("Hey! It looks like you're using a desktop device. Did you know you can get better performance if you install our free app, and get offline mode. Just click the prompt in the adress bar!");
+}
 
 
 function finiteMobileDeviceType() {
