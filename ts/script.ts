@@ -295,25 +295,23 @@ button.onclick = function(): void {
     counter++;
     console.log(counter);
     GenerateInsult();
+    if (counter === 500) {
+      alert("WOAH! Slow down there. Maybe take a break? Thats 500 clicks!");
+    }
+    else if (counter === 501) {
+      alert("I'm not kidding. Please go take a break. That's 501 clicks!");
+    }
+    else if (counter === 502) {
+      alert("You think this is funny? Well, you're not. That's 502 clicks!");
+    }
+    else if (counter === 503) {
+      alert("This is your last chance to leave before I get angry. That's 503 clicks!");
+    }
+    else if (counter === 504) {
+      alert("To confrim you want to die, press it one more time");
+    }
+    else if (counter === 505) {
+      alert("You're out of luck. I'm going to call the cops. That's 505 clicks!");
+      window.location.href="https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+    }
 };
-
-
-if (counter === 500) {
-  alert("WOAH! Slow down there. Maybe take a break? Thats 500 clicks!");
-}
-else if (counter === 501) {
-  alert("I'm not kidding. Please go take a break. That's 501 clicks!");
-}
-else if (counter === 502) {
-  alert("You think this is funny? Well, you're not. That's 502 clicks!");
-}
-else if (counter === 503) {
-  alert("This is your last chance to leave before I get angry. That's 503 clicks!");
-}
-else if (counter === 504) {
-  alert("To confrim you want to die, press it one more time");
-}
-else if (counter === 505) {
-  alert("You're out of luck. I'm going to call the cops. That's 505 clicks!");
-  window.location.href="https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-}
