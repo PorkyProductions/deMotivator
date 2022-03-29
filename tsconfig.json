@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+        "outDir": "js/",
+    },
+    "files": [
+        "ts/script.ts",
+        "ts/UADetect.ts"
+    ]
+}

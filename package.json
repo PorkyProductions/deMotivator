@@ -4,7 +4,8 @@
   "description": "A simple, push-button way of lowering your self-esteem",
   "main": "index.html",
   "scripts": {
-    "test": "node ."
+    "test": "node .",
+    "build": "npx tsc --project tsconfig.json"
   },
   "repository": {
     "type": "git",
