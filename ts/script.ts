@@ -4,6 +4,9 @@
 // Author: PorkyProductions
 // License: Apache 2.0
 // Compile Location: js\script.js
+
+let button = document.getElementById('counter')
+
 const insults = 
 [
     "you are dog water",
@@ -286,15 +289,13 @@ function geolocation(): void {
   });
 }
 
-var counter = 0;
+let counter = 0;
 
-function countClick(): void {
-  counter++;
-  document.getElementById("counter").innerHTML = counter.toString();
-  console.log(counter)
-  document.cookie = "counter=" + counter;
-  let cookie = document.cookie;
-  console.log(cookie);
+const countClick = (): void => {
+  button.addEventListener("click", function(){
+    counter++;
+    console.log(counter);
+  });
 };
 
 if (counter === 500) {
@@ -310,7 +311,7 @@ else if (counter === 503) {
   alert("This is your last chance to leave before I get angry. That's 503 clicks!");
 }
 else if (counter === 504) {
-  alert("To confrim you want to leave, press it one more time");
+  alert("To confrim you want to die, press it one more time");
 }
 else if (counter === 505) {
   alert("You're out of luck. I'm going to call the cops. That's 505 clicks!");
