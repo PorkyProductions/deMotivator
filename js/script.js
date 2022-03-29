@@ -4,6 +4,7 @@
 // Author: PorkyProductions
 // License: Apache 2.0
 // Compile Location: js\script.js
+var button = document.getElementById('counter');
 var insults = [
     "you are dog water",
     "you bad",
@@ -277,15 +278,12 @@ function geolocation() {
     });
 }
 var counter = 0;
-function countClick() {
-    counter++;
-    document.getElementById("counter").innerHTML = counter.toString();
-    console.log(counter);
-    document.cookie = "counter=" + counter;
-    var cookie = document.cookie;
-    console.log(cookie);
-}
-;
+var countClick = function () {
+    button.addEventListener("click", function () {
+        counter++;
+        console.log(counter);
+    });
+};
 if (counter === 500) {
     alert("WOAH! Slow down there. Maybe take a break? Thats 500 clicks!");
 }
