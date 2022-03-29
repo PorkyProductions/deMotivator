@@ -273,11 +273,11 @@ const insults =
     
 ];
 
-function GenerateInsult(): void{
-  insult = insults[Math.floor(Math.random() * (insults.length-0.01))];
-    console.log(insults);
+function GenerateInsult(): void {
+    insult = insults[Math.floor(Math.random() * (insults.length-0.01))];
+    console.log(insult);
     document.getElementById("insult").innerHTML = insult;
-  }
+}
 
 
 function geolocation(): void {
@@ -289,14 +289,14 @@ function geolocation(): void {
   });
 }
 
-let counter = 0;
+let counter: number = 0;
 
-const countClick = (): void => {
-  button.addEventListener("click", function(){
+button.onclick = function(): void {
     counter++;
     console.log(counter);
-  });
+    GenerateInsult();
 };
+
 
 if (counter === 500) {
   alert("WOAH! Slow down there. Maybe take a break? Thats 500 clicks!");
