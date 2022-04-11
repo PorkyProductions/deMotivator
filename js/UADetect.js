@@ -62,3 +62,4 @@ function finiteMobileDeviceType() {
     }
     return 0;
 }
+
