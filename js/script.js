@@ -5,6 +5,11 @@
 // License: Apache 2.0
 // Compile Location: js\script.js
 var button = document.getElementById('counter');
+var rickRollButton = function () {
+    var rickRollButton = document.createElement('rickRollButton');
+    rickRollButton.innerHTML = '<button><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"></a>Click Me</button>';
+    document.body.appendChild(rickRollButton);
+};
 var insults = [
     "you are dog water",
     "you bad",
@@ -263,9 +268,16 @@ var insults = [
     "Don't worry about me. Worry about your eyebrows.",
     "Grab a straw, because you suck.",
     "You're the reason the gene pool needs a lifeguard.",
-    " ",
+    "You are not even beneath my contempt.",
+    "Your forehead is so big you donated it to charity for shelter!",
+    "You're as sharp as a bowling ball.",
+    "You always find yourself lost in thought; it's unfamiliar territory.",
+    "You're so ugly, you scared the crap out of the toilet.",
+    "If I had a dollar for every time you said something smart, I'd be broke.",
+    "Look to your left --------------> I said left you idiot!",
+    rickRollButton,
 ];
-function GenerateInsult() {
+function GenerateInsult(insult) {
     insult = insults[Math.floor(Math.random() * (insults.length - 0.01))];
     console.log(insult);
     document.getElementById("insult").innerHTML = insult;
