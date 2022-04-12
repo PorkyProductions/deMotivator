@@ -559,6 +559,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   align-content: center;
 }
 
+.items-center {
+  align-items: center;
+}
+
 .justify-end {
   justify-content: flex-end;
 }
@@ -587,6 +591,11 @@ Ensure the default browser behavior of the `hidden` attribute.
      object-position: bottom;
 }
 
+.object-right {
+  -o-object-position: right;
+     object-position: right;
+}
+
 .p-4 {
   padding: 1rem;
 }
@@ -605,6 +614,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .align-bottom {
   vertical-align: bottom;
+}
+
+.font-semibold {
+  font-weight: 600;
 }
 
 .text-black {
