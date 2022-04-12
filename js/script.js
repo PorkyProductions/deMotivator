@@ -4,6 +4,12 @@
 // Author: PorkyProductions
 // License: Apache 2.0
 // Compile Location: js\script.js
+var button = document.getElementById('counter');
+var rickRollButton = function () {
+    var rickRollButton = document.createElement('rickRollButton');
+    rickRollButton.innerHTML = '<button><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"></a>Click Me</button>';
+    document.body.appendChild(rickRollButton);
+};
 var insults = [
     "you are dog water",
     "you bad",
@@ -262,11 +268,18 @@ var insults = [
     "Don't worry about me. Worry about your eyebrows.",
     "Grab a straw, because you suck.",
     "You're the reason the gene pool needs a lifeguard.",
-    " ",
+    "You are not even beneath my contempt.",
+    "Your forehead is so big you donated it to charity for shelter!",
+    "You're as sharp as a bowling ball.",
+    "You always find yourself lost in thought; it's unfamiliar territory.",
+    "You're so ugly, you scared the crap out of the toilet.",
+    "If I had a dollar for every time you said something smart, I'd be broke.",
+    "Look to your left --------------> I said left you idiot!",
+    rickRollButton,
 ];
-function GenerateInsult() {
+function GenerateInsult(insult) {
     insult = insults[Math.floor(Math.random() * (insults.length - 0.01))];
-    console.log(insults);
+    console.log(insult);
     document.getElementById("insult").innerHTML = insult;
 }
 function geolocation() {
@@ -277,31 +290,27 @@ function geolocation() {
     });
 }
 var counter = 0;
-function countClick() {
+button.onclick = function () {
     counter++;
-    document.getElementById("counter").innerHTML = counter.toString();
     console.log(counter);
-    document.cookie = "counter=" + counter;
-    var cookie = document.cookie;
-    console.log(cookie);
-}
-;
-if (counter === 500) {
-    alert("WOAH! Slow down there. Maybe take a break? Thats 500 clicks!");
-}
-else if (counter === 501) {
-    alert("I'm not kidding. Please go take a break. That's 501 clicks!");
-}
-else if (counter === 502) {
-    alert("You think this is funny? Well, you're not. That's 502 clicks!");
-}
-else if (counter === 503) {
-    alert("This is your last chance to leave before I get angry. That's 503 clicks!");
-}
-else if (counter === 504) {
-    alert("To confrim you want to leave, press it one more time");
-}
-else if (counter === 505) {
-    alert("You're out of luck. I'm going to call the cops. That's 505 clicks!");
-    window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-}
+    GenerateInsult();
+    if (counter === 500) {
+        alert("WOAH! Slow down there. Maybe take a break? Thats 500 clicks!");
+    }
+    else if (counter === 501) {
+        alert("I'm not kidding. Please go take a break. That's 501 clicks!");
+    }
+    else if (counter === 502) {
+        alert("You think this is funny? Well, you're not. That's 502 clicks!");
+    }
+    else if (counter === 503) {
+        alert("This is your last chance to leave before I get angry. That's 503 clicks!");
+    }
+    else if (counter === 504) {
+        alert("To confrim you want to die, press it one more time");
+    }
+    else if (counter === 505) {
+        alert("You're out of luck. I'm going to call the cops. That's 505 clicks!");
+        window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+    }
+};

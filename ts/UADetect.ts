@@ -40,14 +40,21 @@ let DEVICE_type = DetectDeviceType();
 // IF the device is a mobile device or a tablet device, hide the "#logoText" element
 if (DEVICE_type == "mobile") {
     document.getElementById("footer").style.display = "none";
+    // alert("Hey! It looks like you're using a mobile device. Did you know you can get better performance if you install our free app, and get offline mode. Just click 'add to home screen'!");
 }
+else if (DEVICE_type == "desktop") {
+    // alert("Hey! It looks like you're using a desktop device. Did you know you can get better performance if you install our free app, and get offline mode. Just click the prompt in the adress bar!");
+}
+
 
 function finiteMobileDeviceType() {
     if (/(iPhone|iPod|iPad)/i.test(ua)) {
         console.log("iOS");
+        alert("Hey! It looks like you're using a mobile device. Did you know you can get better performance if you install our free app, and get offline mode. Just open this page in safari, click the share button, and then clikc 'add to home screen'!");
     }
     else if (/Android/i.test(ua)) {
         console.log("Android");
+        alert("Hey! It looks like you're using a mobile device. Did you know you can get better performance if you install our free app, and get offline mode. Just open this site in chrome, and install the app when prompted!");
     }
     else if (/BlackBerry/i.test(ua)) {
         console.log("BlackBerry");
