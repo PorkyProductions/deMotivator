@@ -6,7 +6,8 @@
   "scripts": {
     "test": "node .",
     "build": "npx tsc --project tsconfig.json",
-    "dev": "npx serve"
+    "dev": "npx serve",
+    "css": "npx tailwindcss -i ./css/master.css -o ./css/output.css --watch"
   },
   "repository": {
     "type": "git",
