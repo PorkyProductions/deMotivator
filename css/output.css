@@ -551,6 +551,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-backdrop-sepia:  ;
 }
 
+.m-auto {
+  margin: auto;
+}
+
 .flex {
   display: flex;
 }
@@ -563,12 +567,20 @@ Ensure the default browser behavior of the `hidden` attribute.
   align-items: center;
 }
 
+.justify-center {
+  justify-content: center;
+}
+
 .justify-between {
   justify-content: space-between;
 }
 
 .rounded-lg {
   border-radius: 0.5rem;
+}
+
+.rounded-xl {
+  border-radius: 0.75rem;
 }
 
 .bg-indigo-600 {
@@ -586,9 +598,35 @@ Ensure the default browser behavior of the `hidden` attribute.
   background-color: rgb(250 204 21 / var(--tw-bg-opacity));
 }
 
+.bg-gradient-to-tr {
+  background-image: linear-gradient(to top right, var(--tw-gradient-stops));
+}
+
+.from-indigo-700 {
+  --tw-gradient-from: #4338ca;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(67 56 202 / 0));
+}
+
+.to-blue-400 {
+  --tw-gradient-to: #60a5fa;
+}
+
+.to-blue-600 {
+  --tw-gradient-to: #2563eb;
+}
+
+.to-blue-500 {
+  --tw-gradient-to: #3b82f6;
+}
+
 .object-bottom {
   -o-object-position: bottom;
      object-position: bottom;
+}
+
+.object-center {
+  -o-object-position: center;
+     object-position: center;
 }
 
 .p-4 {
@@ -618,8 +656,17 @@ Ensure the default browser behavior of the `hidden` attribute.
   line-height: 1.75rem;
 }
 
+.text-9xl {
+  font-size: 8rem;
+  line-height: 1;
+}
+
 .font-semibold {
   font-weight: 600;
+}
+
+.font-bold {
+  font-weight: 700;
 }
 
 .text-white {
@@ -664,6 +711,14 @@ Ensure the default browser behavior of the `hidden` attribute.
     padding-top: 8rem;
   }
 
+  .sm\:pb-24 {
+    padding-bottom: 6rem;
+  }
+
+  .sm\:pb-32 {
+    padding-bottom: 8rem;
+  }
+
   .sm\:text-sm {
     font-size: 0.875rem;
     line-height: 1.25rem;
@@ -675,6 +730,14 @@ Ensure the default browser behavior of the `hidden` attribute.
     padding-top: 18rem;
   }
 
+  .lg\:pb-48 {
+    padding-bottom: 12rem;
+  }
+
+  .lg\:pb-36 {
+    padding-bottom: 9rem;
+  }
+
   .lg\:text-2xl {
     font-size: 1.5rem;
     line-height: 2rem;
@@ -682,6 +745,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 
 @media (min-width: 1280px) {
+  .xl\:pb-64 {
+    padding-bottom: 16rem;
+  }
+
   .xl\:text-4xl {
     font-size: 2.25rem;
     line-height: 2.5rem;
