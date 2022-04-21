@@ -6,8 +6,10 @@
   - [Use Cases](#use-cases)
   - [Installation](#installation)
     - [via `npm`](#via-npm)
-    - [via JavaScript](#via-javascript)
   - [Usage](#usage)
+  - [Examples](#examples)
+    - [HTML](#html)
+    - [JavaScript](#javascript)
   - [Update Schedule](#update-schedule)
   - [License](#license)
 
@@ -39,18 +41,60 @@ npm i demotivator
 
 Include the `demotivator` package in your `package.json` (this should be done automatically by npm)
 
-In your javascript file, import the `demotivator` package
+In your javascript file, import the required packages
 
-`var demotivator = require("demotivator")`
+```javascript
+import { insults, GenerateInsult } from 'demotivator';
 
-
-### via JavaScript
-Create a JavaScript file, and add the code from the [`index.js`](https://raw.githubusercontent.com/PorkyProductions/deMotivator.js/main/index.js) to it. Add the JavaScript to your HTML file via a `<script>` tag.
+```
 
 ## Usage
-In your HTML, add a `<p>` element with the id `insult`. This will be the element that will be updated with the insult.
+In your HTML, add any element with the id `insult`. This will be the element that will be updated with the insult.
 
 Add any element, and pass the `onclick="GenerateInsult()"` attribute to it. This will be the element that will trigger the insult.
+
+
+## Examples
+
+This is an example for a basic web page integrated with (de)Motivator.js
+
+### HTML
+
+```html
+<!--index.html-->
+<!--As always, you'll need a module bundler like webpack or rollup to compile your code into a form the browser can understand. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>(de)Motivator.js example</title>
+    <script src="dist/js/index.js" defer></script>
+
+    <!--Notice the "dist" directory ^^ -->
+</head>
+    <body>
+    <br>
+    <h1>(de)Motivator.js example</h1>
+    <button onclick="GenerateInsult()">Click Me</button> 
+    <br/>
+    <div>
+      <p id = "insult">
+        Insult will appear here
+      </p>
+
+```
+
+
+### JavaScript
+
+```javascript
+// src/index.js
+// As always, you'll need a module bundler like webpack or rollup to compile your code into a form the browser can understand.
+import { insults, GenerateInsult } from 'demotivator';
+
+```
 
 ## Update Schedule
 DMV.js will follow the same update schedule as [(de)Motivator](https://porkyproductions.github.io/deMotivator), with a release every 2-3 weeks.
