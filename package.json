@@ -21,12 +21,11 @@
   "homepage": "https://github.com/PorkyProductions/deMotivator#readme",
   "dependencies": {
     "-": "^0.0.1",
-    "firebase": "^9.6.11",
     "demotivator": "^8.5.0",
     "pwa-asset-generator": "^6.0.6",
     "serve": "^13.0.2",
-    "vite": "^2.9.5",
-    "tailwindcss": "^3.0.24"
+    "tailwindcss": "^3.0.24",
+    "vite": "^2.9.5"
   },
   "devDependencies": {
     "@types/jquery": "^3.5.14",
