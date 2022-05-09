@@ -1,0 +1,16 @@
+{
+    "configurations": [
+    {
+        "name": "Launch via NPM",
+        "request": "launch",
+        "runtimeArgs": [
+            "npm run build",
+        ],
+        "runtimeExecutable": "npm",
+        "skipFiles": [
+            "<node_internals>/**"
+        ],
+        "type": "node"
+    }
+    ]
+}
