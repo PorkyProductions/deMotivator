@@ -186,7 +186,6 @@ const insults =
     "Youre so dense, light must bend around you.",
     "Try to use this vacuum, it may help you remove the cobwebs in your mind.",
     "You're so old that your first car was a covered wagon.",
-    geolocation,
     "You're about as useful as a bucket without a bottom.",
     "Does your train of thought have a caboose?",
     "I'm not insulting you. I'm describing you.",
@@ -287,19 +286,10 @@ const insults =
     
 ];
 
-function GenerateInsult(insult): void {
+const GenerateInsult = (insult): void => {
     insult = insults[Math.floor(Math.random() * (insults.length-0.01))];
     console.log(insult);
     document.getElementById("insult").innerHTML = insult;
-}
-
-function geolocation(): void {
-  new Geolocation().then(pos => {
-    console.log(pos);}
-  )
-  .catch((err: any) => {
-    console.log(err);
-  });
 }
 
 let counter: number = 0;
@@ -307,7 +297,7 @@ let counter: number = 0;
 button.onclick = (): void => {
   counter++;
   console.log(counter);
-  GenerateInsult();
+  GenerateInsult(insults);
   if (counter === 500) {
     alert("WOAH! Slow down there. Maybe take a break? Thats 500 clicks!");
   }

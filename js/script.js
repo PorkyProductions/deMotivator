@@ -182,7 +182,6 @@ var insults = [
     "Youre so dense, light must bend around you.",
     "Try to use this vacuum, it may help you remove the cobwebs in your mind.",
     "You're so old that your first car was a covered wagon.",
-    geolocation,
     "You're about as useful as a bucket without a bottom.",
     "Does your train of thought have a caboose?",
     "I'm not insulting you. I'm describing you.",
@@ -277,23 +276,16 @@ var insults = [
     "Look to your left --------------> I said left you idiot!",
     rickRollButton,
 ];
-function GenerateInsult(insult) {
+var GenerateInsult = function (insult) {
     insult = insults[Math.floor(Math.random() * (insults.length - 0.01))];
     console.log(insult);
     document.getElementById("insult").innerHTML = insult;
-}
-function geolocation() {
-    new Geolocation().then(function (pos) {
-        console.log(pos);
-    })["catch"](function (err) {
-        console.log(err);
-    });
-}
+};
 var counter = 0;
 button.onclick = function () {
     counter++;
     console.log(counter);
-    GenerateInsult();
+    GenerateInsult(insults);
     if (counter === 500) {
         alert("WOAH! Slow down there. Maybe take a break? Thats 500 clicks!");
     }

@@ -40,6 +40,7 @@ else if (DEVICE_type == "desktop") {
     // alert("Hey! It looks like you're using a desktop device. Did you know you can get better performance if you install our free app, and get offline mode. Just click the prompt in the adress bar!");
 }
 function finiteMobileDeviceType() {
+    var ua = navigator.userAgent;
     if (/(iPhone|iPod|iPad)/i.test(ua)) {
         console.log("iOS");
         alert("Hey! It looks like you're using a mobile device. Did you know you can get better performance if you install our free app, and get offline mode. Just open this page in safari, click the share button, and then clikc 'add to home screen'!");
