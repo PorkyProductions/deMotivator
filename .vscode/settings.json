@@ -1,5 +1,6 @@
 {
     "conventionalCommits.scopes": [
         "deps"
-    ]
+    ],
+    "typescript.tsdk": "node_modules\\typescript\\lib"
 }
