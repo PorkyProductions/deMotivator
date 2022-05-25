@@ -82,7 +82,7 @@
 }
 
 /*
-! tailwindcss v3.0.23 | MIT License | https://tailwindcss.com
+! tailwindcss v3.0.24 | MIT License | https://tailwindcss.com
 */
 
 /*
@@ -567,10 +567,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   align-items: center;
 }
 
-.justify-center {
-  justify-content: center;
-}
-
 .justify-between {
   justify-content: space-between;
 }
@@ -607,26 +603,13 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(67 56 202 / 0));
 }
 
-.to-blue-400 {
-  --tw-gradient-to: #60a5fa;
-}
-
 .to-blue-600 {
   --tw-gradient-to: #2563eb;
-}
-
-.to-blue-500 {
-  --tw-gradient-to: #3b82f6;
 }
 
 .object-bottom {
   -o-object-position: bottom;
      object-position: bottom;
-}
-
-.object-center {
-  -o-object-position: center;
-     object-position: center;
 }
 
 .p-4 {
@@ -679,6 +662,31 @@ Ensure the default browser behavior of the `hidden` attribute.
   color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
+.hover\:rounded-full:hover {
+  border-radius: 9999px;
+}
+
+.hover\:bg-gradient-to-r:hover {
+  background-image: linear-gradient(to right, var(--tw-gradient-stops));
+}
+
+.hover\:from-red-500:hover {
+  --tw-gradient-from: #ef4444;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(239 68 68 / 0));
+}
+
+.hover\:to-purple-500:hover {
+  --tw-gradient-to: #a855f7;
+}
+
+.hover\:to-yellow-500:hover {
+  --tw-gradient-to: #eab308;
+}
+
+.hover\:p-4:hover {
+  padding: 1rem;
+}
+
 @media (prefers-color-scheme: dark) {
   .dark\:bg-black {
     --tw-bg-opacity: 1;
@@ -711,10 +719,6 @@ Ensure the default browser behavior of the `hidden` attribute.
     padding-top: 8rem;
   }
 
-  .sm\:pb-24 {
-    padding-bottom: 6rem;
-  }
-
   .sm\:pb-32 {
     padding-bottom: 8rem;
   }
@@ -732,10 +736,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
   .lg\:pb-48 {
     padding-bottom: 12rem;
-  }
-
-  .lg\:pb-36 {
-    padding-bottom: 9rem;
   }
 
   .lg\:text-2xl {

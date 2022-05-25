@@ -4,6 +4,7 @@
     },
     "files": [
         "ts/script.ts",
-        "ts/UADetect.ts"
+        "ts/UADetect.ts",
+        "ts/404.ts"
     ]
 }
