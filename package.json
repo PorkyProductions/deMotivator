@@ -22,7 +22,7 @@
   "dependencies": {
     "-": "^0.0.1",
     "demotivator": "^7.0.1",
-    "firebase": "^9.7.0",
+    "firebase": "^9.8.3",
     "pwa-asset-generator": "^6.0.6",
     "serve": "^13.0.2",
     "tailwindcss": "^3.0.23",
