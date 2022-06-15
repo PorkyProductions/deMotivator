@@ -67,7 +67,8 @@ function finiteMobileDeviceType() {
         console.log("webOS");
     }
     else {
-        console.log("ERR: Unknown Device");
+        throw new Error("Unknown device");
+        
     }
     return 0;
 }

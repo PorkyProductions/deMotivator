@@ -278,11 +278,10 @@ const insults =
     "You're so ugly, you scared the crap out of the toilet.",
     "If I had a dollar for every time you said something smart, I'd be broke.",
     "Look to your left --------------> I said left you idiot!",
-    rickRollButton,
-
+    rickRollButton(),
+    "You're so ugly, you scared the crap out of the toilet.",
     
     
-
     
 ];
 
