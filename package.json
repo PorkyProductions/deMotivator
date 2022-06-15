@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "ionic:build": "npm run build"
   },
   "devDependencies": {
     "@capacitor/cli": "^3.5.1",
@@ -19,6 +20,7 @@
     "vite": "^2.9.9"
   },
   "dependencies": {
+    "@capacitor-community/electron": "^4.1.0",
     "@capacitor/core": "^3.5.1",
     "demotivator": "^8.5.0",
     "typescript": "^4.7.3",

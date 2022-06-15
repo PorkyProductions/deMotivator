@@ -8,7 +8,6 @@ export default defineConfig({
     rollupOptions: {
         input: {
             index: 'index.html',
-            fourOhFour: '404.html',
         },
         output: {
             dir: 'www',
