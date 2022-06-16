@@ -1,19 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="./assets/dmv-logo.a72e79b2.png" type="image/x-icon">
-    <title></title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <script type="module" crossorigin src="./assets/index.71c55814.js"></script>
-    <link rel="modulepreload" href="./assets/title.eb8ba525.js">
-    <link rel="stylesheet" href="./assets/title.86727be8.css">
-    <link rel="stylesheet" href="./assets/index.b0b74fcf.css">
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#4f46e5">
+const CACHE = "pwabuilder-offline";
+
+importScripts(
+    'https://storage.googleapis.com/workbox-cdn/releases/6.4.1/workbox-sw.js'
+);
+
+self.addEventListener("message", (event) => {
+    if (event.data && event.data.type === "SKIP_WAITING") {
+    self.skipWaiting();
+    }
+});
+
+workbox.routing.registerRoute(
+    new RegExp('/*'),
+    new workbox.strategies.StaleWhileRevalidate({
+    cacheName: CACHE
+    })
+);
+
+
+
+// What follows is what to put in the HTML for a valid service worker PWA
+
+/*
+
+
+<meta name="theme-color" content="#4f46e5">
+<link rel="manifest" href="manifest.json">
 <script>
         if ('serviceWorker' in navigator) { 
             navigator.serviceWorker.register('service-worker.js');
@@ -36,9 +48,7 @@
 <link rel="apple-touch-startup-image" href="./icons/apple-splash-2224-1668.jpg" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
 <link rel="apple-touch-startup-image" href="./icons/apple-splash-1620-2160.jpg" media="(device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
 <link rel="apple-touch-startup-image" href="./icons/apple-splash-2160-1620.jpg" media="(device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
-  </head>
-  <body>
-    <div id="app"></div>
-    
-  </body>
-</html>
+
+
+
+*/
