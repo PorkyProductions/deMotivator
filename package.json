@@ -24,6 +24,7 @@
     "@capacitor/android": "^3.5.1",
     "@capacitor/core": "^3.5.1",
     "demotivator": "^8.5.0",
+    "svelte-loading-spinners": "^0.1.7",
     "typescript": "^4.7.3",
     "uadetect": "^3.1.2"
   }
