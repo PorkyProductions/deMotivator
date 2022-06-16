@@ -8,6 +8,7 @@ export default defineConfig({
     rollupOptions: {
         input: {
             index: 'index.html',
+            // DMV1: './src/pages/dmv1.html',
         },
         output: {
             dir: 'www',
