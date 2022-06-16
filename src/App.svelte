@@ -5,6 +5,7 @@
     import Title from './components/title.svelte';
     import { Wave } from 'svelte-loading-spinners';
     import { onMount } from 'svelte';
+    import '@capacitor/core'
 
     let ready = false;
     onMount(() => ready = true);
