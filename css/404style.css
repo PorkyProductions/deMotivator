@@ -1,8 +1,0 @@
-.spin {
-    animation: spin 5s cubic-bezier(0.2, 1.32, 0.23, 1.06) infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
