@@ -8,7 +8,7 @@
 
 <style>
     .spin {
-        animation: spin 2s linear infinite;
+        animation: spin 2s infinite cubic-bezier(0.96, 0.95, 0, 1.22);
     }
     @keyframes spin {
         0% { transform: rotate(0deg); }
