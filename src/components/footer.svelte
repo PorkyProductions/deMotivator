@@ -4,14 +4,23 @@
 </script>
 
 
-<main class="bg-primary-majorelleBlue dark:bg-purple-900">
+<main class="bg-primary-majorelleBlue dark:bg-purple-900 rounded-t-xl">
     {#if DEVICE_type === 'mobile'}
         <div>
         </div>
     {/if}
-    <div class="flex justify-between items-center font-semibold text-2xl">
-        <a href="https://porkyproductions.github.io" class="hover:bg-purple-400 dark:hover:bg-purple-700 hover:rounded-xl"><img src="../img/HedgehogIcon.png" alt="hedgehog"></a>
+    {#if DEVICE_type === 'desktop'}
+    <div class="font-semibold text-2xl">
+        <div>
+            <a href="https://porkyproductions.github.io" class="hover:bg-purple-400 dark:hover:bg-purple-700 hover:rounded-xl"><img src="../img/HedgehogIcon.png" alt="hedgehog" class="text-center m-auto hover:bg-purple-400 dark:hover:bg-purple-700 hover:rounded-xl"></a>
+        </div>
+        <div class="flex justify-center content-center">
+            <p class="text-white">
+                a PorkyProductions product
+            </p>
+        </div>
     </div>
+    {/if}
     
 </main>
 

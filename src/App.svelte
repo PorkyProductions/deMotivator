@@ -9,7 +9,10 @@ import Footer from './components/footer.svelte';
     <div class="dark:bg-black dark:text-white" id="app">
         <Title />
         <Button />
-        <div id="footer" class="fixed bottom-0" >
+        <div class="sm:p-3 md:p-4 lg:p-5 xl:p-20">
+
+        </div>
+        <div id="footer" class="" >
             <Footer />
         </div>
     </div>
