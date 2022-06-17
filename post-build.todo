@@ -1,3 +1,4 @@
+AFTER RUNNING "npm run build" YOU MUST FOLLOW THESE INSTRUCTIONS:
 1. Move the files out of src/pages directory in into the root of the docs/ directory.
 2. Update the docs/index.html file to point to the new files in the assets/ directory.
 3. Copy the contents of the www/ directory into the root of the docs/ directory.

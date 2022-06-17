@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { insults } from '../typescript/insults';
+    import { insults } from 'demotivator';
     const logo =  '../img/dmv-logo.png';
     let result = insults[Math.floor(Math.random() * insults.length)]
     const randomize = () => {
