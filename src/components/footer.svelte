@@ -15,10 +15,12 @@
         <div>
             <a href="https://porkyproductions.github.io" class="hover:bg-indigo-400 dark:hover:bg-purple-700 hover:rounded-xl"><img src={logo} alt="hedgehog" class="text-center m-auto hover:bg-indigo-400 dark:hover:bg-purple-700 hover:rounded-xl"></a>
         </div>
-        <div class="flex justify-center content-center">
-            <p class="text-white">
+        <div class="flex justify-between content-center pl-56 pr-80">
+            <p class="text-white ">
                 a PorkyProductions product
             </p>
+            <a class="text-white hover:bg-indigo-400 dark:hover:bg-purple-700 hover:rounded-xl" href="dmv1.html">(de)Motivator 1.0</a>
+            <a class="text-white hover:bg-indigo-400 dark:hover:bg-purple-700 hover:rounded-xl" href="http://github.com/PorkyProductions/deMotivator.js">(de)Motivator.js</a>
         </div>
     </div>
     {/if}

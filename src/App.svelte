@@ -1,5 +1,6 @@
 <script>
     import './app.css'
+    import './cursor.css'
     import Button from './components/button.svelte';
     import Footer from './components/footer.svelte';
     import Title from './components/title.svelte';
