@@ -1,14 +1,13 @@
 {
-  "name": "(de)Motivator",
-  "version": "1.0.0",
-  "description": "An Amazing Capacitor App",
+  "name": "demotivator",
+  "version": "9.0.0",
+  "description": "The Simple, Push-Button way of lowering your self-esteem",
   "author": {
-    "name": "",
-    "email": ""
+    "name": "PorkyProductions"
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "git+https://github.com/PorkyProductions/deMotivator.git"
   },
   "license": "MIT",
   "main": "build/src/index.js",
