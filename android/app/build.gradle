@@ -1,7 +1,9 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
+
+    buildToolsVersion '32.0.0'
+    compileSdk compileSdkVersion
     defaultConfig {
         applicationId "io.porkyproductions.demotivator"
         minSdkVersion rootProject.ext.minSdkVersion
