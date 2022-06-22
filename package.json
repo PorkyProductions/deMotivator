@@ -21,8 +21,8 @@
     "vite": "^2.9.12"
   },
   "dependencies": {
-    "@capacitor-community/electron": "^4.1.2",
-    "@capacitor/android": "^3.5.1",
+    "@capacitor-community/electron": "^4.1.0",
+    "@capacitor/android": "^3.6.0",
     "@capacitor/core": "^3.5.1",
     "@capacitor/ios": "^3.5.1",
     "bootstrap-icons": "^1.8.3",
