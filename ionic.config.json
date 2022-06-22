@@ -1,0 +1,7 @@
+{
+  "name": "demotivator",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "custom"
+}

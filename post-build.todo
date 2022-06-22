@@ -1,0 +1,9 @@
+AFTER RUNNING "npm run build" YOU MUST FOLLOW THESE INSTRUCTIONS:
+1. Move the files out of src/pages directory in into the root of the docs/ directory.
+2. Update the docs/index.html file to point to the new files in the assets/ directory.
+3. Copy the contents of the www/ directory into the root of the docs/ directory. Also copy `dmv1.html` from the root into the docs/ directory.
+4. In the www/serivce-worker.js file, copy the lines of code commented out into the index.html file in the docs/ directory
+6. Copy the src/img directory into the docs/assets directory.
+7. Ctrl+F through all of the generated JavaScript files for 'img' and update the paths to point to the new images in the docs/assets directory.
+8. Test by running the docs/index.html file on localhost.
+9. Run 'npm run capBuild' to update all other platforms
