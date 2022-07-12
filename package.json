@@ -1,7 +1,7 @@
 {
   "name": "demotivator",
   "private": true,
-  "version": "9.1.0",
+  "version": "9.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -11,17 +11,17 @@
     "capBuild": "npx cap sync && npx cap sync electron && cd ./electron && npm run build && npm run electron:start-live"
   },
   "devDependencies": {
-    "@capacitor/cli": "^3.5.1",
+    "@capacitor/cli": "^3.6.0",
     "@sveltejs/vite-plugin-svelte": "^1.0.0-next.30",
     "autoprefixer": "^10.4.7",
     "postcss": "^8.4.14",
-    "svelte": "^3.49.0",
+    "svelte": "^3.44.0",
     "svelte-preprocess": "^4.10.7",
     "tailwindcss": "^3.1.4",
-    "vite": "^2.9.14"
+    "vite": "^2.9.12"
   },
   "dependencies": {
-    "@capacitor-community/electron": "^4.1.2",
+    "@capacitor-community/electron": "^4.1.0",
     "@capacitor/android": "^3.6.0",
     "@capacitor/core": "^3.5.1",
     "@capacitor/ios": "^3.5.1",
