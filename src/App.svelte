@@ -7,9 +7,9 @@
     import { Wave } from 'svelte-loading-spinners';
     import { onMount } from 'svelte';
     import '@capacitor/core'
-
     let ready = false;
     onMount(() => ready = true);
+    // Firebase SignIn Logic
 </script>
 
 <main>
