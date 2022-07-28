@@ -24,7 +24,7 @@
     "@capacitor-community/electron": "^4.1.0",
     "@capacitor/android": "^3.6.0",
     "@capacitor/core": "^3.5.1",
-    "@capacitor/ios": "^3.5.1",
+    "@capacitor/ios": "^4.0.0",
     "bootstrap-icons": "^1.8.3",
     "demotivator": "^9.0.0",
     "svelte-loading-spinners": "^0.1.7",
