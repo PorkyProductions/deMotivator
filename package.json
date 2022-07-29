@@ -11,7 +11,7 @@
     "capBuild": "npx cap sync && npx cap sync electron && cd ./electron && npm run build && npm run electron:start-live"
   },
   "devDependencies": {
-    "@capacitor/cli": "^3.5.1",
+    "@capacitor/cli": "^4.0.1",
     "@sveltejs/vite-plugin-svelte": "^1.0.0-next.30",
     "autoprefixer": "^10.4.7",
     "postcss": "^8.4.14",
