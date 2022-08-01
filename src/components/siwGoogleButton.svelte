@@ -22,7 +22,7 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
 // Login Starts Here
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 
 const auth = getAuth();
@@ -67,9 +67,26 @@ if (user !== null) {
     const uid = user.uid;
 }
 
+// // You have to redeclare all of this junk at the top level
+// const displayName = user.displayName;
+// const email = user.email;
+// const photoURL = user.photoURL;
+// const emailVerified = user.emailVerified;
+// const uid = user.uid;
+
+
+// // Then export it to make it globally available
+// export {
+//     displayName,
+//     email,
+//     photoURL,
+//     emailVerified,
+//     uid
+// }
+
 // The logout function
 // TODO: Make it functionally callable 
-
+import { signOut } from 'firebase/auth';
 const logoutFunction = (auth) => {
     signOut(auth).then(() => {
         loggedIn = false
@@ -77,7 +94,6 @@ const logoutFunction = (auth) => {
         alert(`An Error Occured. Here is the error: ${error}`)
     });
 };
-
 </script>
 
 

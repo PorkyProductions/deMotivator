@@ -4,12 +4,111 @@
     import Button from './components/button.svelte';
     import Footer from './components/footer.svelte';
     import Title from './components/title.svelte';
-    import { Wave } from 'svelte-loading-spinners';
     import { onMount } from 'svelte';
     import '@capacitor/core'
     let ready = false;
     onMount(() => ready = true);
-    // Firebase SignIn Logic
+
+
+
+    // FROM BEYOND THIS POINT IS FIREBASE LOGIC
+    // BEWARE
+
+
+    import { initializeApp } from "firebase/app";
+import { getAnalytics, setUserId } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyBXQIdxhaZk2jEh7Kgkui4OG0WUsIHyWgk",
+  authDomain: "demotivator-3cf4d.firebaseapp.com",
+  projectId: "demotivator-3cf4d",
+  storageBucket: "demotivator-3cf4d.appspot.com",
+  messagingSenderId: "230067629772",
+  appId: "1:230067629772:web:682830de35cc6b7be91c69",
+  measurementId: "G-T182ZXMZM1"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+
+// Login Starts Here
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+
+
+const auth = getAuth();
+// We also need the state of the logged in user
+export let loggedIn = false
+const loginFunction = () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+    .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+        loggedIn = true;
+    }).catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+    });
+};
+
+
+// This following block of code gets the basic metadata about the user
+
+const user = auth.currentUser;
+if (user !== null) {
+    // The user object has basic properties such as display name, email, etc.
+    const displayName = user.displayName;
+    const email = user.email;
+    const photoURL = user.photoURL;
+    const emailVerified = user.emailVerified;
+
+    // The user's ID, unique to the Firebase project. Do NOT use
+    // this value to authenticate with your backend server, if
+    // you have one. Use User.getToken() instead.
+    const uid = user.uid;
+}
+
+// You have to redeclare all of this junk at the top level
+const displayName = user.displayName;
+const email = user.email;
+const photoURL = user.photoURL;
+const emailVerified = user.emailVerified;
+const uid = user.uid;
+
+
+// Then export it to make it globally available
+export {
+    displayName,
+    email,
+    photoURL,
+    emailVerified,
+    uid
+}
+
+// The logout function
+// TODO: Make it functionally callable 
+import { signOut } from 'firebase/auth';
+const logoutFunction = (auth) => {
+    signOut(auth).then(() => {
+        loggedIn = false
+    }).catch((error) => {
+        alert(`An Error Occured. Here is the error: ${error}`)
+    });
+};
 </script>
 
 <main>
@@ -23,11 +122,6 @@
         <div id="footer" class="" >
             <Footer />
         </div>
-    </div>
-    {/if}
-    {#if ready === false}
-    <div class="m-auto">
-        <Wave size="160" color="#4f46e5" unit="px" duration="1s"/>
     </div>
     {/if}
 </main>
