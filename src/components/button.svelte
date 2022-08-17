@@ -1,7 +1,7 @@
 <script lang="ts">
     import { insults } from 'demotivator';
-    const logo =  '../img/dmv-logo.png';
-    let result = insults[Math.floor(Math.random() * insults.length)]
+    import logo from  '../img/dmv-logo.png';
+    let result = ""
     const randomize = () => {
         result = insults[Math.floor(Math.random() * insults.length)]
     }

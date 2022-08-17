@@ -1,21 +1,10 @@
 <script>
-    import './app.css'
-    import './cursor.css'
-    import Button from './components/button.svelte';
-    import Footer from './components/footer.svelte';
-    import Title from './components/title.svelte';
-    import Loader from './components/loader.svelte';
-    import '@capacitor/core'
-    // Loading Logic
-    import { onDestroy } from "svelte";
-    let ready = false;
-    const timeoutId = setTimeout(()=> ready = true, 1000);
-    onDestroy(() => clearTimeout(timeoutId));
+    import '../../app.css'
 
 
 
-    // FROM BEYOND THIS POINT IS FIREBASE LOGIC
-    // BEWARE
+        // FROM BEYOND THIS POINT IS FIREBASE LOGIC
+        // BEWARE
 
 
 import { initializeApp } from "firebase/app";
@@ -38,17 +27,22 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
+import loggedIn from '../../App.svelte'
+import displayName from '../../App.svelte'
+import photoURL from '../../App.svelte'
+import SiwGoogleButton from '../../components/siwGoogleButton.svelte';
+import Title from '../../components/title.svelte';
 </script>
-{#if !ready}
-    <Loader />
+
+{#if loggedIn}
+    <Title />
+    <p class="text-center font-semibold text-3xl dark:text-white">
+        account. {displayName}
+    </p>
 {:else}
-    <div class="dark:bg-black dark:text-white" id="app">
-        <Title />
-        <Button />
-    <div class="sm:p-3 md:p-4 lg:p-5 xl:p-20">
-        </div>
-        <div id="footer" class="" >
-            <Footer />
-        </div>
-    </div>
+    <SiwGoogleButton />
 {/if}
+
+<style>
+
+</style>

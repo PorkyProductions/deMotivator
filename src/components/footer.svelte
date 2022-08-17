@@ -1,9 +1,8 @@
 <script lang="ts">
     import '../app.css';
-    const logo =  '../img/HedgehogIcon.png';
+    import logo from  '../img/HedgehogIcon.png';
     import { DEVICE_type } from 'uadetect'
     import SiwGoogleButton from './siwGoogleButton.svelte';
-    import loggedIn from './siwGoogleButton.svelte'
 </script>
 
 {#if DEVICE_type === 'mobile'}
