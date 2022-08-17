@@ -26,6 +26,7 @@
     "@capacitor/core": "^4.0.0",
     "@capacitor/ios": "^4.0.0",
     "bootstrap-icons": "^1.8.3",
+    "cordova-res": "^0.15.4",
     "demotivator": "^9.0.0",
     "firebase": "^9.9.0",
     "svelte-loading-spinners": "^0.1.7",
