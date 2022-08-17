@@ -38,6 +38,21 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+const auth = getAuth();
+const user = auth.currentUser;
+if (user !== null) {
+    // The user object has basic properties such as display name, email, etc.
+    const displayName = user.displayName;
+    const email = user.email;
+    const photoURL = user.photoURL;
+    const emailVerified = user.emailVerified;
+
+    // The user's ID, unique to the Firebase project. Do NOT use
+    // this value to authenticate with your backend server, if
+    // you have one. Use User.getToken() instead.
+    const uid = user.uid;
+}
 </script>
 {#if !ready}
     <Loader />
@@ -49,6 +64,9 @@ const analytics = getAnalytics(app);
         </div>
         <div id="footer" class="" >
             <Footer />
+            {#if user !== null}
+                {user.displayName}
+            {/if}
         </div>
     </div>
 {/if}

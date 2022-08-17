@@ -83,11 +83,11 @@ export const logoutFunction = (auth) => {
 </script>
 
 
-{#if loggedIn}
+{#if user !== null}
 <button on:click={logoutFunction} class="flex justify-between content-center bg-white text-black p-4 rounded-lg">
-        <p>Sign Out</p>
-    </button>
-{:else if !loggedIn}
+        <p>Sign Out {user.displayName}</p>
+</button>
+{:else if user == null}
     <button on:click={loginFunction} class="flex justify-between content-center bg-white text-black p-4 rounded-lg">
         <p>Sign In</p> <br>
     </button>
