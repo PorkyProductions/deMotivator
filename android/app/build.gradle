@@ -3,13 +3,13 @@ apply plugin: 'com.android.application'
 android {
 
     buildToolsVersion '32.0.0'
-    compileSdk compileSdkVersion
+    compileSdk 32
     defaultConfig {
         applicationId "io.porkyproductions.demotivator"
         minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
+        targetSdk 32
         versionCode 1
-        versionName "1.0"
+        versionName '10.0.0'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.

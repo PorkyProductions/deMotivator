@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\android\\app",
+    "\\android\\app\\src",
+    "\\android\\app\\src\\main",
+    "\\android\\app\\src\\main\\assets",
+    "\\android\\app\\src\\main\\assets\\public",
+    "\\android\\app\\src\\main\\assets\\public\\icons",
+    "\\android\\app\\src\\test",
+    "\\android\\gradle",
+    "\\electron"
+  ],
+  "SelectedNode": "\\electron\\live-runner.js",
+  "PreviewInSolutionExplorer": false
+}
