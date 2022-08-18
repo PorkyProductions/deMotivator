@@ -11,17 +11,17 @@
     "capBuild": "npx cap sync && npx cap sync electron && cd ./electron && npm run build && npm run electron:start-live"
   },
   "devDependencies": {
-    "@capacitor/cli": "^4.0.0",
+    "@capacitor/cli": "^4.0.1",
     "@sveltejs/vite-plugin-svelte": "^1.0.0-next.30",
     "autoprefixer": "^10.4.7",
     "postcss": "^8.4.14",
     "svelte": "^3.49.0",
     "svelte-preprocess": "^4.10.7",
-    "tailwindcss": "^3.1.6",
+    "tailwindcss": "^3.1.8",
     "vite": "^2.9.13"
   },
   "dependencies": {
-    "@capacitor-community/electron": "^4.1.0",
+    "@capacitor-community/electron": "^4.1.2",
     "@capacitor/android": "^4.0.0",
     "@capacitor/core": "^4.0.0",
     "@capacitor/ios": "^4.0.0",
