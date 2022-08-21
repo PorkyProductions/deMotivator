@@ -5,7 +5,7 @@
 </script>
 
 <main>
-    <div class="bg-indigo-700 dark:bg-black text-white rounded-xl lg:pb-48 sm:pb-32 xl:pb-64" style="font-family: 'Raleway', sans-serif;">
+    <div class="bg-indigo-700 dark:bg-black text-white rounded-xl sm:pb-72 lg:pb-80 xl:pb-96" style="font-family: 'Raleway', sans-serif;">
         <Title />
         <h1 class="text-center text-9xl p-4">
             404

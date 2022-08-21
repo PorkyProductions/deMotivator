@@ -1,7 +1,8 @@
 <script lang="ts">
     import '../app.css';
-    const logo =  '../img/HedgehogIcon.png';
+    import logo from  '../img/HedgehogIcon.png';
     import { DEVICE_type } from 'uadetect'
+    import SiwGoogleButton from './siwGoogleButton.svelte';
 </script>
 
 {#if DEVICE_type === 'mobile'}
@@ -24,6 +25,7 @@
             </p>
             <a class="text-white hover:bg-indigo-400 dark:hover:bg-orange-700 hover:rounded-xl" href="dmv1.html">(de)Motivator 1.0</a>
             <a class="text-white hover:bg-indigo-400 dark:hover:bg-orange-700 hover:rounded-xl" href="http://github.com/PorkyProductions/deMotivator.js">(de)Motivator.js</a>
+            <SiwGoogleButton />
         </div>
     </div>
 </main>

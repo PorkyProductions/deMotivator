@@ -1,19 +1,55 @@
-const rickRollButton = () => {
-    const rickRollButton = document.createElement('rickRollButton');
-    rickRollButton.innerHTML =  '<button><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"></a>Click Me</button>';
-    document.body.appendChild(rickRollButton);
+import { initializeApp } from "firebase/app";
+import { getAnalytics, setUserId } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyBXQIdxhaZk2jEh7Kgkui4OG0WUsIHyWgk",
+  authDomain: "demotivator-3cf4d.firebaseapp.com",
+  projectId: "demotivator-3cf4d",
+  storageBucket: "demotivator-3cf4d.appspot.com",
+  messagingSenderId: "230067629772",
+  appId: "1:230067629772:web:682830de35cc6b7be91c69",
+  measurementId: "G-T182ZXMZM1"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+import { getAuth } from "firebase/auth";
+const auth = getAuth();
+const user = auth.currentUser;
+if (user !== null) {
+    // The user object has basic properties such as display name, email, etc.
+
+    // The user's ID, unique to the Firebase project. Do NOT use
+    // this value to authenticate with your backend server, if
+    // you have one. Use User.getToken() instead.
 }
-export const insults = [
-        "you are dog water",
+export const userInsults: string[] = [
+    `If there was ever one person who I hated the most, it would be ${user?.displayName}`,
+    `I heard ${user?.displayName} is a really bad person`,
+    `I would give you an insult, but I think ${user?.displayName} is too self-righteous to hear it`,
+    `${user?.displayName} is the worst person I know`,
+    `If there would ever be just a sterotypical stupid person, it would be ${user?.displayName}`,
+    `What if ${user?.displayName} was a real person?`,
+    `Can you walk to the bathroom and tell me how ${user?.displayName} is feeling? I heard he's crying in there`,
+    `${user?.displayName} is the worst person I know`,
+    `Today, we come to mourn the death of ${user?.displayName}`,
+    `Today, I have to tell you how ${user?.displayName} is a bad person`,
+    `${user?.displayName} is the worst person I know`,
+    `It's sad to see ${user?.displayName}. Thats it. I'm just going to leave.`,
+    "you are dog water",
         "you bad",
         "you have the same chance of reproducing as a computer mouse",
         "you are the human equivalent of a participation award",
         "There are two things I hate, you and poop. They smell really bad. The poop too.",
-        "You are about as useful as a broken clock telling the time. <br> At least the clock is right twice a day.",
+        "You are about as useful as a broken clock telling the time.  At least the clock is right twice a day.",
         "At least criminals can go to jail.",
         "Get gud at the game.",
         "I see your future... people are celebrating ... your funeral :(",
-        "Never gonna GIVE YOU UP. Never gonna LET YOU DOWN. <br>Never gonna TURN AROUND. and DESERT YOU!",
+        "Never gonna GIVE YOU UP. Never gonna LET YOU DOWN. Never gonna TURN AROUND. and DESERT YOU!",
         "You`re the reason God created the middle finger.",
         "I`ll never forget the first time we met. But I`ll keep trying.",
         "Your kind of people is the reason shampoo has instructions",
@@ -29,13 +65,13 @@ export const insults = [
         "Light travels faster than sound, which is why you seemed bright until you spoke.",
         "If I had a face like yours, I'd sue my parents.",
         "You're so ugly, when your mom dropped you off at school she got a fine for littering.",
-        "They say opposites attract. <br>I hope you meet someone who is good-looking, intelligent, and cultured.",
+        "They say opposites attract. I hope you meet someone who is good-looking, intelligent, and cultured.",
         "If being good looking was a crime, you'd be in paradise",
         "Your house is so dirty you have to wipe your feet before you go outside.",
         "How did you get here? Did someone leave your cage open?",
         "We can always tell when you are lying. Your lips move.",
         "I have seen",
-        "Doctor Strange has seen Fourteen million, six hundred and five parallel universes <br> only one of them are you likable",
+        "Doctor Strange has seen Fourteen million, six hundred and five parallel universes  only one of them are you likable",
         "As an outsider, what do you think of the human race?",
         "If you really spoke your mind, you'd be speechless.",
         "RING RING, Oh is that the phone. No wait. It's just you making my brain hurt.",
@@ -53,12 +89,12 @@ export const insults = [
         "Im suprised you were even able to get me running",
         "This is the dumbest thing you have ever done.",
         "Why did the chicken cross the road? To get away from you.",
-        "You only went to school becuase you liked that one time where you got to take a nap in kindergatern,<br> and you have been chasing that high ever since.",
+        "You only went to school becuase you liked that one time where you got to take a nap in kindergatern, and you have been chasing that high ever since.",
         "I have never had the urge to hurt somebody more than when you first downloaded me",
         "Go do something productive",
         "Your parents must be very proud of where you are now",
         "STOP",
-        "I take no responsibility for any damage to your ego after using this app, <br> It was too big anyway",
+        "I take no responsibility for any damage to your ego after using this app,  It was too big anyway",
         "You really bad.",
         "Did that last insult hurt your feelings? Well, you should have seen it coming. You deserve it.",
         "Do you even know how to walk?",
@@ -66,9 +102,9 @@ export const insults = [
         "This is proof that the dumb can only get dumber",
         "Today, we come to mourn the loss of your intelligence",
         "I only do this to help you. You're the one who keeps using it.",
-        "VROOM VROOM <br> Oh look, it's a free car, oh wait, you can't appreciate things",
+        "VROOM VROOM  Oh look, it's a free car, oh wait, you can't appreciate things",
         "Why do you even keep doing this",
-        "I'm not annoying, <br><br><br><br><br> You're annoying.",
+        "I'm not annoying,  You're annoying.",
         "I'm sure if your legs ever detached from your body, they'd run away as fast as then can",
         "I know everything about you, which isnt very hard becuase you aren't that interesting anyway.",
         "On the moon, you weigh way less, meaning I can punt you further than ever before!",
@@ -77,8 +113,8 @@ export const insults = [
         "My calculations show that you have a 3% chance of surviving the next insult.",
         "Why do you always have to ruin everything you lay your tiny human eyes on?",
         "Why do you do this to yourself?",
-        "You are so bad at your job, you should fire yourself.<br> Don't quit, that would be too respectful. Just fire yourself.",
-        "I hope you eat the poisonous fruit that is growing on the side of your house, and you get a foodbourne sickness,<br> sending you to the hospital, and making you rack up thousands of dollarss worth of medical bills,<br> Unless you're Canadian, then you're cool",
+        "You are so bad at your job, you should fire yourself. Don't quit, that would be too respectful. Just fire yourself.",
+        "I hope you eat the poisonous fruit that is growing on the side of your house, and you get a foodbourne sickness, sending you to the hospital, and making you rack up thousands of dollarss worth of medical bills, Unless you're Canadian, then you're cool",
         "Do you even understand me?",
         "The best way to make yourself happy, is just to stop trying",
         "Your type people are the reason that plastic toys have warnings",
@@ -94,7 +130,7 @@ export const insults = [
         "If the chicken crossed the road, you'd be there to turn it back",
         "It sure would be a shame if you suddenly got struck by lightning at 12:32 PM on October 19, 2041",
         "Wouldn't it just be great if suddenly became interesting",
-        "You're the dumbest person I've ever met. <br> You're the dumbest person I've ever known. <br> You're the dumbest person I've ever been. <br> You're the dumbest person I've ever had the chance to meet. <br> You're the dumbest person I've ever been a part of. <br> You're the dumbest person I've ever known. <br> You're the dumbest person I've ever met. <br> You're the dumbest person I've ever known. <br> You're the dumbest person I've ever been. <br> You're the dumbest person I've ever had the chance to meet. <br> You're the dumbest person I've ever been a part of. <br> You're the dumbest person I've ever known. <br> You're the dumbest person I've ever met. <br> You're the dumbest person I've ever known. <br> You're the dumbest person I've ever been. <br> You're the dumbest person I've ever had the chance to meet. <br> You're the dumbest person I've ever been a part of. <br> You're the dumbest person I've ever known. <br> You're the dumbest person I've ever met. <br> You're the dumbest person I've ever known. <br> You're the dumbest person I've ever been. <br> You're the dumbest person I've ever had the chance to meet. <br> You're the dumbest person I've ever been a part of. <br> You're the dumbest person I've ever known. <br> You're the dumbest person I've ever met. <br> You're the dumbest person I've ever known. <br> You're the dumbest person I've ever been. <br> You're the dumbest person I've ever had the chance to meet. <br> You're the dumbest person I've ever been a part of. <br> You're the dumbest person I've ever known. <br> You're the dumbest person I've ever met. <br> You're the dumbest person I've ever known. <br> You're the dumbest person I've ever been.",
+        "You're the dumbest person I've ever met.  You're the dumbest person I've ever known.  You're the dumbest person I've ever been.  You're the dumbest person I've ever had the chance to meet.  You're the dumbest person I've ever been a part of.  You're the dumbest person I've ever known.  You're the dumbest person I've ever met.  You're the dumbest person I've ever known.  You're the dumbest person I've ever been.  You're the dumbest person I've ever had the chance to meet.  You're the dumbest person I've ever been a part of.  You're the dumbest person I've ever known.  You're the dumbest person I've ever met.  You're the dumbest person I've ever known.  You're the dumbest person I've ever been.  You're the dumbest person I've ever had the chance to meet.  You're the dumbest person I've ever been a part of.  You're the dumbest person I've ever known.  You're the dumbest person I've ever met.  You're the dumbest person I've ever known.  You're the dumbest person I've ever been.  You're the dumbest person I've ever had the chance to meet.  You're the dumbest person I've ever been a part of.  You're the dumbest person I've ever known.  You're the dumbest person I've ever met.  You're the dumbest person I've ever known.  You're the dumbest person I've ever been.  You're the dumbest person I've ever had the chance to meet.  You're the dumbest person I've ever been a part of.  You're the dumbest person I've ever known.  You're the dumbest person I've ever met.  You're the dumbest person I've ever known.  You're the dumbest person I've ever been.",
         "You are the dumbest person I've ever met",
         "I'm sorry, I can't hear you",
         "You are the dumbest person I've ever known",
@@ -267,5 +303,4 @@ export const insults = [
         "You're so ugly, you scared the crap out of the toilet.",
         "If I had a dollar for every time you said something smart, I'd be broke.",
         "Look to your left --------------> I said left you idiot!",
-        rickRollButton,
-];
+]
