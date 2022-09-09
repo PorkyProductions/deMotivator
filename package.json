@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@capacitor-community/electron": "^4.1.2",
-    "@capacitor/android": "^4.0.0",
+    "@capacitor/android": "^4.2.0",
     "@capacitor/core": "^4.0.0",
     "@capacitor/ios": "^4.0.0",
     "bootstrap-icons": "^1.8.3",
