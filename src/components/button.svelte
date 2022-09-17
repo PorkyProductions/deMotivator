@@ -1,8 +1,6 @@
 <script lang="ts">
-    import { userInsults } from '../typescript/insults';
-    import { insults } from 'demotivator'
     import logo from  '../img/dmv-logo.png';
-    import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+    import { getAuth } from "firebase/auth";
     const auth = getAuth();
     const user = auth.currentUser;
     if (user !== null) {
@@ -18,19 +16,38 @@
     const uid = user.uid;
 }
 let result = ""
-const randomize = () => {
+let MEGAMODEresult = ""
+const randomize = async () => {
     if (user != null) {
+        const { userInsults } = await import('../typescript/insults')
         result = userInsults[Math.floor(Math.random() * userInsults.length)]
     } else if (user == null) {
+        const { insults } = await import('demotivator')
         result = insults[Math.floor(Math.random() * insults.length)]
     }
 }
+let MEGAMODE = false
+const MEGAMODErandomize = async () => {
+    const { insults } = await import('demotivator')
+    MEGAMODEresult = insults[Math.floor(Math.random() * insults.length)]
+}
+setInterval(() => MEGAMODErandomize(), 250)
 </script>
 
 <main>
     <img src={logo} alt="large, red button" on:click={randomize} class="p-4">
     <div class="sm:p-3 md:p-4 lg:p-5 xl:p-6"></div>
-    <p class="text-center font-primary">{result}</p>
+    {#if !MEGAMODE}
+        <p class="text-center font-primary">{result}</p>
+    {:else if MEGAMODE}
+        <p class="text-center font-primary">{MEGAMODEresult}</p>
+    {/if}
+    <div class="flex content-center justify-center">
+        <label>
+            <input type=checkbox bind:checked={MEGAMODE}>
+            MEGAMODE
+        </label>
+    </div>  
 </main>
 
 <style>

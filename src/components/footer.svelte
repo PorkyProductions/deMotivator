@@ -1,11 +1,11 @@
 <script lang="ts">
     import '../app.css';
     import logo from  '../img/HedgehogIcon.png';
-    import { DEVICE_type } from 'uadetect'
+    import { deviceType } from 'uadetect'
     import SiwGoogleButton from './siwGoogleButton.svelte';
 </script>
 
-{#if DEVICE_type === 'mobile'}
+{#if deviceType === 'mobile'}
 <!--Deadspace to cover entire screen on mobile devices-->
         <div class="pb-96">
             <div class="pb-24">
@@ -13,8 +13,8 @@
             </div>
         </div>
     {/if}
-{#if DEVICE_type === 'desktop'}
-<main class="bg-primary-majorelleBlue dark:bg-secondary-orangePantone rounded-t-xl">
+{#if deviceType === 'desktop'}
+<footer class="bg-primary-majorelleBlue dark:bg-secondary-orangePantone rounded-t-xl">
     <div class="font-semibold text-2xl">
         <div>
             <a href="https://porkyproductions.github.io" class="hover:bg-indigo-400 dark:hover:bg-orange-700 hover:rounded-xl"><img src={logo} alt="hedgehog" class="text-center m-auto hover:bg-indigo-400 dark:hover:bg-orange-700 hover:rounded-xl"></a>
@@ -28,7 +28,7 @@
             <SiwGoogleButton />
         </div>
     </div>
-</main>
+</footer>
 {/if}
 
 <style>

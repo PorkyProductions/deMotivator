@@ -20,17 +20,16 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
+import { getAuth } from 'firebase/auth'
 
 // Login Starts Here
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-
-
-const auth = getAuth();
-// We also need the state of the logged in user
+// We need the state of the logged in user
 export let loggedIn = false
-const provider = new GoogleAuthProvider();
-export const loginFunction = () => {
+const auth = getAuth();
+export const loginFunction = async () => {
+    const { signInWithPopup, GoogleAuthProvider } = await import("firebase/auth")
     const auth = getAuth();
+    const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
     .then((result) => {
     // This gives you a Google Access Token. You can use it to access the Google API.
@@ -71,9 +70,9 @@ if (user !== null) {
 
 // The logout function
 // TODO: Make it functionally callable 
-import { signOut } from 'firebase/auth';
 
-export const logoutFunction = (auth) => {
+export const logoutFunction = async (auth) => {
+    const { signOut } = await import('firebase/auth');
     signOut(auth).then(() => {
         loggedIn = false
     }).catch((error) => {
@@ -84,11 +83,11 @@ export const logoutFunction = (auth) => {
 
 
 {#if user !== null}
-<button on:click={logoutFunction} class="flex justify-between content-center bg-white text-black p-4 rounded-lg">
+<button on:click={logoutFunction} class="flex justify-between content-center bg-white hover:bg-gray-200 text-black p-4 rounded-lg">
         <p>Sign Out {user.displayName}</p>
 </button>
 {:else if user == null}
-    <button on:click={loginFunction} class="flex justify-between content-center bg-white text-black p-4 rounded-lg">
+    <button on:click={loginFunction} class="flex justify-between content-center bg-white hover:bg-gray-200 text-black p-4 rounded-lg">
         <p>Sign In</p> <br>
     </button>
 {/if}

@@ -1,3 +1,13 @@
+* {
+    accent-color: #4f46e5;
+}
+
+@media (prefers-color-scheme: dark) {
+    *{
+        accent-color: #F75C03;
+    }
+}
+
 body {
     cursor: url(../node_modules/bootstrap-icons/icons/hand-thumbs-down.svg);
 }
