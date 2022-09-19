@@ -6,13 +6,13 @@ import { getAnalytics, setUserId } from "firebase/analytics";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyBXQIdxhaZk2jEh7Kgkui4OG0WUsIHyWgk",
-  authDomain: "demotivator-3cf4d.firebaseapp.com",
-  projectId: "demotivator-3cf4d",
-  storageBucket: "demotivator-3cf4d.appspot.com",
-  messagingSenderId: "230067629772",
-  appId: "1:230067629772:web:682830de35cc6b7be91c69",
-  measurementId: "G-T182ZXMZM1"
+    apiKey: "AIzaSyBXQIdxhaZk2jEh7Kgkui4OG0WUsIHyWgk",
+    authDomain: "demotivator-3cf4d.firebaseapp.com",
+    projectId: "demotivator-3cf4d",
+    storageBucket: "demotivator-3cf4d.appspot.com",
+    messagingSenderId: "230067629772",
+    appId: "1:230067629772:web:682830de35cc6b7be91c69",
+    measurementId: "G-T182ZXMZM1"
 };
 
 // Initialize Firebase
@@ -303,4 +303,28 @@ export const userInsults: string[] = [
         "You're so ugly, you scared the crap out of the toilet.",
         "If I had a dollar for every time you said something smart, I'd be broke.",
         "Look to your left --------------> I said left you idiot!",
+        "When you go to the beach, your family will bury you in the sand, secretly hoping you'll stay there",
+    "You have the face of a seahorse",
+    "You have the face of mashed potatoes",
+    "At this point, you've probably become self-aware of how bad you are. That's just sad",
+    "I forgot the world revolves around you. My apologies! How silly of me.",
+    "If I throw a stick, will you leave?",
+    "Oh, I'm sorry, I didn't know you had the authority to judge me. Who are you? God?",
+    "If common sense is common, why are you without it?",
+    "You're so ugly, you scared the crap out of the toilet.",
+    "I'm sorry if you don't like my honesty, but to be fair, I don't like your lies.",
+    "It's better to let someone think you are an Idiot than to open your mouth and prove it.",
+    "I would roast you but my mom told me not to burn trash.",
+    "You should really come with a warning label.",
+    "Remember when I asked for your opinion? Me neither.",
+    "Have a nice day…somewhere else!",
+    "No one noticed when you left; that's how insignificant you are.",
+    "You're about as sharp as a bowling ball.",
+    "So much for allowing the stream of knowledge to rain down on you.",
+    "I guess you prove that even God makes mistakes sometimes.",
+    "Can we normalize telling you that you aren't so wonderful?",
+    "Talking to you is like stepping on a leaf in autumn and hearing no crunch. So disappointing.",
+    "I envy everyone you have never met.",
+    "Don't feel bad, don't feel blue, Frankenstein was ugly too!",
+    "Everyone’s entitled to act stupid once in a while, but you really abuse the privilege."
 ]
