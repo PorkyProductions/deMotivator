@@ -27,11 +27,12 @@ const randomize = async () => {
     }
 }
 let MEGAMODE = false
+let MEGAMODEspeed = 250
 const MEGAMODErandomize = async () => {
     const { insults } = await import('demotivator')
     MEGAMODEresult = insults[Math.floor(Math.random() * insults.length)]
 }
-setInterval(() => MEGAMODErandomize(), 250)
+setInterval(()=>{clearInterval; setInterval(() => MEGAMODErandomize(), MEGAMODEspeed)}, 1000)
 </script>
 
 <main>
@@ -47,7 +48,13 @@ setInterval(() => MEGAMODErandomize(), 250)
             <input type=checkbox bind:checked={MEGAMODE}>
             MEGAMODE
         </label>
-    </div>  
+    </div>
+    <div class="flex content-center justify-center">
+        <label for="">
+            <input type="range" name="" id="" min="1" max="2000" bind:value={MEGAMODEspeed} />
+        </label>
+        <p>{MEGAMODEspeed}</p>
+    </div>
 </main>
 
 <style>
