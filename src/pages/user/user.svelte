@@ -29,7 +29,6 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 import loggedIn from '../../App.svelte'
 import displayName from '../../App.svelte'
-import photoURL from '../../App.svelte'
 import SiwGoogleButton from '../../components/siwGoogleButton.svelte';
 import Title from '../../components/title.svelte';
 </script>

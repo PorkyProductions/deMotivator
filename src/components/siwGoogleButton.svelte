@@ -17,6 +17,8 @@ const firebaseConfig = {
   measurementId: "G-T182ZXMZM1"
 };
 
+import google from 'bootstrap-icons/icons/google.svg'
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
@@ -88,6 +90,6 @@ export const logoutFunction = async (auth) => {
 </button>
 {:else if user == null}
     <button on:click={loginFunction} class="flex justify-between content-center bg-white hover:bg-gray-200 text-black p-4 rounded-lg">
-        <p>Sign In</p> <br>
+        <p>Sign In with</p> <br> <img src={google} alt="Google">
     </button>
 {/if}

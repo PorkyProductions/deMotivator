@@ -1,6 +1,9 @@
 <script lang="ts">
+    // Imports
     import logo from  '../img/dmv-logo.png';
     import { getAuth } from "firebase/auth";
+
+    // Firebase
     const auth = getAuth();
     const user = auth.currentUser;
     if (user !== null) {
@@ -15,8 +18,15 @@
     // you have one. Use User.getToken() instead.
     const uid = user.uid;
 }
+
+/*
+
+Randomizer
+
+*/
+
+
 let result = ""
-let MEGAMODEresult = ""
 const randomize = async () => {
     if (user != null) {
         const { userInsults } = await import('../typescript/insults')
@@ -26,11 +36,21 @@ const randomize = async () => {
         result = insults[Math.floor(Math.random() * insults.length)]
     }
 }
+
+/*
+
+MEGAMODE
+
+*/
+
+let MEGAMODEresult = ""
 let MEGAMODE = false
 let MEGAMODEspeed = 250
+let MEGAMODEinsults = 0;
 const MEGAMODErandomize = async () => {
     const { insults } = await import('demotivator')
     MEGAMODEresult = insults[Math.floor(Math.random() * insults.length)]
+    MEGAMODEinsults++
 }
 setInterval(()=>{clearInterval; setInterval(() => MEGAMODErandomize(), MEGAMODEspeed)}, 1000)
 </script>
@@ -42,6 +62,11 @@ setInterval(()=>{clearInterval; setInterval(() => MEGAMODErandomize(), MEGAMODEs
         <p class="text-center font-primary">{result}</p>
     {:else if MEGAMODE}
         <p class="text-center font-primary">{MEGAMODEresult}</p>
+        <br />
+        <br />
+        <p class="text-center font-primary">
+            Insults shown: {MEGAMODEinsults}
+        </p>
     {/if}
     <div class="flex content-center justify-center">
         <label>
