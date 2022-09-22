@@ -1,16 +1,16 @@
 class Insult {
     length: number
     name: string
-    constructor(name: string, length: number) {
+    mean: boolean
+    constructor(name: string, length: number, mean?: boolean) {
         this.name = name
         this.length = length
     }
 }
 
 
-import {insults} from 'demotivator'
+import { insults } from 'demotivator'
 
-insults.forEach(insult => {
-    new Insult(insult, insult.length)
-    console.log(Insult)
-});
+insults.forEach((insult: string ) => {new Insult(insult, insult.length)});
+
+export default Insult

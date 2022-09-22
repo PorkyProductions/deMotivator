@@ -2,6 +2,8 @@
     // Imports
     import logo from  '../img/dmv-logo.png';
     import { getAuth } from "firebase/auth";
+    import InsultClass from '../typescript/insult'
+    console.log(InsultClass)
 
     // Firebase
     const auth = getAuth();

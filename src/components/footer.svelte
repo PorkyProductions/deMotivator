@@ -14,12 +14,12 @@
         </div>
     {/if}
 {#if deviceType === 'desktop'}
-<footer class="bg-primary-majorelleBlue dark:bg-secondary-orangePantone rounded-t-xl">
+<footer class="bg-primary-majorelleBlue dark:bg-secondary-orangePantone rounded-t-xl portrait:hidden">
     <div class="font-semibold text-2xl">
         <div>
             <a href="https://porkyproductions.github.io" class="hover:bg-indigo-400 dark:hover:bg-orange-700 hover:rounded-xl"><img src={logo} alt="hedgehog" class="text-center m-auto hover:bg-indigo-400 dark:hover:bg-orange-700 hover:rounded-xl"></a>
         </div>
-        <div class="flex justify-between content-center pl-56 pr-80">
+        <div class="flex justify-between content-center px-4">
             <p class="text-white ">
                 a PorkyProductions product
             </p>
