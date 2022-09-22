@@ -1,7 +1,7 @@
 class Insult {
     length: number
     name: string
-    mean: boolean
+    mean?: boolean
     constructor(name: string, length: number, mean?: boolean) {
         this.name = name
         this.length = length
