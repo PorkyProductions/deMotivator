@@ -13,7 +13,7 @@ export default defineConfig({
             // DMV1: './dmv1.html',
         },
         output: {
-            dir: 'docs',
+            dir: 'out',
         }
     }
   }
