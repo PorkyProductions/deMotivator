@@ -26,6 +26,7 @@
     "@capacitor/android": "^4.2.0",
     "@capacitor/core": "^4.0.0",
     "@capacitor/ios": "^4.2.0",
+    "bootstrap": "^5.2.1",
     "bootstrap-icons": "^1.8.3",
     "cordova-res": "^0.15.4",
     "demotivator": "^10.0.1",

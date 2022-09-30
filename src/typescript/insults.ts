@@ -20,13 +20,7 @@ const app = initializeApp(firebaseConfig);
 import { getAuth } from "firebase/auth";
 const auth = getAuth();
 const user = auth.currentUser;
-if (user !== null) {
-    // The user object has basic properties such as display name, email, etc.
-
-    // The user's ID, unique to the Firebase project. Do NOT use
-    // this value to authenticate with your backend server, if
-    // you have one. Use User.getToken() instead.
-}
+import loggedIn from '../pages/login/auth.svelte'
 export const userInsults: string[] = [
     `If there was ever one person who I hated the most, it would be ${user?.displayName}`,
     `I heard ${user?.displayName} is a really bad person`,

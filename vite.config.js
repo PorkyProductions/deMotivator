@@ -10,6 +10,7 @@ export default defineConfig({
             index: 'index.html',
             fourOhFour: './404.html',
             fiveHundred: './500.html',
+            login: './login.html'
             // DMV1: './dmv1.html',
         },
         output: {

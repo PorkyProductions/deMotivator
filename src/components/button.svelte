@@ -8,6 +8,7 @@
     // Firebase
     const auth = getAuth();
     const user = auth.currentUser;
+    import loggedIn from '../pages/login/auth.svelte'
     if (user !== null) {
     // The user object has basic properties such as display name, email, etc.
     const displayName = user.displayName;
@@ -30,10 +31,10 @@ Randomizer
 
 let result = ""
 const randomize = async () => {
-    if (user != null) {
+    if (loggedIn) {
         const { userInsults } = await import('../typescript/insults')
         result = userInsults[Math.floor(Math.random() * userInsults.length)]
-    } else if (user == null) {
+    } else if (!loggedIn) {
         const { insults } = await import('demotivator')
         result = insults[Math.floor(Math.random() * insults.length)]
     }
