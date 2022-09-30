@@ -7,10 +7,10 @@
 
 {#if deviceType === 'mobile'}
 <!--Deadspace to cover entire screen on mobile devices-->
-        <div class="pb-96">
+        <div class="pb-96 flex content-center justify-center text-center">
             <div class="pb-24">
-
             </div>
+            <a href="/login.html" class="bg-primary-majorelleBlue dark:bg-secondary-orangePantone text-white font-primary font-medium p-5 rounded-lg">View Account</a>
         </div>
     {/if}
 {#if deviceType === 'desktop'}
