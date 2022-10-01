@@ -69,7 +69,11 @@ const loginHandler = async (event) => {
     }
 };
 </script>
-<Title />
+<div id="wrapper" class="pb-56">
+  <Title />
+<h3 class="text-center font-primary font-light">
+  log in
+</h3>
 <div class="">
   <div class="wrapper flex content-center justify-center ">
     <Auth
@@ -96,12 +100,12 @@ const loginHandler = async (event) => {
             <div class=" flex content-center justify-center">
               <form
               on:submit|preventDefault={loginHandler}
-              class="px-8 pt-6 pb-8 shadow-md"
+              class="px-8 pt-6 pb-8 shadow-md border-primary-majorelleBlue border-2 dark:border-secondary-orangePantone dark:border-2"
             >
               <div class="mb-4">
                 <label for="email">Email</label>
                 <input
-                  class="input-field"
+                  class="input-field bg-black"
                   id="email"
                   type="email"
                   placeholder="name@example.com"
@@ -110,7 +114,7 @@ const loginHandler = async (event) => {
               <div class="mb-6">
                 <label for="password">Password</label>
                 <input
-                  class="input-field"
+                  class="input-field bg-black"
                   id="password"
                   type="password"
                   placeholder="******************"
@@ -127,9 +131,9 @@ const loginHandler = async (event) => {
                   Sign In with Google
                 </button>
               </div>
-              <div class="mt-3">
+              <!-- <div class="mt-3">
                 <a href="signUp.html" type="button" class="btn btn-secondary">Sign Up</a>
-              </div>
+              </div> -->
             </form>
             </div>
           </div>
@@ -140,4 +144,14 @@ const loginHandler = async (event) => {
       <a href="index.html" class="btn btn-success"> <img src={leftArrow} alt=""> Go Back Home</a>
     </div>
 </div>
+</div>
 
+
+<style>
+  @media (prefers-color-scheme: dark) {
+      div#wrapper {
+        background-color: hsl(0, 0%, 0%);
+        color: hsl(0, 0%, 100%);
+      }
+  }
+</style>
