@@ -100,21 +100,21 @@ const loginHandler = async (event) => {
             <div class=" flex content-center justify-center">
               <form
               on:submit|preventDefault={loginHandler}
-              class="px-8 pt-6 pb-8 shadow-md border-primary-majorelleBlue border-2 dark:border-secondary-orangePantone dark:border-2"
+              class="px-8 pt-6 pb-8 shadow-md border-primary-majorelleBlue border-2 rounded-lg dark:border-secondary-orangePantone dark:border-2"
             >
               <div class="mb-4">
-                <label for="email">Email</label>
+                <label class="form-label" for="email">Email</label>
                 <input
-                  class="input-field dark:bg-black"
+                  class="input-field form-control dark:bg-black"
                   id="email"
                   type="email"
                   placeholder="name@example.com"
                 />
               </div>
               <div class="mb-6">
-                <label for="password">Password</label>
+                <label class="form-label" for="password">Password</label>
                 <input
-                  class="input-field dark:bg-black"
+                  class="input-field form-control dark:bg-black"
                   id="password"
                   type="password"
                   placeholder="******************"
@@ -127,10 +127,11 @@ const loginHandler = async (event) => {
                 <button type="submit" class="btn btn-primary">Sign In</button>
               </div>
               <div class="mt-3">
-                <button type="button" class="btn btn-dark" on:click|preventDefault={loginWithGoogle}>
+                <button type="button" class="btn btn-outline-dark" on:click|preventDefault={loginWithGoogle}>
                   Sign In with Google
                 </button>
               </div>
+              <div id="emailHelp" class="form-text">By clicking 'sign in' you are agreeing to share your email with PorkyProductions, which will be securely stored in our servers, which will never be shared with anyone else.</div>
               <!-- <div class="mt-3">
                 <a href="signUp.html" type="button" class="btn btn-secondary">Sign Up</a>
               </div> -->
@@ -141,7 +142,7 @@ const loginHandler = async (event) => {
       </Auth>
     </div>
     <div class="flex content-center justify-center p-4">
-      <a href="index.html" class="btn btn-success"> <img src={leftArrow} alt=""> Go Back Home</a>
+      <a href="index.html" class="btn btn-outline-success"> <img src={leftArrow} alt=""> Go Back Home</a>
     </div>
 </div>
 </div>
