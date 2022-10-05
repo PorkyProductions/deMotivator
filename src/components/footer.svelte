@@ -3,6 +3,7 @@
     import hedgehog from '../img/HedgehogIcon.png'
     import Title from './title.svelte';
     import { deviceType, OS } from 'uadetect'
+  import SiwGoogleButton from './siwGoogleButton.svelte';
 </script>
 
 
@@ -57,6 +58,7 @@
             <a class="footer-link" href="https://porkyproductions.github.io/">PorkyProductions</a>
             <a class="footer-link" href="dmv1.html">(de)Motivator 1.0</a>
             <a class="footer-link" href="https://github.com/PorkyProductions/deMotivator.js">(de)Motivator.js</a>
+            <SiwGoogleButton />
         </div>
     </div>
 </footer>
