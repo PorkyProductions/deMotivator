@@ -17,4 +17,5 @@
             <a href="https://porkyproductions.github.io/deMotivator" class= "hover:rounded-full hover:bg-gradient-to-r hover:from-red-500 hover:to-yellow-500 hover:p-4 dark:hover:from-green-500 dark:hover:to-purple-500">Click here to go home</a>
         </h1>
         <Spinhog />
+    </div>
 </main>

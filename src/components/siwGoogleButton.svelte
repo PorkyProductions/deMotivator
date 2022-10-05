@@ -30,10 +30,10 @@ import person from 'bootstrap-icons/icons/person.svg'
 
 {#if loggedIn}
 <a href="/login.html" class="flex justify-between content-center bg-white hover:bg-gray-200 text-black p-2 rounded-lg">
-        <p class="text-md lg:text-xl leading-3 hover:text-gray-700 visited:text-purple-900 hover:visited:text-primary-majorelleBlue dark:hover:visited:text-secondary-orangePantone">View Account</p> <img src={person} alt="person">
+        <p class="text-sm lg:text-md leading-3 hover:text-gray-700 visited:text-purple-900 hover:visited:text-primary-majorelleBlue dark:hover:visited:text-secondary-orangePantone">View Account</p> <img src={person} alt="person">
 </a>
 {:else if !loggedIn}
     <a href="/login.html" class="flex justify-between content-center bg-white hover:bg-gray-200 text-black p-2 rounded-lg">
-        <p class="text-md lg:text-xl leading-3 hover:text-gray-700 visited:text-purple-900 hover:visited:text-primary-majorelleBlue dark:hover:visited:text-secondary-orangePantone">Sign In</p> <img src={personPlus} alt="person with a plus sign next to them">
+        <p class="text-sm lg:text-md leading-3 hover:text-gray-700 visited:text-purple-900 hover:visited:text-primary-majorelleBlue dark:hover:visited:text-secondary-orangePantone">Sign In</p> <img src={personPlus} alt="person with a plus sign next to them">
     </a>
 {/if}

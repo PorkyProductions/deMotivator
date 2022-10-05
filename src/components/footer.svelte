@@ -3,7 +3,7 @@
     import hedgehog from '../img/HedgehogIcon.png'
     import Title from './title.svelte';
     import { deviceType, OS } from 'uadetect'
-  import SiwGoogleButton from './siwGoogleButton.svelte';
+    import SiwGoogleButton from './siwGoogleButton.svelte';
 </script>
 
 
@@ -41,17 +41,17 @@
 
 <!--Desktop-->
 {:else}
-<footer class=" bg-primary-majorelleBlue dark:bg-gray-600 portrait:hidden">
+<footer class=" bg-primary-majorelleBlue dark:bg-gray-900 portrait:hidden">
     <div class="flex justify-between content-center">
         <div class="flex justify-between flex-col">
             <div class="flex content-center">
-                <img src={hedgehog} alt="Hedgehog" id="logo" class="dark:portrait:hidden dark:landscape:hover:open:default:hidden">
+                <img src={hedgehog} alt="Hedgehog" id="logo" class="dark:hidden hover:animate-spin">
                 <div class="text-white">
                     <Title />
                 </div>
             </div>
             <hr />
-            <p class="text-white p-4">Copyright &copy; {year.getFullYear()}, PorkyProductions and/or it's contributors. All Rights Reserved</p>
+            <p class="text-white p-4">Copyright &copy; {year.getFullYear()}-{year.getFullYear()+1}, PorkyProductions and/or it's contributors. All Rights Reserved</p>
         </div>
         <div class="flex justify-between flex-col p-4 text-white underline">
             <a class="footer-link" href="index.html">Home</a>
