@@ -1,13 +1,26 @@
 * {
-    accent-color: #4f46e5;
+    accent-color: hsl(243, 75%, 59%);
+    cursor: url(../node_modules/bootstrap-icons/icons/hand-thumbs-down.svg);
+}
+
+*::selection {
+    background-color: hsl(240, 100%, 48%);
+    color: white;
 }
 
 @media (prefers-color-scheme: dark) {
     *{
-        accent-color: #F75C03;
+        accent-color: hsl(22, 98%, 49%);
+    }
+    *::selection {
+        background-color: hsl(22, 98%, 49%);
     }
 }
 
-body {
-    cursor: url(../node_modules/bootstrap-icons/icons/hand-thumbs-down.svg);
+.footer-link {
+    @apply text-white visited:text-purple-200 visited:hover:text-purple-400 hover:text-purple-200  dark:hover:text-secondary-orangePantone dark:visited:text-orange-600 dark:hover:visited:text-orange-700;
+};
+
+.title {
+    @apply text-3xl xl:text-4xl
 }

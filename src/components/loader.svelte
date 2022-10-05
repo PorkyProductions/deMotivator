@@ -4,7 +4,7 @@
 
     let ready = false;
     const loadingTimer = setTimeout(()=> ready = true, 1000);
-    onDestroy(()=> clearTimeout(loadingTimer));
+    onDestroy(() => clearTimeout(loadingTimer));
 </script>
 
 {#if !ready}

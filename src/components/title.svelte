@@ -33,6 +33,6 @@
         "font-family: monospace; background-color: #4f46e5; color: white;");
 </script>
 
-<h1 class="font-primary text-center text-4xl p-5 font-semibold">
+<h1 class="font-primary text-center title p-5 font-semibold">
     (de)Motivator
 </h1>
