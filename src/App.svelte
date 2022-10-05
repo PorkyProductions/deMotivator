@@ -64,9 +64,6 @@ if (user !== null) {
         </div>
         <div id="footer" class="" >
             <Footer />
-            {#if user !== null}
-                {user.displayName}
-            {/if}
         </div>
     </div>
 {/if}

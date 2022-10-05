@@ -105,7 +105,7 @@ const loginHandler = async (event) => {
               <div class="mb-4">
                 <label for="email">Email</label>
                 <input
-                  class="input-field bg-black"
+                  class="input-field dark:bg-black"
                   id="email"
                   type="email"
                   placeholder="name@example.com"
@@ -114,7 +114,7 @@ const loginHandler = async (event) => {
               <div class="mb-6">
                 <label for="password">Password</label>
                 <input
-                  class="input-field bg-black"
+                  class="input-field dark:bg-black"
                   id="password"
                   type="password"
                   placeholder="******************"

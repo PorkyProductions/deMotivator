@@ -2,8 +2,11 @@
     // Imports
     import logo from  '../img/dmv-logo.png';
     import { getAuth } from "firebase/auth";
-    import InsultClass from '../typescript/insult'
-    console.log(InsultClass)
+    import { Insult, UserInsult } from '../typescript/insult'
+    console.log({
+        Insult,
+        UserInsult
+    })
 
     // Firebase
     const auth = getAuth();
@@ -59,7 +62,7 @@ setInterval(()=>{clearInterval; setInterval(() => MEGAMODErandomize(), MEGAMODEs
 </script>
 
 <main>
-    <img src={logo} alt="large, red button" on:click={randomize} class="p-4">
+    <img src={logo} alt="a large, red button" on:click={randomize} class="p-4">
     <div class="sm:p-3 md:p-4 lg:p-5 xl:p-6"></div>
     {#if !MEGAMODE}
         <p class="text-center font-primary">{result}</p>
@@ -70,6 +73,12 @@ setInterval(()=>{clearInterval; setInterval(() => MEGAMODErandomize(), MEGAMODEs
         <p class="text-center font-primary">
             Insults shown: {MEGAMODEinsults}
         </p>
+        <div class="flex content-center justify-center">
+            <label for="">
+                <input type="range" name="" id="" min="1" max="2000" bind:value={MEGAMODEspeed} />
+            </label>
+            <p>{MEGAMODEspeed}</p>
+        </div>
     {/if}
     <div class="flex content-center justify-center">
         <label>
@@ -77,12 +86,7 @@ setInterval(()=>{clearInterval; setInterval(() => MEGAMODErandomize(), MEGAMODEs
             MEGAMODE
         </label>
     </div>
-    <div class="flex content-center justify-center">
-        <label for="">
-            <input type="range" name="" id="" min="1" max="2000" bind:value={MEGAMODEspeed} />
-        </label>
-        <p>{MEGAMODEspeed}</p>
-    </div>
+    
 </main>
 
 <style>
