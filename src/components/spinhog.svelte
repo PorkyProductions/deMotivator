@@ -3,7 +3,7 @@
     import hedgehog from  '../img/HedgehogIcon.png';
 </script>
 
-<div class="flex justify-center">
+<div class="flex justify-center dark:bg-black">
         <img src={hedgehog} alt="hedgehog" class="hedgehog-spin spin">
         <img src={hedgehog} alt="hedgehog" class="hedgehog-spin spin2">
         <img src={hedgehog} alt="hedgehog" class="hedgehog-spin spin3">

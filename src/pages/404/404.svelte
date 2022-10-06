@@ -2,20 +2,31 @@
     import Spinhog from '../../components/spinhog.svelte';
     import '../../app.css'
     import Title from '../../components/title.svelte';
+    let countdown = 15
+    const countdownTimer = setInterval(
+        () => {
+            countdown--
+            if (countdown == 0) {
+                clearInterval(countdownTimer);
+                window.location.href="index.html"
+            }
+        },
+        1000
+    )
 </script>
 
 <main>
-    <div class="bg-indigo-700 dark:bg-black text-white rounded-xl sm:pb-72 lg:pb-80 xl:pb-96" style="font-family: 'Raleway', sans-serif;">
+    <div class=" dark:bg-black dark:text-white rounded-xl sm:pb-72 lg:pb-80 xl:pb-96" style="font-family: 'Raleway', sans-serif;">
         <Title />
-        <h1 class="text-center text-9xl p-4">
+        <h1 class="text-center font-primary font-bold text-9xl hover:text-purple-500 hover:animate-spin">
             404
         </h1>
-        <h1 class="text-center text-3xl p-4">
-            Page not found
-        </h1>
-        <h1 class="text-center text-3xl p-4">
-            <a href="https://porkyproductions.github.io/deMotivator" class= "hover:rounded-full hover:bg-gradient-to-r hover:from-red-500 hover:to-yellow-500 hover:p-4 dark:hover:from-green-500 dark:hover:to-purple-500">Click here to go home</a>
-        </h1>
+        <h2 class="text-center font-primary font-bold text-8xl hover:text-purple-500">
+            Page Not Found
+        </h2>
+        <h3 class="text-center font-primary font-bold text-7xl hover:text-purple-500">
+            You will be automatically redirected in {countdown} seconds
+        </h3>
         <Spinhog />
     </div>
 </main>

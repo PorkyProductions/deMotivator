@@ -27,7 +27,8 @@ import { userInsults } from './insults'
 insults.forEach((insult: string ) => {new Insult(insult, insult.length)});
 userInsults.forEach((userInsult: string) => new UserInsult(userInsult, userInsult.length, true))
 
-export {
+export
+{
     Insult,
     UserInsult
 }
