@@ -136,6 +136,11 @@ const loginHandler = async (event) => {
                   Sign In with Google
                 </button>
               </div>
+              <div class="mt-3">
+                <button type="button" class="btn btn-outline-info" on:click|preventDefault={signInAnonomous}>
+                  Sign In Anonomously
+                </button>
+              </div>
               <div id="emailHelp" class="form-text">By clicking 'sign in' you are agreeing to share your email with PorkyProductions, which will be securely stored in our servers, and will never be shared with anyone else.</div>
               <!-- <div class="mt-3">
                 <a href="signUp.html" type="button" class="btn btn-secondary">Sign Up</a>

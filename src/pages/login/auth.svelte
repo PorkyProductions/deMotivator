@@ -64,6 +64,19 @@ const auth = getAuth();
         return signInWithPopup(auth, provider);
       }
     };
+    export const signInAnonomous = async () => {
+      const { getAuth, signInAnonymously } = await import("firebase/auth");
+      const auth = getAuth();
+      signInAnonymously(auth)
+      .then(() => {
+      
+      })
+      .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // ...
+      });
+    }
   
     export const logout = () => auth.signOut();
   
@@ -89,5 +102,5 @@ const auth = getAuth();
   
   <!-- we will expose all required methods and properties on our slot -->
   <div>
-    <slot {user} {loggedIn} {loginWithGoogle} {loginWithEmailPassword} {logout} />
+    <slot {user} {loggedIn} {loginWithGoogle} {loginWithEmailPassword} {signInAnonomous} {logout} />
   </div>
