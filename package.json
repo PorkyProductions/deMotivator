@@ -28,7 +28,7 @@
     "bootstrap-icons": "^1.8.3",
     "cordova-res": "^0.15.4",
     "demotivator": "^10.0.0",
-    "firebase": "^9.9.0",
+    "firebase": "^9.12.1",
     "svelte-loading-spinners": "^0.1.7",
     "twemoji": "^14.0.2",
     "typescript": "^4.7.4",
