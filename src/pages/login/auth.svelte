@@ -6,10 +6,6 @@
     import Title from '../../components/title.svelte';
     import '@capacitor/core'
     // Loading Logic
-    import { onDestroy } from "svelte";
-    let ready = false;
-    const timeoutId = setTimeout(()=> ready = true, 1000);
-    onDestroy(() => clearTimeout(timeoutId));
 
 
 

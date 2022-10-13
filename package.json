@@ -4,8 +4,10 @@
   "version": "10.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite serve",
     "build": "vite build",
+    "ssrBuild": "vite ssrBuild",
+    "buildTS": "tsc --project tsconfig.json",
     "preview": "vite preview",
     "push": "firebase deploy",
     "ionic:build": "npm run build",

@@ -21,7 +21,6 @@ class UserInsult extends Insult {
 
 
 import { insults } from 'demotivator'
-import { isTemplateLiteral } from 'typescript'
 import { userInsults } from './insults'
 
 insults.forEach((insult: string ) => {new Insult(insult, insult.length)});

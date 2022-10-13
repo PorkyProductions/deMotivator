@@ -1,5 +1,4 @@
 import { initializeApp } from "firebase/app";
-import { getAnalytics, setUserId } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -16,11 +15,11 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
+// @ts-ignore
 const app = initializeApp(firebaseConfig);
 import { getAuth } from "firebase/auth";
 const auth = getAuth();
 const user = auth.currentUser;
-import loggedIn from '../pages/login/auth.svelte'
 export const userInsults: string[] = [
     `If there was ever one person who I hated the most, it would be ${user?.displayName}`,
     `I heard ${user?.displayName} is a really bad person`,

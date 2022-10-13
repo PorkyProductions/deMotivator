@@ -8,8 +8,9 @@
     // Loading Logic
     import { onDestroy } from "svelte";
     let ready = false;
-    const timeoutId = setTimeout(()=> ready = true, 1000);
+    const timeoutId = setTimeout(()=> ready = true, 1500);
     onDestroy(() => clearTimeout(timeoutId));
+    import BsSpinner from '../../components/bs-spinner.svelte';
 
 
 
@@ -69,6 +70,10 @@ const loginHandler = async (event) => {
     }
 };
 </script>
+
+{#if !ready}
+<BsSpinner type="primary" />
+{:else}
 <div id="wrapper" class="pb-56">
   <Title />
 <h3 class="text-center font-primary font-light">
@@ -85,7 +90,7 @@ const loginHandler = async (event) => {
         let:logout
     >
     {#if loggedIn}
-        <div class="w-full max-w-xs">
+        <div class="w-full max-w-xs" transition:fade>
             <div class="text-center">
                 <img src={user.picture} alt="" class="m-auto">
                 <h1 class="font-bold font-primary">
@@ -96,7 +101,7 @@ const loginHandler = async (event) => {
             </div>
         </div>
     {:else}
-          <div class="w-full max-w-xs">
+          <div class="w-full max-w-xs" transition:fade>
             <div class=" flex content-center justify-center">
               <form
               on:submit|preventDefault={loginHandler}
@@ -131,7 +136,7 @@ const loginHandler = async (event) => {
                   Sign In with Google
                 </button>
               </div>
-              <div id="emailHelp" class="form-text">By clicking 'sign in' you are agreeing to share your email with PorkyProductions, which will be securely stored in our servers, which will never be shared with anyone else.</div>
+              <div id="emailHelp" class="form-text">By clicking 'sign in' you are agreeing to share your email with PorkyProductions, which will be securely stored in our servers, and will never be shared with anyone else.</div>
               <!-- <div class="mt-3">
                 <a href="signUp.html" type="button" class="btn btn-secondary">Sign Up</a>
               </div> -->
@@ -146,6 +151,10 @@ const loginHandler = async (event) => {
     </div>
 </div>
 </div>
+{/if}
+
+
+
 
 
 <style>
