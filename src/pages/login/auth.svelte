@@ -77,7 +77,6 @@ const auth = getAuth();
       // ...
       });
     }
-  
     export const logout = () => auth.signOut();
   
     // will be fired every time auth state changes

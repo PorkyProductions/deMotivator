@@ -77,7 +77,7 @@ const loginHandler = async (event) => {
 <div id="wrapper" class="pb-56">
   <Title />
 <h3 class="text-center font-primary font-light">
-  log in
+  Log In
 </h3>
 <div class="">
   <div class="wrapper flex content-center justify-center ">
@@ -86,6 +86,7 @@ const loginHandler = async (event) => {
         let:user
         let:loggedIn
         let:loginWithGoogle
+        let:signInAnonomous
         bind:loginWithEmailPassword
         let:logout
     >
@@ -94,9 +95,9 @@ const loginHandler = async (event) => {
             <div class="text-center">
                 <img src={user.picture} alt="" class="m-auto">
                 <h1 class="font-bold font-primary">
-                  {user.name}
+                  {user.name ?? "Guest"}
                 </h1>
-                <h2 class="font-primary">{user.email}</h2>
+                <h2 class="font-primary">{user.email ?? " "}</h2>
                 <button type="button" class="mt-3 btn btn-warning" on:click={logout}>Logout</button>
             </div>
         </div>
@@ -138,20 +139,20 @@ const loginHandler = async (event) => {
               </div>
               <div class="mt-3">
                 <button type="button" class="btn btn-outline-info" on:click|preventDefault={signInAnonomous}>
-                  Sign In Anonomously
+                  Sign In as a Guest
                 </button>
               </div>
               <div id="emailHelp" class="form-text">By clicking 'sign in' you are agreeing to share your email with PorkyProductions, which will be securely stored in our servers, and will never be shared with anyone else.</div>
-              <!-- <div class="mt-3">
+              <div class="mt-3">
                 <a href="signUp.html" type="button" class="btn btn-secondary">Sign Up</a>
-              </div> -->
+              </div>
             </form>
             </div>
           </div>
         {/if}
       </Auth>
     </div>
-    <div class="flex content-center justify-center p-4">
+    <div class="flex content-center justify-center p-4 pb-10">
       <a href="index.html" class="btn btn-outline-success"> <img src={leftArrow} alt=""> Go Back Home</a>
     </div>
 </div>
