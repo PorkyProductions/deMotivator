@@ -5,6 +5,7 @@
         "allowUnusedLabels": false,
         "noImplicitAny": true,
         "noUnusedLocals": true,
+        "isolatedModules": true,
         "noImplicitReturns": true,
         "outDir": "./build",
         "pretty": true,

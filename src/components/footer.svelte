@@ -18,25 +18,25 @@
 {#if deviceType === 'mobile'}
 <!--Deadspace to cover entire screen on mobile devices-->
 <div class="pb-96 flex content-center justify-center text-center">
-    <div class="pb-24">
+    <div class="pb-28">
     </div>
-    <a href="/login.html" class="bg-primary-majorelleBlue dark:bg-secondary-orangePantone text-white font-primary font-medium p-5 rounded-lg">View Account</a>
+    <a href="/login.html" class="bg-primary-majorelleBlue text-xl dark:bg-secondary-orangePantone text-white font-primary font-medium p-10 rounded-lg">View Account</a>
 </div>
 
 <!--If it's an Android Tablet-->
 {:else if OS === 'Android' && deviceType === "tablet"}
     <div class="pb-96 flex content-center justify-center text-center">
-            <div class="pb-24">
+            <div class="pb-28">
             </div>
-            <a href="/login.html" class="bg-primary-majorelleBlue dark:bg-secondary-orangePantone text-white font-primary font-medium p-5 rounded-lg">View Account</a>
+            <a href="/login.html" class="bg-primary-majorelleBlue text-xl dark:bg-secondary-orangePantone text-white font-primary font-medium p-10 rounded-lg">View Account</a>
     </div>
     
 <!--If it's an iPad-->
 {:else if OS === 'iOS' && deviceType === 'tablet'}
 <div class="pb-96 flex content-center justify-center text-center">
-    <div class="pb-24">
-    </div>
-    <a href="/login.html" class="bg-primary-majorelleBlue dark:bg-secondary-orangePantone text-white font-primary font-medium p-5 rounded-lg">View Account</a>
+    <div class="pb-28">
+    </div>div>
+    <a href="/login.html" class="bg-primary-majorelleBlue text-xl dark:bg-secondary-orangePantone text-white font-primary font-medium p-10 rounded-lg">View Account</a>
 </div>
 
 <!--Desktop-->
