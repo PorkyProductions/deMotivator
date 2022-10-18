@@ -1,0 +1,27 @@
+$primary-majorelleBlue: #4f46e5;
+$highlights: hsl(240, 100%, 48%);
+$secondary-orangePantone: #F75C03;
+$tertiary-mauve: #DABFFF;
+
+@function invert($color, $amount: 100%) {
+    $inverse: change-color($color, $hue: hue($color) + 180);
+    @return mix($inverse, $color, $amount);
+}
+
+* {
+    accent-color: $primary-majorelleBlue;
+    cursor: url(../../../node_modules/bootstrap-icons/icons/hand-thumbs-down.svg);
+    &::selection {
+        background-color: $highlights;
+        color: white;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    *{
+        accent-color: $secondary-orangePantone;
+        &::selection {
+            background-color: $secondary-orangePantone
+        }
+    }
+}

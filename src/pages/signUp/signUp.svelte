@@ -1,6 +1,7 @@
 <script>
     import '../../styles/css/app.css'
-    import '../../styles/css/cursor.css'
+    import '../../styles/css/customProps.css'
+    import '../../styles/scss/colorScheme.scss'
   import Title from '../../components/title.svelte';
   import '@capacitor/core'
   import 'bootstrap/dist/css/bootstrap.css'
