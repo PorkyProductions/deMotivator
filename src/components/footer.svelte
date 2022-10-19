@@ -4,6 +4,24 @@
     import Title from './title.svelte';
     import { deviceType, OS } from 'uadetect'
     import SiwGoogleButton from './siwGoogleButton.svelte';
+    const navigation = [
+        {
+            name: "Home",
+            href: "index.html"
+        },
+        {
+            name: "PorkyProductions",
+            href: "https://porkyproductions.github.io/"
+        },
+        {
+            name: "(de)Motivator 1.0",
+            href: "dmv1.html"
+        },
+        {
+            name: "(de)Motivator.js",
+            href: "https://github.com/PorkyProductions/deMotivator.js"
+        },
+    ]
 </script>
 
 
@@ -51,13 +69,12 @@
                 </div>
             </div>
             <hr />
-            <p class="text-white p-4">Copyright &copy; {year.getFullYear()}-{year.getFullYear()+1}, PorkyProductions and/or it's contributors. All Rights Reserved</p>
+            <p class="text-white p-4">Copyright &copy; 2020-{year.getFullYear()}, PorkyProductions and/or it's contributors. All Rights Reserved</p>
         </div>
         <div class="flex justify-between flex-col p-4 text-white underline">
-            <a class="footer-link" href="index.html">Home</a>
-            <a class="footer-link" href="https://porkyproductions.github.io/">PorkyProductions</a>
-            <a class="footer-link" href="dmv1.html">(de)Motivator 1.0</a>
-            <a class="footer-link" href="https://github.com/PorkyProductions/deMotivator.js">(de)Motivator.js</a>
+            {#each navigation as link}
+                <a class="footer-link" href={link.href}>{link.name}</a>
+            {/each}
             <SiwGoogleButton />
         </div>
     </div>

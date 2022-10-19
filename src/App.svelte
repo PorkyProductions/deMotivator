@@ -12,6 +12,9 @@
     let ready = false;
     const timeoutId = setTimeout(() => ready = true, 1000);
     onDestroy(() => clearTimeout(timeoutId));
+    import {
+        fade
+    } from 'svelte/transition'
 
 
 
@@ -56,8 +59,11 @@ if (user !== null) {
 }
 </script>
 {#if !ready}
-    <Loader />
+    <div transition:fade>
+        <Loader />
+    </div>
 {:else}
+<div transition:fade>
     <div class="dark:bg-black dark:text-white" id="app">
         <Title />
         <Button />
@@ -67,4 +73,5 @@ if (user !== null) {
             <Footer />
         </div>
     </div>
+</div>
 {/if}

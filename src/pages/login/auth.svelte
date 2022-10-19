@@ -70,11 +70,18 @@ const auth = getAuth();
       const auth = getAuth();
       signInAnonymously(auth)
       .then(() => {
-      
+        console.log(`your anonomous user ID is ${user.user_id}`);
       })
       .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
+      console.error(`
+      
+        An error occured.
+        Here are the detials:
+        ${errorCode}
+        ${errorMessage}
+      `)
       // ...
       });
     }
@@ -96,7 +103,7 @@ const auth = getAuth();
       }
     });
   
-    // reactive helper variable
+    // reactive helper variable(s)
     $: loggedIn = user !== null;
   </script>
   

@@ -9,6 +9,7 @@
 
     // Firebase
     import loggedIn from '../pages/login/auth.svelte'
+    import {fade} from 'svelte/transition'
 
 /*
 
@@ -50,7 +51,7 @@ setInterval(()=>{clearInterval; setInterval(() => MEGAMODErandomize(), MEGAMODEs
     <img src={logo} alt="a large, red button" on:click={randomize} class="p-4">
     <div class="sm:p-3 md:p-4 lg:p-5 xl:p-6"></div>
     {#if !MEGAMODE}
-        <p class="text-center font-primary">{result}</p>
+        <p class="text-center font-primary" transition:fade>{result}</p>
     {:else if MEGAMODE}
         <p class="text-center font-primary">{MEGAMODEresult}</p>
         <br />
