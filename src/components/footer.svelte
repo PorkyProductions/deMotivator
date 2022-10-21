@@ -91,7 +91,13 @@
         text-decoration: underline dashed;
     }
     hr {
-        border: 1px solid white;
+        border: 1px solid #DABFFF;
         padding-left: 1rem;
+    }
+    @media (prefers-color-scheme: dark) {
+        hr {
+            border: 1px solid #F75C03;
+            color: #F75C03;
+        }
     }
 </style>

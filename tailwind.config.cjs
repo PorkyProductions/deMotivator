@@ -3,7 +3,7 @@ module.exports = {
   content: ['./src/**/*.html', './src/**/*.js', './src/**/*.svelte', './src/components/**/*.svelte', 'index.html'],
   theme: {
     fontFamily: {
-        primary: ['Raleway', 'sans-serif'],
+      primary: ['Raleway', 'sans-serif'],
     },
     extend: {
       colors: {
@@ -11,7 +11,7 @@ module.exports = {
         'secondary-orangePantone': '#F75C03',
         'tertiary-mauve': '#DABFFF',
       },
-    }
+    },
   },
   plugins: [],
-}
+};
