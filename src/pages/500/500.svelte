@@ -16,15 +16,15 @@
 </script>
 
 <main>
-    <div class=" dark:bg-black dark:text-white rounded-xl sm:pb-72 lg:pb-80 xl:pb-96" style="font-family: 'Raleway', sans-serif;">
+    <div class=" dark:bg-black dark:text-white hover:text-purple-500 rounded-xl sm:pb-72 lg:pb-80 xl:pb-96" style="font-family: 'Raleway', sans-serif;">
         <Title />
-        <h1 class="text-center font-primary font-bold text-9xl hover:text-purple-500 hover:animate-spin">
+        <h1 class="text-center font-primary font-bold text-9xl hover:animate-spin">
             500
         </h1>
-        <h2 class="text-center font-primary font-bold text-8xl hover:text-purple-500">
-            Internal Server Error
+        <h2 class="text-center font-primary font-bold text-8xl">
+            Internal Server Error 💔
         </h2>
-        <h3 class="text-center font-primary font-bold text-7xl hover:text-purple-500">
+        <h3 class="text-center font-primary font-bold text-7xl">
             You will be automatically redirected in {countdown} seconds
         </h3>
         <Spinhog />
