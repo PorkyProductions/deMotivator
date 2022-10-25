@@ -8,8 +8,8 @@
     })
 
     // Firebase
-    import loggedIn from '../pages/login/auth.svelte'
     import {fade} from 'svelte/transition'
+    import Auth from '../pages/login/auth.svelte';
 
 /*
 
@@ -19,14 +19,13 @@ Randomizer
 
 
 let result = ""
+let userResult = ""
 const randomize = async () => {
-    if (loggedIn) {
-        const { userInsults } = await import('../typescript/insults')
-        result = userInsults[Math.floor(Math.random() * userInsults.length)]
-    } else if (!loggedIn) {
-        const { insults } = await import('demotivator')
-        result = insults[Math.floor(Math.random() * insults.length)]
-    }
+    const { userInsults } = await import('../typescript/insults')
+    const { insults } = await import('demotivator')
+    const demotivatorAndUserIsults = userInsults.concat(insults)
+    userResult = demotivatorAndUserIsults[Math.floor(Math.random() * demotivatorAndUserIsults.length)]
+    result = insults[Math.floor(Math.random() * insults.length)]
 }
 
 /*
@@ -44,14 +43,22 @@ const MEGAMODErandomize = async () => {
     MEGAMODEresult = insults[Math.floor(Math.random() * insults.length)]
     MEGAMODEinsults++
 }
-setInterval(()=>{clearInterval; setInterval(() => MEGAMODErandomize(), MEGAMODEspeed)}, 1000)
+setInterval(()=> {clearInterval; setInterval(() => MEGAMODErandomize(), MEGAMODEspeed)}, 1000)
 </script>
+
+<Auth
+let:loggedIn
+>
 
 <main>
     <img src={logo} alt="a large, red button" on:click={randomize} class="p-4">
     <div class="sm:p-3 md:p-4 lg:p-5 xl:p-6"></div>
     {#if !MEGAMODE}
-        <p class="text-center font-primary" transition:fade>{result}</p>
+        {#if loggedIn}
+            <p class="text-center font-primary" transition:fade>{userResult}</p>
+        {:else if !loggedIn}
+            <p class="text-center font-primary" transition:fade>{result}</p>
+        {/if}
     {:else if MEGAMODE}
         <p class="text-center font-primary">{MEGAMODEresult}</p>
         <br />
@@ -74,6 +81,8 @@ setInterval(()=>{clearInterval; setInterval(() => MEGAMODErandomize(), MEGAMODEs
     </div>
     
 </main>
+
+</Auth>
 
 <style>
     img {

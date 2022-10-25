@@ -16,7 +16,6 @@ const firebaseConfig = {
   appId: "1:230067629772:web:682830de35cc6b7be91c69",
   measurementId: "G-T182ZXMZM1"
 };
-import loggedIn from '../pages/login/auth.svelte'
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
@@ -25,15 +24,21 @@ import { getAuth } from 'firebase/auth'
 
 import personPlus from 'bootstrap-icons/icons/person-plus.svg'
 import person from 'bootstrap-icons/icons/person.svg'
+import Auth from "../pages/login/auth.svelte";
 </script>
 
+<Auth
+let:loggedIn
+>
 
 {#if loggedIn}
 <a href="/login.html" class="flex justify-between content-center bg-white hover:bg-gray-200 text-black p-2 rounded-lg">
         <p class="text-sm lg:text-md leading-3 hover:text-gray-700 visited:text-purple-900 hover:visited:text-primary-majorelleBlue dark:hover:visited:text-secondary-orangePantone">View Account</p> <img src={person} alt="person">
 </a>
-{:else if !loggedIn}
+{:else if loggedIn == false}
     <a href="/login.html" class="flex justify-between content-center bg-white hover:bg-gray-200 text-black p-2 rounded-lg">
         <p class="text-sm lg:text-md leading-3 hover:text-gray-700 visited:text-purple-900 hover:visited:text-primary-majorelleBlue dark:hover:visited:text-secondary-orangePantone">Sign In</p> <img src={personPlus} alt="person with a plus sign next to them">
     </a>
 {/if}
+
+</Auth>
