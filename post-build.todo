@@ -1,7 +1,3 @@
 AFTER RUNNING "npm run build" YOU MUST FOLLOW THESE INSTRUCTIONS:
-1. Update the docs/index.html file to point to the new files in the assets/ directory.
-2. Copy the contents of the www/ directory into the root of the docs/ directory. Also copy `dmv1.html` from the root into the docs/ directory.
-3. In the www/serivce-worker.js file, copy the lines of code commented out into the index.html file in the docs/ directory
-4. Ctrl+H through all generated JavaScript files, changing "/assets" to "./assets"
-5. Test by running the docs/index.html file on localhost.
-6. Run 'npm run capBuild' to update all other platforms
+1. Ctrl+H through all of the compiled JS files in the /out/assets directory, changing all refernces of /assets to ./assets
+2. Remove the geolocation code  
