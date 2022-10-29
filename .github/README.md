@@ -1,4 +1,4 @@
-# [(de)Motivator](https://porkyproductions.github.io/deMotivator)
+# [(de)Motivator](https://demotivator.web.app)
 
 Also check out [(de)Motivator.js](https://github.com/PorkyProductions/deMotivator.js) for the JavaScript Library
 
@@ -10,6 +10,8 @@ Also check out [(de)Motivator.js](https://github.com/PorkyProductions/deMotivato
 - [(de)Motivator](#demotivator)
 - [Technologies Used](#technologies-used)
 - [Available On](#available-on)
+- [Tour](#tour)
+
 
 # Technologies Used
 
@@ -20,3 +22,42 @@ Also check out [(de)Motivator.js](https://github.com/PorkyProductions/deMotivato
 <img src="https://static.wikia.nocookie.net/logopedia/images/6/63/IOS_wordmark_%282017%29.svg/revision/latest/scale-to-width-down/200?cb=20170621150256" alt="iOS" width="85px"><br>
 <img src="https://developer.android.com/images/brand/Android_Robot.png" alt="android" width="75"><br>
 <img src="https://static.wikia.nocookie.net/logopedia/images/b/b3/Windows_2021.svg/revision/latest?cb=20220510113535" alt="windows" width="150">
+
+# Tour
+
+This is a **monorepo**, meaning multiple apps are being hosted from this one repository. Let's take a tour of all of the directories
+
+- `.github/` 
+  - this hosts all of the files for maintaining the upstream repository on GitHub, additionally
+  - `/workflows`
+    - the CI workflows used in GitHub actions
+- `.vscode/`
+  - configuration files for Visual Studio code users. Most importantly, the reccomended extentions
+- `android/`
+  - the andorid port of (de)Motivator. Open this folder in android studio to run the android app
+- `docs/`
+  - This is the redirect file used to redirect users who used the legacy GitHub pages link to the new firebase link. 
+- `electron/`
+  - The Desktop port of (de)Motivator. Works as a standard node.js project would.
+- `ios/`
+  -  the iOS port of (de)Motivator. Open this folder in Xcode to run the iOS app
+- `src/`
+  - `components/`
+    - all of the svelte UI components for the main website.
+  - `icons/`
+    - All icons and sizes of icons used in the apps.
+  - `pages/`
+    - different directories for the different pages of the site. Purely for organization
+  - `styles/`
+    - All of the `.css` and `.scss` files used for manual styling
+  - `typescript/`
+    - All of the typescript files used for manual scripting used outside of the svelte files
+  - `App.svelte`
+    - This is main svelte file for the `index.html`
+  - `bootstrapper.ts`
+    - This is what links the `html` file to the svelte file for vite
+  - `vite-env.d.ts`
+- `www/`
+  - All files needed to maintain the PWA of the app. 
+- `./`
+  - The root of the project contains misc config files, as well as the `.html` files that vite uses as entry points to the app. 
