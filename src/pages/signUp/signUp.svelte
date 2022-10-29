@@ -57,6 +57,8 @@ if (user !== null) {
 import Auth from '../login/auth.svelte';
 import { fade } from 'svelte/transition';
 import warning from 'bootstrap-icons/icons/exclamation-diamond-fill.svg'
+import BsAlert from '../../components/bs-Alert.svelte';
+import info from 'bootstrap-icons/icons/info-circle.svg'
 
 
 const signUp = async (auth, email, password) => {
@@ -90,6 +92,7 @@ const signUpHandler = async (event) => {
 <BsSpinner type="primary" />
 {:else}
 <div id="wrapper" class="pb-56">
+<BsAlert icon={info} iconAlt="info" type="info" text="By using (de)Motivator with an account, you consent to our, as well as Google's cookies." actionLink="https://policies.google.com/privacy" actionText="Learn More" />
 <Title />
 <h3 class="text-center font-primary font-light">
 Sign Up
@@ -129,7 +132,9 @@ Sign Up
               />
             </div>
             {#if error}
-              <div transition:fade class="p-2 mb-6 alert alert-danger"><img src={warning} alt="warning"> {error.message}</div>
+              <div transition:fade class="p-2 mb-6">
+                <BsAlert icon={warning} iconAlt={warning} type="danger" text={error.message ?? "An error occured. Try again"} />
+              </div>
             {/if}
             <div>
               <button type="submit" class="btn btn-primary">Sign Up</button>

@@ -6,6 +6,8 @@
     import '@capacitor/core'
     import 'bootstrap/dist/css/bootstrap.css'
     import leftArrow from 'bootstrap-icons/icons/arrow-left.svg'
+    import info from 'bootstrap-icons/icons/info-circle.svg'
+    import person from 'bootstrap-icons/icons/person-circle.svg'
     // Loading Logic
     import { onDestroy } from "svelte";
     let ready = false;
@@ -57,6 +59,7 @@ if (user !== null) {
 import Auth from './auth.svelte';
 import { fade } from 'svelte/transition';
 import warning from 'bootstrap-icons/icons/exclamation-diamond-fill.svg'
+import BsAlert from '../../components/bs-Alert.svelte';
 
 let loginWithEmailPassword;
 let error = null;
@@ -75,6 +78,7 @@ const loginHandler = async (event) => {
 {#if !ready}
 <BsSpinner type="primary" />
 {:else}
+<BsAlert icon={info} iconAlt="info" type="info" text="By using (de)Motivator with an account, you consent to our, as well as Google's cookies." actionLink="https://policies.google.com/privacy" actionText="Learn More" />
 <div id="wrapper" class="pb-56">
   <Title />
 <h3 class="text-center font-primary font-light">
@@ -94,11 +98,12 @@ const loginHandler = async (event) => {
     {#if loggedIn}
         <div class="w-full max-w-xs" transition:fade>
             <div class="text-center">
-                <img src={user.picture} alt="" class="m-auto">
+                <img src={user.picture ?? person} alt="" width="40%" class="m-auto">
                 <h1 class="font-bold font-primary">
                   {user.name ?? "Guest"}
                 </h1>
                 <h2 class="font-primary">{user.email ?? " "}</h2>
+                <h3 class="font-primary">{"Your (de)Motivator UserID: " + user.id ?? " "}</h3>
                 <button type="button" class="mt-3 btn btn-warning" on:click={logout}>Logout</button>
             </div>
         </div>
@@ -128,7 +133,9 @@ const loginHandler = async (event) => {
                 />
               </div>
               {#if error}
-                <div transition:fade class="p-2 mb-6 alert alert-danger"><img src={warning} alt="warning"> {error.message}</div>
+                <div transition:fade class="p-2 mb-6">
+                  <BsAlert icon={warning} iconAlt={warning} type="danger" text={error.message ?? "An error occured. Try again"} />
+                </div>
               {/if}
               <div>
                 <button type="submit" class="btn btn-primary">Sign In</button>

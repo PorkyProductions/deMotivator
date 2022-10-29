@@ -53,32 +53,32 @@
 {:else if OS === 'iOS' && deviceType === 'tablet'}
 <div class="pb-96 flex content-center justify-center text-center">
     <div class="pb-28">
-    </div>div>
+    </div>
     <a href="/login.html" class="bg-primary-majorelleBlue text-xl dark:bg-secondary-orangePantone text-white font-primary font-medium p-10 rounded-lg">View Account</a>
 </div>
 
 <!--Desktop-->
 {:else}
-<footer class=" bg-primary-majorelleBlue dark:bg-gray-900 portrait:hidden">
-    <div class="flex justify-between content-center">
-        <div class="flex justify-between flex-col">
-            <div class="flex content-center">
-                <img src={hedgehog} alt="Hedgehog" id="logo" class="dark:hidden hover:animate-spin">
-                <div class="text-white">
-                    <Title />
+    <footer class=" bg-primary-majorelleBlue dark:bg-gray-900 portrait:hidden">
+        <div class="flex justify-between content-center">
+            <div class="flex justify-between flex-col">
+                <div class="flex content-center">
+                    <img src={hedgehog} alt="Hedgehog" id="logo" class="dark:hidden hover:animate-spin">
+                    <div class="text-white">
+                        <Title />
+                    </div>
                 </div>
+                <hr />
+                <p class="text-white p-4">Copyright &copy; 2020-{year.getFullYear()}, PorkyProductions and/or it's contributors. All Rights Reserved</p>
             </div>
-            <hr />
-            <p class="text-white p-4">Copyright &copy; 2020-{year.getFullYear()}, PorkyProductions and/or it's contributors. All Rights Reserved</p>
+            <div class="flex justify-between flex-col p-4 text-white underline">
+                {#each navigation as link}
+                    <a class="footer-link" href={link.href}>{link.name}</a>
+                {/each}
+                <SiwGoogleButton />
+            </div>
         </div>
-        <div class="flex justify-between flex-col p-4 text-white underline">
-            {#each navigation as link}
-                <a class="footer-link" href={link.href}>{link.name}</a>
-            {/each}
-            <SiwGoogleButton />
-        </div>
-    </div>
-</footer>
+    </footer>
 {/if}
 
 <style>
