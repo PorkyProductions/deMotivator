@@ -8,6 +8,7 @@
     import leftArrow from 'bootstrap-icons/icons/arrow-left.svg'
     import info from 'bootstrap-icons/icons/info-circle.svg'
     import person from 'bootstrap-icons/icons/person-circle.svg'
+    import google from 'bootstrap-icons/icons/google.svg'
     // Loading Logic
     import { onDestroy } from "svelte";
     let ready = false;
@@ -74,9 +75,21 @@ const loginHandler = async (event) => {
     }
 };
 </script>
-
+<Auth
+        useRedirect={true}
+        let:user
+        let:loggedIn
+        let:loginWithGoogle
+        let:signInAnonomous
+        bind:loginWithEmailPassword
+        let:logout
+>
 {#if !ready}
-<BsSpinner type="primary" />
+  {#if loggedIn}
+    <BsSpinner type="success" />
+  {:else}
+    <BsSpinner type="primary" />
+  {/if}
 {:else}
 <BsAlert icon={info} iconAlt="info" type="info" text="By using (de)Motivator with an account, you consent to our, as well as Google's cookies." actionLink="https://policies.google.com/privacy" actionText="Learn More" />
 <div id="wrapper" class="pb-56">
@@ -86,15 +99,6 @@ const loginHandler = async (event) => {
 </h3>
 <div class="">
   <div class="wrapper flex content-center justify-center ">
-    <Auth
-        useRedirect={true}
-        let:user
-        let:loggedIn
-        let:loginWithGoogle
-        let:signInAnonomous
-        bind:loginWithEmailPassword
-        let:logout
-    >
     {#if loggedIn}
         <div class="w-full max-w-xs" transition:fade>
             <div class="text-center">
@@ -102,7 +106,7 @@ const loginHandler = async (event) => {
                 <h1 class="font-bold font-primary">
                   {user.name ?? "Guest"}
                 </h1>
-                <h2 class="font-primary">{user.email ?? " "}</h2>
+                <h2 class="font-primary pb-4">{user.email ?? " "}</h2>
                 <h3 class="font-primary">{"Your (de)Motivator UserID: " + user.id ?? " "}</h3>
                 <button type="button" class="mt-3 btn btn-warning" on:click={logout}>Logout</button>
             </div>
@@ -141,8 +145,8 @@ const loginHandler = async (event) => {
                 <button type="submit" class="btn btn-primary">Sign In</button>
               </div>
               <div class="mt-3">
-                <button type="button" class="btn btn-outline-dark" on:click|preventDefault={loginWithGoogle}>
-                  Sign In with Google
+                <button type="button" class="btn btn-outline-secondary" on:click|preventDefault={loginWithGoogle}>
+                  <span>Sign In with <span><img class="inline" src={google} alt=""></span></span>
                 </button>
               </div>
               <div class="mt-3">
@@ -158,7 +162,6 @@ const loginHandler = async (event) => {
             </div>
           </div>
         {/if}
-      </Auth>
     </div>
     <div class="flex content-center justify-center p-4 pb-10">
       <a href="index.html" class="btn btn-outline-success"> <img src={leftArrow} alt=""> Go Back Home</a>
@@ -166,6 +169,7 @@ const loginHandler = async (event) => {
 </div>
 </div>
 {/if}
+</Auth>
 
 
 

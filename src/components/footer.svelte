@@ -38,7 +38,9 @@
 <div class="pb-96 flex content-center justify-center text-center">
     <div class="pb-28">
     </div>
-    <a href="/login.html" class="bg-primary-majorelleBlue text-xl dark:bg-secondary-orangePantone text-white font-primary font-medium p-10 rounded-lg">View Account</a>
+    <div class="absolute bottom-0">
+        <a href="/login.html" class="bg-primary-majorelleBlue text-xl dark:bg-secondary-orangePantone text-white font-primary font-medium p-10 rounded-lg">View Account</a>
+    </div>
 </div>
 
 <!--If it's an Android Tablet-->
@@ -46,7 +48,9 @@
     <div class="pb-96 flex content-center justify-center text-center">
             <div class="pb-28">
             </div>
-            <a href="/login.html" class="bg-primary-majorelleBlue text-xl dark:bg-secondary-orangePantone text-white font-primary font-medium p-10 rounded-lg">View Account</a>
+            <div class="absolute bottom-0">
+                <a href="/login.html" class="bg-primary-majorelleBlue text-xl dark:bg-secondary-orangePantone text-white font-primary font-medium p-10 rounded-lg">View Account</a>
+            </div>
     </div>
     
 <!--If it's an iPad-->
@@ -54,7 +58,9 @@
 <div class="pb-96 flex content-center justify-center text-center">
     <div class="pb-28">
     </div>
-    <a href="/login.html" class="bg-primary-majorelleBlue text-xl dark:bg-secondary-orangePantone text-white font-primary font-medium p-10 rounded-lg">View Account</a>
+    <div class="absolute bottom-0">
+        <a href="/login.html" class="bg-primary-majorelleBlue text-xl dark:bg-secondary-orangePantone text-white font-primary font-medium p-10 rounded-lg">View Account</a>
+    </div>
 </div>
 
 <!--Desktop-->

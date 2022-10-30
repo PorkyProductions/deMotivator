@@ -17,7 +17,7 @@ Randomizer
 
 */
 
-
+let insultsShown = 0
 let result = ""
 let userResult = ""
 const randomize = async () => {
@@ -26,8 +26,8 @@ const randomize = async () => {
     const demotivatorAndUserIsults = userInsults.concat(insults)
     userResult = demotivatorAndUserIsults[Math.floor(Math.random() * demotivatorAndUserIsults.length)]
     result = insults[Math.floor(Math.random() * insults.length)]
+    insultsShown++
 }
-
 /*
 
 MEGAMODE
@@ -38,6 +38,7 @@ let MEGAMODEresult = ""
 let MEGAMODE = false
 let MEGAMODEspeed = 250
 let MEGAMODEinsults = 0;
+
 const MEGAMODErandomize = async () => {
     const { insults } = await import('demotivator')
     MEGAMODEresult = insults[Math.floor(Math.random() * insults.length)]
