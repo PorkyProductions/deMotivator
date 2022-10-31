@@ -16,7 +16,7 @@
 </script>
 
 <main>
-    <div class=" dark:bg-black dark:text-white hover:text-purple-500 rounded-xl sm:pb-72 lg:pb-80 xl:pb-96" style="font-family: 'Raleway', sans-serif;">
+    <div class=" dark:bg-black dark:text-white hover:text-purple-500 dark:hover:text-white rounded-xl sm:pb-72 lg:pb-80 xl:pb-96" style="font-family: 'Raleway', sans-serif;">
         <Title />
         <h1 class="text-center font-primary font-bold text-9xl hover:animate-spin">
             500

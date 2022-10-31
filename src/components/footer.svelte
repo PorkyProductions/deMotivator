@@ -27,7 +27,7 @@
 
 
 <!--
-    First we chefck if it's mobile, which is the catch-all solution
+    First we check if it's mobile, which is the catch-all solution
     Then, we need to account for tablets. However, UADetect sometimes counts laptops as tablets, so we need to ensure the OS
     This is done by checking the OS, and if the OS is a tablet OS AND the deviceType is tablet, then we can paint the appropriate UI
 -->
@@ -36,8 +36,6 @@
 {#if deviceType === 'mobile'}
 <!--Deadspace to cover entire screen on mobile devices-->
 <div class="pb-96 flex content-center justify-center text-center">
-    <div class="pb-28">
-    </div>
     <div class="absolute bottom-0">
         <a href="/login.html" class="bg-primary-majorelleBlue text-xl dark:bg-secondary-orangePantone text-white font-primary font-medium p-10 rounded-lg">View Account</a>
     </div>
