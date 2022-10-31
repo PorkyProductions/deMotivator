@@ -1,0 +1,1 @@
+import{i as t}from"./index.210e400f.js";import{i as l}from"./index.210e400f.js";import"./title.73cf006f.js";/* empty css             */import"./index.6f58373a.js";import"./auth.533feaac.js";import"./spinhog.9b37d1d6.js";function e(){return t[Math.floor(Math.random()*t.length)]}export{e as GenerateInsult,l as insults};
