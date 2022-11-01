@@ -65,6 +65,7 @@ import BsAlert from '../../components/bs-Alert.svelte';
 let loginWithEmailPassword;
 let error = null;
 
+
 const loginHandler = async (event) => {
     const { email, password } = event.target.elements;
     try {
@@ -141,6 +142,7 @@ const loginHandler = async (event) => {
                   <BsAlert icon={warning} iconAlt={warning} type="danger" text={error.message ?? "An error occured. Try again"} />
                 </div>
               {/if}
+              
               <div>
                 <button type="submit" class="btn btn-primary">Sign In</button>
               </div>

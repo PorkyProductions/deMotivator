@@ -9,9 +9,10 @@
     const load = async () => {
       await import('bootstrap/dist/js/bootstrap.esm')
     }
+    import { fade } from 'svelte/transition'
 </script>
 
-<div class="alert alert-{type} d-flex align-items-center alert-dismissible" role="alert" on:mouseover={load} on:focus={load}>
+<div transition:fade class="alert alert-{type} d-flex align-items-center alert-dismissible" role="alert" on:mouseover={load} on:focus={load}>
     <span>
         <img src={icon} alt={iconAlt}>
     </span>

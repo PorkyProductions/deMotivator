@@ -65,8 +65,8 @@
     ]
     let currentLine = lines[0];
     let showStarted = false
-    setInterval(() => currentLine = lines.shift(), 3000);
     let linkVisible = false
+    setInterval(() => currentLine = lines.shift(), 3000);
     setTimeout(() => linkVisible = true, 36000)
 </script>
 <div class="text-black dark:bg-black dark:text-white m-auto">
@@ -80,7 +80,7 @@
                 At this point it could be anything, but we're suspecting its your fault. Look, theres a button below. Maybe try pressing it and see what happens.
             </p>
             <div class="flex content-center justify-center">
-                <input type="checkbox" bind:checked={showStarted}> <span class="font-primary"> &leftarrow; Maybe Try This</span>
+                <input type="checkbox" bind:checked={showStarted}> <span class="font-primary"> &leftarrow; &nbsp; Maybe Try This</span>
             </div>
         </div>
     {:else}

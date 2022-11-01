@@ -76,9 +76,13 @@ const signUp = async (auth, email, password) => {
   });
 }
 let error = null;
+let agreedToTerms = false;
 
 const signUpHandler = async (event) => {
   const { email, password } = event.target.elements;
+  if (!agreedToTerms) {
+      return;
+    }
   try {
       error = null;
       await signUp(auth, email.value, password.value);
@@ -136,6 +140,12 @@ Sign Up
                 <BsAlert icon={warning} iconAlt={warning} type="danger" text={error.message ?? "An error occured. Try again"} />
               </div>
             {/if}
+            <div class="form-check pb-4">
+              <input class="form-check-input" type="checkbox" bind:checked={agreedToTerms} value="" id="flexCheckDefault">
+              <label class="form-check-label" for="flexCheckDefault">
+                I agree to the <a href="#">Terms and Conditions</a> and <a href="https://policies.google.com/privacy">Privacy Policy</a>
+              </label>
+            </div>
             <div>
               <button type="submit" class="btn btn-primary">Sign Up</button>
             </div>

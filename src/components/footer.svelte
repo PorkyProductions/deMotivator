@@ -63,7 +63,7 @@
 
 <!--Desktop-->
 {:else}
-    <footer class=" bg-primary-majorelleBlue dark:bg-gray-900 portrait:hidden">
+    <footer class=" bg-primary-majorelleBlue dark:bg-gray-900 portrait:hidden rounded-t-md">
         <div class="flex justify-between content-center">
             <div class="flex justify-between flex-col">
                 <div class="flex content-center">
