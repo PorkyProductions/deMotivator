@@ -1,20 +1,28 @@
 <script>
+
+  // Import generic stylesheets, essential libraries
     import '../../styles/css/app.css'
     import '../../styles/css/customProps.css'
     import '../../styles/scss/colorScheme.scss'
-    import Title from '../../components/title.svelte';
     import '@capacitor/core'
     import 'bootstrap/dist/css/bootstrap.css'
+  // Import components
+    import BsSpinner from '../../components/bs-spinner.svelte';
+    import Title from '../../components/title.svelte';
     import leftArrow from 'bootstrap-icons/icons/arrow-left.svg'
     import info from 'bootstrap-icons/icons/info-circle.svg'
     import person from 'bootstrap-icons/icons/person-circle.svg'
     import google from 'bootstrap-icons/icons/google.svg'
-    // Loading Logic
+  // Import Misc Helpers
     import { onDestroy } from "svelte";
+    import { darkMode } from '../../typescript/darkMode';
+    
+    
+    
+    // Loading Logic
     let ready = false;
     const timeoutId = setTimeout(()=> ready = true, 1500);
     onDestroy(() => clearTimeout(timeoutId));
-    import BsSpinner from '../../components/bs-spinner.svelte';
 
 
 
@@ -95,8 +103,12 @@ const loginHandler = async (event) => {
   <BsSpinner type="primary" />
   {/if}
 {:else}
-<BsAlert icon={info} iconAlt="info" type="info" text="By using (de)Motivator with an account, you consent to our, as well as Google's cookies." actionLink="https://policies.google.com/privacy" actionText="Learn More" />
 <div id="wrapper" class="pb-56">
+  {#if darkMode == true}
+    <BsAlert icon={info} iconAlt="info" type="dark" text="By using (de)Motivator with an account, you consent to our, as well as Google's cookies." actionLink="https://policies.google.com/privacy" actionText="Learn More"  />
+  {:else}
+    <BsAlert icon={info} iconAlt="info" type="info" text="By using (de)Motivator with an account, you consent to our, as well as Google's cookies." actionLink="https://policies.google.com/privacy" actionText="Learn More" />
+  {/if}
   <Title />
 <h3 class="text-center font-primary font-light">
   Log In
@@ -149,11 +161,19 @@ const loginHandler = async (event) => {
               <div>
                 <button type="submit" class="btn btn-primary">Sign In</button>
               </div>
-              <div class="mt-3">
-                <button type="button" class="btn btn-outline-secondary" on:click|preventDefault={loginWithGoogle}>
-                  <span>Sign In with <span><img class="inline" src={google} alt=""></span></span>
-                </button>
-              </div>
+              {#if darkMode == true}
+                <div class="mt-3">
+                  <button type="button" class="btn btn-dark" on:click|preventDefault={loginWithGoogle}>
+                    <span>Sign In with &nbsp;<span><img class="inline" src={google} alt=""></span></span>
+                  </button>
+                </div>
+              {:else}
+                <div class="mt-3">
+                  <button type="button" class="btn btn-outline-secondary" on:click|preventDefault={loginWithGoogle}>
+                    <span>Sign In with &nbsp;<span><img class="inline" src={google} alt=""></span></span>
+                  </button>
+                </div>
+              {/if}
               <div class="mt-3">
                 <button type="button" class="btn btn-outline-info" on:click|preventDefault={signInAnonomous}>
                   Sign In as a Guest
@@ -185,6 +205,9 @@ const loginHandler = async (event) => {
       div#wrapper {
         background-color: hsl(0, 0%, 0%);
         color: hsl(0, 0%, 100%);
+      }
+      body {
+        background-color: black;
       }
   }
 </style>

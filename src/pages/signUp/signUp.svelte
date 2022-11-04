@@ -1,17 +1,30 @@
 <script>
+  // Import generic stylesheets, essential libraries
     import '../../styles/css/app.css'
     import '../../styles/css/customProps.css'
     import '../../styles/scss/colorScheme.scss'
-  import Title from '../../components/title.svelte';
-  import '@capacitor/core'
-  import 'bootstrap/dist/css/bootstrap.css'
-  import leftArrow from 'bootstrap-icons/icons/arrow-left.svg'
-  // Loading Logic
-  import { onDestroy } from "svelte";
-  let ready = false;
-  const timeoutId = setTimeout(()=> ready = true, 1500);
-  onDestroy(() => clearTimeout(timeoutId));
-  import BsSpinner from '../../components/bs-spinner.svelte';
+    import '@capacitor/core'
+    import 'bootstrap/dist/css/bootstrap.css'
+    // Import components
+    import Title from '../../components/title.svelte';
+    import BsSpinner from '../../components/bs-spinner.svelte';
+    import Auth from '../login/auth.svelte';
+    import leftArrow from 'bootstrap-icons/icons/arrow-left.svg'
+    import BsAlert from '../../components/bs-Alert.svelte';
+    // Import Icons
+    import warning from 'bootstrap-icons/icons/exclamation-diamond-fill.svg'
+    import info from 'bootstrap-icons/icons/info-circle.svg'
+    // Import Misc Helpers
+    import { fade } from 'svelte/transition';
+    import { onDestroy } from "svelte";
+    import { darkMode } from '../../typescript/darkMode'
+
+    // Loading Logic
+    let ready = false;
+    const timeoutId = setTimeout(()=> ready = true, 1500);
+    onDestroy(() => clearTimeout(timeoutId));
+
+
 
 
 
@@ -54,11 +67,6 @@ if (user !== null) {
   // you have one. Use User.getToken() instead.
   const uid = user.uid;
 }
-import Auth from '../login/auth.svelte';
-import { fade } from 'svelte/transition';
-import warning from 'bootstrap-icons/icons/exclamation-diamond-fill.svg'
-import BsAlert from '../../components/bs-Alert.svelte';
-import info from 'bootstrap-icons/icons/info-circle.svg'
 
 
 const signUp = async (auth, email, password) => {
@@ -107,7 +115,11 @@ const signUpHandler = async (event) => {
   {/if}
 {:else}
 <div id="wrapper" class="pb-56">
-<BsAlert icon={info} iconAlt="info" type="info" text="By using (de)Motivator with an account, you consent to our, as well as Google's cookies." actionLink="https://policies.google.com/privacy" actionText="Learn More" />
+  {#if darkMode == true}
+    <BsAlert icon={info} iconAlt="info" type="dark" text="By using (de)Motivator with an account, you consent to our, as well as Google's cookies." actionLink="https://policies.google.com/privacy" actionText="Learn More"  />
+  {:else}
+    <BsAlert icon={info} iconAlt="info" type="info" text="By using (de)Motivator with an account, you consent to our, as well as Google's cookies." actionLink="https://policies.google.com/privacy" actionText="Learn More" />
+  {/if}
 <Title />
 <h3 class="text-center font-primary font-light">
 Sign Up
@@ -161,13 +173,13 @@ Sign Up
             </div>
           </div>
             </div>
-      {/if}
+            {/if}
+          </div>
+          <div class="flex content-center justify-center p-4 pb-10">
+            <a href="index.html" class="btn btn-outline-success"> <img src={leftArrow} alt=""> Go Back Home</a>
+          </div>
 </div>
 </div>
-  </div>
-  <div class="flex content-center justify-center p-4 pb-10">
-    <a href="index.html" class="btn btn-outline-success"> <img src={leftArrow} alt=""> Go Back Home</a>
-  </div>
 {/if}
 </Auth>
 
