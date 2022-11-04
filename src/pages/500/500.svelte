@@ -3,8 +3,7 @@
     import '../../styles/css/app.css'
     import Title from '../../components/title.svelte';
     let countdown = 15
-    const countdownTimer = setInterval(
-        () => {
+    const countdownTimer = setInterval(() => {
             countdown--
             if (countdown == 0) {
                 clearInterval(countdownTimer);

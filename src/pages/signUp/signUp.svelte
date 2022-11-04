@@ -91,9 +91,20 @@ const signUpHandler = async (event) => {
   }
 };
 </script>
-
+<Auth
+      useRedirect={true}
+      let:user
+      let:loggedIn
+>
 {#if !ready}
-<BsSpinner type="primary" />
+  {#if loggedIn}
+    <BsSpinner type="success" />
+  {:else}
+    {#if error}
+      <BsSpinner type="danger" />
+    {/if}
+  <BsSpinner type="primary" />
+  {/if}
 {:else}
 <div id="wrapper" class="pb-56">
 <BsAlert icon={info} iconAlt="info" type="info" text="By using (de)Motivator with an account, you consent to our, as well as Google's cookies." actionLink="https://policies.google.com/privacy" actionText="Learn More" />
@@ -103,11 +114,6 @@ Sign Up
 </h3>
 <div class="">
 <div class="wrapper flex content-center justify-center ">
-  <Auth
-      useRedirect={true}
-      let:user
-      let:loggedIn
-  >
   {#if loggedIn}
     {window.location.href="login.html"}
   {:else}
@@ -120,7 +126,7 @@ Sign Up
             <div class="mb-4">
               <label class="form-label" for="email">Email</label>
               <input
-                class="input-field form-control dark:bg-black"
+                class="input-field form-control dark:bg-black focus:cursor-text hover:focus:cursor-text hover:cursor-text"
                 id="email"
                 type="email"
                 placeholder="name@example.com"
@@ -129,7 +135,7 @@ Sign Up
             <div class="mb-6">
               <label class="form-label" for="password">Password</label>
               <input
-                class="input-field form-control dark:bg-black"
+                class="input-field form-control dark:bg-black focus:cursor-text hover:focus:cursor-text hover:cursor-text"
                 id="password"
                 type="password"
                 placeholder="******************"
@@ -156,7 +162,6 @@ Sign Up
           </div>
             </div>
       {/if}
-    </Auth>
 </div>
 </div>
   </div>
@@ -164,6 +169,7 @@ Sign Up
     <a href="index.html" class="btn btn-outline-success"> <img src={leftArrow} alt=""> Go Back Home</a>
   </div>
 {/if}
+</Auth>
 
 
 

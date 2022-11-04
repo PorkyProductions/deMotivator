@@ -89,7 +89,10 @@ const loginHandler = async (event) => {
   {#if loggedIn}
     <BsSpinner type="success" />
   {:else}
-    <BsSpinner type="primary" />
+    {#if error}
+      <BsSpinner type="danger" />
+    {/if}
+  <BsSpinner type="primary" />
   {/if}
 {:else}
 <BsAlert icon={info} iconAlt="info" type="info" text="By using (de)Motivator with an account, you consent to our, as well as Google's cookies." actionLink="https://policies.google.com/privacy" actionText="Learn More" />
@@ -122,7 +125,7 @@ const loginHandler = async (event) => {
               <div class="mb-4">
                 <label class="form-label" for="email">Email</label>
                 <input
-                  class="input-field form-control dark:bg-black"
+                  class="input-field form-control dark:bg-black focus:cursor-text hover:focus:cursor-text hover:cursor-text"
                   id="email"
                   type="email"
                   placeholder="name@example.com"
@@ -131,7 +134,7 @@ const loginHandler = async (event) => {
               <div class="mb-6">
                 <label class="form-label" for="password">Password</label>
                 <input
-                  class="input-field form-control dark:bg-black"
+                  class="input-field form-control dark:bg-black focus:cursor-text hover:focus:cursor-text hover:cursor-text"
                   id="password"
                   type="password"
                   placeholder="******************"

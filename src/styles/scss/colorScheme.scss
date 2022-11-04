@@ -42,6 +42,10 @@ $theme-border-radius-md: 15px;
             color: $theme-white;
         }
     }
+    input,
+    label {
+        cursor: pointer;
+    }
 }
 
 @media (prefers-color-scheme: dark) {
