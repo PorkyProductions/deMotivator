@@ -1,0 +1,1 @@
+import{C as r}from"./title.ed349aea.js";function p(o,{delay:t=0,duration:c=400,easing:e=r}={}){const s=+getComputedStyle(o).opacity;return{delay:t,duration:c,easing:e,css:n=>`opacity: ${n*s}`}}export{p as f};
