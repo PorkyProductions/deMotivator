@@ -206,8 +206,5 @@ const loginHandler = async (event) => {
         background-color: hsl(0, 0%, 0%);
         color: hsl(0, 0%, 100%);
       }
-      body {
-        background-color: black;
-      }
   }
 </style>

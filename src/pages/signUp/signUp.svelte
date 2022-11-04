@@ -161,7 +161,7 @@ Sign Up
             <div class="form-check pb-4">
               <input class="form-check-input" type="checkbox" bind:checked={agreedToTerms} value="" id="flexCheckDefault">
               <label class="form-check-label" for="flexCheckDefault">
-                I agree to the <a href="#">Terms and Conditions</a> and <a href="https://policies.google.com/privacy">Privacy Policy</a>
+                I agree to the <a href=" ">Terms and Conditions</a> and <a href="https://policies.google.com/privacy">Privacy Policy</a>
               </label>
             </div>
             <div>
