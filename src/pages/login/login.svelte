@@ -6,7 +6,6 @@
     import '../../styles/scss/colorScheme.scss'
     import '@capacitor/core'
     import 'bootstrap/dist/css/bootstrap.css'
-    import confetti from 'canvas-confetti'
   // Import components
     import BsSpinner from '../../components/bs-spinner.svelte';
     import Title from '../../components/title.svelte';
@@ -17,7 +16,6 @@
   // Import Misc Helpers
     import { onDestroy } from "svelte";
     import { darkMode } from '../../typescript/darkMode';
-    import { randomInRange } from '../../typescript/random'
     
     // Loading Logic
     let ready = false;
@@ -75,6 +73,8 @@ let error = null;
 
 
 const loginHandler = async (event) => {
+    const { randomInRange } = await import('../../typescript/random')
+    const confetti = await import('canvas-confetti')
     const { email, password } = event.target.elements;
     try {
         error = null;
