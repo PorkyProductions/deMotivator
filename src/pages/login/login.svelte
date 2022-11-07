@@ -6,6 +6,7 @@
     import '../../styles/scss/colorScheme.scss'
     import '@capacitor/core'
     import 'bootstrap/dist/css/bootstrap.css'
+    import confetti from 'canvas-confetti'
   // Import components
     import BsSpinner from '../../components/bs-spinner.svelte';
     import Title from '../../components/title.svelte';
@@ -16,8 +17,7 @@
   // Import Misc Helpers
     import { onDestroy } from "svelte";
     import { darkMode } from '../../typescript/darkMode';
-    
-    
+    import { randomInRange } from '../../typescript/random'
     
     // Loading Logic
     let ready = false;
@@ -79,6 +79,12 @@ const loginHandler = async (event) => {
     try {
         error = null;
         await loginWithEmailPassword(email.value, password.value);
+        confetti({
+          angle: randomInRange(55, 125),
+          spread: randomInRange(50, 70),
+          particleCount: randomInRange(50, 100),
+            origin: { y: 0.6 }
+        });
     } catch (err) {
         error = err;
     }
@@ -105,9 +111,19 @@ const loginHandler = async (event) => {
 {:else}
 <div id="wrapper" class="pb-56">
   {#if darkMode == true}
-    <BsAlert icon={info} iconAlt="info" type="dark" text="By using (de)Motivator with an account, you consent to our, as well as Google's cookies." actionLink="https://policies.google.com/privacy" actionText="Learn More"  />
+  <BsAlert icon={info} iconAlt="info" type="dark" text="By using (de)Motivator with an account, you consent to our, as well as Google's cookies." actionLink="https://policies.google.com/privacy" actionText="Learn More"  />
+    {#if error}
+      <div transition:fade class="p-2 mb-6">
+        <BsAlert icon={warning} iconAlt={warning} actionLink=" " actionText=" " type="danger" text={error.message ?? "An error occured. Try again"} />
+      </div>
+    {/if}
   {:else}
-    <BsAlert icon={info} iconAlt="info" type="info" text="By using (de)Motivator with an account, you consent to our, as well as Google's cookies." actionLink="https://policies.google.com/privacy" actionText="Learn More" />
+  <BsAlert icon={info} iconAlt="info" type="info" text="By using (de)Motivator with an account, you consent to our, as well as Google's cookies." actionLink="https://policies.google.com/privacy" actionText="Learn More" />
+    {#if error}
+      <div transition:fade class="p-2 mb-6">
+        <BsAlert icon={warning} iconAlt={warning} actionLink=" " actionText=" " type="danger" text={error.message ?? "An error occured. Try again"} />
+      </div>
+    {/if}
   {/if}
   <Title />
 <h3 class="text-center font-primary font-light">
@@ -152,11 +168,6 @@ const loginHandler = async (event) => {
                   placeholder="******************"
                 />
               </div>
-              {#if error}
-                <div transition:fade class="p-2 mb-6">
-                  <BsAlert icon={warning} iconAlt={warning} type="danger" text={error.message ?? "An error occured. Try again"} />
-                </div>
-              {/if}
               
               <div>
                 <button type="submit" class="btn btn-primary">Sign In</button>

@@ -36,6 +36,7 @@
     "@capacitor/ios": "^4.2.0",
     "bootstrap": "^5.2.2",
     "bootstrap-icons": "^1.8.3",
+    "canvas-confetti": "^1.6.0",
     "cordova-res": "^0.15.4",
     "demotivator": "^10.0.1",
     "firebase": "^9.10.0",
