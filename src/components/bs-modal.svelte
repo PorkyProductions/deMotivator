@@ -10,6 +10,7 @@
     export let body;
     export let confirmButtonType;
     export let confirmButtonText;
+    export let confirmButtonAction
     export let closeButtonType;
     export let closeButtonText;
 </script>
@@ -20,7 +21,7 @@
   </button>
   
   <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade dark:text-black" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -38,7 +39,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-{closeButtonType}" data-bs-dismiss="modal">{closeButtonText}</button>
-          <button type="button" class="btn btn-{confirmButtonType}">{confirmButtonText}</button>
+          <button type="button" class="btn btn-{confirmButtonType}" on:click={confirmButtonAction}>{confirmButtonText}</button>
         </div>
       </div>
     </div>
