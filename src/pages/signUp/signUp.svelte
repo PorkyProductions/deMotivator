@@ -68,13 +68,13 @@ if (user !== null) {
   const uid = user.uid;
 }
 
-
 const signUp = async (auth, email, password) => {
-  const { getAuth, createUserWithEmailAndPassword } = await import("firebase/auth");
+  const { getAuth, createUserWithEmailAndPassword, sendEmailVerification } = await import("firebase/auth");
   createUserWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
     // Signed in 
     const user = userCredential.user;
+    sendEmailVerification(auth.currentUser)
     // ...
   })
   .catch((error) => {

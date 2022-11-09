@@ -4,7 +4,7 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
+const firebaseConfig: FirebaseConfig = {
     apiKey: "AIzaSyBXQIdxhaZk2jEh7Kgkui4OG0WUsIHyWgk",
     authDomain: "demotivator-3cf4d.firebaseapp.com",
     projectId: "demotivator-3cf4d",
@@ -18,9 +18,11 @@ const firebaseConfig = {
 // @ts-ignore
 const app = initializeApp(firebaseConfig);
 import { getAuth } from "firebase/auth";
+import { Insult } from "./types";
+import { FirebaseConfig } from "./types";
 const auth = getAuth();
 const user = auth.currentUser;
-export const userInsults: string[] = [
+export const userInsults: Insult[] = [
     `If there was ever one person who I hated the most, it would be ${user?.displayName ?? "this guest user"}`,
     `I heard ${user?.displayName ?? "this guest user"} is a really bad person`,
     `I would give you an insult, but I think ${user?.displayName ?? "this guest user"} is too self-righteous to hear it`,

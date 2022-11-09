@@ -1,16 +1,20 @@
+
+import { insults } from 'demotivator'
+import { userInsults } from './insults'
+import {bool} from './types'
 class Insult {
     length: number
     name: string
-    mean?: boolean
-    constructor(name: string, length: number, mean?: boolean) {
+    mean?: bool
+    constructor(name: string, length: number, mean?: bool) {
         this.name = name
         this.length = length
     }
 }
 
 class UserInsult extends Insult {
-    containsUser: boolean
-    constructor(name: string, length: number, containsUser: boolean, mean?: boolean) {
+    containsUser: bool
+    constructor(name: string, length: number, containsUser: bool, mean?: bool) {
         super(name, length, mean)
         this.name = name
         this.length = length,
@@ -19,9 +23,6 @@ class UserInsult extends Insult {
     }
 } 
 
-
-import { insults } from 'demotivator'
-import { userInsults } from './insults'
 
 insults.forEach((insult: string ) => {new Insult(insult, insult.length)});
 userInsults.forEach((userInsult: string) => new UserInsult(userInsult, userInsult.length, true))

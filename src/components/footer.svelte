@@ -4,6 +4,7 @@
     import Title from './title.svelte';
     import { deviceType, OS } from 'uadetect'
     import SiwGoogleButton from './siwGoogleButton.svelte';
+  import CssSpinner from './cssSpinner.svelte';
     const navigation = [
         {
             name: "Home",
@@ -22,6 +23,11 @@
             href: "https://github.com/PorkyProductions/deMotivator.js"
         },
     ]
+    const getCatFact = async () => {
+        const response = await fetch("https://catfact.ninja/fact")
+        const data = await response.json()
+        return data
+    }
 </script>
 
 
@@ -81,6 +87,15 @@
                 {/each}
                 <SiwGoogleButton />
             </div>
+        </div>
+        <div class="flex content-center justify-center">
+            {#await getCatFact()}
+                <CssSpinner />
+            {:then result}
+                <div class="text-white dark:text-secondary-orangePantone">
+                    {result.fact}
+                </div>
+            {/await}
         </div>
     </footer>
 {/if}

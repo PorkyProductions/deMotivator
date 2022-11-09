@@ -67,14 +67,16 @@ import Auth from './auth.svelte';
 import { fade } from 'svelte/transition';
 import warning from 'bootstrap-icons/icons/exclamation-diamond-fill.svg'
 import BsAlert from '../../components/bs-Alert.svelte';
+import BsModal from '../../components/bs-modal.svelte';
 
 let loginWithEmailPassword;
 let error = null;
 
+import confetti from 'canvas-confetti'
+
 
 const loginHandler = async (event) => {
     const { randomInRange } = await import('../../typescript/random')
-    const confetti = await import('canvas-confetti')
     const { email, password } = event.target.elements;
     try {
         error = null;
@@ -89,6 +91,31 @@ const loginHandler = async (event) => {
         error = err;
     }
 };
+
+const deleteUser = async () => {
+  const { deleteUser } = await import("firebase/auth");
+  const user = auth.currentUser;
+  try {
+    deleteUser(user)
+  }
+  catch (err) {
+    error = err;
+  };
+}
+
+const launchConfetti = async () => {
+    const { randomInRange } = await import('../../typescript/random')
+    let i = 3
+    while (i >= 0) {
+      confetti({
+          angle: randomInRange(50, 90),
+          spread: randomInRange(25, 100),
+          particleCount: randomInRange(1, 999),
+          origin: { y: 0.6 }
+      });
+      i-=1
+    }
+}
 </script>
 <Auth
         useRedirect={true}
@@ -140,7 +167,23 @@ const loginHandler = async (event) => {
                 </h1>
                 <h2 class="font-primary pb-4">{user.email ?? " "}</h2>
                 <h3 class="font-primary">{"Your (de)Motivator UserID: " + user.id ?? " "}</h3>
+                <button type="button" class="mt-3 btn btn-primary" on:click={launchConfetti}>
+                  Launch Confetti
+                </button>
                 <button type="button" class="mt-3 btn btn-warning" on:click={logout}>Logout</button>
+                <div class="mt-3">
+                  <BsModal 
+                preButtonText="Delete Account" 
+                preButtonType="danger" 
+                icon={warning}
+                title="Are you sure?" 
+                body="Once an account is deleted, it cannot be undone, and any data associated with that account will be forever lost. Be absolutely sure."
+                confirmButtonType="danger" 
+                confirmButtonText="Delete Account"
+                closeButtonType="secondary"
+                closeButtonText="Back to safety" 
+                />
+                </div>
             </div>
         </div>
     {:else}
