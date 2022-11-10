@@ -269,6 +269,13 @@
                   </span>
                 </div>
                 {/if}
+                <div class="flex content-center justify-center p-4">
+                  <a href="list.html" class="btn btn-secondary">
+                    <div class="inline">
+                      <span>View All Insults</span>
+                    </div>  
+                  </a>
+                </div>
               </div>
             </div>
           {:else}
@@ -357,11 +364,16 @@
             </div>
           {/if}
         </div>
-        <div class="flex content-center justify-center p-4 pb-10">
-          <a href="index.html" class="btn btn-outline-success">
-            <img src={leftArrow} alt="" /> Go Back Home</a
-          >
-        </div>
+      </div>
+      <div class="flex content-center justify-center p-4 pb-10">
+        <a href="index.html" class="btn btn-outline-success">
+          <div class="inline">
+            <span>
+              <img src={leftArrow} alt="" />
+            </span>
+            <span>Go Back Home</span>
+          </div>  
+        </a>
       </div>
     </div>
   {/if}
