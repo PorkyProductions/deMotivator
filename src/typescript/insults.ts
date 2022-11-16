@@ -18,8 +18,7 @@ const firebaseConfig: FirebaseConfig = {
 // @ts-ignore
 const app = initializeApp(firebaseConfig);
 import { getAuth } from "firebase/auth";
-import { Insult } from "./types";
-import { FirebaseConfig } from "./types";
+import { Insult, FirebaseConfig } from "./types";
 const auth = getAuth();
 const user = auth.currentUser;
 export const userInsults: Insult[] = [

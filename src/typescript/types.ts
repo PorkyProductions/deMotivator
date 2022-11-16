@@ -9,3 +9,11 @@ export interface FirebaseConfig {
     appId: string;
     measurementId: string;
 }
+
+export interface _Insult {
+    length: number,
+    name: string,
+    mean?: bool
+}
+
+export interface _UserInsult extends _Insult {containsUser: bool}
