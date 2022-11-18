@@ -3,8 +3,16 @@
     import Spinhog from "./spinhog.svelte";
 
     let ready = false;
-    const loadingTimer = setTimeout(()=> ready = true, 1000);
-    onDestroy(() => clearTimeout(loadingTimer));
+    const load = async () => {
+        let duration = 1000
+        const { SplashScreen } = await import('@capacitor/splash-screen');
+        await SplashScreen.show({
+            showDuration: duration,
+            autoHide: true,
+        });
+        const loadingTimer = setTimeout(() => ready = true, duration);
+        onDestroy(() => clearTimeout(loadingTimer));
+    }
 </script>
 
 {#if !ready}

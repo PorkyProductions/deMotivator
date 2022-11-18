@@ -79,7 +79,14 @@
 
   const loginHandler = async (event) => {
     const { randomInRange } = await import("../../typescript/random");
+    const { Haptics, ImpactStyle } = await import("@capacitor/haptics");
     const { email, password } = event.target.elements;
+    const hapticsVibrate = async () => {
+      await Haptics.vibrate();
+    };
+    const hapticsImpactMedium = async () => {
+      await Haptics.impact({ style: ImpactStyle.Medium });
+    };
     try {
       error = null;
       await loginWithEmailPassword(email.value, password.value);
@@ -89,6 +96,8 @@
         particleCount: randomInRange(50, 100),
         origin: { y: 0.6 },
       });
+      await hapticsImpactMedium();
+      await hapticsVibrate();
     } catch (err) {
       error = err;
     }
@@ -114,6 +123,13 @@
 
   const launchConfetti = async () => {
     const { randomInRange } = await import("../../typescript/random");
+    const { Haptics, ImpactStyle } = await import("@capacitor/haptics");
+    const hapticsVibrate = async () => {
+      await Haptics.vibrate();
+    };
+    const hapticsImpactMedium = async () => {
+      await Haptics.impact({ style: ImpactStyle.Medium });
+    };
     let i = 3;
     while (i >= 0) {
       confetti({
@@ -122,6 +138,8 @@
         particleCount: randomInRange(1, 999),
         origin: { y: 0.6 },
       });
+      await hapticsVibrate()
+      await hapticsImpactMedium()
       i -= 1;
     }
   };
@@ -239,41 +257,41 @@
               </div>
               <div class="text-center m-auto">
                 {#if user.emailVerified == true}
-                <div class="flex content-center justify-center">
-                  <span>
-                    <img src={check} alt="" />
-                  </span>
-                  &nbsp;
-                  <span>
-                    <p class="font-primary dark:text-white">
-                      Email verified!
-                    </p>
-                  </span>
-                </div>
+                  <div class="flex content-center justify-center">
+                    <span>
+                      <img src={check} alt="" />
+                    </span>
+                    &nbsp;
+                    <span>
+                      <p class="font-primary dark:text-white">
+                        Email verified!
+                      </p>
+                    </span>
+                  </div>
                 {:else}
-                <div class="flex content-center justify-center">
-                  <span>
-                    <img src={exclamation} alt="" />
-                  </span>
-                  &nbsp;
-                  <span>
-                    <p class="font-primary dark:text-white">
-                      Email not verified!
-                    </p>
-                  </span>
-                  &nbsp;
-                  <span>
-                    <button class="btn btn-primary" on:click={verifyEmail}>
-                      {verifyEmailButtonText}
-                    </button>
-                  </span>
-                </div>
+                  <div class="flex content-center justify-center">
+                    <span>
+                      <img src={exclamation} alt="" />
+                    </span>
+                    &nbsp;
+                    <span>
+                      <p class="font-primary dark:text-white">
+                        Email not verified!
+                      </p>
+                    </span>
+                    &nbsp;
+                    <span>
+                      <button class="btn btn-primary" on:click={verifyEmail}>
+                        {verifyEmailButtonText}
+                      </button>
+                    </span>
+                  </div>
                 {/if}
                 <div class="flex content-center justify-center p-4">
                   <a href="list.html" class="btn btn-secondary">
                     <div class="inline">
                       <span>View All Insults</span>
-                    </div>  
+                    </div>
                   </a>
                 </div>
               </div>
@@ -372,7 +390,7 @@
               <img src={leftArrow} alt="" />
             </span>
             <span>Go Back Home</span>
-          </div>  
+          </div>
         </a>
       </div>
     </div>
