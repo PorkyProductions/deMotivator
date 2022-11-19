@@ -1,0 +1,1 @@
+import{_ as r}from"./title.4bd6cf16.js";import{r as e}from"./index.4a1ce933.js";const _=e("Dialog",{web:()=>r(()=>import("./web.5b657ccf.js"),["assets/web.5b657ccf.js","assets/index.4a1ce933.js"]).then(o=>new o.DialogWeb)});export{_ as Dialog};
