@@ -5,6 +5,7 @@
     import '../../styles/scss/colorScheme.scss'
     import '@capacitor/core'
     import 'bootstrap/dist/css/bootstrap.css'
+    import confetti from 'canvas-confetti'
     // Import components
     import Title from '../../components/title.svelte';
     import BsSpinner from '../../components/bs-spinner.svelte';
@@ -88,7 +89,6 @@ let agreedToTerms = false;
 
 const signUpHandler = async (event) => {
   const { randomInRange } = await import('../../typescript/random')
-  const confetti = await import('canvas-confetti')
   const { email, password } = event.target.elements;
   try {
       error = null;

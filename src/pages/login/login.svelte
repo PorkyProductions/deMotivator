@@ -103,10 +103,17 @@
     }
   };
 
+  
+
+
   const deleteUser = async () => {
     const { deleteUser } = await import("firebase/auth");
+    const { Haptics, ImpactStyle } = await import("@capacitor/haptics");
+    const { showConfirm } = await import('../../typescript/easterEggs')
     const user = auth.currentUser;
     try {
+      await Haptics.vibrate()
+      await showConfirm("Are you sure?", "This is your last chance to back out.")
       deleteUser(user);
     } catch (err) {
       error = err;
