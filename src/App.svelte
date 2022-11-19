@@ -10,8 +10,17 @@
     // Loading Logic
     import { onDestroy } from "svelte";
     let ready = false;
-    const timeoutId = setTimeout(() => ready = true, 1000);
-    onDestroy(() => clearTimeout(timeoutId));
+    const load = async () => {
+        let duration = randomInRange(1, 4000)
+        const { SplashScreen } = await import('@capacitor/splash-screen');
+        await SplashScreen.show({
+            showDuration: duration,
+            autoHide: true,
+        });
+        const loadingTimer = setTimeout(() => ready = true, duration);
+        onDestroy(() => clearTimeout(loadingTimer));
+    }
+    load();
     import {
         fade
     } from 'svelte/transition'
@@ -43,6 +52,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { randomInRange } from './typescript/random';
 const auth = getAuth();
 const user = auth.currentUser;
 if (user !== null) {

@@ -17,11 +17,20 @@
   // Import Misc Helpers
   import { onDestroy } from "svelte";
   import { darkMode } from "../../typescript/darkMode";
-
+  import { randomInRange } from '../../typescript/random'
   // Loading Logic
   let ready = false;
-  const timeoutId = setTimeout(() => (ready = true), 1500);
-  onDestroy(() => clearTimeout(timeoutId));
+    const load = async () => {
+        let duration = randomInRange(1, 3500)
+        const { SplashScreen } = await import('@capacitor/splash-screen');
+        await SplashScreen.show({
+            showDuration: duration,
+            autoHide: true,
+        });
+        const loadingTimer = setTimeout(() => ready = true, duration);
+        onDestroy(() => clearTimeout(loadingTimer));
+    }
+    load();
 
   // FROM BEYOND THIS POINT IS FIREBASE LOGIC
   // BEWARE
@@ -276,23 +285,11 @@
                     </span>
                   </div>
                 {:else}
-                  <div class="flex content-center justify-center">
                     <span>
-                      <img src={exclamation} alt="" />
-                    </span>
-                    &nbsp;
-                    <span>
-                      <p class="font-primary dark:text-white">
-                        Email not verified!
-                      </p>
-                    </span>
-                    &nbsp;
-                    <span>
-                      <button class="btn btn-primary" on:click={verifyEmail}>
-                        {verifyEmailButtonText}
+                      <button class="btn btn-info inline" on:click={verifyEmail}>
+                        {verifyEmailButtonText} 
                       </button>
                     </span>
-                  </div>
                 {/if}
                 <div class="flex content-center justify-center p-4">
                   <a href="list.html" class="btn btn-secondary">

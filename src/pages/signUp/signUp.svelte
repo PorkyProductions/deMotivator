@@ -22,8 +22,17 @@
 
     // Loading Logic
     let ready = false;
-    const timeoutId = setTimeout(()=> ready = true, 1500);
-    onDestroy(() => clearTimeout(timeoutId));
+    const load = async () => {
+        let duration = randomInRange(1, 4000)
+        const { SplashScreen } = await import('@capacitor/splash-screen');
+        await SplashScreen.show({
+            showDuration: duration,
+            autoHide: true,
+        });
+        const loadingTimer = setTimeout(() => ready = true, duration);
+        onDestroy(() => clearTimeout(loadingTimer));
+    }
+    load();
 
 
 
