@@ -64,5 +64,12 @@ document.body.addEventListener('keyup', async (e: KeyboardEvent) => {
         `)
     } else if (e.key === "s") {
         document.body.classList.add('spin')
+    } else if (e.key === "q") {
+        showAlert("Oh my whats this", `
+        
+            quandale dingle
+            https://i.kym-cdn.com/editorials/icons/mobile/000/004/390/quandalecover.jpg
+        
+        `)
     }
 })
