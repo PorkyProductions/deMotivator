@@ -1,3 +1,3 @@
-import twemoji from "twemoji";
+import t from "twemoji";
 
-twemoji.parse(document.body);
+t.parse(document.body);

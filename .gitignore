@@ -32,3 +32,7 @@ firebase.json
 
 resources/ios/**/*
 resources/android/**/*
+
+# Environment Variables
+.env.*
+.env

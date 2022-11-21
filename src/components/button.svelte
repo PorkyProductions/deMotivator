@@ -44,7 +44,12 @@ const MEGAMODErandomize = async () => {
     MEGAMODEresult = insults[Math.floor(Math.random() * insults.length)]
     MEGAMODEinsults++
 }
-setInterval(()=> {clearInterval; setInterval(() => MEGAMODErandomize(), MEGAMODEspeed)}, 1000)
+const MEGAMODEspeedControl = () => {
+    setInterval(() => {
+        MEGAMODErandomize();
+        console.log(MEGAMODEspeed);
+    }, MEGAMODEspeed) 
+}
 </script>
 
 <Auth
@@ -69,7 +74,7 @@ let:loggedIn
         </p>
         <div class="flex content-center justify-center">
             <label for="">
-                <input type="range" name="" id="" min="1" max="2000" bind:value={MEGAMODEspeed} />
+                <input type="range" name="" id="" min="1" max="2000" on:change={MEGAMODEspeedControl} bind:value={MEGAMODEspeed} />
             </label>
             <p>{MEGAMODEspeed}</p>
         </div>

@@ -21,15 +21,7 @@ import { getAnalytics, setUserId } from "firebase/analytics";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyBXQIdxhaZk2jEh7Kgkui4OG0WUsIHyWgk",
-  authDomain: "demotivator-3cf4d.firebaseapp.com",
-  projectId: "demotivator-3cf4d",
-  storageBucket: "demotivator-3cf4d.appspot.com",
-  messagingSenderId: "230067629772",
-  appId: "1:230067629772:web:682830de35cc6b7be91c69",
-  measurementId: "G-T182ZXMZM1"
-};
+import {firebaseConfig} from '../../typescript/insults'
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
