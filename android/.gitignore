@@ -1,5 +1,8 @@
 # Using Android gitignore template: https://github.com/github/gitignore/blob/HEAD/Android.gitignore
 
+src/main/assets/public/
+
+
 # Built application files
 *.apk
 *.aar
