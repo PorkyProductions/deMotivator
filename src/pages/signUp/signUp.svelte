@@ -19,6 +19,7 @@
     import { fade } from 'svelte/transition';
     import { onDestroy } from "svelte";
     import { darkMode } from '../../typescript/darkMode'
+    import { randomInRange } from '../../typescript/random'
 
     // Loading Logic
     let ready = false;

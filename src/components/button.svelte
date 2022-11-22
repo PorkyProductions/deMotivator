@@ -57,7 +57,7 @@ let:loggedIn
 >
 
 <main>
-    <img src={logo} alt="a large, red button" on:click={randomize} class="p-4 hover:cursor-pointer">
+    <img src={logo} draggable="false" alt="a large, red button" on:click={randomize} class="p-4 hover:cursor-pointer">
     <div class="sm:p-3 md:p-4 lg:p-5 xl:p-6"></div>
     {#if !MEGAMODE}
         {#if loggedIn}

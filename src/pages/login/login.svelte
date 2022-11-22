@@ -225,9 +225,10 @@ import {firebaseConfig} from '../../typescript/insults'
               <div class="text-center">
                 <img
                   src={user.picture ?? person}
-                  alt=""
+                  alt="the profile of the user"
                   width="40%"
                   class="m-auto"
+                  draggable="false"
                 />
                 <h1 class="font-bold font-primary">
                   {user.name ?? "Guest"}
