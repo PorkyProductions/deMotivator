@@ -1,4 +1,4 @@
-import { bool } from './types';
+import type { bool } from './types';
 
 console.log(`%c
     

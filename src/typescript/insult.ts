@@ -1,7 +1,7 @@
 
 import { insults } from 'demotivator'
 import { userInsults } from './insults'
-import {bool, _Insult, _UserInsult} from './types'
+import type {bool, _Insult, _UserInsult} from './types'
 class Insult implements _Insult {
     length: number
     name: string

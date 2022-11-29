@@ -356,7 +356,7 @@ import {firebaseConfig} from '../../typescript/insults'
                   <div class="mt-3">
                     <button
                       type="button"
-                      class="btn btn-outline-info"
+                      class="btn btn-info"
                       on:click|preventDefault={signInAnonomous}
                     >
                       Sign In as a Guest
@@ -381,7 +381,7 @@ import {firebaseConfig} from '../../typescript/insults'
         </div>
       </div>
       <div class="flex content-center justify-center p-4 pb-10">
-        <a href="index.html" class="btn btn-outline-success">
+        <a href="index.html" class="btn btn-success">
           <div class="inline">
             <span>
               <img src={leftArrow} alt="" />
