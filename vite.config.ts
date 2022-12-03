@@ -14,6 +14,8 @@ export default defineConfig({
     ],
   base: "/",
   build: {
+    cssCodeSplit: true,
+    sourcemap: true,
     rollupOptions: {
       input: {
         index: "index.html",
