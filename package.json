@@ -47,6 +47,7 @@
     "demotivator": "^11.0.0",
     "firebase": "^9.10.0",
     "firebase-tools": "^11.10.0",
+    "serve": "^14.1.2",
     "svelte-loading-spinners": "^0.1.7",
     "terser": "^5.15.1",
     "twemoji": "^14.0.2",
