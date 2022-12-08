@@ -1,7 +1,6 @@
-export const go = new Go();
 import server from '../../www/main.wasm?init'
-WebAssembly.instantiateStreaming(fetch(server()), go.importObject).then(
+WebAssembly.instantiateStreaming(fetch(server())).then(
     (result) => {
-        go.run(result.instance);
+        console.log(result.instance)
     }
 );
