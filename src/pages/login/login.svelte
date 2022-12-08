@@ -79,6 +79,7 @@ import {firebaseConfig} from '../../typescript/insults'
   import confetti from "canvas-confetti";
 
   const loginHandler = async (event) => {
+    ready = false
     const { randomInRange } = await import("../../typescript/random");
     const { Haptics, ImpactStyle } = await import("@capacitor/haptics");
     const { email, password } = event.target.elements;
@@ -99,6 +100,7 @@ import {firebaseConfig} from '../../typescript/insults'
       });
       await hapticsImpactMedium();
       await hapticsVibrate();
+      load()
     } catch (err) {
       error = err;
     }
@@ -217,11 +219,10 @@ import {firebaseConfig} from '../../typescript/insults'
         {/if}
       {/if}
       <Title />
-      <h3 class="text-center font-primary font-light">Log In</h3>
       <div class="">
         <div class="wrapper flex content-center justify-center ">
           {#if loggedIn}
-            <div class="w-full max-w-xs" transition:fade>
+            <div class="w-full max-w-xs bg-white dark:bg-black" transition:fade>
               <div class="text-center">
                 <img
                   src={user.picture ?? person}
@@ -245,15 +246,15 @@ import {firebaseConfig} from '../../typescript/insults'
                   Launch Confetti
                 </button>
                 <button
-                  type="button"
-                  class="mt-3 btn btn-warning"
-                  on:click={logout}>Logout</button
+                type="button"
+                class="mt-3 btn btn-warning"
+                on:click={logout}>Logout</button
                 >
                 <div class="mt-3 pb-3">
                   <BsModal
-                    preButtonText="Delete Account"
-                    preButtonType="danger"
-                    icon={warning}
+                  preButtonText="Delete Account"
+                  preButtonType="danger"
+                  icon={warning}
                     title="Are you sure?"
                     body="Once an account is deleted, it cannot be undone, and any data associated with that account will be forever lost. Be absolutely sure."
                     confirmButtonType="danger"
@@ -277,10 +278,10 @@ import {firebaseConfig} from '../../typescript/insults'
                       </p>
                     </span>
                   </div>
-                {:else}
-                    <span>
-                      <button class="btn btn-info inline" on:click={verifyEmail}>
-                        {verifyEmailButtonText} 
+                  {:else}
+                  <span>
+                    <button class="btn btn-info inline" on:click={verifyEmail}>
+                      {verifyEmailButtonText} 
                       </button>
                     </span>
                 {/if}
@@ -293,15 +294,15 @@ import {firebaseConfig} from '../../typescript/insults'
                 </div>
               </div>
             </div>
-          {:else}
+            {:else}
             <div class="w-full max-w-xs" transition:fade>
               <div class=" flex content-center justify-center">
                 <form
-                  on:submit|preventDefault={loginHandler}
-                  class="px-8 pt-6 pb-8 shadow-md border-primary-majorelleBlue border-2 rounded-lg dark:border-secondary-orangePantone dark:border-2"
+                on:submit|preventDefault={loginHandler}
+                class="px-8 pt-6 pb-8 shadow-md dark:bg-black border-primary-majorelleBlue border-2 rounded-lg dark:border-secondary-orangePantone dark:border-2"
                 >
-                  <div class="mb-4">
-                    <label class="form-label" for="email">Email</label>
+                <div class="mb-4">
+                  <label class="form-label" for="email">Email</label>
                     <input
                       class="input-field form-control dark:bg-black focus:cursor-text hover:focus:cursor-text hover:cursor-text"
                       id="email"
@@ -395,10 +396,20 @@ import {firebaseConfig} from '../../typescript/insults'
 </Auth>
 
 <style>
+  div#wrapper {
+      background-image: url(../../img/login-background-light.svg);
+      color: hsl(0, 0%, 0%);
+  }
+  form {
+    background-color: white;
+  }
   @media (prefers-color-scheme: dark) {
     div#wrapper {
-      background-color: hsl(0, 0%, 0%);
+      background-image: url(../../img/login-background-dark.svg);
       color: hsl(0, 0%, 100%);
+    }
+    form {
+      background-color: black;
     }
   }
 </style>

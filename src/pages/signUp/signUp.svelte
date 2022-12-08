@@ -93,6 +93,7 @@ const signUpHandler = async (event) => {
   const { randomInRange } = await import('../../typescript/random')
   const { email, password } = event.target.elements;
   try {
+      ready = false
       error = null;
       if (!agreedToTerms) {
         throw new Error("You must agree to the terms and conditions before signing up!")
@@ -106,6 +107,7 @@ const signUpHandler = async (event) => {
             origin: { y: 0.6 }
         });
       }
+      load()
   } catch (err) {
       error = err;
   }
@@ -205,10 +207,20 @@ Sign Up
 
 
 <style>
-@media (prefers-color-scheme: dark) {
+  div#wrapper {
+      background-image: url(../../img/login-background-light.svg);
+      color: hsl(0, 0%, 0%);
+  }
+  form {
+    background-color: white;
+  }
+  @media (prefers-color-scheme: dark) {
     div#wrapper {
-      background-color: hsl(0, 0%, 0%);
+      background-image: url(../../img/login-background-dark.svg);
       color: hsl(0, 0%, 100%);
     }
-}
+    form {
+      background-color: black;
+    }
+  }
 </style>
