@@ -18,6 +18,7 @@
   import { onDestroy } from "svelte";
   import { darkMode } from "../../typescript/darkMode";
   import { randomInRange } from '../../typescript/random'
+  import { deviceType } from 'uadetect'
   // Loading Logic
   let ready = false;
     const load = async () => {
@@ -79,7 +80,9 @@ import {firebaseConfig} from '../../typescript/insults'
   import confetti from "canvas-confetti";
 
   const loginHandler = async (event) => {
-    ready = false
+    if (deviceType === "desktop") {
+      ready = false
+    }
     const { randomInRange } = await import("../../typescript/random");
     const { Haptics, ImpactStyle } = await import("@capacitor/haptics");
     const { email, password } = event.target.elements;
@@ -222,21 +225,25 @@ import {firebaseConfig} from '../../typescript/insults'
       <div class="">
         <div class="wrapper flex content-center justify-center ">
           {#if loggedIn}
-            <div class="w-full max-w-xs bg-white dark:bg-black" transition:fade>
+            <div class="w-full max-w-xs" id="loggedInUI" transition:fade>
               <div class="text-center">
                 <img
                   src={user.picture ?? person}
                   alt="the profile of the user"
                   width="40%"
-                  class="m-auto"
+                  class="m-auto rounded-3xl"
                   draggable="false"
+                  id="pfp"
                 />
                 <h1 class="font-bold font-primary">
                   {user.name ?? "Guest"}
                 </h1>
                 <h2 class="font-primary pb-4">{user.email ?? " "}</h2>
-                <h3 class="font-primary">
-                  {"Your (de)Motivator UserID: " + user.id ?? " "}
+                <h2 class="font-primary">
+                  Your (de)Motivator UserID:
+                </h2>
+                <h3 class="font-primary text-xl">
+                  {user.id ?? " "}
                 </h3>
                 <button
                   type="button"
@@ -343,7 +350,7 @@ import {firebaseConfig} from '../../typescript/insults'
                     <div class="mt-3">
                       <button
                         type="button"
-                        class="btn btn-outline-secondary"
+                        class="btn btn-secondary"
                         on:click|preventDefault={loginWithGoogle}
                       >
                         <span
@@ -400,7 +407,8 @@ import {firebaseConfig} from '../../typescript/insults'
       background-image: url(../../img/login-background-light.svg);
       color: hsl(0, 0%, 0%);
   }
-  form {
+  form, 
+  div#loggedInUI {
     background-color: white;
   }
   @media (prefers-color-scheme: dark) {
@@ -408,8 +416,12 @@ import {firebaseConfig} from '../../typescript/insults'
       background-image: url(../../img/login-background-dark.svg);
       color: hsl(0, 0%, 100%);
     }
-    form {
+    form, 
+    div#loggedInUI {
       background-color: black;
+    }
+    #pfp {
+      background-color: white;
     }
   }
 </style>

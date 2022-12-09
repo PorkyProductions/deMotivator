@@ -24,6 +24,7 @@ export default defineConfig({
         login: "./login.html",
         signUp: "./signUp.html",
         list: "./list.html",
+        credits: "./credits.html"
         // DMV1: './dmv1.html',
       },
       output: {

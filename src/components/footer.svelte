@@ -22,6 +22,10 @@
             name: "(de)Motivator.js",
             href: "https://github.com/PorkyProductions/deMotivator.js"
         },
+        {
+            name: "Credits",
+            href: "credits.html"
+        },
     ]
     const getCatFact = async () => {
         const response = await fetch("https://catfact.ninja/fact")
