@@ -19,6 +19,9 @@
   import { darkMode } from "../../typescript/darkMode";
   import { randomInRange } from '../../typescript/random'
   import { deviceType } from 'uadetect'
+  let emailBoxContent;
+  let emailBox;
+  const emailRegExp = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
   // Loading Logic
   let ready = false;
     const load = async () => {
@@ -311,11 +314,17 @@ import {firebaseConfig} from '../../typescript/insults'
                 <div class="mb-4">
                   <label class="form-label" for="email">Email</label>
                     <input
-                      class="input-field form-control dark:bg-black focus:cursor-text hover:focus:cursor-text hover:cursor-text"
-                      id="email"
-                      type="email"
-                      placeholder="name@example.com"
-                    />
+                        class="input-field form-control dark:bg-black focus:cursor-text hover:focus:cursor-text hover:cursor-text"
+                        id="email"
+                        type="email"
+                        placeholder="name@example.com"
+                        bind:value={emailBoxContent}
+                        bind:this={emailBox}
+                        required
+                      />
+                  </div>
+                  <div class="invalid-feedback">
+                    Email is Required!
                   </div>
                   <div class="mb-6">
                     <label class="form-label" for="password">Password</label>
@@ -324,9 +333,9 @@ import {firebaseConfig} from '../../typescript/insults'
                       id="password"
                       type="password"
                       placeholder="******************"
+                      required
                     />
                   </div>
-
                   <div>
                     <button type="submit" class="btn btn-primary"
                       >Sign In</button
