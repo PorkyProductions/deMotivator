@@ -28,7 +28,8 @@ let:loggedIn
     {/each}
 </div>
 {:else}
-    <h3 class="text-4xl p-4 text-center text-red-500 font-primary font-bold">
+<div class="bg-red-500 text-white">
+    <h3 class="text-4xl p-4 text-center font-primary font-bold">
         You must be logged in to view all insults.
         <br />
     </h3>
@@ -36,6 +37,7 @@ let:loggedIn
     <a href="login.html" class="btn btn-success">
         Login
     </a>
+</div>
 </div>
 {/if}
 <div class="flex content-center justify-center p-4">

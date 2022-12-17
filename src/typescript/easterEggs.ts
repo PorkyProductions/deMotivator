@@ -46,8 +46,8 @@ export const showConfirm = async (title: string, message: string): Promise<strin
         title: title,
         message: message,
     });
-    return value
-  };
+    return value as bool
+};
 
 document.body.addEventListener('keyup', async (e: KeyboardEvent) => {
     if (e.key === "p") {

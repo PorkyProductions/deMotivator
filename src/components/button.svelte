@@ -62,8 +62,10 @@ let:loggedIn
     {#if !MEGAMODE}
         {#if loggedIn}
             <p class="text-center font-primary" transition:fade>{userResult}</p>
+            <div class="sm:p-3 md:p-4 lg:p-5 xl:p-6"></div>
         {:else if !loggedIn}
             <p class="text-center font-primary" transition:fade>{result}</p>
+            <div class="sm:p-3 md:p-4 lg:p-5 xl:p-6"></div>
         {/if}
     {:else if MEGAMODE}
         <p class="text-center font-primary">{MEGAMODEresult}</p>
@@ -78,6 +80,7 @@ let:loggedIn
             </label>
             <p>{MEGAMODEspeed}</p>
         </div>
+        <div class="sm:p-3 md:p-4 lg:p-5 xl:p-6"></div>
     {/if}
     <div class="flex content-center justify-center">
         <label class="hover:font-black hover:text-red-600 font-primary">

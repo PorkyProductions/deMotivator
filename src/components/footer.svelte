@@ -27,11 +27,6 @@
             href: "credits.html"
         },
     ]
-    const getCatFact = async () => {
-        const response = await fetch("https://catfact.ninja/fact")
-        const data = await response.json()
-        return data
-    }
 </script>
 
 
@@ -46,9 +41,11 @@
 {#if deviceType === 'mobile'}
 <!--Deadspace to cover entire screen on mobile devices-->
 <div class="pb-96 flex content-center justify-center text-center">
-    <div class="absolute bottom-0">
-        <a href="/login.html" class="bg-primary-majorelleBlue text-xl dark:bg-secondary-orangePantone text-white font-primary font-medium p-10 rounded-lg">View Account</a>
-    </div>
+    <footer class="footer pt-20">
+        <button class="text-white dark:bg-secondary-orangePantone bg-primary-majorelleBlue font-primary underline py-2 px-4 rounded-full">
+            View Account
+        </button>
+    </footer>
 </div>
 
 <!--If it's an Android Tablet-->
@@ -56,9 +53,11 @@
     <div class="pb-96 flex content-center justify-center text-center">
             <div class="pb-28">
             </div>
-            <div class="absolute bottom-0">
-                <a href="/login.html" class="bg-primary-majorelleBlue text-xl dark:bg-secondary-orangePantone text-white font-primary font-medium p-10 rounded-lg">View Account</a>
-            </div>
+            <footer class="footer pt-20">
+                <button class="text-white dark:bg-secondary-orangePantone bg-primary-majorelleBlue font-primary underline py-2 px-4 rounded-full">
+                    View Account
+                </button>
+            </footer>
     </div>
     
 <!--If it's an iPad-->
@@ -66,14 +65,16 @@
 <div class="pb-96 flex content-center justify-center text-center">
     <div class="pb-28">
     </div>
-    <div class="absolute bottom-0">
-        <a href="/login.html" class="bg-primary-majorelleBlue text-xl dark:bg-secondary-orangePantone text-white font-primary font-medium p-10 rounded-lg">View Account</a>
-    </div>
+    <footer class="footer pt-20">
+        <button class="text-white dark:bg-secondary-orangePantone bg-primary-majorelleBlue font-primary underline py-2 px-4 rounded-full">
+            View Account
+        </button>
+  </footer>
 </div>
 
 <!--Desktop-->
 {:else}
-    <footer class=" bg-primary-majorelleBlue dark:bg-gray-900 portrait:hidden rounded-t-md">
+    <footer class=" bg-primary-majorelleBlue dark:bg-gray-900 portrait:hidden fixed bottom-0 right-0 left-0 rounded-t-md">
         <div class="flex justify-between content-center">
             <div class="flex justify-between flex-col">
                 <div class="flex content-center">
@@ -85,21 +86,12 @@
                 <hr />
                 <p class="text-white p-4">Copyright &copy; 2020-{year.getFullYear()}, PorkyProductions and/or it's contributors. All Rights Reserved</p>
             </div>
-            <div class="flex justify-between flex-col p-4 text-white underline">
+            <nav class="flex justify-between flex-col p-4 text-white underline font-primary font-medium">
                 {#each navigation as link}
                     <a class="footer-link" href={link.href}>{link.name}</a>
                 {/each}
                 <SiwGoogleButton />
-            </div>
-        </div>
-        <div class="flex content-center justify-center">
-            {#await getCatFact()}
-                <CssSpinner />
-            {:then result}
-                <div class="text-white dark:text-secondary-orangePantone">
-                    {result.fact}
-                </div>
-            {/await}
+            </nav>
         </div>
     </footer>
 {/if}
@@ -117,10 +109,11 @@
         border: 1px solid #DABFFF;
         padding-left: 1rem;
     }
+
     @media (prefers-color-scheme: dark) {
         hr {
             border: 1px solid #F75C03;
             color: #F75C03;
         }
-    }
+    } 
 </style>
