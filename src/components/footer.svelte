@@ -42,9 +42,9 @@
 <!--Deadspace to cover entire screen on mobile devices-->
 <div class="pb-96 flex content-center justify-center text-center">
     <footer class="footer pt-20">
-        <button class="text-white dark:bg-secondary-orangePantone bg-primary-majorelleBlue font-primary underline py-2 px-4 rounded-full">
+        <a href="login.html" class="text-white dark:bg-secondary-orangePantone bg-primary-majorelleBlue font-primary underline py-2 px-4 rounded-full">
             View Account
-        </button>
+        </a>
     </footer>
 </div>
 
@@ -54,9 +54,9 @@
             <div class="pb-28">
             </div>
             <footer class="footer pt-20">
-                <button class="text-white dark:bg-secondary-orangePantone bg-primary-majorelleBlue font-primary underline py-2 px-4 rounded-full">
+                <a href="login.html" class="text-white dark:bg-secondary-orangePantone bg-primary-majorelleBlue font-primary underline py-2 px-4 rounded-full">
                     View Account
-                </button>
+                </a>
             </footer>
     </div>
     
@@ -66,9 +66,9 @@
     <div class="pb-28">
     </div>
     <footer class="footer pt-20">
-        <button class="text-white dark:bg-secondary-orangePantone bg-primary-majorelleBlue font-primary underline py-2 px-4 rounded-full">
+        <a href="login.html" class="text-white dark:bg-secondary-orangePantone bg-primary-majorelleBlue font-primary underline py-2 px-4 rounded-full">
             View Account
-        </button>
+        </a>
   </footer>
 </div>
 
