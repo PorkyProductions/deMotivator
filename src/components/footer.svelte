@@ -4,12 +4,8 @@
     import Title from './title.svelte';
     import { deviceType, OS } from 'uadetect'
     import SiwGoogleButton from './siwGoogleButton.svelte';
-  import CssSpinner from './cssSpinner.svelte';
+    import CssSpinner from './cssSpinner.svelte';
     const navigation = [
-        {
-            name: "Home",
-            href: "index.html"
-        },
         {
             name: "PorkyProductions",
             href: "https://porkyproductions.github.io/"

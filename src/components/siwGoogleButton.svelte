@@ -15,7 +15,7 @@ import { getAuth } from 'firebase/auth'
 
 
 import personPlus from 'bootstrap-icons/icons/person-plus.svg'
-import person from 'bootstrap-icons/icons/person.svg'
+import personGear from 'bootstrap-icons/icons/person-gear.svg'
 import Auth from "../pages/login/auth.svelte";
 import { darkMode } from "../typescript/darkMode";
 </script>
@@ -28,7 +28,7 @@ let:loggedIn
     {#if darkMode}
         {#if loggedIn}
         <a href="/login.html" class="flex justify-between content-center bg-gray-600 hover:bg-gray-700 text-white p-2 rounded-lg">
-                <p class="text-sm lg:text-md leading-3 hover:text-white visited:text-purple-200 hover:visited:text-primary-majorelleBlue dark:hover:visited:text-secondary-orangePantone">View Account</p> <img src={person} alt="person">
+                <p class="text-sm lg:text-md leading-3 hover:text-white visited:text-purple-200 hover:visited:text-primary-majorelleBlue dark:hover:visited:text-secondary-orangePantone">View Account</p> <img src={personGear} alt="person">
         </a>
         {:else if loggedIn == false}
             <a href="/login.html" class="flex justify-between content-center bg-gray-600 hover:bg-gray-700 text-white p-2 rounded-lg">
@@ -38,7 +38,7 @@ let:loggedIn
     {:else}
         {#if loggedIn}
         <a href="/login.html" class="flex justify-between content-center bg-white hover:bg-gray-200 text-black p-2 rounded-lg">
-                <p class="text-sm lg:text-md leading-3 hover:text-gray-700 visited:text-purple-900 hover:visited:text-primary-majorelleBlue dark:hover:visited:text-secondary-orangePantone">View Account</p> <img src={person} alt="person">
+                <p class="text-sm lg:text-md leading-3 hover:text-gray-700 visited:text-purple-900 hover:visited:text-primary-majorelleBlue dark:hover:visited:text-secondary-orangePantone">View Account</p> <img src={personGear} alt="person">
         </a>
         {:else if loggedIn == false}
             <a href="/login.html" class="flex justify-between content-center bg-white hover:bg-gray-200 text-black p-2 rounded-lg">
