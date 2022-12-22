@@ -14,6 +14,8 @@ export default defineConfig({
     ],
   base: "/",
   build: {
+    target: "es2017",
+    emptyOutDir: false,
     cssCodeSplit: true,
     sourcemap: true,
     rollupOptions: {
