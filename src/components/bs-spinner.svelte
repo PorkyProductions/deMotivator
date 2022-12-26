@@ -1,5 +1,5 @@
 <script>
-    import 'bootstrap/dist/css/bootstrap.css'
+    import 'bootstrap/scss/bootstrap.scss'
     export let type;
     import { darkMode } from '../typescript/darkMode';
 </script>

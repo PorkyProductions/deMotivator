@@ -4,7 +4,7 @@
   import "../../styles/css/customProps.css";
   import "../../styles/scss/colorScheme.scss";
   import "@capacitor/core";
-  import "bootstrap/dist/css/bootstrap.css";
+  import "bootstrap/scss/bootstrap.scss";
   // Import components
   import BsSpinner from "../../components/bs-spinner.svelte";
   import Title from "../../components/title.svelte";
@@ -76,6 +76,7 @@ import {firebaseConfig} from '../../typescript/insults'
   import warning from "bootstrap-icons/icons/exclamation-diamond-fill.svg";
   import BsAlert from "../../components/bs-Alert.svelte";
   import BsModal from "../../components/bs-modal.svelte";
+  import BsButton from "../../components/bsButton.svelte";
 
   let loginWithEmailPassword;
   let error = null;
@@ -180,7 +181,7 @@ import {firebaseConfig} from '../../typescript/insults'
       <BsSpinner type="primary" />
     {/if}
   {:else}
-    <div id="wrapper" class="pb-56">
+    <div id="wrapper" class="absolute top-0 bottom-0 right-0 left-0">
       {#if darkMode == true}
         <BsAlert
           icon={info}
@@ -234,7 +235,7 @@ import {firebaseConfig} from '../../typescript/insults'
                   src={user.picture ?? person}
                   alt="the profile of the user"
                   width="40%"
-                  class="m-auto rounded-3xl"
+                  class="m-auto rounded-3xl dark:text-black"
                   draggable="false"
                   id="pfp"
                 />
@@ -398,14 +399,13 @@ import {firebaseConfig} from '../../typescript/insults'
         </div>
       </div>
       <div class="flex content-center justify-center p-4 pb-10">
-        <a href="index.html" class="btn btn-success">
-          <div class="inline">
-            <span>
-              <img src={leftArrow} alt="" />
-            </span>
-            <span>Go Back Home</span>
-          </div>
-        </a>
+        <BsButton 
+          icon={leftArrow}
+          iconAlt="a left facing arrow"
+          text="Go back home"
+          type="success"
+          href="index.html"
+        />
       </div>
     </div>
   {/if}

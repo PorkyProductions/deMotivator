@@ -52,6 +52,6 @@
     "terser": "^5.15.1",
     "twemoji": "^14.0.2",
     "typescript": "^4.7.4",
-    "uadetect": "^4.1.1"
+    "uadetect": "^5.0.0"
   }
 }

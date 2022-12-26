@@ -1,5 +1,5 @@
 <script>
-    import 'bootstrap/dist/css/bootstrap.css'
+    import 'bootstrap/scss/bootstrap.scss'
     const load = async () => {
         await import('bootstrap/dist/js/bootstrap.esm')
     }

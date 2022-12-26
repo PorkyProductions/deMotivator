@@ -84,7 +84,7 @@ let:loggedIn
     {/if}
     <div class="flex content-center justify-center">
         <label class="hover:font-black hover:text-red-600 font-primary">
-            <input type=checkbox bind:checked={MEGAMODE} class="">
+            <input type=checkbox bind:checked={MEGAMODE} class="hover:checked:accent-blue-600">
             MEGAMODE
         </label>
     </div>

@@ -12,6 +12,8 @@
     import Auth from '../login/auth.svelte';
     import leftArrow from 'bootstrap-icons/icons/arrow-left.svg'
     import BsAlert from '../../components/bs-Alert.svelte';
+    import BsButton from '../../components/bsButton.svelte'
+    import CssSpinner from '../../components/cssSpinner.svelte'
     // Import Icons
     import warning from 'bootstrap-icons/icons/exclamation-diamond-fill.svg'
     import info from 'bootstrap-icons/icons/info-circle.svg'
@@ -30,7 +32,7 @@
             showDuration: duration,
             autoHide: true,
         });
-        const loadingTimer = setTimeout(() => ready = true, duration);
+        // const loadingTimer = setTimeout(() => ready = true, duration);
         onDestroy(() => clearTimeout(loadingTimer));
     }
     load();
@@ -120,15 +122,15 @@ const signUpHandler = async (event) => {
 >
 {#if !ready}
   {#if loggedIn}
-    <BsSpinner type="success" />
+    <CssSpinner />
   {:else}
     {#if error}
       <BsSpinner type="danger" />
     {/if}
-  <BsSpinner type="primary" />
+  <CssSpinner />
   {/if}
 {:else}
-<div id="wrapper" class="pb-56">
+<div id="wrapper" class="absolute top-0 bottom-0 right-0 left-0">
   {#if darkMode == true}
   <BsAlert icon={info} iconAlt="info" type="dark" text="By using (de)Motivator with an account, you consent to our, as well as Google's cookies." actionLink="https://policies.google.com/privacy" actionText="Learn More"  />
     {#if error}
@@ -195,7 +197,13 @@ Sign Up
             {/if}
           </div>
           <div class="flex content-center justify-center p-4 pb-10">
-            <a href="index.html" class="btn btn-outline-success"> <img src={leftArrow} alt=""> Go Back Home</a>
+            <BsButton 
+              icon={leftArrow}
+              iconAlt="a left facing arrow"
+              text="Go back home"
+              type="success"
+              href="index.html"
+            />
           </div>
 </div>
 </div>
