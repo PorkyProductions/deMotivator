@@ -2,6 +2,8 @@ apply plugin: 'com.android.application'
 
 android {
 
+
+    namespace 'io.porkyproductions.demotivator'
     buildToolsVersion '32.0.0'
     compileSdk 32
     defaultConfig {

@@ -31,15 +31,27 @@ porkyproductions.github.io
     <meta charset="UTF-8" />
     <meta name="description" content="The Simple, Push-Button Way of Lowering your Self-Esteem">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#4f46e5">
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#4f46e5">
+    <meta name="theme-color" media="(prefers-color-scheme: dark)"  content="#F75C03">
     <link rel="shortcut icon" href="./src/img/dmv-logo.png" type="image/x-icon">
+    <script type="module" src="./src/typescript/easterEggs.ts"></script>
+    <script type="module" src="./src/typescript/twemoji.ts" defer></script>
+    <script type="module" src="./src/typescript/easterEggs.ts"></script>
+    <script type="module" src="./src//typescript/server.ts"></script>
+    <link rel="stylesheet" href="./src/styles/scss/spin.scss">
+    <link rel="stylesheet" href="./src/styles/scss/darkMode.scss">
     <title>(de)Motivator</title>
+    <link rel="manifest" href="www/manifest.json">
+    <link rel="icons" href="www/icons.json">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
   </head>
+  <script>
+    
+  </script>
   <body>
     <div id="app"></div>
-    <script type="module" src="./src/main.js"></script>
+    <script type="module" src="./src/bootstrapper.ts"></script>
   </body>
 </html>

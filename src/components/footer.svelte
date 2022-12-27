@@ -1,38 +1,115 @@
-<script lang="ts">
-    import '../app.css';
-    import logo from  '../img/HedgehogIcon.png';
-    import { DEVICE_type } from 'uadetect'
+<script>
+    var year = new Date();
+    import hedgehog from '../img/HedgehogIcon.png'
+    import Title from './title.svelte';
+    import { deviceType, OS } from 'uadetect'
     import SiwGoogleButton from './siwGoogleButton.svelte';
+    import CssSpinner from './cssSpinner.svelte';
+    const navigation = [
+        {
+            name: "PorkyProductions",
+            href: "https://porkyproductions.github.io/"
+        },
+        {
+            name: "(de)Motivator 1.0",
+            href: "dmv1.html"
+        },
+        {
+            name: "(de)Motivator.js",
+            href: "https://github.com/PorkyProductions/deMotivator.js"
+        },
+        {
+            name: "Credits",
+            href: "credits.html"
+        },
+    ]
 </script>
 
-{#if DEVICE_type === 'mobile'}
-<!--Deadspace to cover entire screen on mobile devices-->
-        <div class="pb-96">
-            <div class="pb-24">
 
+
+<!--
+    First we check if it's mobile, which is the catch-all solution
+    Then, we need to account for tablets. However, UADetect sometimes counts laptops as tablets, so we need to ensure the OS
+    This is done by checking the OS, and if the OS is a tablet OS AND the deviceType is tablet, then we can paint the appropriate UI
+-->
+
+
+{#if deviceType === 'mobile'}
+<!--Deadspace to cover entire screen on mobile devices-->
+<div class="pb-96 flex content-center justify-center text-center">
+    <footer class="footer pt-20">
+        <a href="login.html" class="text-white dark:bg-secondary-orangePantone bg-primary-majorelleBlue font-primary underline py-2 px-4 rounded-full">
+            View Account
+        </a>
+    </footer>
+</div>
+
+<!--If it's an Android Tablet-->
+{:else if OS === 'Android' && deviceType === "tablet"}
+    <div class="pb-96 flex content-center justify-center text-center">
+            <div class="pb-28">
             </div>
-        </div>
-    {/if}
-{#if DEVICE_type === 'desktop'}
-<main class="bg-primary-majorelleBlue dark:bg-secondary-orangePantone rounded-t-xl">
-    <div class="font-semibold text-2xl">
-        <div>
-            <a href="https://porkyproductions.github.io" class="hover:bg-indigo-400 dark:hover:bg-orange-700 hover:rounded-xl"><img src={logo} alt="hedgehog" class="text-center m-auto hover:bg-indigo-400 dark:hover:bg-orange-700 hover:rounded-xl"></a>
-        </div>
-        <div class="flex justify-between content-center pl-56 pr-80">
-            <p class="text-white ">
-                a PorkyProductions product
-            </p>
-            <a class="text-white hover:bg-indigo-400 dark:hover:bg-orange-700 hover:rounded-xl" href="dmv1.html">(de)Motivator 1.0</a>
-            <a class="text-white hover:bg-indigo-400 dark:hover:bg-orange-700 hover:rounded-xl" href="http://github.com/PorkyProductions/deMotivator.js">(de)Motivator.js</a>
-            <SiwGoogleButton />
-        </div>
+            <footer class="footer pt-20">
+                <a href="login.html" class="text-white dark:bg-secondary-orangePantone bg-primary-majorelleBlue font-primary underline py-2 px-4 rounded-full">
+                    View Account
+                </a>
+            </footer>
     </div>
-</main>
+    
+<!--If it's an iPad-->
+{:else if OS === 'iOS' && deviceType === 'tablet'}
+<div class="pb-96 flex content-center justify-center text-center">
+    <div class="pb-28">
+    </div>
+    <footer class="footer pt-20">
+        <a href="login.html" class="text-white dark:bg-secondary-orangePantone bg-primary-majorelleBlue font-primary underline py-2 px-4 rounded-full">
+            View Account
+        </a>
+  </footer>
+</div>
+
+<!--Desktop-->
+{:else}
+    <footer class=" bg-primary-majorelleBlue dark:bg-gray-900 portrait:hidden fixed bottom-0 right-0 left-0 rounded-t-md">
+        <div class="flex justify-between content-center">
+            <div class="flex justify-between flex-col">
+                <div class="flex content-center">
+                    <img src={hedgehog} alt="Hedgehog" id="logo" class="dark:hidden hover:animate-spin">
+                    <div class="text-white">
+                        <Title />
+                    </div>
+                </div>
+                <hr />
+                <p class="text-white p-4">Copyright &copy; 2020-{year.getFullYear()}, PorkyProductions and/or it's contributors. All Rights Reserved</p>
+            </div>
+            <nav class="flex justify-between flex-col p-4 text-white underline font-primary font-medium">
+                {#each navigation as link}
+                    <a class="footer-link" href={link.href}>{link.name}</a>
+                {/each}
+                <SiwGoogleButton />
+            </nav>
+        </div>
+    </footer>
 {/if}
 
 <style>
-    img {
-        width: 100px;
+    #logo {
+        width: 7rem;
+        padding: 1rem;
     }
+    a {
+        color: white;
+        text-decoration: underline dashed;
+    }
+    hr {
+        border: 1px solid #DABFFF;
+        padding-left: 1rem;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        hr {
+            border: 1px solid #F75C03;
+            color: #F75C03;
+        }
+    } 
 </style>

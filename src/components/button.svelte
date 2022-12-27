@@ -1,37 +1,97 @@
 <script lang="ts">
-    import { userInsults } from '../typescript/insults';
-    import { insults } from 'demotivator'
-    import logo from  '../img/dmv-logo.png';
-    import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-    const auth = getAuth();
-    const user = auth.currentUser;
-    if (user !== null) {
-    // The user object has basic properties such as display name, email, etc.
-    const displayName = user.displayName;
-    const email = user.email;
-    const photoURL = user.photoURL;
-    const emailVerified = user.emailVerified;
+    // Imports
+    import logo from '../img/dmv-logo.png';
+    import { Insult, UserInsult } from '../typescript/insult'
+    console.log({
+        Insult,
+        UserInsult
+    })
 
-    // The user's ID, unique to the Firebase project. Do NOT use
-    // this value to authenticate with your backend server, if
-    // you have one. Use User.getToken() instead.
-    const uid = user.uid;
-}
+    // Firebase
+    import {fade} from 'svelte/transition'
+    import Auth from '../pages/login/auth.svelte';
+
+/*
+
+Randomizer
+
+*/
+
+let insultsShown = 0
 let result = ""
-const randomize = () => {
-    if (user != null) {
-        result = userInsults[Math.floor(Math.random() * userInsults.length)]
-    } else if (user == null) {
-        result = insults[Math.floor(Math.random() * insults.length)]
-    }
+let userResult = ""
+const randomize = async () => {
+    const { userInsults } = await import('../typescript/insults')
+    const { insults } = await import('demotivator')
+    const demotivatorAndUserIsults = userInsults.concat(insults)
+    userResult = demotivatorAndUserIsults[Math.floor(Math.random() * demotivatorAndUserIsults.length)]
+    result = insults[Math.floor(Math.random() * insults.length)]
+    insultsShown++
+}
+/*
+
+MEGAMODE
+
+*/
+
+let MEGAMODEresult = ""
+let MEGAMODE = false
+let MEGAMODEspeed = 250
+let MEGAMODEinsults = 0;
+
+const MEGAMODErandomize = async () => {
+    const { insults } = await import('demotivator')
+    MEGAMODEresult = insults[Math.floor(Math.random() * insults.length)]
+    MEGAMODEinsults++
+}
+const MEGAMODEspeedControl = () => {
+    setInterval(() => {
+        MEGAMODErandomize();
+        console.log(MEGAMODEspeed);
+    }, MEGAMODEspeed) 
 }
 </script>
 
+<Auth
+let:loggedIn
+>
+
 <main>
-    <img src={logo} alt="large, red button" on:click={randomize} class="p-4">
+    <img src={logo} draggable="false" alt="a large, red button" on:click={randomize} on:keypress={randomize} class="p-4 hover:cursor-pointer">
     <div class="sm:p-3 md:p-4 lg:p-5 xl:p-6"></div>
-    <p class="text-center font-primary">{result}</p>
+    {#if !MEGAMODE}
+        {#if loggedIn}
+            <p class="text-center font-primary" transition:fade>{userResult}</p>
+            <div class="sm:p-3 md:p-4 lg:p-5 xl:p-6"></div>
+        {:else if !loggedIn}
+            <p class="text-center font-primary" transition:fade>{result}</p>
+            <div class="sm:p-3 md:p-4 lg:p-5 xl:p-6"></div>
+        {/if}
+    {:else if MEGAMODE}
+        <p class="text-center font-primary">{MEGAMODEresult}</p>
+        <br />
+        <br />
+        <p class="text-center font-primary">
+            Insults shown: {MEGAMODEinsults}
+        </p>
+        <div class="flex content-center justify-center">
+            <label for="">
+                <input type="range" name="" id="" min="1" max="2000" on:change={MEGAMODEspeedControl} bind:value={MEGAMODEspeed} />
+            </label>
+            <p>{MEGAMODEspeed}</p>
+        </div>
+        <div class="sm:p-3 md:p-4 lg:p-5 xl:p-6"></div>
+    {/if}
+    <div class="flex content-center justify-center">
+        <label class="hover:font-black hover:text-red-600 font-primary">
+            <input type=checkbox bind:checked={MEGAMODE} class="hover:checked:accent-blue-600">
+            MEGAMODE
+        </label>
+    </div>
+    
 </main>
+
+</Auth>
 
 <style>
     img {

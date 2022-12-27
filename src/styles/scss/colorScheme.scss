@@ -1,0 +1,58 @@
+// Main Theme
+
+$primary-majorelleBlue: #4f46e5;
+$highlights: hsl(240, 100%, 48%);
+$secondary-orangePantone: #F75C03;
+$tertiary-mauve: #DABFFF;
+
+
+
+// Base Colors & Theme
+
+$theme-red: #db0000;
+$theme-orange: #ff7b00;
+$theme-yellow: #ffbb00;
+$theme-lime: #00ff22;
+$theme-green: #046d00;
+$theme-lightBlue: #00fffb;
+$theme-blue: #001eff;
+$theme-blue-vibrant: #0000F4;
+$theme-indigo: #6f00ff;
+$theme-purple: #36008c;
+$theme-pink: #ff00d4;
+$theme-white: #fffff6;
+
+$theme-border-radius-md: 15px;
+
+@function invert($color, $amount: 100%) {
+    $inverse: change-color($color, $hue: hue($color) + 180);
+    @return mix($inverse, $color, $amount);
+}
+
+* {
+    accent-color: $primary-majorelleBlue;
+    cursor: url(../../../node_modules/bootstrap-icons/icons/hand-thumbs-down.svg);
+    &::selection {
+        background-color: $highlights;
+        color: $theme-white;
+    }
+    p {
+        &::selection {
+            background-image: linear-gradient(to right, $theme-red, $theme-blue);
+            color: $theme-white;
+        }
+    }
+    input,
+    label {
+        cursor: pointer;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    * {
+        accent-color: $secondary-orangePantone;
+        &::selection {
+            background-color: $secondary-orangePantone
+        }
+    }
+}

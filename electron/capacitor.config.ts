@@ -3,7 +3,7 @@ import { CapacitorConfig } from '@capacitor/cli';
 const config: CapacitorConfig = {
   appId: 'io.porkyproductions.demotivator',
   appName: '(de)Motivator',
-  webDir: 'docs',
+  webDir: 'out',
   bundledWebRuntime: false
 };
 
