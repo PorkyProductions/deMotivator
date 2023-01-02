@@ -33,7 +33,7 @@
             showDuration: duration,
             autoHide: true,
         });
-        // const loadingTimer = setTimeout(() => ready = true, duration);
+        const loadingTimer = setTimeout(() => ready = true, duration);
         onDestroy(() => clearTimeout(loadingTimer));
     }
     load();
@@ -123,12 +123,12 @@ const signUpHandler = async (event) => {
 >
 {#if !ready}
   {#if loggedIn}
-    <CssSpinner />
+    <BsSpinner type="success" />
   {:else}
     {#if error}
       <BsSpinner type="danger" />
     {/if}
-  <CssSpinner />
+  <BsSpinner type="info" />
   {/if}
 {:else}
 <div id="wrapper" class="absolute top-0 bottom-0 right-0 left-0">
