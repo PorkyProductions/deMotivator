@@ -1,6 +1,8 @@
 <script>
     import Title from '../../components/title.svelte';
-    import 'bootstrap/dist/css/bootstrap.css'
+    import 'bootstrap/scss/bootstrap.scss'
+    import 'bootstrap/scss/bootstrap-reboot.scss'
+  import LoginFooter from '../../components/loginfooter.svelte';
     const credits = [
         {
             name: "Autoprefixer",

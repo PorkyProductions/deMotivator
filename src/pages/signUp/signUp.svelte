@@ -11,6 +11,7 @@
     import Title from '../../components/title.svelte';
     import BsSpinner from '../../components/bs-spinner.svelte';
     import Auth from '../login/auth.svelte';
+    import LoginFooter from '../../components/loginfooter.svelte';
     import leftArrow from 'bootstrap-icons/icons/arrow-left.svg'
     import BsAlert from '../../components/bs-Alert.svelte';
     import BsButton from '../../components/bsButton.svelte'
@@ -33,7 +34,7 @@
             showDuration: duration,
             autoHide: true,
         });
-        // const loadingTimer = setTimeout(() => ready = true, duration);
+        const loadingTimer = setTimeout(() => ready = true, duration);
         onDestroy(() => clearTimeout(loadingTimer));
     }
     load();
@@ -207,6 +208,9 @@ Sign Up
             />
           </div>
 </div>
+</div>
+<div class="absolute bottom-0 right-0 left-0">
+      <LoginFooter />
 </div>
 {/if}
 </Auth>

@@ -8,6 +8,7 @@
   import "bootstrap/scss/bootstrap.scss";
   // Import components
   import BsSpinner from "../../components/bs-spinner.svelte";
+  import LoginFooter from '../../components/loginFooter.svelte'
   import Title from "../../components/title.svelte";
   import leftArrow from "bootstrap-icons/icons/arrow-left.svg";
   import info from "bootstrap-icons/icons/info-circle.svg";
@@ -230,7 +231,7 @@ import {firebaseConfig} from '../../typescript/insults'
       <div class="">
         <div class="wrapper flex content-center justify-center ">
           {#if loggedIn}
-            <div class="w-full max-w-xs" id="loggedInUI" transition:fade>
+            <div class="w-full max-xl:max-w-3xl md:max-w-xl lg:max-w-2xl max-w-xs" id="loggedInUI" transition:fade>
               <div class="text-center">
                 <img
                   src={user.picture ?? person}
@@ -240,10 +241,10 @@ import {firebaseConfig} from '../../typescript/insults'
                   draggable="false"
                   id="pfp"
                 />
-                <h1 class="font-bold font-primary">
-                  {user.name ?? "Guest"}
-                </h1>
-                <h2 class="font-primary pb-4">{user.email ?? " "}</h2>
+                <span class="font-bold font-primary text-3xl">
+                  Hello, {user.name ?? "Guest"}
+                </span> 
+                <h2 class="font-primary pb-4 text-3xl">{user.email ?? ""}</h2>
                 <h2 class="font-primary">
                   Your (de)Motivator UserID:
                 </h2>
@@ -408,6 +409,9 @@ import {firebaseConfig} from '../../typescript/insults'
           href="index.html"
         />
       </div>
+    </div>
+    <div class="lg:block lg:absolute lg:bottom-0 lg:right-0 lg:left-0 hidden">
+      <LoginFooter />
     </div>
   {/if}
 </Auth>

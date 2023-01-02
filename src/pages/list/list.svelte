@@ -5,6 +5,7 @@ import {insults} from 'demotivator'
     const allInsults = userInsults.concat(insults)
     import 'bootstrap/dist/css/bootstrap.css'
     import Auth from '../login/auth.svelte';
+  import LoginFooter from '../../components/loginfooter.svelte';
 </script>
 
 
@@ -45,4 +46,6 @@ let:loggedIn
         Home
     </a>
 </div>
+
+      <LoginFooter />
 </Auth>

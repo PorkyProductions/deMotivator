@@ -21,6 +21,7 @@ $theme-indigo: #6f00ff;
 $theme-purple: #36008c;
 $theme-pink: #ff00d4;
 $theme-white: #fffff6;
+$theme-black: #000000;
 
 $theme-border-radius-md: 15px;
 
@@ -38,7 +39,7 @@ $theme-border-radius-md: 15px;
     }
     p {
         &::selection {
-            background-image: linear-gradient(to right, $theme-red, $theme-blue);
+            background-image: linear-gradient($theme-red, $theme-blue);
             color: $theme-white;
         }
     }
