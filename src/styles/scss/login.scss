@@ -1,0 +1,14 @@
+@import './colorScheme.scss';
+body {
+    background-image: url(./src/img/login-background-light.svg);
+    background-color: $theme-black;
+    color: $theme-white;
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-image: url(./src/img/login-background-dark.svg);
+        background-color: $theme-white;
+        color: $theme-black;
+    }
+}

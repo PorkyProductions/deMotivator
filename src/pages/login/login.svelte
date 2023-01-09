@@ -83,9 +83,13 @@
 
   let loginWithEmailPassword;
   let error = null;
+  let insultsSeenDB;
+  const refreshInsultsSeen = async () => {
+    let { readInsults } = await import('../../typescript/readInsults')
+    insultsSeenDB = await readInsults()
+  }
 
   import confetti from "canvas-confetti";
-
   const loginHandler = async (event) => {
     if (deviceType === "desktop") {
       ready = false;
@@ -246,10 +250,11 @@
                   draggable="false"
                   id="pfp"
                 />
-                <span class="font-bold font-primary text-3xl">
-                  Hello, {user.name ?? "Guest"}
+                <span class="font-semibold font-primary text-3xl">
+                  Hello, <span class="font-bold">{user.name ?? "Guest"}</span>
                 </span>
                 <h2 class="font-primary pb-4 text-3xl">{user.email ?? ""}</h2>
+                <h2 class="font-primary pb-4 text-3xl">You've seen {insultsSeenDB ?? "no"} insults</h2>
                 <h2 class="font-primary">Your (de)Motivator UserID:</h2>
                 <h3 class="font-primary text-xl">
                   {user.id ?? " "}
@@ -307,6 +312,21 @@
                       <span>View All Insults</span>
                     </div>
                   </a>
+                  &nbsp;
+                  {#if darkMode}
+                      <button type="button" on:click={refreshInsultsSeen} on:keypress={refreshInsultsSeen} class="btn btn-dark">
+                        <div class="inline">
+                          <span>Refresh Insults Seen</span>
+                        </div>
+                    </button>
+                  {:else}
+                    <button type="button" on:click={refreshInsultsSeen} on:keypress={refreshInsultsSeen} class="btn btn-light">
+                      <div class="inline">
+                        <span>Refresh Insults Seen</span>
+                      </div>
+                    </button>
+                  {/if}
+                  
                 </div>
               </div>
             </div>
@@ -427,6 +447,8 @@
     div#wrapper {
       background-image: url(../../img/login-background-dark.svg);
       color: hsl(0, 0%, 100%);
+      position: absolute;
+      bottom: 0;
     }
     form,
     div#loggedInUI {

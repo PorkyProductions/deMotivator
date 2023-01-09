@@ -1,3 +1,5 @@
+import { type DocumentData } from "firebase/firestore";
+
 export type bool = boolean
 export type Insult = string
 export interface FirebaseConfig {
@@ -17,3 +19,8 @@ export interface _Insult {
 }
 
 export interface _UserInsult extends _Insult {containsUser: bool}
+
+
+export interface InsultDBQueryResponse extends DocumentData {
+    data?: number
+}

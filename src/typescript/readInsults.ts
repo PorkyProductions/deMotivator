@@ -1,4 +1,4 @@
-import { type DocumentData } from "firebase/firestore";
+import { type InsultDBQueryResponse  } from "./types";
 export async function readInsults(): Promise<number> {
   const { getFirestore, doc, getDoc } = await import("firebase/firestore");
   const { initializeApp } = await import("firebase/app");
@@ -15,7 +15,7 @@ export async function readInsults(): Promise<number> {
         const usersRef = doc(db, "users", user.uid);
         const usersSnap = await getDoc(usersRef);
         if (usersSnap.exists()) {
-          let data: DocumentData = usersSnap.data();
+          let data: InsultDBQueryResponse = usersSnap.data();
           if (typeof data.insultsSeen === "number") {
             resolve(data.insultsSeen);
           } else {

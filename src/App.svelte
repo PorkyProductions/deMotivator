@@ -67,7 +67,7 @@ if (user !== null) {
     </div>
     {:else}
     <div transition:fade>
-        <div class="dark:bg-black dark:text-white" id="app">
+        <div class="dark:bg-theme-black dark:text-white" id="app">
             <Title />
             <Button />
         <div class="sm:p-3 md:p-4 lg:p-5 xl:p-20">
