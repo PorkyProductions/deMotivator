@@ -1,7 +1,7 @@
 {
   "name": "demotivator",
   "private": true,
-  "version": "12.0.0-beta-1",
+  "version": "12.0.0-beta-2",
   "type": "module",
   "scripts": {
     "dev": "vite serve",
@@ -10,7 +10,7 @@
     "lint": "eslint ./src/* --fix",
     "buildTS": "tsc --project tsconfig.json",
     "typeCheck": "tsc --project tsconfig.json --noEmit",
-    "supportedBrowsers": "(echo export default && browserslist-useragent-regexp --allowHigherVersions) > supportedBrowsers.js",
+    "supportedBrowsers": "(echo export default && browserslist-useragent-regexp --allowHigherVersions) > src/typescript/supportedBrowsers.ts",
     "preview": "vite preview",
     "push": "firebase deploy",
     "ionic:build": "npm run build",
@@ -46,7 +46,7 @@
     "demotivator": "^11.1.0",
     "firebase": "^9.16.0",
     "firebase-tools": "^11.21.0",
-    "serve": "^14.1.2",
+    "serve": "^14.2.0",
     "svelte-loading-spinners": "^0.1.7",
     "terser": "^5.16.1",
     "twemoji": "^14.0.2",
