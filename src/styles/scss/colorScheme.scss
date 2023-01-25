@@ -51,7 +51,7 @@ $theme-border-radius-md: 15px;
 
 @media (prefers-color-scheme: dark) {
     * {
-        accent-color: $secondary-orangePantone;
+        accent-color: mix($secondary-orangePantone, $theme-orange, 10%);
         &::selection {
             background-color: $secondary-orangePantone
         }

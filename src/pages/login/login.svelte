@@ -26,8 +26,8 @@
   const emailRegExp = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
   // Loading Logic
   let ready = false;
+  let duration = randomInRange(1, 3500);
   const load = async () => {
-    let duration = randomInRange(1, 3500);
     const { SplashScreen } = await import("@capacitor/splash-screen");
     await SplashScreen.show({
       showDuration: duration,
@@ -80,6 +80,7 @@
   import BsAlert from "../../components/bs-Alert.svelte";
   import BsModal from "../../components/bs-modal.svelte";
   import BsButton from "../../components/bsButton.svelte";
+  import BsLoader from "../../components/bsLoader.svelte";
 
   let loginWithEmailPassword;
   let error = null;
@@ -180,12 +181,27 @@
 >
   {#if !ready}
     {#if loggedIn}
-      <BsSpinner type="success" />
+      <div class="p-4">
+        <BsSpinner type="success" />
+      </div>
+      <div class="m-auto px-8">
+        <BsLoader type="success" loadingTime={duration} />
+      </div>
     {:else}
       {#if error}
-        <BsSpinner type="danger" />
+        <div class="p-4">
+          <BsSpinner type="danger" />
+        </div>
+        <div class="m-auto px-8">
+          <BsLoader type="danger" loadingTime={duration} />
+        </div>
       {/if}
-      <BsSpinner type="primary" />
+        <div class="p-4">
+          <BsSpinner type="primary" />
+        </div>
+        <div class="m-auto px-8">
+          <BsLoader type="primary" loadingTime={duration} />
+        </div>
     {/if}
   {:else}
     <div id="wrapper" class="absolute top-0 bottom-0 right-0 left-0">
@@ -236,11 +252,7 @@
       <div class="">
         <div class="wrapper flex content-center justify-center ">
           {#if loggedIn}
-            <div
-              class="w-full max-xl:max-w-3xl md:max-w-xl lg:max-w-2xl max-w-xs"
-              id="loggedInUI"
-              transition:fade
-            >
+            <div class="w-full md:max-w-xs" id="loggedInUI" transition:fade>
               <div class="text-center">
                 <img
                   src={user.picture ?? person}

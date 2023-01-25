@@ -16,6 +16,7 @@
     import BsAlert from '../../components/bs-Alert.svelte';
     import BsButton from '../../components/bsButton.svelte'
     import CssSpinner from '../../components/cssSpinner.svelte'
+    import BsLoader from '../../components/bsLoader.svelte'
     // Import Icons
     import warning from 'bootstrap-icons/icons/exclamation-diamond-fill.svg'
     import info from 'bootstrap-icons/icons/info-circle.svg'
@@ -27,8 +28,8 @@
 
     // Loading Logic
     let ready = false;
+    let duration = randomInRange(1, 4000)
     const load = async () => {
-        let duration = randomInRange(1, 4000)
         const { SplashScreen } = await import('@capacitor/splash-screen');
         await SplashScreen.show({
             showDuration: duration,
@@ -123,15 +124,30 @@ const signUpHandler = async (event) => {
       let:loggedIn
 >
 {#if !ready}
-  {#if loggedIn}
-    <CssSpinner />
-  {:else}
-    {#if error}
-      <BsSpinner type="danger" />
+    {#if loggedIn}
+      <div class="p-4">
+        <BsSpinner type="success" />
+      </div>
+      <div class="m-auto px-8">
+        <BsLoader type="success" loadingTime={duration} />
+      </div>
+    {:else}
+      {#if error}
+        <div class="p-4">
+          <BsSpinner type="danger" />
+        </div>
+        <div class="m-auto px-8">
+          <BsLoader type="danger" loadingTime={duration} />
+        </div>
+      {/if}
+        <div class="p-4">
+          <BsSpinner type="primary" />
+        </div>
+        <div class="m-auto px-8">
+          <BsLoader type="primary" loadingTime={duration} />
+        </div>
     {/if}
-  <CssSpinner />
-  {/if}
-{:else}
+  {:else}
 <div id="wrapper" class="absolute top-0 bottom-0 right-0 left-0">
   {#if darkMode == true}
   <BsAlert icon={info} iconAlt="info" type="dark" text="By using (de)Motivator with an account, you consent to our, as well as Google's cookies." actionLink="https://policies.google.com/privacy" actionText="Learn More"  />
@@ -208,9 +224,6 @@ Sign Up
             />
           </div>
 </div>
-</div>
-<div class="absolute bottom-0 right-0 left-0">
-      <LoginFooter />
 </div>
 {/if}
 </Auth>
