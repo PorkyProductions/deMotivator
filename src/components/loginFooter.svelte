@@ -2,7 +2,7 @@
     import Title from './title.svelte';
     import 'bootstrap/scss/bootstrap.scss'
     import { insultAt } from 'demotivator';
-    import { randomInRange } from '../typescript/random';
+    import { randomInRange } from '../utils/random';
     var year = new Date().getFullYear()
 </script>
 

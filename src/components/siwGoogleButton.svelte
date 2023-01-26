@@ -17,7 +17,7 @@ import { getAuth } from 'firebase/auth'
 import personPlus from 'bootstrap-icons/icons/person-plus.svg'
 import personGear from 'bootstrap-icons/icons/person-gear.svg'
 import Auth from "../pages/login/auth.svelte";
-import { darkMode } from "../typescript/darkMode";
+import { darkMode } from "../utils/darkMode";
 </script>
 
 <Auth

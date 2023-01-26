@@ -1,7 +1,7 @@
 <script>
     import 'bootstrap/scss/bootstrap.scss'
     export let type;
-    import { darkMode } from '../typescript/darkMode';
+    import { darkMode } from '../utils/darkMode';
 </script>
 
 <div class="dark:bg-black">

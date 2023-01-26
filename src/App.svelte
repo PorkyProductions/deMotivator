@@ -24,7 +24,7 @@
     import {
         fade
     } from 'svelte/transition'
-    import supportedBrowsers from './typescript/supportedBrowsers';
+    import supportedBrowsers from './utils/supportedBrowsers';
 
 
 
@@ -45,7 +45,7 @@ import {firebaseConfig} from './typescript/insults'
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { randomInRange } from './typescript/random';
+import { randomInRange } from './utils/random';
 const auth = getAuth();
 const user = auth.currentUser;
 if (user !== null) {

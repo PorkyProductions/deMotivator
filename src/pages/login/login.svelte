@@ -18,8 +18,8 @@
   import check from "bootstrap-icons/icons/check2-circle.svg";
   // Import Misc Helpers
   import { onDestroy } from "svelte";
-  import { darkMode } from "../../typescript/darkMode";
-  import { randomInRange } from "../../typescript/random";
+  import { darkMode } from "../../utils/darkMode";
+  import { randomInRange } from "../../utils/random";
   import { deviceType } from "uadetect";
   let emailBoxContent;
   let emailBox;
@@ -95,7 +95,7 @@
     if (deviceType === "desktop") {
       ready = false;
     }
-    const { randomInRange } = await import("../../typescript/random");
+    const { randomInRange } = await import("../../utils/random");
     const { Haptics, ImpactStyle } = await import("@capacitor/haptics");
     const { email, password } = event.target.elements;
     const hapticsVibrate = async () => {
@@ -147,7 +147,7 @@
   };
 
   const launchConfetti = async () => {
-    const { randomInRange } = await import("../../typescript/random");
+    const { randomInRange } = await import("../../utils/random");
     const { Haptics, ImpactStyle } = await import("@capacitor/haptics");
     const hapticsVibrate = async () => {
       await Haptics.vibrate();

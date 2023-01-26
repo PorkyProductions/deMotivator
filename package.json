@@ -10,7 +10,7 @@
     "lint": "eslint ./src/* --fix",
     "buildTS": "tsc --project tsconfig.json",
     "typeCheck": "tsc --project tsconfig.json --noEmit",
-    "supportedBrowsers": "(echo export default && browserslist-useragent-regexp --allowHigherVersions) > src/typescript/supportedBrowsers.ts",
+    "supportedBrowsers": "(echo export default && browserslist-useragent-regexp --allowHigherVersions) > src/utils/supportedBrowsers.ts",
     "preview": "vite preview",
     "push": "firebase deploy",
     "ionic:build": "npm run build",

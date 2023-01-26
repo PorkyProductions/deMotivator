@@ -23,8 +23,8 @@
     // Import Misc Helpers
     import { fade } from 'svelte/transition';
     import { onDestroy } from "svelte";
-    import { darkMode } from '../../typescript/darkMode'
-    import { randomInRange } from '../../typescript/random'
+    import { darkMode } from '../../utils/darkMode'
+    import { randomInRange } from '../../utils/random'
 
     // Loading Logic
     let ready = false;
@@ -95,7 +95,7 @@ let error = null;
 let agreedToTerms = false;
 
 const signUpHandler = async (event) => {
-  const { randomInRange } = await import('../../typescript/random')
+  const { randomInRange } = await import('../../utils/random')
   const { email, password } = event.target.elements;
   try {
       ready = false
