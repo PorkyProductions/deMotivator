@@ -1,24 +1,16 @@
-import { defineConfig } from 'vite'
-import { svelte } from '@sveltejs/vite-plugin-svelte'
+import { svelte } from "@sveltejs/vite-plugin-svelte";
+import { UserConfig } from "vite";
 
 // https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [
-      svelte()
-    ],
-  appType: "mpa",
+const config: UserConfig = {
+  plugins: [svelte()],
   base: "/",
-  css: {
-    devSourcemap: true,
-  },
   build: {
     target: "es2017",
     emptyOutDir: false,
     cssCodeSplit: true,
     sourcemap: true,
-    minify: "esbuild",
     rollupOptions: {
-      treeshake: "recommended",
       input: {
         index: "index.html",
         fourOhFour: "./404.html",
@@ -26,7 +18,7 @@ export default defineConfig({
         login: "./login.html",
         signUp: "./signUp.html",
         list: "./list.html",
-        credits: "./credits.html"
+        credits: "./credits.html",
         // DMV1: './dmv1.html',
       },
       output: {
@@ -34,4 +26,5 @@ export default defineConfig({
       },
     },
   },
-});
+};
+export default config
