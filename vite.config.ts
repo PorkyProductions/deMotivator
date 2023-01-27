@@ -1,16 +1,20 @@
 import { svelte } from "@sveltejs/vite-plugin-svelte";
-import { UserConfig } from "vite";
-
-// https://vitejs.dev/config/
+import { type UserConfig } from "vite";
 const config: UserConfig = {
   plugins: [svelte()],
+  appType: "mpa",
   base: "/",
+  css: {
+    devSourcemap: true,
+  },
   build: {
     target: "es2017",
     emptyOutDir: false,
     cssCodeSplit: true,
     sourcemap: true,
+    minify: "esbuild",
     rollupOptions: {
+      treeshake: "recommended",
       input: {
         index: "index.html",
         fourOhFour: "./404.html",
