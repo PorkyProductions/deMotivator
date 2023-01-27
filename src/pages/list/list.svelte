@@ -47,5 +47,5 @@ let:loggedIn
     </a>
 </div>
 
-      <LoginFooter />
+<LoginFooter />
 </Auth>
