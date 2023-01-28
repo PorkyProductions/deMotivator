@@ -1,11 +1,12 @@
-<script>
+<script lang="ts">
+    import { type BSVarient } from '../typescript/types';
     import 'bootstrap/scss/bootstrap.scss'
-    export let type;
-    export let icon;
-    export let iconAlt;
-    export let text;
-    export let actionLink;
-    export let actionText;
+    export let type: BSVarient;
+    export let icon: any;
+    export let iconAlt: string;
+    export let text: string;
+    export let actionLink: string;
+    export let actionText: string;
     const load = async () => {
       await import('bootstrap/dist/js/bootstrap.esm')
     }

@@ -1,9 +1,14 @@
-<script>
+<script lang="ts">
     import Title from '../../components/title.svelte';
     import 'bootstrap/scss/bootstrap.scss'
     import 'bootstrap/scss/bootstrap-reboot.scss'
-  import LoginFooter from '../../components/loginfooter.svelte';
-    const credits = [
+    interface Credits {
+        name: string,
+        website: string,
+        licenseName: string,
+        licenseUrl: string
+    }
+    const credits: Credits[] = [
         {
             name: "Autoprefixer",
             website: "https://github.com/postcss/autoprefixer#readme",
@@ -57,6 +62,12 @@
             website: "https://github.com/vercel/serve#readme",
             licenseName: "MIT",
             licenseUrl: "https://raw.githubusercontent.com/vercel/serve/main/license.md"
+        },
+        {
+            name: "Svelte",
+            website: "https://svelte.dev",
+            licenseName: "MIT",
+            licenseUrl: "https://raw.githubusercontent.com/sveltejs/svelte/master/LICENSE.md"
         },
         {
             name: "TailwindCSS",

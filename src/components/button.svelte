@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     // Imports
     import logo from '../img/dmv-logo.png';
     import { Insult, UserInsult } from '../typescript/insult'
@@ -10,7 +10,6 @@
     // Firebase
     import {fade} from 'svelte/transition'
     import Auth from '../pages/login/auth.svelte';
-    import { firebaseConfig } from '../typescript/insults';
 
 /*
 
@@ -24,11 +23,12 @@ let userResult = ""
 const randomize = async () => {
     const { userInsults } = await import('../typescript/insults')
     const { insults } = await import('demotivator')
-    let { readInsults, insultsSeenDB } = await import('../typescript/readInsults')
+    let { readInsults } = await import('../typescript/readInsults')
     const {updateInsultsSeen} = await import('../typescript/updateInsults')
     const demotivatorAndUserIsults = userInsults.concat(insults)
     userResult = demotivatorAndUserIsults[Math.floor(Math.random() * demotivatorAndUserIsults.length)]
     result = insults[Math.floor(Math.random() * insults.length)]
+    let insultsSeenDB: number;
     insultsShown++
     insultsSeenDB = await readInsults()
     if (!MEGAMODE) {

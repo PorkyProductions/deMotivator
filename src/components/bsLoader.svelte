@@ -1,9 +1,10 @@
-<script>
+<script lang="ts">
   import "bootstrap/scss/bootstrap.scss";
-  export let type;
-  export let loadingTime;
+  export let type: BSVarient;
+  export let loadingTime: number;
   import { fade } from "svelte/transition";
   import { onMount, onDestroy } from "svelte";
+  import { BSVarient } from "../typescript/types";
   let elapsedTime = 0;
   let value = 0;
   let timeUntil100Percent = 10000 / loadingTime;
@@ -16,9 +17,6 @@
   const loadingPercentCalc = setInterval(() => {
     value += timeUntil100Percent;
     elapsedTime += 1;
-    if (elapsedTime === time) {
-      clearInterval(loadingPercentCalc);
-    }
   }, 100);
   onDestroy(() => clearInterval(loadingPercentCalc));
 </script>

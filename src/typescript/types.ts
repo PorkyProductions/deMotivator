@@ -2,6 +2,10 @@ import { type DocumentData } from "firebase/firestore";
 
 export type bool = boolean
 export type Insult = string
+
+export type BSVarient = "primary" | "secondary" | "success" | "danger" | "warning" | "info" | "light" | "dark"
+
+
 export interface FirebaseConfig {
     apiKey: string;
     authDomain: string;

@@ -1,6 +1,7 @@
-<script>
+<script lang="ts">
     import 'bootstrap/scss/bootstrap.scss'
-    export let type;
+    import { BSVarient } from '../typescript/types';
+    export let type: BSVarient;
     import { darkMode } from '../utils/darkMode';
 </script>
 

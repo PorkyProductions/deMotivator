@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import Title from '../../components/title.svelte';
     import { fade } from 'svelte/transition';
     import '../../styles/css/app.css'

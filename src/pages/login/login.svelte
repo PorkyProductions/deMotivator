@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   // Import generic stylesheets, essential libraries
   import "../../styles/css/app.css";
   import "../../styles/css/customProps.css";
@@ -21,9 +21,9 @@
   import { darkMode } from "../../utils/darkMode";
   import { randomInRange } from "../../utils/random";
   import { deviceType } from "uadetect";
-  let emailBoxContent;
-  let emailBox;
-  const emailRegExp = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+  let emailBoxContent
+  let emailBox
+  const emailRegExp: RegExp = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
   // Loading Logic
   let ready = false;
   let duration = randomInRange(1, 3500);
@@ -42,7 +42,7 @@
   // BEWARE
 
   import { initializeApp } from "firebase/app";
-  import { getAnalytics, setUserId } from "firebase/analytics";
+  import { getAnalytics } from "firebase/analytics";
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -55,24 +55,9 @@
   const analytics = getAnalytics(app);
   import {
     getAuth,
-    signInWithPopup,
-    GoogleAuthProvider,
-    onAuthStateChanged,
   } from "firebase/auth";
   const auth = getAuth();
   const user = auth.currentUser;
-  if (user !== null) {
-    // The user object has basic properties such as display name, email, etc.
-    const displayName = user.displayName;
-    const email = user.email;
-    const photoURL = user.photoURL;
-    const emailVerified = user.emailVerified;
-
-    // The user's ID, unique to the Firebase project. Do NOT use
-    // this value to authenticate with your backend server, if
-    // you have one. Use User.getToken() instead.
-    const uid = user.uid;
-  }
   import Auth from "./auth.svelte";
   import { fade } from "svelte/transition";
 
@@ -123,7 +108,7 @@
 
   const deleteUser = async () => {
     const { deleteUser } = await import("firebase/auth");
-    const { Haptics, ImpactStyle } = await import("@capacitor/haptics");
+    const { Haptics } = await import("@capacitor/haptics");
     const { showConfirm } = await import("../../typescript/easterEggs");
     const user = auth.currentUser;
     try {

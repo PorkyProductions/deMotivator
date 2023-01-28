@@ -1,10 +1,9 @@
-<script>
+<script lang="ts">
     var year = new Date();
     import hedgehog from '../img/HedgehogIcon.png'
     import Title from './title.svelte';
     import { deviceType, OS } from 'uadetect'
     import SiwGoogleButton from './siwGoogleButton.svelte';
-    import CssSpinner from './cssSpinner.svelte';
     const navigation = [
         {
             name: "PorkyProductions",

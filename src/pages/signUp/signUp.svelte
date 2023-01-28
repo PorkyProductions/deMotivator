@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   // Import generic stylesheets, essential libraries
     import '../../styles/css/app.css'
     import '../../styles/css/customProps.css'
@@ -48,7 +48,7 @@
   // BEWARE
 
 
-import { initializeApp } from "firebase/app";
+import { FirebaseApp, initializeApp } from "firebase/app";
 import { getAnalytics, setUserId } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -60,7 +60,7 @@ import {firebaseConfig} from '../../typescript/insults'
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 const auth = getAuth();
 const user = auth.currentUser;
 if (user !== null) {
@@ -76,8 +76,8 @@ if (user !== null) {
   const uid = user.uid;
 }
 
-const signUp = async (auth, email, password) => {
-  const { getAuth, createUserWithEmailAndPassword, sendEmailVerification } = await import("firebase/auth");
+const signUp = async (auth: any, email: string, password: string) => {
+  const { createUserWithEmailAndPassword, sendEmailVerification } = await import("firebase/auth");
   createUserWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
     // Signed in 

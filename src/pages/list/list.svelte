@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import Title from '../../components/title.svelte';
 import {insults} from 'demotivator'
     import { userInsults } from '../../typescript/insults';

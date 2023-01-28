@@ -1,10 +1,11 @@
-<script>
+<script lang="ts">
     import 'bootstrap/scss/bootstrap.scss'
-    export let href;
-    export let type;
-    export let text;
-    export let icon;
-    export let iconAlt
+  import { BSVarient } from '../typescript/types';
+    export let href: string;
+    export let type: BSVarient;
+    export let text: string;
+    export let icon: string;
+    export let iconAlt: string
 </script>
 
 <a href={href} class="btn btn-{type}"><img src={icon} alt={iconAlt}>&nbsp;{text}</a>

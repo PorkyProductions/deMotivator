@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics, setUserId } from "firebase/analytics";
@@ -11,7 +11,6 @@ import {firebaseConfig} from '../typescript/insults'
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-import { getAuth } from 'firebase/auth'
 
 
 import personPlus from 'bootstrap-icons/icons/person-plus.svg'
