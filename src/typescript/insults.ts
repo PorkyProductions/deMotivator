@@ -18,7 +18,7 @@ export const firebaseConfig: FirebaseConfig = {
 const app = initializeApp(firebaseConfig);
 import { getAuth } from "firebase/auth";
 import { Insult, FirebaseConfig } from "./types";
-const auth = getAuth();
+const auth = getAuth(app);
 const user = auth.currentUser;
 export const userInsults: Insult[] = [
     `If there was ever one person who I hated the most, it would be ${user?.displayName ?? "this guest user"}`,

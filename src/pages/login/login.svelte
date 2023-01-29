@@ -23,7 +23,6 @@
   import { deviceType } from "uadetect";
   let emailBoxContent
   let emailBox
-  const emailRegExp = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
   // Loading Logic
   let ready = false;
   let duration = randomInRange(1, 3500);
