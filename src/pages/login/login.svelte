@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
   // Import generic stylesheets, essential libraries
   import "../../styles/css/app.css";
   import "../../styles/css/customProps.css";
@@ -23,7 +23,7 @@
   import { deviceType } from "uadetect";
   let emailBoxContent
   let emailBox
-  const emailRegExp: RegExp = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+  const emailRegExp = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
   // Loading Logic
   let ready = false;
   let duration = randomInRange(1, 3500);
@@ -164,6 +164,7 @@
   bind:loginWithEmailPassword
   let:logout
 >
+<div class="overflow-hidden">
   {#if !ready}
     {#if loggedIn}
       <div class="p-4">
@@ -189,7 +190,7 @@
         </div>
     {/if}
   {:else}
-    <div id="wrapper" class="absolute top-0 bottom-0 right-0 left-0">
+    <div id="wrapper" class="relative right-0 left-0 top-0 bottom-0">
       {#if darkMode == true}
         <BsAlert
           icon={info}
@@ -284,25 +285,6 @@
                 </div>
               </div>
               <div class="text-center m-auto">
-                {#if user.emailVerified == true}
-                  <div class="flex content-center justify-center">
-                    <span>
-                      <img src={check} alt="" />
-                    </span>
-                    &nbsp;
-                    <span>
-                      <p class="font-primary dark:text-white">
-                        Email verified!
-                      </p>
-                    </span>
-                  </div>
-                {:else}
-                  <span>
-                    <button class="btn btn-info inline" on:click={verifyEmail}>
-                      {verifyEmailButtonText}
-                    </button>
-                  </span>
-                {/if}
                 <div class="flex content-center justify-center p-4">
                   <a href="list.html" class="btn btn-secondary">
                     <div class="inline">
@@ -429,24 +411,37 @@
       </div>
     </div>
   {/if}
+  </div>
 </Auth>
 
 <style>
   div#wrapper {
     background-image: url(../../img/login-background-light.svg);
+    background-size: cover;
+    width: 100%;
+    height: 100%;
     color: hsl(0, 0%, 0%);
+    position: absolute;
+    bottom: 0;
+    overflow: hidden;
   }
+
   form,
   div#loggedInUI {
     background-color: white;
   }
   @media (prefers-color-scheme: dark) {
     div#wrapper {
-      background-image: url(../../img/login-background-dark.svg);
-      color: hsl(0, 0%, 100%);
-      position: absolute;
-      bottom: 0;
-    }
+    background-image: url(../../img/login-background-dark.svg);
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    color: hsl(0, 0%, 100%);
+    position: absolute;
+    bottom: 0;
+    overflow: hidden;
+  }
+
     form,
     div#loggedInUI {
       background-color: black;

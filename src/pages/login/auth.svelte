@@ -4,7 +4,6 @@
     import '../../styles/css/app.css'
     import '../../styles/css/customProps.css'
     import '../../styles/scss/colorScheme.scss'
-    import Title from '../../components/title.svelte';
     import '@capacitor/core'
     // Loading Logic
 
@@ -25,6 +24,7 @@ import {firebaseConfig} from '../../typescript/insults'
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+// @ts-ignore
 const analytics = getAnalytics(app);
 import { getAuth, ParsedToken } from "firebase/auth";
 const auth = getAuth();
@@ -101,5 +101,5 @@ const auth = getAuth();
   
   <!-- we will expose all required methods and properties on our slot -->
   <div>
-    <slot {user} {loggedIn} {loginWithGoogle} {loginWithEmailPassword} {signInAnonomous} {logout} />
+    <slot {user} {loggedIn} {loginWithGoogle} {loginWithEmailPassword} {signInAnonomous} {logout}>Error fetching Login API. Sorry about that :(</slot>
   </div>
