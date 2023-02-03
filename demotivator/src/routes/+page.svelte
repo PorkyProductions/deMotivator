@@ -1,3 +1,6 @@
+<svelte:head>
+    <title>(de)Motivator</title>
+</svelte:head>
 <script>
     import '../styles/css/app.css'
     import '../styles/css/customProps.css'

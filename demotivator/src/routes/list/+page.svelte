@@ -1,3 +1,6 @@
+<svelte:head>
+    <title>All Insults | (de)Motivator</title>
+</svelte:head>
 <script>
     import Title from '../../components/title.svelte';
     import {insults} from 'demotivator'

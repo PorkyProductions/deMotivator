@@ -1,3 +1,6 @@
+<svelte:head>
+  <title>Login | (de)Motivator</title>
+</svelte:head>
 <script>
   // Import generic stylesheets, essential libraries
   import "../../styles/css/app.css";

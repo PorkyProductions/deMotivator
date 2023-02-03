@@ -1,3 +1,6 @@
+<svelte:head>
+  <title>Sign Up | (de)Motivator</title>
+</svelte:head>
 <script lang="ts">
   // Import generic stylesheets, essential libraries
   import "../../styles/css/app.css";

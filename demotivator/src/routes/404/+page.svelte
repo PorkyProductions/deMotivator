@@ -1,3 +1,6 @@
+<svelte:head>
+    <title>404 | Page Not Found | (de)Motivator</title>
+</svelte:head>
 <script>
     import Title from '../../components/title.svelte';
     import { fade } from 'svelte/transition';

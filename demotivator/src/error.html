@@ -39,9 +39,75 @@ porkyproductions.github.io
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+        <title>%sveltekit.status% | %sveltekit.error.message% | (de)Motivator</title>
 		%sveltekit.head%
 	</head>
-	<body data-sveltekit-preload-data="hover">
-		<div style="display: contents">%sveltekit.body%</div>
+	<body>
+		<main>
+    <div class="dark:bg-black dark:text-white hover:text-purple-500 dark:hover:text-white rounded-xl sm:pb-72 lg:pb-80 xl:pb-96" style="font-family: 'Raleway', sans-serif;">
+        <h1 class="font-primary text-center title p-5 font-semibold">
+            (de)Motivator
+        </h1>
+        <h1 class="text-center font-primary font-bold text-9xl hover:animate-spin">
+            %sveltekit.status%
+        </h1>
+        <h2 class="text-center font-primary font-bold text-8xl">
+            %sveltekit.error.message% 💔
+        </h2>
+        <a href="/"">
+            Go Home.
+        </a>
+        <div class="flex justify-center dark:bg-black">
+            <img src="%sveltekit.assets%/HedgehogIcon.png" alt="hedgehog" class="hedgehog-spin spin">
+            <img src="%sveltekit.assets%/HedgehogIcon.png" alt="hedgehog" class="hedgehog-spin spin2">
+            <img src="%sveltekit.assets%/HedgehogIcon.png" alt="hedgehog" class="hedgehog-spin spin3">
+            <img src="%sveltekit.assets%/HedgehogIcon.png" alt="hedgehog" class="hedgehog-spin spin4">
+            <img src="%sveltekit.assets%/HedgehogIcon.png" alt="hedgehog" class="hedgehog-spin spin5">
+        </div>
+    </div>
+</main>
 	</body>
+    <style>
+    .hedgehog-spin {
+        position: absolute;
+    }
+    .spin {
+        animation: spin 1.3s infinite;
+        animation-delay: 0ms;
+        margin: auto;
+        padding-bottom: 400px;
+    }
+    .spin2 {
+        animation: spin 1.3s infinite;
+        animation-delay: 200ms;
+        margin: auto;
+        padding-bottom: 400px;
+    }
+    .spin3 {
+        animation: spin 1.3s infinite;
+        animation-delay: 400ms;
+        margin: auto;
+        padding-bottom: 400px;
+    }
+    .spin4 {
+        animation: spin 1.3s infinite;
+        animation-delay: 600ms;
+        margin: auto;
+        padding-bottom: 400px;
+    }
+    .spin5 {
+        animation: spin 1.3s infinite;
+        animation-delay: 800ms;
+        margin: auto;
+        padding-bottom: 400px;
+    }
+    @keyframes spin {
+        0% {
+            transform:rotate(0)
+        }
+        to {
+            transform:rotate(360deg)
+        }
+    }
+</style>
 </html>

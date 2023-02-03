@@ -1,3 +1,6 @@
+<svelte:head>
+    <title>500 | Internal Server Error | (de)Motivator</title>
+</svelte:head>
 <script>
     import Spinhog from '../../components/spinhog.svelte';
     import '../../styles/css/app.css'

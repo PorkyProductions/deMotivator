@@ -1,3 +1,6 @@
+<svelte:head>
+    <title>Credits | (de)Motivator</title>
+</svelte:head>
 <script>
     import Title from '../../components/title.svelte';
     import 'bootstrap/dist/css/bootstrap.css'
