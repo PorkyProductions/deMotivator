@@ -3,7 +3,7 @@
   import "../../styles/css/app.css";
   import "../../styles/css/customProps.css";
   import "../../styles/scss/colorScheme.scss";
-  import 'bootstrap/scss/bootstrap-reboot.scss'
+  import "bootstrap/scss/bootstrap-reboot.scss";
   import "@capacitor/core";
   import "bootstrap/scss/bootstrap.scss";
   // Import components
@@ -17,78 +17,61 @@
   import check from "bootstrap-icons/icons/check2-circle.svg";
   // Import Misc Helpers
   import { onDestroy } from "svelte";
-  import { darkMode } from "../../typescript/darkMode";
-  import { randomInRange } from '../../typescript/random'
-  import { deviceType } from 'uadetect'
-  let emailBoxContent;
-  let emailBox;
-  const emailRegExp = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+  import { darkMode } from "../../utils/darkMode";
+  import { randomInRange } from "../../utils/random";
+  import { deviceType } from "uadetect";
+  let emailBoxContent
+  let emailBox
   // Loading Logic
   let ready = false;
-    const load = async () => {
-        let duration = randomInRange(1, 3500)
-        const { SplashScreen } = await import('@capacitor/splash-screen');
-        await SplashScreen.show({
-            showDuration: duration,
-            autoHide: true,
-        });
-        const loadingTimer = setTimeout(() => ready = true, duration);
-        onDestroy(() => clearTimeout(loadingTimer));
-    }
-    load();
+  let duration = randomInRange(1, 3500);
+  const load = async () => {
+    const { SplashScreen } = await import("@capacitor/splash-screen");
+    await SplashScreen.show({
+      showDuration: duration,
+      autoHide: true,
+    });
+    const loadingTimer = setTimeout(() => (ready = true), duration);
+  };
+  load();
 
   // FROM BEYOND THIS POINT IS FIREBASE LOGIC
   // BEWARE
 
   import { initializeApp } from "firebase/app";
-  import { getAnalytics, setUserId } from "firebase/analytics";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-import {firebaseConfig} from '../../typescript/insults'
+  import { getAnalytics } from "firebase/analytics";
+  import { firebaseConfig } from "../../typescript/insults";
 
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
   import {
     getAuth,
-    signInWithPopup,
-    GoogleAuthProvider,
-    onAuthStateChanged,
   } from "firebase/auth";
   const auth = getAuth();
   const user = auth.currentUser;
-  if (user !== null) {
-    // The user object has basic properties such as display name, email, etc.
-    const displayName = user.displayName;
-    const email = user.email;
-    const photoURL = user.photoURL;
-    const emailVerified = user.emailVerified;
-
-    // The user's ID, unique to the Firebase project. Do NOT use
-    // this value to authenticate with your backend server, if
-    // you have one. Use User.getToken() instead.
-    const uid = user.uid;
-  }
   import Auth from "./auth.svelte";
   import { fade } from "svelte/transition";
+
   import warning from "bootstrap-icons/icons/exclamation-diamond-fill.svg";
   import BsAlert from "../../components/bs-Alert.svelte";
   import BsModal from "../../components/bs-modal.svelte";
   import BsButton from "../../components/bsButton.svelte";
+  import BsLoader from "../../components/bsLoader.svelte";
 
   let loginWithEmailPassword;
   let error = null;
+  let insultsSeenDB;
+  const refreshInsultsSeen = async () => {
+    let { readInsults } = await import('../../typescript/readInsults')
+    insultsSeenDB = await readInsults()
+  }
 
   import confetti from "canvas-confetti";
-
   const loginHandler = async (event) => {
     if (deviceType === "desktop") {
-      ready = false
+      ready = false;
     }
-    const { randomInRange } = await import("../../typescript/random");
+    const { randomInRange } = await import("../../utils/random");
     const { Haptics, ImpactStyle } = await import("@capacitor/haptics");
     const { email, password } = event.target.elements;
     const hapticsVibrate = async () => {
@@ -108,23 +91,23 @@ import {firebaseConfig} from '../../typescript/insults'
       });
       await hapticsImpactMedium();
       await hapticsVibrate();
-      load()
+      load();
     } catch (err) {
       error = err;
     }
   };
 
-  
-
-
   const deleteUser = async () => {
     const { deleteUser } = await import("firebase/auth");
-    const { Haptics, ImpactStyle } = await import("@capacitor/haptics");
-    const { showConfirm } = await import('../../typescript/easterEggs')
+    const { Haptics } = await import("@capacitor/haptics");
+    const { showConfirm } = await import("../../typescript/easterEggs");
     const user = auth.currentUser;
     try {
-      await Haptics.vibrate()
-      await showConfirm("Are you sure?", "This is your last chance to back out.")
+      await Haptics.vibrate();
+      await showConfirm(
+        "Are you sure?",
+        "This is your last chance to back out."
+      );
       deleteUser(user);
     } catch (err) {
       error = err;
@@ -140,7 +123,7 @@ import {firebaseConfig} from '../../typescript/insults'
   };
 
   const launchConfetti = async () => {
-    const { randomInRange } = await import("../../typescript/random");
+    const { randomInRange } = await import("../../utils/random");
     const { Haptics, ImpactStyle } = await import("@capacitor/haptics");
     const hapticsVibrate = async () => {
       await Haptics.vibrate();
@@ -156,8 +139,8 @@ import {firebaseConfig} from '../../typescript/insults'
         particleCount: randomInRange(1, 999),
         origin: { y: 0.6 },
       });
-      await hapticsVibrate()
-      await hapticsImpactMedium()
+      await hapticsVibrate();
+      await hapticsImpactMedium();
       i -= 1;
     }
   };
@@ -172,17 +155,33 @@ import {firebaseConfig} from '../../typescript/insults'
   bind:loginWithEmailPassword
   let:logout
 >
+<div class="overflow-hidden">
   {#if !ready}
     {#if loggedIn}
-      <BsSpinner type="success" />
+      <div class="p-4">
+        <BsSpinner type="success" />
+      </div>
+      <div class="m-auto px-8">
+        <BsLoader type="success" loadingTime={duration} />
+      </div>
     {:else}
       {#if error}
-        <BsSpinner type="danger" />
+        <div class="p-4">
+          <BsSpinner type="danger" />
+        </div>
+        <div class="m-auto px-8">
+          <BsLoader type="danger" loadingTime={duration} />
+        </div>
       {/if}
-      <BsSpinner type="primary" />
+        <div class="p-4">
+          <BsSpinner type="primary" />
+        </div>
+        <div class="m-auto px-8">
+          <BsLoader type="primary" loadingTime={duration} />
+        </div>
     {/if}
   {:else}
-    <div id="wrapper" class="absolute top-0 bottom-0 right-0 left-0">
+    <div id="wrapper" class="relative right-0 left-0 top-0 bottom-0">
       {#if darkMode == true}
         <BsAlert
           icon={info}
@@ -230,7 +229,7 @@ import {firebaseConfig} from '../../typescript/insults'
       <div class="">
         <div class="wrapper flex content-center justify-center ">
           {#if loggedIn}
-            <div class="w-full max-w-xs" id="loggedInUI" transition:fade>
+            <div class="w-full md:max-w-xs" id="loggedInUI" transition:fade>
               <div class="text-center">
                 <img
                   src={user.picture ?? person}
@@ -240,13 +239,12 @@ import {firebaseConfig} from '../../typescript/insults'
                   draggable="false"
                   id="pfp"
                 />
-                <h1 class="font-bold font-primary">
-                  {user.name ?? "Guest"}
-                </h1>
-                <h2 class="font-primary pb-4">{user.email ?? " "}</h2>
-                <h2 class="font-primary">
-                  Your (de)Motivator UserID:
-                </h2>
+                <span class="font-semibold font-primary text-3xl">
+                  Hello, <span class="font-bold">{user.name ?? "Guest"}</span>
+                </span>
+                <h2 class="font-primary pb-4 text-3xl">{user.email ?? ""}</h2>
+                <h2 class="font-primary pb-4 text-3xl">You've seen {insultsSeenDB ?? "no"} insults</h2>
+                <h2 class="font-primary">Your (de)Motivator UserID:</h2>
                 <h3 class="font-primary text-xl">
                   {user.id ?? " "}
                 </h3>
@@ -258,15 +256,15 @@ import {firebaseConfig} from '../../typescript/insults'
                   Launch Confetti
                 </button>
                 <button
-                type="button"
-                class="mt-3 btn btn-warning"
-                on:click={logout}>Logout</button
+                  type="button"
+                  class="mt-3 btn btn-warning"
+                  on:click={logout}>Logout</button
                 >
                 <div class="mt-3 pb-3">
                   <BsModal
-                  preButtonText="Delete Account"
-                  preButtonType="danger"
-                  icon={warning}
+                    preButtonText="Delete Account"
+                    preButtonType="danger"
+                    icon={warning}
                     title="Are you sure?"
                     body="Once an account is deleted, it cannot be undone, and any data associated with that account will be forever lost. Be absolutely sure."
                     confirmButtonType="danger"
@@ -278,56 +276,50 @@ import {firebaseConfig} from '../../typescript/insults'
                 </div>
               </div>
               <div class="text-center m-auto">
-                {#if user.emailVerified == true}
-                  <div class="flex content-center justify-center">
-                    <span>
-                      <img src={check} alt="" />
-                    </span>
-                    &nbsp;
-                    <span>
-                      <p class="font-primary dark:text-white">
-                        Email verified!
-                      </p>
-                    </span>
-                  </div>
-                  {:else}
-                  <span>
-                    <button class="btn btn-info inline" on:click={verifyEmail}>
-                      {verifyEmailButtonText} 
-                      </button>
-                    </span>
-                {/if}
                 <div class="flex content-center justify-center p-4">
-                  <a href="list.html" class="btn btn-secondary">
+                  <a href="/list" class="btn btn-secondary">
                     <div class="inline">
                       <span>View All Insults</span>
                     </div>
                   </a>
+                  &nbsp;
+                  {#if darkMode}
+                      <button type="button" on:click={refreshInsultsSeen} on:keypress={refreshInsultsSeen} class="btn btn-dark">
+                        <div class="inline">
+                          <span>Refresh Insults Seen</span>
+                        </div>
+                    </button>
+                  {:else}
+                    <button type="button" on:click={refreshInsultsSeen} on:keypress={refreshInsultsSeen} class="btn btn-light">
+                      <div class="inline">
+                        <span>Refresh Insults Seen</span>
+                      </div>
+                    </button>
+                  {/if}
+                  
                 </div>
               </div>
             </div>
-            {:else}
+          {:else}
             <div class="w-full max-w-xs" transition:fade>
               <div class=" flex content-center justify-center">
                 <form
-                on:submit|preventDefault={loginHandler}
-                class="px-8 pt-6 pb-8 shadow-md dark:bg-black border-primary-majorelleBlue border-2 rounded-lg dark:border-secondary-orangePantone dark:border-2"
+                  on:submit|preventDefault={loginHandler}
+                  class="px-8 pt-6 pb-8 shadow-md dark:bg-black border-primary-majorelleBlue border-2 rounded-lg dark:border-secondary-orangePantone dark:border-2"
                 >
-                <div class="mb-4">
-                  <label class="form-label" for="email">Email</label>
+                  <div class="mb-4">
+                    <label class="form-label" for="email">Email</label>
                     <input
-                        class="input-field form-control dark:bg-black focus:cursor-text hover:focus:cursor-text hover:cursor-text"
-                        id="email"
-                        type="email"
-                        placeholder="name@example.com"
-                        bind:value={emailBoxContent}
-                        bind:this={emailBox}
-                        required
-                      />
+                      class="input-field form-control dark:bg-black focus:cursor-text hover:focus:cursor-text hover:cursor-text"
+                      id="email"
+                      type="email"
+                      placeholder="name@example.com"
+                      bind:value={emailBoxContent}
+                      bind:this={emailBox}
+                      required
+                    />
                   </div>
-                  <div class="invalid-feedback">
-                    Email is Required!
-                  </div>
+                  <div class="invalid-feedback">Email is Required!</div>
                   <div class="mb-6">
                     <label class="form-label" for="password">Password</label>
                     <input
@@ -388,7 +380,7 @@ import {firebaseConfig} from '../../typescript/insults'
                   </div>
                   <div class="mt-3">
                     <a
-                      href="signUp.html"
+                      href="/signUp"
                       type="button"
                       class="btn btn-secondary">Sign Up</a
                     >
@@ -400,33 +392,48 @@ import {firebaseConfig} from '../../typescript/insults'
         </div>
       </div>
       <div class="flex content-center justify-center p-4 pb-10">
-        <BsButton 
+        <BsButton
           icon={leftArrow}
           iconAlt="a left facing arrow"
           text="Go back home"
           type="success"
-          href="index.html"
+          href="/"
         />
       </div>
     </div>
   {/if}
+  </div>
 </Auth>
 
 <style>
   div#wrapper {
-      background-image: url(../../img/login-background-light.svg);
-      color: hsl(0, 0%, 0%);
+    background-image: url(../../img/login-background-light.svg);
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    color: hsl(0, 0%, 0%);
+    position: absolute;
+    bottom: 0;
+    overflow: hidden;
   }
-  form, 
+
+  form,
   div#loggedInUI {
     background-color: white;
   }
   @media (prefers-color-scheme: dark) {
     div#wrapper {
-      background-image: url(../../img/login-background-dark.svg);
-      color: hsl(0, 0%, 100%);
-    }
-    form, 
+    background-image: url(../../img/login-background-dark.svg);
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    color: hsl(0, 0%, 100%);
+    position: absolute;
+    bottom: 0;
+    overflow: hidden;
+  }
+
+    form,
     div#loggedInUI {
       background-color: black;
     }

@@ -89,7 +89,7 @@
         </p>
         {#if linkVisible}
         <div transition:fade class="flex content-center justify-center">
-            <a class="text-blue-500 underline" href="https://demotivator.web.app/">go back home</a>
+            <a class="text-blue-500 underline" href="/">go back home</a>
         </div>
         {/if}
     {/if}

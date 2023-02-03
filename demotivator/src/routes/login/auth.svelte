@@ -15,7 +15,6 @@
 
 
 import { initializeApp } from "firebase/app";
-import { getAnalytics, setUserId } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -25,7 +24,6 @@ import {firebaseConfig} from '../../typescript/insults'
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 import { getAuth } from "firebase/auth";
 const auth = getAuth();
   

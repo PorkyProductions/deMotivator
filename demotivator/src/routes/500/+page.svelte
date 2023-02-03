@@ -7,7 +7,7 @@
             countdown--
             if (countdown == 0) {
                 clearInterval(countdownTimer);
-                window.location.href="index.html"
+                window.location.href="/"
             }
         },
         1000

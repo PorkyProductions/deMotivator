@@ -12,7 +12,7 @@
         },
         {
             name: "(de)Motivator 1.0",
-            href: "dmv1.html"
+            href: "/dmv1.html"
         },
         {
             name: "(de)Motivator.js",
@@ -20,7 +20,7 @@
         },
         {
             name: "Credits",
-            href: "credits.html"
+            href: "credits"
         },
     ]
 </script>

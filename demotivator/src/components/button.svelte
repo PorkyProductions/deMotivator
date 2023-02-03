@@ -18,10 +18,17 @@ let userResult = ""
 const randomize = async () => {
     const { userInsults } = await import('../typescript/insults')
     const { insults } = await import('demotivator')
+    let { readInsults } = await import('../typescript/readInsults')
+    const {updateInsultsSeen} = await import('../typescript/updateInsults')
     const demotivatorAndUserIsults = userInsults.concat(insults)
     userResult = demotivatorAndUserIsults[Math.floor(Math.random() * demotivatorAndUserIsults.length)]
     result = insults[Math.floor(Math.random() * insults.length)]
+    let insultsSeenDB: number;
     insultsShown++
+    insultsSeenDB = await readInsults()
+    if (!MEGAMODE) {
+        updateInsultsSeen(insultsSeenDB + 1)
+    }
 }
 /*
 
@@ -85,7 +92,6 @@ let:loggedIn
     </div>
     
 </main>
-
 </Auth>
 
 <style>

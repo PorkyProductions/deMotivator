@@ -1,9 +1,9 @@
 <script>
     import Title from '../../components/title.svelte';
-import {insults} from 'demotivator'
+    import {insults} from 'demotivator'
     import { userInsults } from '../../typescript/insults';
     const allInsults = userInsults.concat(insults)
-    import 'bootstrap/dist/css/bootstrap.css'
+    import 'bootstrap/scss/bootstrap.scss'
     import Auth from '../login/auth.svelte';
 </script>
 
@@ -34,14 +34,14 @@ let:loggedIn
         <br />
     </h3>
     <div class="flex content-center justify-center p-4">
-    <a href="login.html" class="btn btn-success">
+    <a href="/login" class="btn btn-success">
         Login
     </a>
 </div>
 </div>
 {/if}
 <div class="flex content-center justify-center p-4">
-    <a href="index.html" class="btn btn-primary">
+    <a href="/" class="btn btn-primary">
         Home
     </a>
 </div>

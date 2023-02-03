@@ -1,18 +1,19 @@
-<script>
-    import 'bootstrap/scss/bootstrap.scss'
+<script lang="ts">
+  import 'bootstrap/scss/bootstrap.scss'
+  import type { BSVarient } from '../typescript/types';
     const load = async () => {
         await import('bootstrap/dist/js/bootstrap.esm')
     }
-    export let preButtonType;
-    export let preButtonText
-    export let icon;
-    export let title
-    export let body;
-    export let confirmButtonType;
-    export let confirmButtonText;
-    export let confirmButtonAction
-    export let closeButtonType;
-    export let closeButtonText;
+    export let preButtonType: BSVarient;
+    export let preButtonText: string
+    export let icon: any;
+    export let title: string
+    export let body: string;
+    export let confirmButtonType: BSVarient;
+    export let confirmButtonText: string;
+    export let confirmButtonAction: any
+    export let closeButtonType: BSVarient;
+    export let closeButtonText: string;
 </script>
 
 <!-- Button trigger modal -->
