@@ -8,7 +8,7 @@
     export let iconAlt: string
 </script>
 
-<a href={href} class="btn btn-{type}"><img src={icon} alt={iconAlt}>&nbsp;{text}</a>
+<a href={href} class="btn btn-{type}" id="button"><img src={icon} alt={iconAlt}>&nbsp;{text}</a>
 
 <style>
     img {

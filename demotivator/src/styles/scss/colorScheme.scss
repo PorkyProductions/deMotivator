@@ -31,10 +31,14 @@ $theme-border-radius-md: 15px;
 
 * {
     accent-color: $primary-majorelleBlue;
-    cursor: url(../../../node_modules/bootstrap-icons/icons/hand-thumbs-down.svg);
     &::selection {
         background-color: $highlights;
         color: $theme-white;
+    }
+    #button {
+        &:hover {
+            cursor: url(../../../node_modules/bootstrap-icons/icons/hand-index.svg), default;
+        }
     }
     p {
         &::selection {
@@ -51,8 +55,14 @@ $theme-border-radius-md: 15px;
 @media (prefers-color-scheme: dark) {
     * {
         accent-color: $secondary-orangePantone;
+        cursor: default;
         &::selection {
             background-color: $secondary-orangePantone
+        }
+        #button {
+            &:hover {
+                cursor: url(../../../node_modules/bootstrap-icons/icons/hand-index.svg), default;
+            }
         }
     }
 }

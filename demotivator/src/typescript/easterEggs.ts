@@ -49,27 +49,3 @@ export const showConfirm = async (title: string, message: string): Promise<strin
     return value as bool
 };
 
-document.body.addEventListener('keyup', async (e: KeyboardEvent) => {
-    if (e.key === "p") {
-        showAlert("You pressed the most amazing key on the keyboard", 
-        `
-            Porky finds great strength with you.
-            You have found the most secret of secrets.
-            For this, you deserve the world.
-            However, porky is never that generous,
-            so you won't be recieveing it.
-            However, you may take this token of our appreciation
-            💖
-            Now go, and stand amongst the shoulders of giants.
-        `)
-    } else if (e.key === "s") {
-        document.body.classList.add('spin')
-    } else if (e.key === "q") {
-        showAlert("Oh my whats this", `
-        
-            quandale dingle
-            https://i.kym-cdn.com/editorials/icons/mobile/000/004/390/quandalecover.jpg
-        
-        `)
-    }
-})
