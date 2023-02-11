@@ -1,12 +1,12 @@
 @import './colorScheme.scss';
 
 body {
-    background-color: $theme-white;
+    background: $theme-white;
 };
 
 @media (prefers-color-scheme: dark) {
     body {
-        background-color: $theme-black;
-        color: $theme-white;
+        background: $theme-black !important;
+        color: $theme-white !important;
     }
 }

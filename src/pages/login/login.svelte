@@ -17,7 +17,7 @@
   import exclamation from "bootstrap-icons/icons/exclamation-octagon.svg";
   import check from "bootstrap-icons/icons/check2-circle.svg";
   // Import Misc Helpers
-  import { onDestroy } from "svelte";
+  import { onMount, onDestroy, beforeUpdate } from "svelte";
   import { darkMode } from "../../utils/darkMode";
   import { randomInRange } from "../../utils/random";
   import { deviceType } from "uadetect";
@@ -152,6 +152,8 @@
       i -= 1;
     }
   };
+  onMount(() => refreshInsultsSeen())
+  beforeUpdate(() => refreshInsultsSeen())
 </script>
 
 <Auth
@@ -422,7 +424,6 @@
     color: hsl(0, 0%, 0%);
     position: absolute;
     bottom: 0;
-    overflow: hidden;
   }
 
   form,
@@ -438,7 +439,6 @@
     color: hsl(0, 0%, 100%);
     position: absolute;
     bottom: 0;
-    overflow: hidden;
   }
 
     form,
