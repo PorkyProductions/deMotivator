@@ -1,8 +1,16 @@
 <script lang="ts">
     import Title from '../../components/title.svelte';
-import {insults} from 'demotivator'
+    import { insults, DeMotivator } from 'demotivator'
+    const dmv = new DeMotivator()
+    console.log(dmv);
+    const profaneArray = dmv.createArray({
+        original: true,
+        profane: true
+    })
     import { userInsults } from '../../typescript/insults';
+    let userWantsProfaneInsults: boolean = false
     const allInsults = userInsults.concat(insults)
+    const profaneInsults = userInsults.concat(profaneArray)
     import 'bootstrap/dist/css/bootstrap.css'
     import Auth from '../login/auth.svelte';
   import LoginFooter from '../../components/loginfooter.svelte';
@@ -12,21 +20,36 @@ import {insults} from 'demotivator'
 <Auth
 let:loggedIn
 >
-<div class="text-8xl p-4">
+<div class="p-4 text-9xl">
     <Title />
 </div>
 {#if loggedIn}
-<h3 class="text-4xl p-4 text-center font-primary font-medium">
+<h3 class="text-4xl p-4 text-center font-primary font-normal">
         All Insults
-        <br />
     </h3>
+    <div class="flex content-center justify-center">
+        <label class="hover:font-black hover:text-red-600 font-primary">
+            <input type=checkbox bind:checked={userWantsProfaneInsults} class="hover:checked:accent-blue-600">
+            Include Profanity
+        </label>
+    </div>
+    <hr />
     <div class="text-center">
-    {#each allInsults as insult}
-        <p class="font-primary text-3xl">
-            {insult}
-        </p>
-        <br />
-    {/each}
+        {#if !userWantsProfaneInsults}
+            {#each allInsults as insult}
+                <p class="font-primary font-light text-3xl">
+                    {insult}
+                </p>
+                <br />
+            {/each}
+        {:else}
+                {#each profaneInsults as pi}
+                    <p class="font-primary font-light text-3xl">
+                        {pi}
+                    </p>
+                    <br />
+                {/each}
+        {/if}
 </div>
 {:else}
 <div class="bg-red-500 text-white">

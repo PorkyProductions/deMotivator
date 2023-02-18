@@ -1,7 +1,7 @@
 <script>
     import Title from './title.svelte';
     import 'bootstrap/scss/bootstrap.scss'
-    import { insultAt } from 'demotivator';
+    import { insultAt, createArray } from 'demotivator';
     import { randomInRange } from '../utils/random';
     var year = new Date().getFullYear()
 </script>
@@ -13,7 +13,7 @@
             <Title />
     </div>
     <div class="text-white font-primary text-center p-5 font-normal">
-        {insultAt(randomInRange(1,300))}
+        {insultAt(createArray({original: true, profane: false}), randomInRange(1,300))}
     </div>
 </div>
 <div class="flex justify-center font-primary dark:bg-theme-black bg-primary-majorelleBlue">
