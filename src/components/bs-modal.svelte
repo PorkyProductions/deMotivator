@@ -17,7 +17,7 @@
 </script>
 
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-{preButtonType}" data-bs-toggle="modal" data-bs-target="#exampleModal" on:mouseover={load} on:focus={load}>
+<button type="button" class="btn btn-{preButtonType}" data-bs-toggle="modal" data-bs-target="#exampleModal" id="bsModal" on:mouseover={load} on:focus={load}>
     {preButtonText}
   </button>
   

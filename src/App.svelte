@@ -6,12 +6,12 @@
     import Footer from './components/footer.svelte';
     import Title from './components/title.svelte';
     import Loader from './components/loader.svelte';
-    import '@capacitor/core'
     // Loading Logic
     import { onDestroy } from "svelte";
     let ready = false;
     const load = async () => {
         let duration = randomInRange(1, 4000)
+        await import('@capacitor/core')
         const { SplashScreen } = await import('@capacitor/splash-screen');
         await SplashScreen.show({
             showDuration: duration,
@@ -22,7 +22,7 @@
     }
     load();
     import {
-        fade
+        fade, slide, fly
     } from 'svelte/transition'
     import supportedBrowsers from './utils/supportedBrowsers';
 
@@ -62,11 +62,11 @@ if (user !== null) {
 }
 </script>
 {#if !ready}
-    <div transition:fade>
+    <div transition:fly="{{ y: 200, duration: randomInRange(1, 4000) }}">
         <Loader />
     </div>
     {:else}
-    <div transition:fade>
+    <div transition:fly="{{ y: 200, duration: randomInRange(1, 4000) }}">
         <div class="dark:bg-theme-black dark:text-white" id="app">
             <Title />
             <Button />

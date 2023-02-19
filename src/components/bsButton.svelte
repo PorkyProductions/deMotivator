@@ -5,10 +5,10 @@
     export let type: BSVarient;
     export let text: string;
     export let icon: string;
-    export let iconAlt: string
+    export let iconAlt: string;
 </script>
 
-<a href={href} class="btn btn-{type}"><img src={icon} alt={iconAlt}>&nbsp;{text}</a>
+<a href={href} id="bsButton" class="btn btn-{type}"><img src={icon} alt={iconAlt}>&nbsp;{text}</a>
 
 <style>
     img {
