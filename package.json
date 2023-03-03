@@ -44,7 +44,7 @@
     "canvas-confetti": "^1.6.0",
     "cordova-res": "^0.15.4",
     "demotivator": "^11.1.0",
-    "firebase": "^9.10.0",
+    "firebase": "^9.17.2",
     "firebase-tools": "^11.22.0",
     "serve": "^14.1.2",
     "svelte-loading-spinners": "^0.1.7",
