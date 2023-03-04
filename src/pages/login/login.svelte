@@ -2,10 +2,7 @@
   // Import generic stylesheets, essential libraries
   import "../../styles/css/app.css";
   import "../../styles/css/customProps.css";
-  import "../../styles/scss/colorScheme.scss";
-  import "bootstrap/scss/bootstrap-reboot.scss";
   import "@capacitor/core";
-  import "bootstrap/scss/bootstrap.scss";
   // Import components
   import BsSpinner from "../../components/bs-spinner.svelte";
   import LoginFooter from "../../components/loginFooter.svelte";

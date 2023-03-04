@@ -72,7 +72,7 @@
     <footer class=" bg-primary-majorelleBlue dark:bg-gray-900 portrait:hidden fixed bottom-0 right-0 left-0 rounded-t-md">
         <div class="flex justify-between content-center">
             <div class="flex justify-between flex-col">
-                <div class="flex content-center">
+                <div class="flex content-center mb-0">
                     <img src={hedgehog} alt="Hedgehog" id="logo" class="dark:hidden hover:animate-spin">
                     <div class="text-white">
                         <Title />
@@ -81,7 +81,7 @@
                 <hr />
                 <p class="text-white p-4">Copyright &copy; 2020-{year.getFullYear()}, PorkyProductions and/or it's contributors. All Rights Reserved</p>
             </div>
-            <nav class="flex justify-between flex-col p-4 text-white underline font-primary font-medium">
+            <nav class="flex justify-between flex-col p-4 text-white underline font-primary font-medium mb-0">
                 {#each navigation as link}
                     <a class="footer-link" href={link.href}>{link.name}</a>
                 {/each}
@@ -91,7 +91,7 @@
     </footer>
 {/if}
 
-<style>
+<style lang="scss">
     #logo {
         width: 7rem;
         padding: 1rem;
@@ -111,4 +111,8 @@
             color: #F75C03;
         }
     } 
+    * {
+        margin-bottom: 0;
+    }
+
 </style>

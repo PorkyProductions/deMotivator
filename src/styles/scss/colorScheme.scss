@@ -24,12 +24,6 @@ $theme-white: #fffff6;
 $theme-black: #000000;
 
 $theme-border-radius-md: 15px;
-
-@function invert($color, $amount: 100%) {
-    $inverse: change-color($color, $hue: hue($color) + 180);
-    @return mix($inverse, $color, $amount);
-}
-
 * {
     accent-color: $primary-majorelleBlue;
     cursor: url(../../../node_modules/bootstrap-icons/icons/hand-thumbs-down.svg);

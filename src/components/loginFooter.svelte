@@ -1,6 +1,5 @@
 <script>
     import Title from './title.svelte';
-    import 'bootstrap/scss/bootstrap.scss'
     import { insultAt, createArray } from 'demotivator';
     import { randomInRange } from '../utils/random';
     var year = new Date().getFullYear()

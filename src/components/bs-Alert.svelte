@@ -1,6 +1,6 @@
 <script lang="ts">
+    import '../styles/scss/darkMode.scss' 
     import { type BSVarient } from '../typescript/types';
-    import 'bootstrap/scss/bootstrap.scss'
     export let type: BSVarient;
     export let icon: any;
     export let iconAlt: string;

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import "bootstrap/scss/bootstrap.scss";
+  import '../styles/scss/darkMode.scss'
   export let type: BSVarient;
   export let loadingTime: number;
   import { fade } from "svelte/transition";

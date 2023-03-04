@@ -1,0 +1,14 @@
+@import './colorScheme.scss';
+$prefix: "dmv-ppio-";
+$primary: $primary-majorelleBlue;
+$info: mix($theme-lightBlue, $theme-blue);
+$enable-rounded: true;
+$enable-shadows: true;
+
+@media (prefers-color-scheme: dark) {
+    $enable-dark-mode: true
+}
+
+
+@import "../../../node_modules/bootstrap/scss/bootstrap";
+@import "../../../node_modules/bootstrap/scss/bootstrap-reboot";

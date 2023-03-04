@@ -11,7 +11,6 @@
     let userWantsProfaneInsults: boolean = false
     const allInsults = userInsults.concat(insults)
     const profaneInsults = userInsults.concat(profaneArray)
-    import 'bootstrap/dist/css/bootstrap.css'
     import Auth from '../login/auth.svelte';
   import LoginFooter from '../../components/loginfooter.svelte';
 </script>

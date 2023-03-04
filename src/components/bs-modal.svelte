@@ -1,5 +1,5 @@
 <script lang="ts">
-  import 'bootstrap/scss/bootstrap.scss'
+  import '../styles/scss/darkMode.scss'
   import { BSVarient } from '../typescript/types';
     const load = async () => {
         await import('bootstrap/dist/js/bootstrap.esm')

@@ -1,7 +1,5 @@
 <script lang="ts">
     import Title from '../../components/title.svelte';
-    import 'bootstrap/scss/bootstrap.scss'
-    import 'bootstrap/scss/bootstrap-reboot.scss'
     interface Credits {
         name: string,
         website: string,

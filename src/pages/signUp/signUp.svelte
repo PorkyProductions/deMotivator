@@ -2,10 +2,7 @@
   // Import generic stylesheets, essential libraries
   import "../../styles/css/app.css";
   import "../../styles/css/customProps.css";
-  import "../../styles/scss/colorScheme.scss";
-  import "bootstrap/scss/bootstrap-reboot.scss";
   import "@capacitor/core";
-  import "bootstrap/dist/css/bootstrap.css";
   import confetti from "canvas-confetti";
   // Import components
   import Title from "../../components/title.svelte";
