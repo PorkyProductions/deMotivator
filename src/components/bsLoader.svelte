@@ -25,7 +25,7 @@
   transition:fade
   class="progress"
   role="progressbar"
-  aria-label="Animated striped example"
+  aria-label="Loading"
   aria-valuenow={value}
 >
   <div

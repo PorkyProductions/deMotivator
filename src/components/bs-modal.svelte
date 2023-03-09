@@ -2,7 +2,7 @@
   import '../styles/scss/darkMode.scss'
   import { BSVarient } from '../typescript/types';
     const load = async () => {
-        await import('bootstrap/dist/js/bootstrap.esm')
+        await import('bootstrap/js/dist/modal')
     }
     export let preButtonType: BSVarient;
     export let preButtonText: string

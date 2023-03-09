@@ -8,7 +8,7 @@
     export let actionLink: string;
     export let actionText: string;
     const load = async () => {
-      await import('bootstrap/dist/js/bootstrap.esm')
+      await import('bootstrap/js/dist/alert')
     }
     import { fade } from 'svelte/transition'
 </script>
