@@ -1,6 +1,10 @@
 @import './colorScheme.scss';
 $prefix: "dmv-ppio-";
 $primary: $primary-majorelleBlue;
+@media (prefers-color-scheme: dark) {
+    $enable-dark-mode: true;
+    $primary: $secondary-orangePantone
+}
 $info: mix($theme-lightBlue, $theme-blue);
 $blue: $theme-blue;
 $indigo: $theme-indigo;
@@ -17,10 +21,6 @@ $black: $theme-black;
 $white: $theme-white;
 $enable-rounded: true;
 $enable-shadows: true;
-
-@media (prefers-color-scheme: dark) {
-    $enable-dark-mode: true
-}
 
 
 @import "../../../node_modules/bootstrap/scss/bootstrap";

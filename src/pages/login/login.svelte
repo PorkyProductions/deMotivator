@@ -24,6 +24,7 @@
   let ready = false;
   let duration = randomInRange(1, 3500);
   const load = async () => {
+    const keepMeLoggedIn = window.localStorage.getItem("keepMeLoggedIn")
     const { SplashScreen } = await import("@capacitor/splash-screen");
     await SplashScreen.show({
       showDuration: duration,
@@ -31,6 +32,9 @@
     });
     const loadingTimer = setTimeout(() => (ready = true), duration);
     onDestroy(() => clearTimeout(loadingTimer));
+    if (keepMeLoggedIn == "true") {
+      await loginHandler();
+    }
   };
   load();
 
@@ -72,6 +76,7 @@
   }
 
   import confetti from "canvas-confetti";
+  let keepMeLoggedIn = false;
   const loginHandler = async (event) => {
     if (deviceType === "desktop") {
       ready = false;
@@ -96,6 +101,11 @@
       });
       await hapticsImpactMedium();
       await hapticsVibrate();
+      if (keepMeLoggedIn) {
+        window.localStorage.setItem("keepMeLoggedIn", "true")
+      } else {
+        window.localStorage.setItem("keepMeLoggedIn", "false")
+      }
       load();
     } catch (err) {
       error = err;
@@ -336,6 +346,10 @@
                       placeholder="******************"
                       required
                     />
+                  </div>
+                  <div class="mb-4">
+                    <input type="checkbox" name="KeepMeLoggedIn" id="KeepMeLoggedIn" bind:checked={keepMeLoggedIn}>
+                    <label for="KeepMeLoggeedIn">Keep Me Logged In</label>
                   </div>
                   <div>
                     <button type="submit" class="btn btn-primary"

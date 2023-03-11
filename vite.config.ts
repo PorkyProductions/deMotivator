@@ -26,6 +26,7 @@ const config: UserConfig = {
         fiveHundred: "./500.html",
         login: "./login.html",
         signUp: "./signUp.html",
+        share: "./share.html",
         list: "./list.html",
         credits: "./credits.html",
         // DMV1: './dmv1.html',

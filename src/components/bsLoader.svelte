@@ -35,8 +35,8 @@
 </div>
 <div class="text-center font-primary p-4">
     {
-        Math.round(value) > 100 
-        ? 100 
+        Math.round(value) > 100
+        ? "Finished!"
         : Math.round(value)
     }%
 </div>
