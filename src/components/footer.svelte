@@ -21,6 +21,10 @@
             name: "Credits",
             href: "credits.html"
         },
+        {
+            name: "Share",
+            href: "share.html"
+        },
     ]
 </script>
 

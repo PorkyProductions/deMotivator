@@ -1,10 +1,1 @@
 @import './colorScheme.scss';
-body {
-    background-image: url(../../img/login-background-light.svg);
-}
-
-@media (prefers-color-scheme: dark) {
-    body {
-        background-image: url(../../img/login-background-dark.svg);
-    }
-}

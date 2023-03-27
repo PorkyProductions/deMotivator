@@ -121,8 +121,8 @@
 <div class="">
     {#each credits as credit}
     <div class="pb-4 flex content-center justify-center">
-        <span><a href={credit.website}>{credit.name}</a></span> &nbsp; <span> | </span> &nbsp;
-        <span><a href={credit.licenseUrl}>{credit.licenseName + " licensed"}</a></span>
+        <span><a class="link" href={credit.website}>{credit.name}</a></span> &nbsp; <span> | </span> &nbsp;
+        <span><a class="link" href={credit.licenseUrl}>{credit.licenseName + " licensed"}</a></span>
     </div>
     {/each}
 </div>

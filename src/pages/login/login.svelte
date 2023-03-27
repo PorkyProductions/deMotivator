@@ -428,7 +428,6 @@
 
 <style>
   div#wrapper {
-    background-image: url(../../img/login-background-light.svg);
     background-size: cover;
     width: 100%;
     height: 100%;
@@ -443,7 +442,6 @@
   }
   @media (prefers-color-scheme: dark) {
     div#wrapper {
-    background-image: url(../../img/login-background-dark.svg);
     background-size: cover;
     width: 100%;
     height: 100%;

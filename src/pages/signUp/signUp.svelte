@@ -411,7 +411,6 @@
 
 <style>
   div#wrapper {
-    background-image: url(../../img/login-background-light.svg);
     color: hsl(0, 0%, 0%);
   }
   form {
@@ -419,7 +418,6 @@
   }
   @media (prefers-color-scheme: dark) {
     div#wrapper {
-      background-image: url(../../img/login-background-dark.svg);
       color: hsl(0, 0%, 100%);
     }
     form {

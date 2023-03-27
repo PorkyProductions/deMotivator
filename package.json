@@ -39,6 +39,8 @@
     "@capacitor/haptics": "^4.1.0",
     "@capacitor/ios": "^4.7.0",
     "@capacitor/splash-screen": "^4.2.0",
+    "@uadetect/slim": "^6.0.0",
+    "@uadetect/small": "^6.0.0",
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.3",
     "canvas-confetti": "^1.6.0",
@@ -51,6 +53,6 @@
     "terser": "^5.16.5",
     "twemoji": "^14.0.2",
     "typescript": "^4.9.5",
-    "uadetect": "^5.0.0"
+    "uadetect": "^6.0.0"
   }
 }
