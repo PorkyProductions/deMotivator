@@ -13,8 +13,7 @@
     "supportedBrowsers": "(echo export default && browserslist-useragent-regexp --allowHigherVersions) > src/utils/supportedBrowsers.ts",
     "preview": "vite preview",
     "push": "firebase deploy",
-    "ionic:build": "npm run build",
-    "capBuild": "npx cap sync && npx cap sync electron && cd ./electron && npm run build && npm run electron:start-live"
+    "capBuild": "cap sync"
   },
   "devDependencies": {
     "@capacitor/cli": "^4.7.0",
@@ -32,7 +31,6 @@
     "vite": "^4.1.4"
   },
   "dependencies": {
-    "@capacitor-community/electron": "^4.1.2",
     "@capacitor/android": "^4.7.0",
     "@capacitor/core": "^4.7.0",
     "@capacitor/dialog": "^4.1.0",
