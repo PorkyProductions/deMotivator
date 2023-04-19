@@ -45,7 +45,7 @@
     "cordova-res": "^0.15.4",
     "demotivator": "^11.1.0",
     "firebase": "^9.19.1",
-    "firebase-tools": "^11.25.3",
+    "firebase-tools": "^11.28.0",
     "serve": "^14.2.0",
     "svelte-loading-spinners": "^0.1.7",
     "terser": "^5.16.9",
