@@ -1,11 +1,16 @@
 import { svelte } from "@sveltejs/vite-plugin-svelte";
+import { visualizer } from "rollup-plugin-visualizer";
 import preprocess from 'svelte-preprocess'
-import { type UserConfig } from "vite";
+import type { UserConfig, PluginOption } from "vite";
 const config: UserConfig = {
   plugins: [
-    svelte({
-          preprocess: preprocess()
-      })
+      svelte({
+        preprocess: preprocess()
+      }),
+      visualizer({
+        emitFile: true,
+        filename: "stats.html",
+      }) as PluginOption
     ],
   appType: "mpa",
   base: "/",

@@ -1,8 +1,9 @@
 <script lang="ts">
     import Title from '../../components/title.svelte';
     import { insults, DeMotivator } from 'demotivator'
+    import {print} from '../../utils/print'
     const dmv = new DeMotivator()
-    console.log(dmv);
+    print(dmv);
     const profaneArray = dmv.createArray({
         original: true,
         profane: true
