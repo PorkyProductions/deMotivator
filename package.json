@@ -29,7 +29,8 @@
     "svelte": "^3.59.0",
     "svelte-preprocess": "^5.0.3",
     "tailwindcss": "^3.3.2",
-    "vite": "^4.3.5"
+    "vite": "^4.3.5",
+    "vite-plugin-banner": "^0.7.0"
   },
   "dependencies": {
     "@capacitor/android": "^4.8.0",

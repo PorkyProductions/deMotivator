@@ -279,7 +279,7 @@
         {/if}
       {:else}
         <BsAlert
-          icon={info}
+          icon="info-circle"
           type="info"
           text="By using (de)Motivator with an account, you consent to our, as well as Google's cookies."
           actionLink="https://policies.google.com/privacy"

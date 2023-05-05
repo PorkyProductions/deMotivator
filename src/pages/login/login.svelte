@@ -70,6 +70,7 @@
   }
 
   import confetti from "canvas-confetti";
+  import { name } from "../../typescript/constants";
   let keepMeLoggedIn = false;
   const loginHandler = async (event) => {
     if (deviceType === "desktop") {
@@ -198,7 +199,7 @@
           icon="info-circle"
           iconAlt="info"
           type="dark"
-          text="By using (de)Motivator with an account, you consent to our, as well as Google's cookies."
+          text={`By using ${name} with an account, you consent to our, as well as Google's cookies`}
           actionLink="https://policies.google.com/privacy"
           actionText="Learn More"
         />
@@ -218,7 +219,7 @@
           icon="info-circle"
           iconAlt="info"
           type="info"
-          text="By using (de)Motivator with an account, you consent to our, as well as Google's cookies."
+          text={`By using ${name} with an account, you consent to our, as well as Google's cookies`}
           actionLink="https://policies.google.com/privacy"
           actionText="Learn More"
         />
@@ -253,7 +254,7 @@
                 </span>
                 <h2 class="font-primary pb-4 text-3xl">{user.email ?? ""}</h2>
                 <h2 class="font-primary pb-4 text-3xl">You've seen {insultsSeenDB ?? "no"} insults</h2>
-                <h2 class="font-primary">Your (de)Motivator UserID:</h2>
+                <h2 class="font-primary">Your {name} UserID:</h2>
                 <h3 class="font-primary text-xl">
                   {user.id ?? " "}
                 </h3>

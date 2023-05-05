@@ -1,5 +1,7 @@
 import { svelte } from "@sveltejs/vite-plugin-svelte";
 import { visualizer } from "rollup-plugin-visualizer";
+import b from 'vite-plugin-banner'
+import constants from './src/typescript/constants'
 import preprocess from 'svelte-preprocess'
 import type { UserConfig, PluginOption } from "vite";
 const config: UserConfig = {
@@ -7,6 +9,7 @@ const config: UserConfig = {
       svelte({
         preprocess: preprocess()
       }),
+      b(constants.banner),
       visualizer({
         emitFile: true,
         filename: "stats.html",

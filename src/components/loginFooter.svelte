@@ -2,6 +2,7 @@
     import Title from './title.svelte';
     import { insultAt, createArray } from 'demotivator';
     import { randomInRange } from '../utils/random';
+    import { parentCompany } from '../typescript/constants';
     var year = new Date().getFullYear().toLocaleString("en-US")
 </script>
 
@@ -30,6 +31,6 @@
 </div>
 <div class="flex justify-center font-primary dark:bg-theme-black bg-primary-majorelleBlue">
      <span>
-            <p class="text-white">Copyright &copy; 2020-{year}. A PorkyProductions product</p>
+            <p class="text-white">Copyright &copy; 2020-{year}. A {parentCompany} product</p>
     </span>
 </div>

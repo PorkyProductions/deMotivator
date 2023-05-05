@@ -2,10 +2,11 @@
 
 <script>
     import '../styles/css/app.css'
+    import { name } from '../typescript/constants';
 </script>
 
 <h1 class="font-primary text-center title p-5 font-semibold">
-    (de)Motivator
+    {name}
 </h1>
 
 <style>

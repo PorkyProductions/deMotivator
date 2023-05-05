@@ -4,9 +4,10 @@
     import Title from './title.svelte';
     import { deviceType, OS } from 'uadetect'
     import SiwGoogleButton from './siwGoogleButton.svelte';
+    import { parentCompany } from '../typescript/constants';
     const navigation = [
         {
-            name: "PorkyProductions",
+            name: parentCompany,
             href: "https://porkyproductions.github.io/"
         },
         {
@@ -83,7 +84,7 @@
                     </div>
                 </div>
                 <hr />
-                <p class="text-white p-4">Copyright &copy; 2020-{year.getFullYear()}, PorkyProductions and/or it's contributors. All Rights Reserved</p>
+                <p class="text-white p-4">Copyright &copy; 2020-{year.getFullYear()}, {parentCompany} and/or it's contributors. All Rights Reserved</p>
             </div>
             <nav class="flex justify-between flex-col p-4 text-white underline font-primary font-medium mb-0">
                 {#each navigation as link}
