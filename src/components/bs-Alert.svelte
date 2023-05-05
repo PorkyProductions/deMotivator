@@ -3,7 +3,6 @@
     import { type BSVarient } from '../typescript/types';
     export let type: BSVarient;
     export let icon: any;
-    export let iconAlt: string;
     export let text: string;
     export let actionLink: string;
     export let actionText: string;
@@ -15,7 +14,7 @@
 
 <div transition:fade class="alert alert-{type} d-flex align-items-center alert-dismissible" role="alert" on:mouseover={load} on:focus={load}>
     <span>
-        <img src={icon} alt={iconAlt}>
+        <i class="bi bi-{icon}">
     </span>
       &nbsp;
     <span>

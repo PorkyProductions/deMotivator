@@ -7,12 +7,7 @@
   import BsSpinner from "../../components/bs-spinner.svelte";
   import LoginFooter from "../../components/loginFooter.svelte";
   import Title from "../../components/title.svelte";
-  import leftArrow from "bootstrap-icons/icons/arrow-left.svg";
-  import info from "bootstrap-icons/icons/info-circle.svg";
   import person from "bootstrap-icons/icons/person-circle.svg";
-  import google from "bootstrap-icons/icons/google.svg";
-  import exclamation from "bootstrap-icons/icons/exclamation-octagon.svg";
-  import check from "bootstrap-icons/icons/check2-circle.svg";
   // Import Misc Helpers
   import { onMount, onDestroy, beforeUpdate } from "svelte";
   import { darkMode } from "../../utils/darkMode";
@@ -61,7 +56,6 @@
   import Auth from "./auth.svelte";
   import { fade } from "svelte/transition";
 
-  import warning from "bootstrap-icons/icons/exclamation-diamond-fill.svg";
   import BsAlert from "../../components/bs-Alert.svelte";
   import BsModal from "../../components/bs-modal.svelte";
   import BsButton from "../../components/bsButton.svelte";
@@ -201,7 +195,7 @@
     <div id="wrapper" class="relative right-0 left-0 top-0 bottom-0">
       {#if darkMode == true}
         <BsAlert
-          icon={info}
+          icon="info-circle"
           iconAlt="info"
           type="dark"
           text="By using (de)Motivator with an account, you consent to our, as well as Google's cookies."
@@ -211,8 +205,7 @@
         {#if error}
           <div transition:fade class="p-2 mb-6">
             <BsAlert
-              icon={warning}
-              iconAlt={warning}
+              icon="exclamation-diamond-fill"
               actionLink=" "
               actionText=" "
               type="danger"
@@ -222,7 +215,7 @@
         {/if}
       {:else}
         <BsAlert
-          icon={info}
+          icon="info-circle"
           iconAlt="info"
           type="info"
           text="By using (de)Motivator with an account, you consent to our, as well as Google's cookies."
@@ -232,8 +225,7 @@
         {#if error}
           <div transition:fade class="p-2 mb-6">
             <BsAlert
-              icon={warning}
-              iconAlt={warning}
+              icon="exclamation-diamond-fill"
               actionLink=" "
               actionText=" "
               type="danger"
@@ -281,7 +273,7 @@
                   <BsModal
                     preButtonText="Delete Account"
                     preButtonType="danger"
-                    icon={warning}
+                    icon="exclamation-diamond-fill"
                     title="Are you sure?"
                     body="Once an account is deleted, it cannot be undone, and any data associated with that account will be forever lost. Be absolutely sure."
                     confirmButtonType="danger"
@@ -365,7 +357,7 @@
                       >
                         <span
                           >Sign In with &nbsp;<span
-                            ><img class="inline" src={google} alt="" /></span
+                            ><i class="bi bi-google"/></span
                           ></span
                         >
                       </button>
@@ -379,7 +371,7 @@
                       >
                         <span
                           >Sign In with &nbsp;<span
-                            ><img class="inline" src={google} alt="" /></span
+                            ><i class="bi bi-google" /></span
                           ></span
                         >
                       </button>
@@ -414,7 +406,7 @@
       </div>
       <div class="flex content-center justify-center p-4 pb-10">
         <BsButton
-          icon={leftArrow}
+          icon="arrow-left"
           iconAlt="a left facing arrow"
           text="Go back home"
           type="success"

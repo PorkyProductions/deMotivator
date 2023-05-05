@@ -8,13 +8,9 @@
   import Title from "../../components/title.svelte";
   import BsSpinner from "../../components/bs-spinner.svelte";
   import Auth from "../login/auth.svelte";
-  import leftArrow from "bootstrap-icons/icons/arrow-left.svg";
   import BsAlert from "../../components/bs-Alert.svelte";
   import BsButton from "../../components/bsButton.svelte";
   import BsLoader from "../../components/bsLoader.svelte";
-  // Import Icons
-  import warning from "bootstrap-icons/icons/exclamation-diamond-fill.svg";
-  import info from "bootstrap-icons/icons/info-circle.svg";
   // Import Misc Helpers
   import { fade } from "svelte/transition";
   import { onDestroy } from "svelte";
@@ -264,8 +260,7 @@
     <div id="wrapper" class="absolute top-0 bottom-0 right-0 left-0">
       {#if darkMode == true}
         <BsAlert
-          icon={info}
-          iconAlt="info"
+          icon="info-circle"
           type="dark"
           text="By using (de)Motivator with an account, you consent to our, as well as Google's cookies."
           actionLink="https://policies.google.com/privacy"
@@ -274,8 +269,7 @@
         {#if error}
           <div transition:fade class="p-2 mb-6">
             <BsAlert
-              icon={warning}
-              iconAlt={warning}
+              icon="exclamation-diamond-fill"
               actionLink=" "
               actionText=" "
               type="danger"
@@ -286,7 +280,6 @@
       {:else}
         <BsAlert
           icon={info}
-          iconAlt="info"
           type="info"
           text="By using (de)Motivator with an account, you consent to our, as well as Google's cookies."
           actionLink="https://policies.google.com/privacy"
@@ -295,8 +288,7 @@
         {#if error}
           <div transition:fade class="p-2 mb-6">
             <BsAlert
-              icon={warning}
-              iconAlt={warning}
+              icon="exclamation-diamond-fill"
               actionLink=" "
               actionText=" "
               type="danger"
@@ -397,7 +389,7 @@
         </div>
         <div class="flex content-center justify-center p-4 pb-10">
           <BsButton
-            icon={leftArrow}
+            icon="arrow-left"
             iconAlt="a left facing arrow"
             text="Go back home"
             type="success"

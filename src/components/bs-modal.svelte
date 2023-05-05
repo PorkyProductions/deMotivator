@@ -6,7 +6,7 @@
     }
     export let preButtonType: BSVarient;
     export let preButtonText: string
-    export let icon: any;
+    export let icon: string;
     export let title: string
     export let body: string;
     export let confirmButtonType: BSVarient;
@@ -27,7 +27,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <span>
-            <img src={icon} alt="">
+            <i class="bi bi-{icon}">
           </span>
           &nbsp;
           <span>
