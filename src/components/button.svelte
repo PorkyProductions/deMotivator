@@ -2,8 +2,7 @@
     // Imports
     import logo from '../img/dmv-logo.png';
     import { Insult, UserInsult } from '../typescript/insult'
-    import {print} from '../utils/print'
-    print({
+    console.log({
         Insult,
         UserInsult
     })
@@ -53,10 +52,8 @@ const MEGAMODErandomize = async () => {
     MEGAMODEinsults++
 }
 const MEGAMODEspeedControl = async () => {
-    const {print} = await import('../utils/print')
     setInterval(() => {
         MEGAMODErandomize();
-        print(MEGAMODEspeed);
     }, MEGAMODEspeed) 
 }
 </script>

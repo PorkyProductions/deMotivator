@@ -3,7 +3,7 @@ import { visualizer } from "rollup-plugin-visualizer";
 import b from 'vite-plugin-banner'
 import constants from './src/typescript/constants'
 import preprocess from 'svelte-preprocess'
-import type { UserConfig, PluginOption } from "vite";
+import type { UserConfig } from "vite";
 const config: UserConfig = {
   plugins: [
       svelte({
@@ -13,7 +13,7 @@ const config: UserConfig = {
       visualizer({
         emitFile: true,
         filename: "stats.html",
-      }) as PluginOption
+      })
     ],
   appType: "mpa",
   base: "/",
@@ -24,7 +24,7 @@ const config: UserConfig = {
     target: "es2017",
     emptyOutDir: false,
     cssCodeSplit: true,
-    sourcemap: true,
+    sourcemap: false,
     minify: "esbuild",
     rollupOptions: {
       treeshake: "recommended",
