@@ -8,3 +8,9 @@
 </script>
 
 <a href={href} id="bsButton" class="btn btn-{type}"><i class="bi bi-{icon}">&nbsp;{text}</a>
+
+    <style>
+        i {
+            font-style: normal;
+        }
+    </style>

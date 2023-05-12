@@ -1,16 +1,4 @@
 <script lang="ts">
-    // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics, setUserId } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-import {firebaseConfig} from '../typescript/insults'
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 import Auth from "../pages/login/auth.svelte";
 import { darkMode } from "../utils/darkMode";
 </script>

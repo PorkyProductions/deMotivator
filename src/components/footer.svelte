@@ -82,6 +82,9 @@
                     <div class="text-white">
                         <Title />
                     </div>
+                    <div class="pt-6">
+                        <SiwGoogleButton />
+                    </div>
                 </div>
                 <hr />
                 <p class="text-white p-4">Copyright &copy; 2020-{year.getFullYear()}, {parentCompany} and/or it's contributors. All Rights Reserved</p>
@@ -90,7 +93,6 @@
                 {#each navigation as link}
                     <a class="footer-link" href={link.href}>{link.name}</a>
                 {/each}
-                <SiwGoogleButton />
             </nav>
         </div>
     </footer>

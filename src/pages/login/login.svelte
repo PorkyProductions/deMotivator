@@ -237,7 +237,7 @@
       {/if}
       <Title />
       <div class="">
-        <div class="wrapper flex content-center justify-center ">
+        <div class="wrapper flex content-center justify-center bg-theme-white">
           {#if loggedIn}
             <div class="w-full md:max-w-xs" id="loggedInUI" transition:fade>
               <div class="text-center">
@@ -263,12 +263,12 @@
                   class="mt-3 btn btn-primary"
                   on:click={launchConfetti}
                 >
-                  Launch Confetti
+                  <i class="bi bi-heart"> &nbsp;Launch Confetti
                 </button>
                 <button
                   type="button"
                   class="mt-3 btn btn-warning"
-                  on:click={logout}>Logout</button
+                  on:click={logout}> <i class="bi bi-door-open"> &nbsp;Logout</button
                 >
                 <div class="mt-3 pb-3">
                   <BsModal
@@ -420,6 +420,10 @@
 </Auth>
 
 <style>
+  i {
+    text-decoration: none;
+    font-style: normal;
+  }
   div#wrapper {
     background-size: cover;
     width: 100%;
