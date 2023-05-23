@@ -2,7 +2,8 @@
     var year = new Date();
     import hedgehog from '../img/HedgehogIcon.png'
     import Title from './title.svelte';
-    import { deviceType, OS } from 'uadetect'
+    import { OS } from 'uadetect/dist/operatingSystem'
+    import { deviceType } from 'uadetect/dist/deviceType';
     import SiwGoogleButton from './siwGoogleButton.svelte';
     import { parentCompany } from '../typescript/constants';
     const navigation = [

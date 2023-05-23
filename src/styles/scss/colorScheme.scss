@@ -32,7 +32,7 @@ $theme-border-radius-md: 15px;
     accent-color: $primary-majorelleBlue;
     cursor: url(../../../node_modules/bootstrap-icons/icons/hand-thumbs-down.svg);
     &::selection {
-        background-color: $highlights;
+        background-color: mix($highlights, $primary-majorelleBlue, 50%);
         color: $theme-white;
     }
     p {

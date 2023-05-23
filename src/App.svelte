@@ -62,11 +62,11 @@ if (user !== null) {
 }
 </script>
 {#if !ready}
-    <div transition:fly="{{ y: 200, duration: randomInRange(1, 4000) }}">
+    <div transition:fade>
         <Loader />
     </div>
     {:else}
-    <div transition:fly="{{ y: 200, duration: randomInRange(1, 4000) }}">
+    <div transition:fade>
         <div class="dark:bg-theme-black dark:text-white" id="app">
             <Title />
             <Button />

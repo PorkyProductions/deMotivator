@@ -12,7 +12,7 @@
   import { onMount, onDestroy, beforeUpdate } from "svelte";
   import { darkMode } from "../../utils/darkMode";
   import { randomInRange } from "../../utils/random";
-  import { deviceType } from "uadetect";
+  import { deviceType } from "uadetect/dist/deviceType";
   let emailBoxContent
   let emailBox
   // Loading Logic
@@ -237,7 +237,7 @@
       {/if}
       <Title />
       <div class="">
-        <div class="wrapper flex content-center justify-center bg-theme-white">
+        <div class="wrapper flex content-center justify-center">
           {#if loggedIn}
             <div class="w-full md:max-w-xs" id="loggedInUI" transition:fade>
               <div class="text-center">
@@ -433,10 +433,6 @@
     bottom: 0;
   }
 
-  form,
-  div#loggedInUI {
-    background-color: white;
-  }
   @media (prefers-color-scheme: dark) {
     div#wrapper {
     background-size: cover;
