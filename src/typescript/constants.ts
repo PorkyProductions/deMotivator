@@ -6,7 +6,7 @@ import pkg from '../../package.json'
 export let name = "(de)Motivator"
 
 if (!PROD) {
-    name = "(de)Motivator (dev)"
+    name = "(dev)Motivator"
 }
 
 export const version = pkg.version
