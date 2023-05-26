@@ -2,12 +2,12 @@
   // Import generic stylesheets, essential libraries
   import "../../styles/css/app.css";
   import "../../styles/css/customProps.css";
-  import "@capacitor/core";
   // Import components
   import BsSpinner from "../../components/bs-spinner.svelte";
   import LoginFooter from "../../components/loginFooter.svelte";
   import Title from "../../components/title.svelte";
   import person from "bootstrap-icons/icons/person-circle.svg";
+  import Icon from "../../components/icon.svelte";
   // Import Misc Helpers
   import { onMount, onDestroy, beforeUpdate } from "svelte";
   import { darkMode } from "../../utils/darkMode";
@@ -239,7 +239,7 @@
       <div class="">
         <div class="wrapper flex content-center justify-center">
           {#if loggedIn}
-            <div class="w-full md:max-w-xs" id="loggedInUI" transition:fade>
+            <div class="w-full md:max-w-[30rem]" id="loggedInUI" transition:fade>
               <div class="text-center">
                 <img
                   src={user.picture ?? person}
@@ -274,6 +274,7 @@
                   <BsModal
                     preButtonText="Delete Account"
                     preButtonType="danger"
+                    preButtonIcon="person-x"
                     icon="exclamation-diamond-fill"
                     title="Are you sure?"
                     body="Once an account is deleted, it cannot be undone, and any data associated with that account will be forever lost. Be absolutely sure."
@@ -287,23 +288,15 @@
               </div>
               <div class="text-center m-auto">
                 <div class="flex content-center justify-center p-4">
-                  <a href="list.html" class="btn btn-secondary">
-                    <div class="inline">
-                      <span>View All Insults</span>
-                    </div>
-                  </a>
+                  <BsButton href="/list.html" type="secondary" text="View All Insults" icon="binoculars" />
                   &nbsp;
                   {#if darkMode}
-                      <button type="button" on:click={refreshInsultsSeen} on:keypress={refreshInsultsSeen} class="btn btn-dark">
-                        <div class="inline">
-                          <span>Refresh Insults Seen</span>
-                        </div>
+                    <button type="button" on:click={refreshInsultsSeen} on:keypress={refreshInsultsSeen}>
+                        <BsButton href="" type="dark" text="Refresh Insults Seen" icon="arrow-clockwise" />
                     </button>
                   {:else}
-                    <button type="button" on:click={refreshInsultsSeen} on:keypress={refreshInsultsSeen} class="btn btn-light">
-                      <div class="inline">
-                        <span>Refresh Insults Seen</span>
-                      </div>
+                    <button type="button" on:click={refreshInsultsSeen} on:keypress={refreshInsultsSeen}>
+                      <BsButton href="" type="light" text="Refresh Insults Seen" icon="arrow-clockwise" />
                     </button>
                   {/if}
                   
@@ -384,7 +377,7 @@
                       class="btn btn-info"
                       on:click|preventDefault={signInAnonomous}
                     >
-                      Sign In as a Guest
+                      <Icon name="person-slash"/>Sign In as a Guest
                     </button>
                   </div>
                   <div id="emailHelp" class="form-text">
@@ -396,7 +389,7 @@
                     <a
                       href="signUp.html"
                       type="button"
-                      class="btn btn-secondary">Sign Up</a
+                      class="btn btn-secondary"><Icon name="person-plus"/>Sign Up</a
                     >
                   </div>
                 </form>

@@ -4,7 +4,6 @@
     import '../../styles/css/app.css'
     import '../../styles/css/customProps.css'
     import '../../styles/scss/colorScheme.scss'
-    import '@capacitor/core'
     // Loading Logic
 
 

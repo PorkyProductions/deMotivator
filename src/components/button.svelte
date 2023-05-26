@@ -81,14 +81,14 @@ let:loggedIn
             Insults shown: {MEGAMODEinsults}
         </p>
         <div class="flex content-center justify-center">
-            <label for="">
-                <input type="range" name="" id="" min="1" max="2000" on:change={MEGAMODEspeedControl} bind:value={MEGAMODEspeed} />
+            <label for="megamodeSpeedControl">
+                <input type="range" name="megamodeSpeedControl" id="" min="1" max="2000" on:change={MEGAMODEspeedControl} bind:value={MEGAMODEspeed} />
             </label>
             <p>{MEGAMODEspeed}</p>
         </div>
         <div class="sm:p-3 md:p-4 lg:p-5 xl:p-6"></div>
     {/if}
-    <div class="flex content-center justify-center">
+    <div class="flex content-center justify-center transition-all">
         <label class="hover:font-black hover:text-red-600 font-primary">
             <input type=checkbox bind:checked={MEGAMODE} class="hover:checked:accent-blue-600">
             MEGAMODE

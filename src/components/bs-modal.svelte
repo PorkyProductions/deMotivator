@@ -1,11 +1,13 @@
 <script lang="ts">
   import '../styles/scss/darkMode.scss'
   import { BSVarient } from '../typescript/types';
+  import Icon from './icon.svelte';
     const load = async () => {
         await import('bootstrap/js/dist/modal')
     }
     export let preButtonType: BSVarient;
-    export let preButtonText: string
+    export let preButtonText: string;
+    export let preButtonIcon: string
     export let icon: string;
     export let title: string
     export let body: string;
@@ -18,7 +20,7 @@
 
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-{preButtonType}" data-bs-toggle="modal" data-bs-target="#exampleModal" id="bsModal" on:mouseover={load} on:focus={load}>
-    {preButtonText}
+    <Icon name={preButtonIcon} />{preButtonText}
   </button>
   
   <!-- Modal -->

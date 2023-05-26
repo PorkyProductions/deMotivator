@@ -1,4 +1,5 @@
 import type { bool } from './types';
+window.onload = async () => await import("@capacitor/core")
 
 console.log(`%c
     
