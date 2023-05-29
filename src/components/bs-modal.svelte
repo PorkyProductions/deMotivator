@@ -29,7 +29,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <span>
-            <i class="bi bi-{icon}">
+            <Icon name={icon} />
           </span>
           &nbsp;
           <span>

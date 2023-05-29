@@ -2,6 +2,7 @@
     // Imports
     import logo from '../img/dmv-logo.png';
     import { Insult, UserInsult } from '../typescript/insult'
+    import { darkMode } from '../utils/darkMode'
     console.log({
         Insult,
         UserInsult
@@ -10,6 +11,7 @@
     // Firebase
     import {fade} from 'svelte/transition'
     import Auth from '../pages/login/auth.svelte';
+  import Icon from './icon.svelte';
 
 /*
 
@@ -35,6 +37,12 @@ const randomize = async () => {
         updateInsultsSeen(insultsSeenDB + 1)
     }
 }
+
+const writeInsultToClipboard = async () => {
+    const { setClipboardText } = await import('uadetect/dist/clipboard')
+    await setClipboardText(result || userResult || MEGAMODEresult || "")
+}
+
 /*
 
 MEGAMODE
@@ -56,12 +64,14 @@ const MEGAMODEspeedControl = async () => {
         MEGAMODErandomize();
     }, MEGAMODEspeed) 
 }
+
+
+
 </script>
 
 <Auth
-let:loggedIn
->
-
+    let:loggedIn
+>    
 <main>
     <img src={logo} draggable="false" alt="a large, red button" on:click={randomize} on:keypress={randomize} class="p-4 hover:cursor-pointer">
     <div class="sm:p-3 md:p-4 lg:p-5 xl:p-6"></div>
@@ -88,17 +98,52 @@ let:loggedIn
         </div>
         <div class="sm:p-3 md:p-4 lg:p-5 xl:p-6"></div>
     {/if}
-    <div class="flex content-center justify-center transition-all">
+    <div class="flex content-center justify-center transition-all pb-4">
         <label class="hover:font-black hover:text-red-600 font-primary">
             <input type=checkbox bind:checked={MEGAMODE} class="hover:checked:accent-blue-600">
             MEGAMODE
         </label>
     </div>
+    {#if MEGAMODE}
+        <div class="flex content-center justify-center transition-all">
+            <button disabled={true} on:click={writeInsultToClipboard} class={!darkMode ? "btn btn-primary" : "btn btn-dark"}><Icon name="clipboard" /> Copy insult to clipboard</button>
+        </div>
+    {:else}
+        <div class="flex content-center justify-center transition-all">
+            <button disabled={false} on:click={writeInsultToClipboard} class={!darkMode ? "btn btn-primary" : "btn btn-dark"}><Icon name="clipboard" /> Copy insult to clipboard</button>
+        </div>
+    {/if}
+    
     
 </main>
 </Auth>
 
-<style>
+<style lang="scss">
+    @import "../node_modules/bootstrap/scss/functions";
+    $prefix: "dmv-ppio-";
+    @import '../styles/scss/colorScheme.scss';
+    $primary: $primary-majorelleBlue;
+    $info: mix($theme-lightBlue, $theme-blue);
+    $blue: $theme-blue;
+    $indigo: $theme-indigo;
+    $purple: $theme-purple;
+    $pink: $theme-pink;
+    $red: $theme-red;
+    $orange: $theme-orange;
+    $yellow: $theme-yellow;
+    $green: $theme-green;
+    $teal: $theme-teal;
+    $cyan: $theme-cyan;
+    $black: $theme-black;
+    $white: $theme-white;
+    $gray: mix($theme-black, $theme-white);
+    $enable-rounded: true;
+    $enable-shadows: true;
+    @import "../node_modules/bootstrap/scss/variables";
+    @import "../node_modules/bootstrap/scss/maps";
+    @import "../node_modules/bootstrap/scss/mixins";
+    @import "../node_modules/bootstrap/scss/root";
+    @import "../../node_modules/bootstrap/scss/buttons";
     img {
         width: 325px;
         display: block;

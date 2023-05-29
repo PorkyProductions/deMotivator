@@ -1,6 +1,6 @@
 import { PROD } from './constants';
 import type { bool } from './types';
-window.onload = async () => await import("@capacitor/core")
+window.addEventListener("load", async () => await import("@capacitor/core"))
 if (PROD) window.onload = () => console.clear()
 
 console.log(`%c
