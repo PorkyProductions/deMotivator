@@ -28,6 +28,7 @@ let:loggedIn
     $prefix: "dmv-ppio-";
     @import '../styles/scss/colorScheme.scss';
     @import "../node_modules/bootstrap/scss/variables";
+    @import "../../node_modules/bootstrap/scss/variables-dark";
     @import "../node_modules/bootstrap/scss/maps";
     @import "../node_modules/bootstrap/scss/mixins";
     @import "../node_modules/bootstrap/scss/root";

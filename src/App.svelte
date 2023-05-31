@@ -46,6 +46,7 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { randomInRange } from './utils/random';
+  import { bsTheme } from './utils/darkMode';
 const auth = getAuth();
 const user = auth.currentUser;
 if (user !== null) {
@@ -61,20 +62,22 @@ if (user !== null) {
     const uid = user.uid;
 }
 </script>
-{#if !ready}
-    <div transition:fade>
-        <Loader />
-    </div>
+<div id="root" data-bs-theme={bsTheme}>
+    {#if !ready}
+        <div transition:fade>
+            <Loader />
+        </div>
     {:else}
-    <div transition:fade>
-        <div class="dark:bg-theme-black dark:text-white" id="app">
-            <Title />
-            <Button />
-        <div class="sm:p-3 md:p-4 lg:p-5 xl:p-20">
-            </div>
-            <div id="footer" class="" >
-                <Footer />
+        <div transition:fade>
+            <div class="dark:bg-theme-black dark:text-white" id="app">
+                <Title />
+                <Button />
+            <div class="sm:p-3 md:p-4 lg:p-5 xl:p-20">
+                </div>
+                <div id="footer" class="" >
+                    <Footer />
+                </div>
             </div>
         </div>
-    </div>
-{/if}
+    {/if}
+</div>

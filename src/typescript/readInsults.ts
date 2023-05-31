@@ -10,7 +10,7 @@ export async function readInsults(): Promise<number> {
 
   return new Promise(async (resolve, reject) => {
     try {
-      const user = await auth.currentUser;
+      const user = auth.currentUser;
       if (user) {
         const usersRef = doc(db, "users", user.uid);
         const usersSnap = await getDoc(usersRef);
@@ -28,7 +28,8 @@ export async function readInsults(): Promise<number> {
         resolve(0);
       }
     } catch (error) {
-      reject(error);
+      const { printError } = await import("../utils/print"); 
+      reject((error: Error) => printError(error));
     }
   });
 }

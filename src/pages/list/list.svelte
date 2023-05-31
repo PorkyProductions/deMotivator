@@ -14,10 +14,11 @@
     const profaneInsults = userInsults.concat(profaneArray)
     import Auth from '../login/auth.svelte';
   import LoginFooter from '../../components/loginfooter.svelte';
+  import { bsTheme } from '../../utils/darkMode';
 </script>
 
-
-<Auth
+<div id="root" data-bs-theme={bsTheme}>
+    <Auth
 let:loggedIn
 >
 <div class="p-4 text-9xl">
@@ -72,3 +73,4 @@ let:loggedIn
 
 <LoginFooter />
 </Auth>
+</div>

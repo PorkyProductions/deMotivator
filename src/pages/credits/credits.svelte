@@ -1,5 +1,6 @@
 <script lang="ts">
     import Title from '../../components/title.svelte';
+  import { bsTheme } from '../../utils/darkMode';
     interface Credits {
         name: string,
         website: string,
@@ -106,23 +107,25 @@
     ]
 </script>
 
-<div class="p-2 text-4xl">
-    <div class="bg-gradient-to-tr from-indigo-400 via-primary-majorelleBlue to-blue-900 dark:from-orange-400 dark:via-secondary-orangePantone dark:to-orange-900 rounded-lg">
-        <div class="text-white p-32">
-            <Title />
+<div id="root" data-bs-theme={bsTheme}>
+    <div class="p-2 text-4xl">
+        <div class="bg-gradient-to-tr from-indigo-400 via-primary-majorelleBlue to-blue-900 dark:from-orange-400 dark:via-secondary-orangePantone dark:to-orange-900 rounded-lg">
+            <div class="text-white p-32">
+                <Title />
+            </div>
         </div>
     </div>
-</div>
 
-<h2 class="font-primary text-4xl text-center">
-    Credits
-</h2>
+    <h2 class="font-primary text-4xl text-center">
+        Credits
+    </h2>
 
-<div class="">
-    {#each credits as credit}
-    <div class="pb-4 flex content-center justify-center">
-        <span><a class="link link-primary" href={credit.website}>{credit.name}</a></span> &nbsp; <span> | </span> &nbsp;
-        <span><a class="link link-info" href={credit.licenseUrl}>{credit.licenseName + " licensed"}</a></span>
+    <div class="">
+        {#each credits as credit}
+        <div class="pb-4 flex content-center justify-center">
+            <span><a class="link link-primary" href={credit.website}>{credit.name}</a></span> &nbsp; <span> | </span> &nbsp;
+            <span><a class="link link-info" href={credit.licenseUrl}>{credit.licenseName + " licensed"}</a></span>
+        </div>
+        {/each}
     </div>
-    {/each}
 </div>

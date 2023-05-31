@@ -2,12 +2,13 @@
     import Twitter from "./twitter.svelte";
     import { tweets } from './tweets.ts'
     import Title from "../../components/title.svelte";
+    import { bsTheme } from "../../utils/darkMode";
     let sendButtonClasses = "btn btn-primary"
     let emailBoxContent;
 </script>
 
-
-<div class="p-2 text-4xl">
+<div id="root" data-bs-theme={bsTheme}>
+    <div class="p-2 text-4xl">
     <div class="bg-gradient-to-tr from-indigo-400 via-primary-majorelleBlue to-blue-900 dark:from-orange-400 dark:via-secondary-orangePantone dark:to-orange-900 rounded-lg">
         <div class="text-white p-32">
             <Title />
@@ -42,3 +43,5 @@
 
 
 <hr>
+
+</div>

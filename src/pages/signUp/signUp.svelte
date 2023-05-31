@@ -13,7 +13,7 @@
   // Import Misc Helpers
   import { fade } from "svelte/transition";
   import { onDestroy } from "svelte";
-  import { darkMode } from "../../utils/darkMode";
+  import { bsTheme, darkMode } from "../../utils/darkMode";
   import { randomInRange } from "../../utils/random";
 
   let names: string[] = [
@@ -122,6 +122,7 @@
 
   // Loading Logic
   let ready = false;
+  let yay = false;
   let duration = randomInRange(1, 4000);
   const load = async () => {
     const { SplashScreen } = await import("@capacitor/splash-screen");
@@ -223,182 +224,194 @@
           origin: { y: 0.6 },
         });
       }
+      yay = true
     } catch (err) {
       error = err;
     }
   };
 </script>
 
-<Auth useRedirect={true} let:loggedIn>
-  {#if !ready}
-    {#if loggedIn}
-      <div class="p-4">
-        <BsSpinner type="success" />
-      </div>
-      <div class="m-auto px-8">
-        <BsLoader type="success" loadingTime={duration} />
-      </div>
+<div id="root" data-bs-theme={bsTheme}>
+  <Auth useRedirect={true} let:loggedIn>
+    {#if !ready}
+      {#if loggedIn}
+        <div class="p-4">
+          <BsSpinner type="success" />
+        </div>
+        <div class="m-auto px-8">
+          <BsLoader type="success" loadingTime={duration} />
+        </div>
+      {:else}
+        {#if error}
+          <div class="p-4">
+            <BsSpinner type="danger" />
+          </div>
+          <div class="m-auto px-8">
+            <BsLoader type="danger" loadingTime={duration} />
+          </div>
+        {:else}
+          <div class="p-4">
+            <BsSpinner type="primary" />
+          </div>
+          <div class="m-auto px-8">
+            <BsLoader type="primary" loadingTime={duration} />
+          </div>
+        {/if}
+      {/if}
     {:else}
-      {#if error}
-        <div class="p-4">
-          <BsSpinner type="danger" />
-        </div>
-        <div class="m-auto px-8">
-          <BsLoader type="danger" loadingTime={duration} />
-        </div>
-      {:else}
-        <div class="p-4">
-          <BsSpinner type="primary" />
-        </div>
-        <div class="m-auto px-8">
-          <BsLoader type="primary" loadingTime={duration} />
-        </div>
-      {/if}
-    {/if}
-  {:else}
-    <div id="wrapper" class="absolute top-0 bottom-0 right-0 left-0">
-      {#if darkMode == true}
-        <BsAlert
-          icon="info-circle"
-          type="dark"
-          text="By using (de)Motivator with an account, you consent to our, as well as Google's cookies."
-          actionLink="https://policies.google.com/privacy"
-          actionText="Learn More"
-        />
-        {#if error}
-          <div transition:fade class="p-2 mb-6">
-            <BsAlert
-              icon="exclamation-diamond-fill"
-              actionLink=" "
-              actionText=" "
-              type="danger"
-              text={error.message ?? "An error occured. Try again"}
-            />
-          </div>
-        {/if}
-      {:else}
-        <BsAlert
-          icon="info-circle"
-          type="info"
-          text="By using (de)Motivator with an account, you consent to our, as well as Google's cookies."
-          actionLink="https://policies.google.com/privacy"
-          actionText="Learn More"
-        />
-        {#if error}
-          <div transition:fade class="p-2 mb-6">
-            <BsAlert
-              icon="exclamation-diamond-fill"
-              actionLink=" "
-              actionText=" "
-              type="danger"
-              text={error.message ?? "An error occured. Try again"}
-            />
-          </div>
-        {/if}
-      {/if}
-      <Title />
-      <h3 class="text-center font-primary font-light">Sign Up</h3>
-      <div class="">
-        <div class="wrapper flex content-center justify-center ">
-          {#if loggedIn}
-            {(window.location.href = "login.html")}
-          {:else}
-            <div class="w-full max-w-xs" transition:fade>
-              <div class=" flex content-center justify-center">
-                <form
-                  on:submit|preventDefault={signUpHandler}
-                  class="px-8 pt-6 pb-8 shadow-md border-primary-majorelleBlue border-2 rounded-lg dark:border-secondary-orangePantone dark:border-2"
-                >
-                  <div class="mb-4">
-                    <label class="form-label" for="displayName"
-                      >Display Name</label
-                    >
-                    <input
-                      class="input-field form-control dark:bg-black focus:cursor-text hover:focus:cursor-text hover:cursor-text"
-                      id="displayName"
-                      type="text"
-                      placeholder={randomName}
-                      required
-                    />
-                  </div>
-                  <div class="mb-4">
-                    <label class="form-label" for="email">Email</label>
-                    <input
-                      class="input-field form-control dark:bg-black focus:cursor-text hover:focus:cursor-text hover:cursor-text"
-                      id="email"
-                      type="email"
-                      placeholder="name@example.com"
-                      required
-                    />
-                  </div>
-                  <div class="mb-4">
-                    <label class="form-label" for="photoURL">URL for your profile photo</label>
-                    <input
-                      class="input-field form-control dark:bg-black focus:cursor-text hover:focus:cursor-text hover:cursor-text"
-                      id="photoURL"
-                      type="url"
-                      placeholder="https://vetmed.illinois.edu/wp-content/uploads/2021/04/pc-keller-hedgehog.jpg"
-                    />
-                  </div>
-                  <div class="mb-6">
-                    <label class="form-label" for="password">Password</label>
-                    <input
-                      class="input-field form-control dark:bg-black focus:cursor-text hover:focus:cursor-text hover:cursor-text"
-                      id="password"
-                      type="password"
-                      placeholder="******************"
-                      required
-                    />
-                  </div>
-                  <div class="form-check pb-4">
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      bind:checked={agreedToTerms}
-                      value=""
-                      id="flexCheckDefault"
-                      required
-                    />
-                    <label class="form-check-label" for="flexCheckDefault">
-                      I agree to the <a href=" ">Terms and Conditions</a> and
-                      <a href="https://policies.google.com/privacy"
-                        >Privacy Policy</a
-                      >
-                    </label>
-                  </div>
-                  <div>
-                    <button type="submit" class="btn btn-primary"
-                      >Sign Up</button
-                    >
-                  </div>
-                  <div id="emailHelp" class="form-text">
-                    By clicking 'sign up' you are agreeing to share your email
-                    with PorkyProductions, which will be securely stored in our
-                    servers, and will never be shared with anyone else.
-                  </div>
-                  <div class="mt-3">
-                    <a href="login.html" type="button" class="btn btn-secondary"
-                      >Sign In</a
-                    >
-                  </div>
-                </form>
-              </div>
+      <div id="wrapper" class="absolute top-0 bottom-0 right-0 left-0">
+        {#if darkMode == true}
+          <BsAlert
+            icon="info-circle"
+            type="dark"
+            text="By using (de)Motivator with an account, you consent to our, as well as Google's cookies."
+            actionLink="https://policies.google.com/privacy"
+            actionText="Learn More"
+          />
+          {#if error}
+            <div transition:fade class="p-2 mb-6">
+              <BsAlert
+                icon="exclamation-diamond-fill"
+                actionLink=" "
+                actionText=" "
+                type="danger"
+                text={error.message ?? "An error occured. Try again"}
+              />
             </div>
           {/if}
-        </div>
-        <div class="flex content-center justify-center p-4 pb-10">
-          <BsButton
-            icon="arrow-left"
-            iconAlt="a left facing arrow"
-            text="Go back home"
-            type="success"
-            href="index.html"
+          {#if yay}
+            <BsAlert
+                icon="emoji-laughing"
+                actionLink=" "
+                actionText=" "
+                type="success"
+                text="Account Created Successfully!"
+              />
+          {/if}
+        {:else}
+          <BsAlert
+            icon="info-circle"
+            type="info"
+            text="By using (de)Motivator with an account, you consent to our, as well as Google's cookies."
+            actionLink="https://policies.google.com/privacy"
+            actionText="Learn More"
           />
+          {#if error}
+            <div transition:fade class="p-2 mb-6">
+              <BsAlert
+                icon="exclamation-diamond-fill"
+                actionLink=" "
+                actionText=" "
+                type="danger"
+                text={error.message ?? "An error occured. Try again"}
+              />
+            </div>
+          {/if}
+        {/if}
+        <Title />
+        <h3 class="text-center font-primary font-light">Sign Up</h3>
+        <div class="">
+          <div class="wrapper flex content-center justify-center ">
+            {#if loggedIn}
+              {(window.location.href = "login.html")}
+            {:else}
+              <div class="w-full max-w-xs" transition:fade>
+                <div class=" flex content-center justify-center">
+                  <form
+                    on:submit|preventDefault={signUpHandler}
+                    class="px-8 pt-6 pb-8 shadow-md border-primary-majorelleBlue border-2 rounded-lg dark:border-secondary-orangePantone dark:border-2"
+                  >
+                    <div class="mb-4">
+                      <label class="form-label" for="displayName"
+                        >Display Name</label
+                      >
+                      <input
+                        class="input-field form-control dark:bg-black focus:cursor-text hover:focus:cursor-text hover:cursor-text"
+                        id="displayName"
+                        type="text"
+                        placeholder={randomName}
+                        required
+                      />
+                    </div>
+                    <div class="mb-4">
+                      <label class="form-label" for="email">Email</label>
+                      <input
+                        class="input-field form-control dark:bg-black focus:cursor-text hover:focus:cursor-text hover:cursor-text"
+                        id="email"
+                        type="email"
+                        placeholder="name@example.com"
+                        required
+                      />
+                    </div>
+                    <div class="mb-4">
+                      <label class="form-label" for="photoURL">URL for your profile photo</label>
+                      <input
+                        class="input-field form-control dark:bg-black focus:cursor-text hover:focus:cursor-text hover:cursor-text"
+                        id="photoURL"
+                        type="url"
+                        placeholder="https://vetmed.illinois.edu/wp-content/uploads/2021/04/pc-keller-hedgehog.jpg"
+                      />
+                    </div>
+                    <div class="mb-6">
+                      <label class="form-label" for="password">Password</label>
+                      <input
+                        class="input-field form-control dark:bg-black focus:cursor-text hover:focus:cursor-text hover:cursor-text"
+                        id="password"
+                        type="password"
+                        placeholder="******************"
+                        required
+                      />
+                    </div>
+                    <div class="form-check pb-4">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        bind:checked={agreedToTerms}
+                        value=""
+                        id="flexCheckDefault"
+                        required
+                      />
+                      <label class="form-check-label" for="flexCheckDefault">
+                        I agree to the <a href=" ">Terms and Conditions</a> and
+                        <a href="https://policies.google.com/privacy"
+                          >Privacy Policy</a
+                        >
+                      </label>
+                    </div>
+                    <div>
+                      <button type="submit" class="btn btn-primary"
+                        >Sign Up</button
+                      >
+                    </div>
+                    <div id="emailHelp" class="form-text">
+                      By clicking 'sign up' you are agreeing to share your email
+                      with PorkyProductions, which will be securely stored in our
+                      servers, and will never be shared with anyone else.
+                    </div>
+                    <div class="mt-3">
+                      <a href="login.html" type="button" class="btn btn-secondary"
+                        >Sign In</a
+                      >
+                    </div>
+                  </form>
+                </div>
+              </div>
+            {/if}
+          </div>
+          <div class="flex content-center justify-center p-4 pb-10">
+            <BsButton
+              icon="arrow-left"
+              iconAlt="a left facing arrow"
+              text="Go back home"
+              type="success"
+              href="index.html"
+            />
+          </div>
         </div>
       </div>
-    </div>
-  {/if}
-</Auth>
+    {/if}
+  </Auth>
+</div>
 
 <style>
   div#wrapper {

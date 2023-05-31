@@ -40,7 +40,7 @@
     "@capacitor/ios": "^4.8.0",
     "@capacitor/splash-screen": "^4.2.0",
     "@porkyproductions/hat": "^1.0.0",
-    "bootstrap": "^5.2.3",
+    "bootstrap": "^5.3.0",
     "bootstrap-icons": "^1.10.5",
     "canvas-confetti": "^1.6.0",
     "cordova-res": "^0.15.4",
