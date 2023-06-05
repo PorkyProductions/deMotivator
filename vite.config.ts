@@ -31,13 +31,14 @@ const config: UserConfig = {
       treeshake: "recommended",
       input: {
         index: "index.html",
-        fourOhFour: "./404.html",
+        fourHundredFour: "./404.html",
         fiveHundred: "./500.html",
         login: "./login.html",
         signUp: "./signUp.html",
         share: "./share.html",
         list: "./list.html",
         credits: "./credits.html",
+        leaderboard: "./leaderboard.html",
         // DMV1: './dmv1.html',
       },
       output: {
