@@ -1,8 +1,8 @@
 <script lang="ts">
-	import type { InsultDBQueryResponse } from '../../typescript/types';
-	import type { QuerySnapshot } from 'firebase/firestore';
+	import {leaderboard} from '../../typescript/readInsults'
 	import Title from '../../components/title.svelte'
 	import { onMount, beforeUpdate } from 'svelte'
+	import { getListOfAllUsersWhoHaveSeenInsults } from '../../typescript/readInsults'
 
 	// Loader Logic
 	let ready = false
@@ -19,22 +19,15 @@
 		onDestroy(() => clearTimeout(loadingTimer));
 	};
 	load();
-
-
-	// Getting Data
-	let datas: null | QuerySnapshot<InsultDBQueryResponse> = null
-	let leaderboard: InsultDBQueryResponse[] = []
-	const refreshInsultLeaderboard = async () => {
-		const { getListOfAllUsersWhoHaveSeenInsults } = await import('../../typescript/readInsults')
-		datas = await getListOfAllUsersWhoHaveSeenInsults();
-		datas.forEach((doc) => leaderboard.push(doc.data()))
-		console.log("SCOREBOARD: ", leaderboard)
-	}
-	onMount(async () => refreshInsultLeaderboard())
-	beforeUpdate(async () => refreshInsultLeaderboard())
+	onMount(async () => await getListOfAllUsersWhoHaveSeenInsults())
+	beforeUpdate(async () => await getListOfAllUsersWhoHaveSeenInsults())
 </script>
 
 <Title />
-{#each leaderboard as rank}
-	<div>{rank.data}</div>
-{/each}
+<div class="text-white">
+	{#each leaderboard as entry}
+		<div class="pb-4">
+			{entry.insultsSeen}
+		</div>
+	{/each}
+</div>

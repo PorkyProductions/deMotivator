@@ -29,3 +29,6 @@ export interface _UserInsult extends _Insult { containsUser: bool }
 export interface InsultDBQueryResponse extends DocumentData {
     data?: number
 }
+export interface GlobInsultDBQueryResponse extends DocumentData, InsultDBQueryResponse {
+    insultsSeen?: number 
+}

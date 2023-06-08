@@ -150,7 +150,7 @@
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const analytics = getAnalytics(app);
-  import { getAuth } from "firebase/auth";
+  import { AuthProvider, getAuth } from "firebase/auth";
   const auth = getAuth();
   const user = auth.currentUser;
   if (user !== null) {
@@ -165,7 +165,7 @@
     // you have one. Use User.getToken() instead.
     const uid = user.uid;
   }
-
+// TODO: refactor to async/await
   const signUp = async (auth: any, displayName: string, email: string, password: string, photoURL?: string) => {
     const { createUserWithEmailAndPassword, sendEmailVerification, updateProfile } =
     await import("firebase/auth");
@@ -186,7 +186,7 @@
         // ..
       });
   };
-  let error = null;
+  let error: Error | null  = null;
   let agreedToTerms = false;
 
   const signUpHandler = async (event) => {
@@ -401,9 +401,8 @@
           <div class="flex content-center justify-center p-4 pb-10">
             <BsButton
               icon="arrow-left"
-              iconAlt="a left facing arrow"
               text="Go back home"
-              type="success"
+              type={yay ? "success" : "primary"}
               href="index.html"
             />
           </div>
