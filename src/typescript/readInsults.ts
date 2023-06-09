@@ -38,6 +38,7 @@ export async function readInsults(): Promise<number> {
 export let leaderboard: GlobInsultDBQueryResponse[] = []
 
 export async function getListOfAllUsersWhoHaveSeenInsults(): Promise<QuerySnapshot<DocumentData>> {
+  leaderboard = []
   const { getFirestore, getDocs, collection, where, query  } = await import("firebase/firestore");
   const { initializeApp } = await import("firebase/app");
   const { firebaseConfig } = await import("./insults");

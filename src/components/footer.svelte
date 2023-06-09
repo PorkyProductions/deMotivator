@@ -20,6 +20,10 @@
             href: "https://github.com/PorkyProductions/deMotivator.js"
         },
         {
+            name: "Leaderboard",
+            href: "leaderboard.html"
+        },
+        {
             name: "Credits",
             href: "credits.html"
         },

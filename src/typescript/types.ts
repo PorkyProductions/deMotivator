@@ -30,5 +30,5 @@ export interface InsultDBQueryResponse extends DocumentData {
     data?: number
 }
 export interface GlobInsultDBQueryResponse extends DocumentData, InsultDBQueryResponse {
-    insultsSeen?: number 
+    referrer?: string,
 }

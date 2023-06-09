@@ -1,33 +1,82 @@
 <script lang="ts">
 	import {leaderboard} from '../../typescript/readInsults'
+	import { getListOfAllUsersWhoHaveSeenInsults as getList } from '../../typescript/readInsults'
+	import { afterUpdate } from 'svelte';
+	import {randomInRange} from '../../utils/random'
+	import { fade } from 'svelte/transition';
+	import { name } from '../../typescript/constants';
+
+
 	import Title from '../../components/title.svelte'
-	import { onMount, beforeUpdate } from 'svelte'
-	import { getListOfAllUsersWhoHaveSeenInsults } from '../../typescript/readInsults'
+	import BsButton from '../../components/bsButton.svelte';
+	import BsLoader from '../../components/bsLoader.svelte';
+
+
 
 	// Loader Logic
 	let ready = false
-	const load = async () => {
+	let duration = randomInRange(1, 3500);
+	const load = async (d: number = duration) => {
 		const { SplashScreen } = await import("@capacitor/splash-screen");
 		const { onDestroy } = await import('svelte')
-		const { randomInRange } = await import('../../utils/random')
-		let duration = randomInRange(1, 3500);
 		await SplashScreen.show({
-			showDuration: duration,
+			showDuration: d,
 			autoHide: true,
 		});
-		const loadingTimer = setTimeout(() => (ready = true), duration);
+		const loadingTimer = setTimeout(() => (ready = true), d);
 		onDestroy(() => clearTimeout(loadingTimer));
 	};
 	load();
-	onMount(async () => await getListOfAllUsersWhoHaveSeenInsults())
-	beforeUpdate(async () => await getListOfAllUsersWhoHaveSeenInsults())
+	afterUpdate(async () => await getList())
 </script>
 
-<Title />
-<div class="text-white">
-	{#each leaderboard as entry}
-		<div class="pb-4">
-			{entry.insultsSeen}
+
+<div class="" transition:fade>
+	{#if ready}
+		<div class="text-4xl">
+			<Title />
 		</div>
-	{/each}
+		<h1 class="text-xl font-medium font-primary text-center">
+			Leaderboard
+		</h1>
+		<div class="flex content-center justify-center p-4">
+			<button on:click={getList} on:keydown={getList} class="btn btn-primary m-auto">
+				Refresh List
+			</button>
+		</div>
+		{#if !!leaderboard}
+		<div class="px-20">
+			<table class="table table-striped table-bordered p-4">
+				<thead>
+					<tr>
+					<th>Place</th>
+					<th>{name} UserID</th>
+					<th>Insults Seen</th>
+					</tr>
+				</thead>
+				<tbody>
+					{#each leaderboard as entry, index}
+					<tr>
+						<td>{index + 1}</td>
+						<td>{entry.referrer}</td>
+						<td>{entry.data}</td>
+					</tr>
+					{/each}
+				</tbody>
+			</table>
+			<div class="flex content-center justify-center p-4">
+				<BsButton
+					icon="arrow-left"
+					text="Go back home"
+					type="success"
+					href="index.html"
+				/>
+			</div>
+		</div>
+		{/if}
+	{:else}
+		<div class="m-auto p-8">
+			<BsLoader type="primary" loadingTime={duration} />
+		</div>
+		{/if}
 </div>
