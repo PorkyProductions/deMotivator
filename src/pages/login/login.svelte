@@ -8,13 +8,23 @@
   import Title from "../../components/title.svelte";
   import person from "bootstrap-icons/icons/person-circle.svg";
   import Icon from "../../components/icon.svelte";
+  import Auth from "./auth.svelte";
+  import BsAlert from "../../components/bs-Alert.svelte";
+  import BsModal from "../../components/bs-modal.svelte";
+  import BsButton from "../../components/bsButton.svelte";
+  import BsLoader from "../../components/bsLoader.svelte";
   // Import Misc Helpers
   import { onMount, onDestroy, beforeUpdate } from "svelte";
   import { bsTheme, darkMode } from "../../utils/darkMode";
   import { randomInRange } from "@porkyproductions/hat/dist/randomInRange";
   import { deviceType } from "uadetect/dist/deviceType";
+  import { fade } from "svelte/transition";
+
+
+
   let emailBoxContent
   let emailBox
+  let dismissedBanner = window.localStorage.getItem("dismissedBanner")
   // Loading Logic
   let ready = false;
   let duration = randomInRange(1, 3500);
@@ -38,11 +48,6 @@
 
   import { initializeApp } from "firebase/app";
   import { getAnalytics } from "firebase/analytics";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
   import { firebaseConfig } from "../../typescript/insults";
 
   // Initialize Firebase
@@ -53,13 +58,6 @@
   } from "firebase/auth";
   const auth = getAuth();
   const user = auth.currentUser;
-  import Auth from "./auth.svelte";
-  import { fade } from "svelte/transition";
-
-  import BsAlert from "../../components/bs-Alert.svelte";
-  import BsModal from "../../components/bs-modal.svelte";
-  import BsButton from "../../components/bsButton.svelte";
-  import BsLoader from "../../components/bsLoader.svelte";
 
   let loginWithEmailPassword;
   let error = null;
@@ -133,7 +131,7 @@
   };
 
   const launchConfetti = async () => {
-    const { randomInRange } = await import("@porkyproductions/hat/dist/randomInRange");
+    const { randomInRange } = await import("@porkyproductions/hat");
     const { Haptics, ImpactStyle } = await import("@capacitor/haptics");
     const hapticsVibrate = async () => {
       await Haptics.vibrate();
@@ -161,7 +159,7 @@
 
 <div id="root" data-bs-theme={bsTheme}>
   <Auth
-    useRedirect={true}
+    useRedirect={false}
     let:user
     let:loggedIn
     let:loginWithGoogle
@@ -196,15 +194,6 @@
       {/if}
     {:else}
       <div id="wrapper" class="relative right-0 left-0 top-0 bottom-0">
-        {#if darkMode == true}
-          <BsAlert
-            icon="info-circle"
-            iconAlt="info"
-            type="dark"
-            text={`By using ${name} with an account, you consent to our, as well as Google's cookies`}
-            actionLink="https://policies.google.com/privacy"
-            actionText="Learn More"
-          />
           {#if error}
             <div transition:fade class="p-2 mb-6">
               <BsAlert
@@ -216,15 +205,18 @@
               />
             </div>
           {/if}
-        {:else}
-          <BsAlert
-            icon="info-circle"
-            iconAlt="info"
-            type="info"
-            text={`By using ${name} with an account, you consent to our, as well as Google's cookies`}
-            actionLink="https://policies.google.com/privacy"
-            actionText="Learn More"
-          />
+          {#if !dismissedBanner}
+            <div transition:fade class="p-2 mb-6" on:click={window.localStorage.setItem("dismissedBanner", true)} on:keydown={window.localStorage.setItem("dismissedBanner", true)}>
+              <BsAlert
+              icon="info-circle"
+              iconAlt="info"
+              type="info"
+              text={`By using ${name} with an account, you consent to our, as well as Google's cookies`}
+              actionLink="https://policies.google.com/privacy"
+              actionText="Learn More"
+              />
+            </div>
+          {/if}
           {#if error}
             <div transition:fade class="p-2 mb-6">
               <BsAlert
@@ -236,7 +228,6 @@
               />
             </div>
           {/if}
-        {/if}
         <Title />
         <div class="">
           <div class="wrapper flex content-center justify-center">

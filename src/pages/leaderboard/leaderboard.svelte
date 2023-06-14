@@ -11,6 +11,7 @@
 	import Title from '../../components/title.svelte'
 	import BsButton from '../../components/bsButton.svelte';
 	import BsLoader from '../../components/bsLoader.svelte';
+	import Icon from '../../components/icon.svelte';
 
 
 
@@ -42,7 +43,7 @@
 			</h1>
 			<div class="flex content-center justify-center p-4">
 				<button on:click={getList} on:keydown={getList} class="btn btn-primary m-auto">
-					Refresh List
+					<Icon name="arrow-clockwise" /> Refresh List
 				</button>
 			</div>
 			{#if !!leaderboard}

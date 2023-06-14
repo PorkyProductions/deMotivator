@@ -26,7 +26,7 @@ const app = initializeApp(firebaseConfig);
 // @ts-ignore
 const analytics = getAnalytics(app);
 import { getAuth, ParsedToken } from "firebase/auth";
-const auth = getAuth();
+const auth = getAuth(app);
   
     // Firebase user
     let user: { user_id?: string; id?: string; name?: string; email?: string; picture?: string; } | null = null;
@@ -59,22 +59,7 @@ const auth = getAuth();
     export const signInAnonomous = async () => {
       const { getAuth, signInAnonymously } = await import("firebase/auth");
       const auth = getAuth();
-      signInAnonymously(auth)
-      .then(() => {
-        console.log(`your anonomous user ID is ${user?.user_id}`);
-      })
-      .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.error(`
-      
-        An error occured.
-        Here are the detials:
-        ${errorCode}
-        ${errorMessage}
-      `)
-      // ...
-      });
+      await signInAnonymously(auth);
     }
     export const logout = () => auth.signOut();
   
