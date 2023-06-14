@@ -234,14 +234,20 @@
             {#if loggedIn}
               <div class="w-full md:max-w-[30rem]" id="loggedInUI" transition:fade>
                 <div class="text-center">
-                  <img
-                    src={user.picture ?? person}
-                    alt="the profile of the user"
-                    width="40%"
-                    class="m-auto rounded-3xl dark:text-black"
-                    draggable="false"
-                    id="pfp"
-                  />
+                  {#if user.picture}
+                    <img
+                      src={user.picture}
+                      alt="the profile of the user"
+                      width="40%"
+                      class="m-auto rounded-3xl dark:text-black"
+                      draggable="false"
+                      id="pfp"
+                    />
+                  {:else}
+                    <div class="text-[12rem] p-0">
+                      <i class="bi bi-person-circle">
+                    </div>
+                  {/if}
                   <span class="font-semibold font-primary text-3xl">
                     Hello, <span class="font-bold">{user.name ?? "Guest"}</span>
                   </span>

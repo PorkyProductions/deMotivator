@@ -1,5 +1,6 @@
 <script lang="ts">
     import Title from '../../components/title.svelte';
+    import Icon from '../../components/icon.svelte';
     import { insults, DeMotivator } from 'demotivator'
     import {print} from '../../utils/print'
     const dmv = new DeMotivator()
@@ -67,7 +68,7 @@ let:loggedIn
 {/if}
 <div class="flex content-center justify-center p-4">
     <a href="index.html" class="btn btn-primary">
-        Home
+       <Icon name="house-door" /> Home
     </a>
 </div>
 

@@ -2,6 +2,7 @@
     import Auth from "../pages/login/auth.svelte";
     import { darkMode } from "../utils/darkMode";
     import Icon from "./icon.svelte";
+    import '../styles/scss/buttonsBootstrap.scss'
 </script>
 
 <Auth
@@ -21,16 +22,3 @@ let:loggedIn
 </div>
 
 </Auth>
-
-
-<style lang="scss">
-    @import "../node_modules/bootstrap/scss/functions";
-    $prefix: "dmv-ppio-";
-    @import '../styles/scss/colorScheme.scss';
-    @import "../node_modules/bootstrap/scss/variables";
-    @import "../../node_modules/bootstrap/scss/variables-dark";
-    @import "../node_modules/bootstrap/scss/maps";
-    @import "../node_modules/bootstrap/scss/mixins";
-    @import "../node_modules/bootstrap/scss/root";
-    @import "../../node_modules/bootstrap/scss/buttons";
-</style>

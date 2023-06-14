@@ -3,6 +3,8 @@
     import logo from '../img/dmv-logo.png';
     import { Insult, UserInsult } from '../typescript/insult'
     import { darkMode } from '../utils/darkMode'
+    import '../styles/scss/buttonsBootstrap.scss';
+    import '../styles/scss/bootstrapRange.scss'
     console.log({
         Insult,
         UserInsult
@@ -92,7 +94,7 @@ const MEGAMODEspeedControl = async () => {
         </p>
         <div class="flex content-center justify-center">
             <label for="megamodeSpeedControl">
-                <input type="range" name="megamodeSpeedControl" id="" min="1" max="2000" on:change={MEGAMODEspeedControl} bind:value={MEGAMODEspeed} />
+                <input type="range" class="form-range"  name="megamodeSpeedControl" id="" min="1" max="2000" on:change={MEGAMODEspeedControl} bind:value={MEGAMODEspeed} />
             </label>
             <p>{MEGAMODEspeed}</p>
         </div>
@@ -117,37 +119,3 @@ const MEGAMODEspeedControl = async () => {
     
 </main>
 </Auth>
-
-<style lang="scss">
-    @import "../node_modules/bootstrap/scss/functions";
-    $prefix: "dmv-ppio-";
-    @import '../styles/scss/colorScheme.scss';
-    $primary: $primary-majorelleBlue;
-    $info: mix($theme-lightBlue, $theme-blue);
-    $blue: $theme-blue;
-    $indigo: $theme-indigo;
-    $purple: $theme-purple;
-    $pink: $theme-pink;
-    $red: $theme-red;
-    $orange: $theme-orange;
-    $yellow: $theme-yellow;
-    $green: $theme-green;
-    $teal: $theme-teal;
-    $cyan: $theme-cyan;
-    $black: $theme-black;
-    $white: $theme-white;
-    $gray: mix($theme-black, $theme-white);
-    $enable-rounded: true;
-    $enable-shadows: true;
-    @import "../node_modules/bootstrap/scss/variables";
-    @import "../node_modules/bootstrap/scss/variables-dark";
-    @import "../node_modules/bootstrap/scss/maps";
-    @import "../node_modules/bootstrap/scss/mixins";
-    @import "../node_modules/bootstrap/scss/root";
-    @import "../../node_modules/bootstrap/scss/buttons";
-    img {
-        width: 325px;
-        display: block;
-        margin: auto;
-    }
-</style>

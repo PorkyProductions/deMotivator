@@ -8,10 +8,6 @@
     import { parentCompany } from '../typescript/constants';
     const navigation = [
         {
-            name: parentCompany,
-            href: "https://porkyproductions.github.io/"
-        },
-        {
             name: "(de)Motivator 1.0",
             href: "dmv1.html"
         },
@@ -83,7 +79,7 @@
         <div class="flex justify-between content-center">
             <div class="flex justify-between flex-col">
                 <div class="flex content-center mb-0">
-                    <img src={hedgehog} alt="Hedgehog" id="logo" class="dark:hidden hover:animate-spin">
+                    <a href="https://porkyproductions.github.io"><img src={hedgehog} alt="Hedgehog" id="logo" class="dark:hidden hover:animate-spin"></a>
                     <div class="text-white">
                         <Title />
                     </div>
