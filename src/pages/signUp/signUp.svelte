@@ -117,7 +117,7 @@
     "Ryan Mullin",
     "Tristan Winata"
   ];
-
+  let dismissedBanner = window.localStorage.getItem("dismissedBanner")
   let randomName = names[Math.floor(Math.random() * names.length)];
 
   // Loading Logic
@@ -249,25 +249,16 @@
           <div class="m-auto px-8">
             <BsLoader type="danger" loadingTime={duration} />
           </div>
-        {:else}
+        {/if}
           <div class="p-4">
             <BsSpinner type="primary" />
           </div>
           <div class="m-auto px-8">
             <BsLoader type="primary" loadingTime={duration} />
           </div>
-        {/if}
       {/if}
     {:else}
-      <div id="wrapper" class="absolute top-0 bottom-0 right-0 left-0">
-        {#if darkMode == true}
-          <BsAlert
-            icon="info-circle"
-            type="dark"
-            text="By using (de)Motivator with an account, you consent to our, as well as Google's cookies."
-            actionLink="https://policies.google.com/privacy"
-            actionText="Learn More"
-          />
+      <div id="wrapper" class="relative right-0 left-0 top-0 bottom-0">
           {#if error}
             <div transition:fade class="p-2 mb-6">
               <BsAlert
@@ -279,23 +270,18 @@
               />
             </div>
           {/if}
-          {#if yay}
-            <BsAlert
-                icon="emoji-laughing"
-                actionLink=" "
-                actionText=" "
-                type="success"
-                text="Account Created Successfully!"
+          {#if !dismissedBanner}
+            <div transition:fade class="p-2 mb-6" on:click={window.localStorage.setItem("dismissedBanner", "true")} on:keydown={() => void(0)}>
+              <BsAlert
+              icon="info-circle"
+              iconAlt="info"
+              type="info"
+              text={`By using ${name} with an account, you consent to our, as well as Google's cookies`}
+              actionLink="https://policies.google.com/privacy"
+              actionText="Learn More"
               />
+            </div>
           {/if}
-        {:else}
-          <BsAlert
-            icon="info-circle"
-            type="info"
-            text="By using (de)Motivator with an account, you consent to our, as well as Google's cookies."
-            actionLink="https://policies.google.com/privacy"
-            actionText="Learn More"
-          />
           {#if error}
             <div transition:fade class="p-2 mb-6">
               <BsAlert
@@ -307,7 +293,6 @@
               />
             </div>
           {/if}
-        {/if}
         <Title />
         <h3 class="text-center font-primary font-light">Sign Up</h3>
         <div class="">
