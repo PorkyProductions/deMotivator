@@ -14,7 +14,7 @@
   import { fade } from "svelte/transition";
   import { onDestroy } from "svelte";
   import { bsTheme, darkMode } from "../../utils/darkMode";
-  import { randomInRange } from "../../utils/random";
+  import { randomInRange } from "@porkyproductions/hat";
 
   let names: string[] = [
     "Yamilet Martin",
@@ -190,7 +190,7 @@
   let agreedToTerms = false;
 
   const signUpHandler = async (event) => {
-    const { randomInRange } = await import("../../utils/random");
+    const { randomInRange } = await import("@porkyproductions/hat");
     const { displayName, email, password, photoURL } = event.target.elements;
     const { emailRegExp, pwRegExp } = await import('../../utils/regEx')
     try {

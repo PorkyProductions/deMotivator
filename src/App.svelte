@@ -45,7 +45,7 @@ import {firebaseConfig} from './typescript/insults'
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { randomInRange } from './utils/random';
+import { randomInRange } from '@porkyproductions/hat/dist/randomInRange';
   import { bsTheme } from './utils/darkMode';
 const auth = getAuth();
 const user = auth.currentUser;
