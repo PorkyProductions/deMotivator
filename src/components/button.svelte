@@ -12,8 +12,7 @@
 
     // Firebase
     import {fade} from 'svelte/transition'
-    import Auth from '../pages/login/auth.svelte';
-  import Icon from './icon.svelte';
+    import Icon from './icon.svelte';
 
 /*
 
@@ -42,7 +41,7 @@ const randomize = async () => {
 
 const writeInsultToClipboard = async () => {
     const { setClipboardText } = await import('uadetect/dist/clipboard')
-    await setClipboardText(result || userResult || MEGAMODEresult || "")
+    await setClipboardText(result || "")
 }
 
 /*
@@ -71,20 +70,12 @@ const MEGAMODEspeedControl = async () => {
 
 </script>
 
-<Auth
-    let:loggedIn
->    
 <main>
     <img src={logo} draggable="false" alt="a large, red button" on:click={randomize} on:keypress={randomize} class="p-4 hover:cursor-pointer">
     <div class="sm:p-3 md:p-4 lg:p-5 xl:p-6"></div>
     {#if !MEGAMODE}
-        {#if loggedIn}
-            <p class="text-center font-primary" transition:fade>{userResult}</p>
-            <div class="sm:p-3 md:p-4 lg:p-5 xl:p-6"></div>
-        {:else if !loggedIn}
             <p class="text-center font-primary" transition:fade>{result}</p>
             <div class="sm:p-3 md:p-4 lg:p-5 xl:p-6"></div>
-        {/if}
     {:else if MEGAMODE}
         <p class="text-center font-primary">{MEGAMODEresult}</p>
         <br />
@@ -118,4 +109,3 @@ const MEGAMODEspeedControl = async () => {
     
     
 </main>
-</Auth>

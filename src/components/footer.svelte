@@ -79,7 +79,7 @@
         <div class="flex justify-between content-center">
             <div class="flex justify-between flex-col">
                 <div class="flex content-center mb-0">
-                    <a href="https://porkyproductions.github.io"><img src={hedgehog} alt="Hedgehog" id="logo" class="dark:hidden hover:animate-spin"></a>
+                    <a href="https://porkyproductions.github.io"><img src={hedgehog} alt="Hedgehog" id="logo" class="hover:animate-spin p-0 m-0"></a>
                     <div class="text-white">
                         <Title />
                     </div>
