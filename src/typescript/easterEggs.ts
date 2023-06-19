@@ -1,7 +1,5 @@
-import { PROD } from './constants';
 import type { bool } from './types';
 window.addEventListener("load", async () => await import("@capacitor/core"))
-if (PROD) window.onload = () => console.clear()
 
 console.log(`%c
         MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWWWWWWMMMMMMMMMMMMMMMMMMMMMM
