@@ -12,6 +12,7 @@
 	import BsButton from '../../components/bsButton.svelte';
 	import BsLoader from '../../components/bsLoader.svelte';
 	import Icon from '../../components/icon.svelte';
+	import BsSpinner from '../../components/bs-spinner.svelte';
 
 
 
@@ -77,9 +78,12 @@
 			</div>
 			{/if}
 		{:else}
+			<div class="p-4">
+				<BsSpinner type="primary" />
+			</div>
 			<div class="m-auto p-8">
 				<BsLoader type="primary" loadingTime={duration} />
 			</div>
-			{/if}
+		{/if}
 	</div>
 </div>

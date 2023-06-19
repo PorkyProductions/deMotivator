@@ -25,7 +25,7 @@ let result = ""
 let userResult = ""
 const randomize = async () => {
     const { userInsults } = await import('../typescript/insults')
-    const { insults } = await import('demotivator')
+    const { insults } = await import('demotivator/dist/insults')
     let { readInsults } = await import('../typescript/readInsults')
     const {updateInsultsSeen} = await import('../typescript/updateInsults')
     const demotivatorAndUserIsults = userInsults.concat(insults)
@@ -56,7 +56,7 @@ let MEGAMODEspeed = 250
 let MEGAMODEinsults = 0;
 
 const MEGAMODErandomize = async () => {
-    const { insults } = await import('demotivator')
+    const { insults } = await import('demotivator/dist/insults')
     MEGAMODEresult = insults[Math.floor(Math.random() * insults.length)]
     MEGAMODEinsults++
 }

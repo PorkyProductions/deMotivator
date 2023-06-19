@@ -1,6 +1,7 @@
 <script lang="ts">
     import Title from '../../components/title.svelte';
     import Icon from '../../components/icon.svelte';
+    import shuffle from 'lodash/shuffle'
     import { insults, DeMotivator } from 'demotivator'
     import {print} from '../../utils/print'
     const dmv = new DeMotivator()
@@ -11,11 +12,11 @@
     })
     import { userInsults } from '../../typescript/insults';
     let userWantsProfaneInsults: boolean = false
-    const allInsults = userInsults.concat(insults)
-    const profaneInsults = userInsults.concat(profaneArray)
+    const allInsults = shuffle(userInsults.concat(insults)); 
+    const profaneInsults = shuffle(userInsults.concat(profaneArray))
     import Auth from '../login/auth.svelte';
-  import LoginFooter from '../../components/loginfooter.svelte';
-  import { bsTheme } from '../../utils/darkMode';
+    import LoginFooter from '../../components/loginfooter.svelte';
+    import { bsTheme } from '../../utils/darkMode';
 </script>
 
 <div id="root" data-bs-theme={bsTheme}>
