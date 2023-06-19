@@ -1,9 +1,9 @@
 @import './colorScheme.scss';
 $prefix: "dmv-ppio-";
 $primary: $primary-majorelleBlue;
-@media (prefers-color-scheme: dark) {
-    $enable-dark-mode: true;
-    $primary: $secondary-orangePantone
+
+[data-bs-theme="dark"] {
+    $primary: $secondary-orangePantone;  
 }
 $info: mix($theme-lightBlue, $theme-blue);
 $blue: $theme-blue;

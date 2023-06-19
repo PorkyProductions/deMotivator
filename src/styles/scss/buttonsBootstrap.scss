@@ -2,6 +2,10 @@
 $prefix: "dmv-ppio-";
 @import './colorScheme.scss';
 $primary: $primary-majorelleBlue;
+
+[data-bs-theme="dark"] {
+    $primary: $secondary-orangePantone;  
+}
 $info: mix($theme-lightBlue, $theme-blue);
 $blue: $theme-blue;
 $indigo: $theme-indigo;

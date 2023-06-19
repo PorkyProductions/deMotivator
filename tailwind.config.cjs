@@ -22,7 +22,7 @@ module.exports = {
         'theme-purple': '#36008c',
         'theme-pink': '#ff00d4',
         'theme-white': '#fffff6',
-        'theme-black': '#000000',
+        'theme-black': '#0a0a0a',
       },
     },
   },
