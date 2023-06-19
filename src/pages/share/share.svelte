@@ -10,7 +10,7 @@
 <div id="root" data-bs-theme={bsTheme}>
     <div class="p-2 text-4xl">
     <div class="bg-gradient-to-tr from-indigo-400 via-primary-majorelleBlue to-blue-900 dark:from-orange-400 dark:via-secondary-orangePantone dark:to-orange-900 rounded-lg">
-        <div class="text-white p-32">
+        <div class="text-white p-32 text-center flex content-center justify-center">
             <Title />
         </div>
     </div>

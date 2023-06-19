@@ -13,8 +13,9 @@
   // Import Misc Helpers
   import { fade } from "svelte/transition";
   import { onDestroy } from "svelte";
-  import { bsTheme, darkMode } from "../../utils/darkMode";
-  import { randomInRange } from "@porkyproductions/hat";
+  import { bsTheme } from "../../utils/darkMode";
+  import { randomInRange } from "@porkyproductions/hat/dist/randomInRange";
+  import {name} from '../../typescript/constants'
 
   let names: string[] = [
     "Yamilet Martin",
@@ -190,7 +191,7 @@
   let agreedToTerms = false;
 
   const signUpHandler = async (event) => {
-    const { randomInRange } = await import("@porkyproductions/hat");
+    const { randomInRange } = await import("@porkyproductions/hat/dist/randomInRange");
     const { displayName, email, password, photoURL } = event.target.elements;
     const { emailRegExp, pwRegExp } = await import('../../utils/regEx')
     try {
@@ -274,7 +275,6 @@
             <div transition:fade class="p-2 mb-6" on:click={window.localStorage.setItem("dismissedBanner", "true")} on:keydown={() => void(0)}>
               <BsAlert
               icon="info-circle"
-              iconAlt="info"
               type="info"
               text={`By using ${name} with an account, you consent to our, as well as Google's cookies`}
               actionLink="https://policies.google.com/privacy"
@@ -294,7 +294,6 @@
             </div>
           {/if}
         <Title />
-        <h3 class="text-center font-primary font-light">Sign Up</h3>
         <div class="">
           <div class="wrapper flex content-center justify-center ">
             {#if loggedIn}

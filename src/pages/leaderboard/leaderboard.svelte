@@ -2,7 +2,7 @@
 	import {leaderboard} from '../../typescript/readInsults'
 	import { getListOfAllUsersWhoHaveSeenInsults as getList } from '../../typescript/readInsults'
 	import { afterUpdate } from 'svelte';
-	import {randomInRange} from '@porkyproductions/hat'
+	import {randomInRange} from '@porkyproductions/hat/dist/randomInRange'
 	import { fade } from 'svelte/transition';
 	import { name } from '../../typescript/constants';
 	import { bsTheme } from '../../utils/darkMode';

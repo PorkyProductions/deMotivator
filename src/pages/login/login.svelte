@@ -131,7 +131,7 @@
   };
 
   const launchConfetti = async () => {
-    const { randomInRange } = await import("@porkyproductions/hat");
+    const { randomInRange } = await import("@porkyproductions/hat/dist/randomInRange");
     const { Haptics, ImpactStyle } = await import("@capacitor/haptics");
     const hapticsVibrate = async () => {
       await Haptics.vibrate();
@@ -402,7 +402,7 @@
             icon="arrow-left"
             iconAlt="a left facing arrow"
             text="Go back home"
-            type="success"
+            type="primary"
             href="index.html"
           />
         </div>
@@ -410,7 +410,6 @@
     {/if}
     </div>
   </Auth>
-
 </div>
 
 <style>
@@ -439,7 +438,7 @@
 
     form,
     div#loggedInUI {
-      background-color: black;
+      background-color: hsl(0, 0%, 4%);
     }
     #pfp {
       background-color: white;

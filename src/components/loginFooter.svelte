@@ -3,12 +3,12 @@
     import { insultAt, createArray } from 'demotivator';
     import { randomInRange } from '@porkyproductions/hat/dist/randomInRange';
     import { parentCompany } from '../typescript/constants';
-    var year = new Date().getFullYear().toLocaleString("en-US")
+    var year = new Date().getFullYear()
 </script>
 
 
 
-<div class="flex justify-between dark:bg-theme-black bg-primary-majorelleBlue">
+<div class="flex justify-between dark:bg-gray-900 bg-primary-majorelleBlue">
     <div class="text-white">
             <Title />
     </div>
@@ -29,7 +29,7 @@
         }
     </div>
 </div>
-<div class="flex justify-center font-primary dark:bg-theme-black bg-primary-majorelleBlue">
+<div class="flex justify-center font-primary dark:bg-gray-900 bg-primary-majorelleBlue">
      <span>
             <p class="text-white">Copyright &copy; 2020-{year}. A {parentCompany} product</p>
     </span>
