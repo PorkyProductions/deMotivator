@@ -50,7 +50,7 @@ export async function getListOfAllUsersWhoHaveSeenInsults(): Promise<QuerySnapsh
     referrer: doc.id,
     data: doc.data().insultsSeen
   }))
-  leaderboard.sort((a, b) => a.data - b.data).reverse()
+  leaderboard.sort((a, b) => a.data as number - b.data as number).reverse() as GlobInsultDBQueryResponse[]
   console.log("SCOREBOARD: ", leaderboard)
   return querySnapshot
 }

@@ -12,7 +12,7 @@ const config: UserConfig = {
       b(constants.banner),
       visualizer({
         emitFile: true,
-        template: "network",
+        template: "sunburst",
         filename: "stats.html",
       })
     ],

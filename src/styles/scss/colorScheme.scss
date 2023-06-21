@@ -33,19 +33,14 @@ $theme-border-radius-md: 15px;
         background-color: mix($highlights, $primary-majorelleBlue, 50%);
         color: $theme-white;
     }
-    p {
-        &::selection {
-            background-image: linear-gradient($theme-red, $theme-blue);
-            color: $theme-white;
-        }
-    }
     input,
     label {
         cursor: pointer;
     }
 }
 #bsButton,
-#bsModal {
+#bsModal,
+.btn {
     &:hover {
         cursor: url(../../../node_modules/bootstrap-icons/icons/hand-index-thumb-fill.svg), default;
     }
