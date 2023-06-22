@@ -40,8 +40,10 @@ const randomize = async () => {
 }
 
 const writeInsultToClipboard = async () => {
-    const { setClipboardText } = await import('uadetect/dist/clipboard')
-    await setClipboardText(result || "")
+    const { Clipboard } = await import('@capacitor/clipboard')
+    await Clipboard.write({
+        string: result || ""
+    })
 }
 
 /*

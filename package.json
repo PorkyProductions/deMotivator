@@ -1,7 +1,7 @@
 {
   "name": "demotivator",
   "private": true,
-  "version": "12.0.0-rc-2",
+  "version": "12.0.0-rc-3",
   "type": "module",
   "scripts": {
     "dev": "vite serve",
@@ -34,6 +34,7 @@
   },
   "dependencies": {
     "@capacitor/android": "^5.0.0",
+    "@capacitor/clipboard": "^5.0.4",
     "@capacitor/core": "^5.0.0",
     "@capacitor/dialog": "^5.0.0",
     "@capacitor/haptics": "^5.0.0",
