@@ -14,7 +14,7 @@
   import BsButton from "../../components/bsButton.svelte";
   import BsLoader from "../../components/bsLoader.svelte";
   // Import Misc Helpers
-  import { onMount, onDestroy, beforeUpdate } from "svelte";
+  import { onMount, beforeUpdate } from "svelte";
   import { bsTheme, darkMode } from "../../utils/darkMode";
   import { randomInRange } from "@porkyproductions/hat/dist/randomInRange";
   import { deviceType } from "uadetect/dist/deviceType";
@@ -35,8 +35,7 @@
       showDuration: duration,
       autoHide: true,
     });
-    const loadingTimer = setTimeout(() => (ready = true), duration);
-    onDestroy(() => clearTimeout(loadingTimer));
+    setTimeout(() => (ready = true), duration);
     if (keepMeLoggedIn == "true") {
       await loginHandler();
     }
@@ -307,7 +306,7 @@
                 <div class=" flex content-center justify-center">
                   <form
                     on:submit|preventDefault={loginHandler}
-                    class="px-8 pt-6 pb-8 shadow-md dark:bg-black border-primary-majorelleBlue border-2 rounded-lg dark:border-secondary-orangePantone dark:border-2"
+                    class="p-8 shadow-md dark:bg-black border-primary-majorelleBlue border-4 rounded-lg dark:border-secondary-orangePantone"
                   >
                     <div class="mb-4">
                       <label class="form-label" for="email">Email</label>

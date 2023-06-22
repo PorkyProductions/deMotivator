@@ -21,13 +21,11 @@
 	let duration = randomInRange(1, 3500);
 	const load = async (d: number = duration) => {
 		const { SplashScreen } = await import("@capacitor/splash-screen");
-		const { onDestroy } = await import('svelte')
 		await SplashScreen.show({
 			showDuration: d,
 			autoHide: true,
 		});
-		const loadingTimer = setTimeout(() => (ready = true), d);
-		onDestroy(() => clearTimeout(loadingTimer));
+		setTimeout(() => (ready = true), d);
 	};
 	load();
 	afterUpdate(async () => await getList())

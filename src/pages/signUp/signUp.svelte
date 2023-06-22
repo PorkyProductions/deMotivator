@@ -12,7 +12,6 @@
   import BsLoader from "../../components/bsLoader.svelte";
   // Import Misc Helpers
   import { fade } from "svelte/transition";
-  import { onDestroy } from "svelte";
   import { bsTheme } from "../../utils/darkMode";
   import { randomInRange } from "@porkyproductions/hat/dist/randomInRange";
   import {name} from '../../typescript/constants'
@@ -131,16 +130,15 @@
       showDuration: duration,
       autoHide: true,
     });
-    const loadingTimer = setTimeout(() => (ready = true), duration);
-    onDestroy(() => clearTimeout(loadingTimer));
+    setTimeout(() => (ready = true), duration);
   };
   load();
 
   // FROM BEYOND THIS POINT IS FIREBASE LOGIC
   // BEWARE
 
-  import { FirebaseApp, initializeApp } from "firebase/app";
-  import { getAnalytics, setUserId } from "firebase/analytics";
+  import {  initializeApp } from "firebase/app";
+  import { getAnalytics, } from "firebase/analytics";
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -151,21 +149,6 @@
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const analytics = getAnalytics(app);
-  import { AuthProvider, getAuth } from "firebase/auth";
-  const auth = getAuth();
-  const user = auth.currentUser;
-  if (user !== null) {
-    // The user object has basic properties such as display name, email, etc.
-    const displayName = user.displayName;
-    const email = user.email;
-    const photoURL = user.photoURL;
-    const emailVerified = user.emailVerified;
-
-    // The user's ID, unique to the Firebase project. Do NOT use
-    // this value to authenticate with your backend server, if
-    // you have one. Use User.getToken() instead.
-    const uid = user.uid;
-  }
 // TODO: refactor to async/await
   const signUp = async (auth: any, displayName: string, email: string, password: string, photoURL?: string) => {
     const { createUserWithEmailAndPassword, sendEmailVerification, updateProfile } =

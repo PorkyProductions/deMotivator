@@ -1,7 +1,11 @@
 import type { bool } from './types';
-window.addEventListener("load", async () => await import("@capacitor/core"))
 
-console.log(`%c
+window.addEventListener("load", async () => await import("@capacitor/core"))
+window.addEventListener("load", async () => {
+    const { wait } = await import('@porkyproductions/hat/dist/wait');
+    wait(10);
+    console.clear()
+    wait(5, () => console.log(`%c
         MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWWWWWWMMMMMMMMMMMMMMMMMMMMMM
         MMMMMMMMMMMMMMMMMMMMMNKOxdolcc::,,,,;;cxNMMMMMMMMMMMMMMMMMMM
         MMMMMMMMMMMMMMMMMWKxc'..    .  ......   lNMMMMMMMMMMMMMMMMMM
@@ -26,8 +30,9 @@ console.log(`%c
         The Hedgehog of Innovation.
         porkyproductions.github.io`,
         
-        "font-family: monospace; background-color: #4f46e5; color: white;"
-    );
+        "font-family: monospace; background-color: #4f46e5; color: white; font-size: 12px"
+    ))
+})
 
 export const showAlert = async (title: string, message: string): Promise<void> => {
     const { Dialog } = await import('@capacitor/dialog');
