@@ -10,10 +10,12 @@
   import BsAlert from "../../components/bs-Alert.svelte";
   import BsButton from "../../components/bsButton.svelte";
   import BsLoader from "../../components/bsLoader.svelte";
-  // Import Misc Helpers
+  import Icon from '../../components/icon.svelte'
+  //  Import Misc Helpers
   import { fade } from "svelte/transition";
   import { bsTheme } from "../../utils/darkMode";
   import { randomInRange } from "@porkyproductions/hat/dist/randomInRange";
+  import { randomInArray } from "@porkyproductions/hat/dist/randomInArray";
   import {name} from '../../typescript/constants'
 
   let names: string[] = [
@@ -118,7 +120,7 @@
     "Tristan Winata"
   ];
   let dismissedBanner = window.localStorage.getItem("dismissedBanner")
-  let randomName = names[Math.floor(Math.random() * names.length)];
+  let randomName = randomInArray(names);
 
   // Loading Logic
   let ready = false;
@@ -145,32 +147,30 @@
   // Your web app's Firebase configuration
   // For Firebase JS SDK v7.20.0 and later, measurementId is optional
   import { firebaseConfig } from "../../typescript/insults";
+  import { getAuth } from "firebase/auth";
 
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const analytics = getAnalytics(app);
+  const auth = getAuth(app)
+  let error: Error | null | undefined | unknown  = null;
 // TODO: refactor to async/await
   const signUp = async (auth: any, displayName: string, email: string, password: string, photoURL?: string) => {
-    const { createUserWithEmailAndPassword, sendEmailVerification, updateProfile } =
-    await import("firebase/auth");
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        sendEmailVerification(auth.currentUser);
-        updateProfile(user, {
-          displayName: displayName,
-          photoURL: photoURL
-        })
-        // ...
+    error = null
+    try {
+      const { createUserWithEmailAndPassword, sendEmailVerification, updateProfile } =
+      await import("firebase/auth");
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password)
+      const user = userCredential.user
+      await sendEmailVerification(user)
+      await updateProfile(user, {
+        displayName: displayName,
+        photoURL: photoURL
       })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // ..
-      });
+    } catch (e) {
+      error = e
+    }
   };
-  let error: Error | null  = null;
   let agreedToTerms = false;
 
   const signUpHandler = async (event) => {
@@ -276,17 +276,30 @@
               />
             </div>
           {/if}
+          {#if yay}
+            <div transition:fade class="p-2 mb-6">
+              <BsAlert
+                icon="emoji-laughing"
+                actionLink="/login.html"
+                actionText="View your account"
+                type="success"
+                text={"Account successfully created!"}
+              />
+            </div>
+          {/if}
         <Title />
         <div class="">
           <div class="wrapper flex content-center justify-center ">
             {#if loggedIn}
-              {(window.location.href = "login.html")}
+              <div class="font-primary text-4xl font-medium">
+                You're already logged in! <a href="/login.html" class="link link-success underline">View your Account</a>
+              </div>
             {:else}
               <div class="w-full max-w-xs" transition:fade>
                 <div class=" flex content-center justify-center">
                   <form
                     on:submit|preventDefault={signUpHandler}
-                    class="px-8 pt-6 pb-8 shadow-md border-primary-majorelleBlue border-2 rounded-lg dark:border-secondary-orangePantone dark:border-2"
+                    class="px-8 pt-6 pb-8 shadow-md border-primary-majorelleBlue border-4 rounded-lg dark:border-secondary-orangePantone dark:border-2"
                   >
                     <div class="mb-4">
                       <label class="form-label" for="displayName"
@@ -347,7 +360,7 @@
                     </div>
                     <div>
                       <button type="submit" class="btn btn-primary"
-                        >Sign Up</button
+                        ><Icon name="person-plus"/> Sign Up</button
                       >
                     </div>
                     <div id="emailHelp" class="form-text">
