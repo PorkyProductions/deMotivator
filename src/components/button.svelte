@@ -73,6 +73,8 @@ const MEGAMODEspeedControl = async () => {
 </script>
 
 <main>
+    <!--Reason: its the whole functionality of the app-->
+    <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
     <img src={logo} draggable="false" alt="a large, red button" on:click={randomize} on:keypress={randomize} class="p-4 hover:cursor-pointer">
     <div class="sm:p-3 md:p-4 lg:p-5 xl:p-6"></div>
     {#if !MEGAMODE}

@@ -205,7 +205,8 @@
             </div>
           {/if}
           {#if !dismissedBanner}
-            <div transition:fade class="p-2 mb-6" on:click={window.localStorage.setItem("dismissedBanner", "true")} on:keydown={() => void(0)}>
+            <!-- svelte-ignore a11y-no-static-element-interactions -->
+            <div aria-roledescription="banner" transition:fade class="p-2 mb-6" on:click={window.localStorage.setItem("dismissedBanner", "true")} on:keydown={() => void(0)}>
               <BsAlert
               icon="info-circle"
               iconAlt="info"
