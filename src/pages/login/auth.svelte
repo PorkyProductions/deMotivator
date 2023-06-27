@@ -1,11 +1,9 @@
 <!-- Auth.svelte -->
 
-<script>
+<script lang="ts">
     import '../../styles/css/app.css'
     import '../../styles/css/customProps.css'
     import '../../styles/scss/colorScheme.scss'
-    import Title from '../../components/title.svelte';
-    import '@capacitor/core'
     // Loading Logic
 
 
@@ -15,7 +13,7 @@
 
 
 import { initializeApp } from "firebase/app";
-import { getAnalytics, setUserId } from "firebase/analytics";
+import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -25,27 +23,28 @@ import {firebaseConfig} from '../../typescript/insults'
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+// @ts-ignore
 const analytics = getAnalytics(app);
-import { getAuth } from "firebase/auth";
-const auth = getAuth();
+import { getAuth, ParsedToken } from "firebase/auth";
+const auth = getAuth(app);
   
     // Firebase user
-    let user = null;
+    let user: { user_id?: string; id?: string; name?: string; email?: string; picture?: string; } | null = null;
   
     // expose property on the component that we can use
     // to choose if we want use popup or redirect
     export let useRedirect = false;
   
     // small mapper function
-    const userMapper = claims => ({
+    const userMapper = (claims: ParsedToken) => ({
       id: claims.user_id,
       name: claims.name,
       email: claims.email,
       picture: claims.picture
     });
   
-    export const loginWithEmailPassword = async (email, password) => {
-      const { getAuth, signInWithEmailAndPassword } = await import("firebase/auth")
+    export const loginWithEmailPassword = async (email: string, password: string) => {
+      const { signInWithEmailAndPassword } = await import("firebase/auth")
       signInWithEmailAndPassword(auth, email, password);
     }
     export const loginWithGoogle = async () => {
@@ -60,22 +59,7 @@ const auth = getAuth();
     export const signInAnonomous = async () => {
       const { getAuth, signInAnonymously } = await import("firebase/auth");
       const auth = getAuth();
-      signInAnonymously(auth)
-      .then(() => {
-        console.log(`your anonomous user ID is ${user.user_id}`);
-      })
-      .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.error(`
-      
-        An error occured.
-        Here are the detials:
-        ${errorCode}
-        ${errorMessage}
-      `)
-      // ...
-      });
+      await signInAnonymously(auth);
     }
     export const logout = () => auth.signOut();
   
@@ -101,5 +85,5 @@ const auth = getAuth();
   
   <!-- we will expose all required methods and properties on our slot -->
   <div>
-    <slot {user} {loggedIn} {loginWithGoogle} {loginWithEmailPassword} {signInAnonomous} {logout} />
+    <slot {user} {loggedIn} {loginWithGoogle} {loginWithEmailPassword} {signInAnonomous} {logout}>Error fetching Login API. Sorry about that :(</slot>
   </div>

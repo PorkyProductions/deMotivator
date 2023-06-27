@@ -1,16 +1,11 @@
-<script>
-    import 'bootstrap/scss/bootstrap.scss'
-    export let href;
-    export let type;
-    export let text;
-    export let icon;
-    export let iconAlt
+<script lang="ts">
+    import '../styles/scss/darkMode.scss'
+    import { BSVarient } from '../typescript/types';
+    import Icon from './icon.svelte';
+    export let href: string;
+    export let type: BSVarient;
+    export let text: string;
+    export let icon: string;
 </script>
 
-<a href={href} class="btn btn-{type}"><img src={icon} alt={iconAlt}>&nbsp;{text}</a>
-
-<style>
-    img {
-        display: inline;
-    }
-</style>
+<a href={href} id="bsButton" class="btn btn-{type}"><Icon name={icon}/>{text}</a>

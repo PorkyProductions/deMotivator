@@ -1,0 +1,36 @@
+@import "../node_modules/bootstrap/scss/functions";
+$prefix: "dmv-ppio-";
+@import './colorScheme.scss';
+$primary: $primary-majorelleBlue;
+
+[data-bs-theme="dark"] {
+    $primary: $secondary-orangePantone;  
+}
+$info: mix($theme-lightBlue, $theme-blue);
+$blue: $theme-blue;
+$indigo: $theme-indigo;
+$purple: $theme-purple;
+$pink: $theme-pink;
+$red: $theme-red;
+$orange: $theme-orange;
+$yellow: $theme-yellow;
+$green: $theme-green;
+$teal: $theme-teal;
+$cyan: $theme-cyan;
+$black: $theme-black;
+$white: $theme-white;
+$gray: #656D75;
+$gray-600: #656D75;
+$enable-rounded: true;
+$enable-shadows: true;
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/variables-dark";
+@import "../node_modules/bootstrap/scss/maps";
+@import "../node_modules/bootstrap/scss/mixins";
+@import "../node_modules/bootstrap/scss/root";
+@import "../node_modules/bootstrap/scss/buttons";
+img {
+	width: 325px;
+	display: block;
+	margin: auto;
+}

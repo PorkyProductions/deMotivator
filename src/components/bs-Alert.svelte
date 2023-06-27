@@ -1,20 +1,21 @@
-<script>
-    import 'bootstrap/scss/bootstrap.scss'
-    export let type;
-    export let icon;
-    export let iconAlt;
-    export let text;
-    export let actionLink;
-    export let actionText;
+<script lang="ts">
+    import '../styles/scss/darkMode.scss' 
+    import { type BSVarient } from '../typescript/types';
+    export let type: BSVarient;
+    export let icon: string;
+    export let text: string;
+    export let actionLink: string;
+    export let actionText: string;
     const load = async () => {
-      await import('bootstrap/dist/js/bootstrap.esm')
+      await import('bootstrap/js/dist/alert')
     }
     import { fade } from 'svelte/transition'
+  import Icon from './icon.svelte';
 </script>
 
 <div transition:fade class="alert alert-{type} d-flex align-items-center alert-dismissible" role="alert" on:mouseover={load} on:focus={load}>
     <span>
-        <img src={icon} alt={iconAlt}>
+        <Icon name={icon} />
     </span>
       &nbsp;
     <span>

@@ -34,7 +34,8 @@
         }
     },
     "include": [
-        "./src/typescript/**/*.ts"
+        "./src/typescript/**/*.ts",
+        "./src/utils/**/*.ts"
     ],
     "exclude": [
         "/node_modules",

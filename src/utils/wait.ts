@@ -1,0 +1,1 @@
+export const wait = (seconds: number) => setTimeout(() => {}, seconds * 1000);

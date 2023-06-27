@@ -1,6 +1,5 @@
 App/build
 App/Pods
-App/Podfile.lock
 DerivedData
 xcuserdata
 
@@ -11,3 +10,5 @@ App/App/capacitor.config.json
 App/App/config.xml
 
 App/App/public/
+
+

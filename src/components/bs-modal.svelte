@@ -1,32 +1,35 @@
-<script>
-    import 'bootstrap/scss/bootstrap.scss'
+<script lang="ts">
+  import '../styles/scss/darkMode.scss'
+  import { BSVarient } from '../typescript/types';
+  import Icon from './icon.svelte';
     const load = async () => {
-        await import('bootstrap/dist/js/bootstrap.esm')
+        await import('bootstrap/js/dist/modal')
     }
-    export let preButtonType;
-    export let preButtonText
-    export let icon;
-    export let title
-    export let body;
-    export let confirmButtonType;
-    export let confirmButtonText;
-    export let confirmButtonAction
-    export let closeButtonType;
-    export let closeButtonText;
+    export let preButtonType: BSVarient;
+    export let preButtonText: string;
+    export let preButtonIcon: string
+    export let icon: string;
+    export let title: string
+    export let body: string;
+    export let confirmButtonType: BSVarient;
+    export let confirmButtonText: string;
+    export let confirmButtonAction: any
+    export let closeButtonType: BSVarient;
+    export let closeButtonText: string;
 </script>
 
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-{preButtonType}" data-bs-toggle="modal" data-bs-target="#exampleModal" on:mouseover={load} on:focus={load}>
-    {preButtonText}
+<button type="button" class="btn btn-{preButtonType}" data-bs-toggle="modal" data-bs-target="#exampleModal" id="bsModal" on:mouseover={load} on:focus={load}>
+    <Icon name={preButtonIcon} />{preButtonText}
   </button>
   
   <!-- Modal -->
-  <div class="modal fade dark:text-black" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <span>
-            <img src={icon} alt="">
+            <Icon name={icon} />
           </span>
           &nbsp;
           <span>

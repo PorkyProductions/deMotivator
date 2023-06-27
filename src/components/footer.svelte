@@ -1,15 +1,12 @@
-<script>
+<script lang="ts">
     var year = new Date();
     import hedgehog from '../img/HedgehogIcon.png'
     import Title from './title.svelte';
-    import { deviceType, OS } from 'uadetect'
+    import { OS } from 'uadetect/dist/operatingSystem'
+    import { deviceType } from 'uadetect/dist/deviceType';
     import SiwGoogleButton from './siwGoogleButton.svelte';
-    import CssSpinner from './cssSpinner.svelte';
+    import { parentCompany } from '../typescript/constants';
     const navigation = [
-        {
-            name: "PorkyProductions",
-            href: "https://porkyproductions.github.io/"
-        },
         {
             name: "(de)Motivator 1.0",
             href: "dmv1.html"
@@ -19,8 +16,16 @@
             href: "https://github.com/PorkyProductions/deMotivator.js"
         },
         {
+            name: "Leaderboard",
+            href: "leaderboard.html"
+        },
+        {
             name: "Credits",
             href: "credits.html"
+        },
+        {
+            name: "Share",
+            href: "share.html"
         },
     ]
 </script>
@@ -73,26 +78,28 @@
     <footer class=" bg-primary-majorelleBlue dark:bg-gray-900 portrait:hidden fixed bottom-0 right-0 left-0 rounded-t-md">
         <div class="flex justify-between content-center">
             <div class="flex justify-between flex-col">
-                <div class="flex content-center">
-                    <img src={hedgehog} alt="Hedgehog" id="logo" class="dark:hidden hover:animate-spin">
+                <div class="flex content-center mb-0">
+                    <a href="https://porkyproductions.github.io"><img src={hedgehog} alt="Hedgehog" id="logo" class="hover:animate-spin p-0 m-0"></a>
                     <div class="text-white">
                         <Title />
                     </div>
+                    <div class="pt-6">
+                        <SiwGoogleButton />
+                    </div>
                 </div>
                 <hr />
-                <p class="text-white p-4">Copyright &copy; 2020-{year.getFullYear()}, PorkyProductions and/or it's contributors. All Rights Reserved</p>
+                <p class="text-white p-4">Copyright &copy; 2020-{year.getFullYear()}, {parentCompany} and/or it's contributors. All Rights Reserved</p>
             </div>
-            <nav class="flex justify-between flex-col p-4 text-white underline font-primary font-medium">
+            <nav class="flex justify-between flex-col p-4 text-white underline font-primary font-medium mb-0">
                 {#each navigation as link}
                     <a class="footer-link" href={link.href}>{link.name}</a>
                 {/each}
-                <SiwGoogleButton />
             </nav>
         </div>
     </footer>
 {/if}
 
-<style>
+<style lang="scss">
     #logo {
         width: 7rem;
         padding: 1rem;
@@ -112,4 +119,8 @@
             color: #F75C03;
         }
     } 
+    * {
+        margin-bottom: 0;
+    }
+
 </style>

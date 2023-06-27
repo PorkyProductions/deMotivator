@@ -1,30 +1,29 @@
-<script>
+<script lang="ts">
     import './styles/css/app.css'
     import './styles/css/customProps.css'
     import './styles/scss/colorScheme.scss'
     import Button from './components/button.svelte';
     import Footer from './components/footer.svelte';
     import Title from './components/title.svelte';
-    import Loader from './components/loader.svelte';
-    import '@capacitor/core'
-    // Loading Logic
-    import { onDestroy } from "svelte";
+    import Loader from './components/loader.svelte'
     let ready = false;
     const load = async () => {
         let duration = randomInRange(1, 4000)
+        await import('@capacitor/core')
         const { SplashScreen } = await import('@capacitor/splash-screen');
         await SplashScreen.show({
             showDuration: duration,
             autoHide: true,
         });
-        const loadingTimer = setTimeout(() => ready = true, duration);
-        onDestroy(() => clearTimeout(loadingTimer));
+        setTimeout(async () => {
+            ready = true;
+            await SplashScreen.hide()
+        }, duration);
     }
     load();
     import {
         fade
     } from 'svelte/transition'
-    import supportedBrowsers from './typescript/supportedBrowsers';
 
 
 
@@ -33,48 +32,37 @@
 
 
 import { initializeApp } from "firebase/app";
-import { getAnalytics, setUserId } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+import { getAnalytics } from "firebase/analytics";
 import {firebaseConfig} from './typescript/insults'
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { randomInRange } from './typescript/random';
-const auth = getAuth();
-const user = auth.currentUser;
-if (user !== null) {
-    // The user object has basic properties such as display name, email, etc.
-    const displayName = user.displayName;
-    const email = user.email;
-    const photoURL = user.photoURL;
-    const emailVerified = user.emailVerified;
+import { print } from '@porkyproductions/hat/dist/print'
+print(analytics)
 
-    // The user's ID, unique to the Firebase project. Do NOT use
-    // this value to authenticate with your backend server, if
-    // you have one. Use User.getToken() instead.
-    const uid = user.uid;
-}
+
+import { randomInRange } from '@porkyproductions/hat/dist/randomInRange';
+import { bsTheme } from './utils/darkMode';
+
+
+
 </script>
-{#if !ready}
-    <div transition:fade>
-        <Loader />
-    </div>
+<div id="root" data-bs-theme={bsTheme}>
+    {#if !ready}
+        <div transition:fade>
+            <Loader />
+        </div>
     {:else}
-    <div transition:fade>
-        <div class="dark:bg-black dark:text-white" id="app">
-            <Title />
-            <Button />
-        <div class="sm:p-3 md:p-4 lg:p-5 xl:p-20">
-            </div>
-            <div id="footer" class="" >
-                <Footer />
+        <div transition:fade>
+            <div class="dark:bg-theme-black dark:text-white" id="app">
+                <Title />
+                <Button />
+            <div class="sm:p-3 md:p-4 lg:p-5 xl:p-20"></div>
+                <div id="footer" class="" >
+                    <Footer />
+                </div>
             </div>
         </div>
-    </div>
-{/if}
+    {/if}
+</div>

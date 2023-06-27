@@ -1,7 +1,13 @@
-<script>
+<script lang="ts">
     import Title from '../../components/title.svelte';
-    import 'bootstrap/dist/css/bootstrap.css'
-    const credits = [
+  import { bsTheme } from '../../utils/darkMode';
+    interface Credits {
+        name: string,
+        website: string,
+        licenseName: string,
+        licenseUrl: string
+    }
+    const credits: Credits[] = [
         {
             name: "Autoprefixer",
             website: "https://github.com/postcss/autoprefixer#readme",
@@ -39,6 +45,18 @@
             licenseUrl: "https://raw.githubusercontent.com/eslint/eslint/main/LICENSE"
         },
         {
+            "name": "HAT",
+            "website": "https://github.com/PorkyProductions/hat#readme",
+            "licenseName": "MIT",
+            "licenseUrl": "https://raw.githubusercontent.com/PorkyProductions/hat/mega/LICENSE"
+        },
+        {
+            name: "lodash",
+            website: "https://lodash.com/",
+            licenseName: "MIT",
+            licenseUrl: "https://raw.githubusercontent.com/lodash/lodash/master/LICENSE"
+        },
+        {
             name: "PostCSS",
             website: "https://postcss.org/",
             licenseName: "MIT",
@@ -55,6 +73,12 @@
             website: "https://github.com/vercel/serve#readme",
             licenseName: "MIT",
             licenseUrl: "https://raw.githubusercontent.com/vercel/serve/main/license.md"
+        },
+        {
+            name: "Svelte",
+            website: "https://svelte.dev",
+            licenseName: "MIT",
+            licenseUrl: "https://raw.githubusercontent.com/sveltejs/svelte/master/LICENSE.md"
         },
         {
             name: "TailwindCSS",
@@ -95,23 +119,25 @@
     ]
 </script>
 
-<div class="p-2">
-    <div class="bg-gradient-to-tr from-indigo-400 via-primary-majorelleBlue to-blue-900 rounded-lg">
-        <div class="text-white p-32">
-            <Title />
+<div id="root" data-bs-theme={bsTheme}>
+    <div class="p-2 text-4xl">
+        <div class="bg-gradient-to-tr from-indigo-400 via-primary-majorelleBlue to-blue-900 dark:from-orange-400 dark:via-secondary-orangePantone dark:to-orange-900 rounded-lg">
+            <div class="text-white p-32 text-center flex content-center justify-center">
+                <Title />
+            </div>
         </div>
     </div>
-</div>
 
-<h2 class="font-primary text-4xl text-center">
-    Credits
-</h2>
+    <h2 class="font-primary text-4xl text-center">
+        Credits
+    </h2>
 
-<div class="">
-    {#each credits as credit}
-    <div class="pb-4 flex content-center justify-center">
-        <span><a href={credit.website}>{credit.name}</a></span> &nbsp; <span> | </span> &nbsp;
-        <span><a href={credit.licenseUrl}>{credit.licenseName + " licensed"}</a></span>
+    <div class="">
+        {#each credits as credit}
+        <div class="pb-4 flex content-center justify-center">
+            <span><a class="link link-primary" href={credit.website}>{credit.name}</a></span> &nbsp; <span> | </span> &nbsp;
+            <span><a class="link link-info" href={credit.licenseUrl}>{credit.licenseName + " licensed"}</a></span>
+        </div>
+        {/each}
     </div>
-    {/each}
 </div>
