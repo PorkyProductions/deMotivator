@@ -54,7 +54,7 @@
     "serve": "^14.2.0",
     "terser": "^5.18.2",
     "twemoji": "^14.0.2",
-    "typescript": "^5.1.3",
+    "typescript": "^5.1.6",
     "uadetect": "^6.0.1"
   }
 }
