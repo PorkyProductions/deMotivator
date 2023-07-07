@@ -49,7 +49,7 @@
     "cordova-res": "^0.15.4",
     "demotivator": "^12.0.0",
     "firebase": "^9.23.0",
-    "firebase-tools": "^11.30.0",
+    "firebase-tools": "^12.4.3",
     "lodash": "^4.17.21",
     "serve": "^14.2.0",
     "terser": "^5.18.2",
