@@ -63,7 +63,7 @@
         "bonsoir",
         " "
     ]
-    let currentLine = lines[0];
+    let currentLine = lines[0] as string | undefined;
     let showStarted = false
     let linkVisible = false
     setInterval(() => currentLine = lines.shift(), 3000);

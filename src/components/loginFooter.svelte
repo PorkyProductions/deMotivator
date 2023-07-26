@@ -1,7 +1,7 @@
 <script>
     import Title from './title.svelte';
     import { insultAt, createArray } from 'demotivator';
-    import { randomInRange } from '@porkyproductions/hat/dist/randomInRange';
+    import { randomInRange } from '@porkyproductions/hat/randomInRange';
     import { parentCompany } from '../typescript/constants';
     var year = new Date().getFullYear()
 </script>

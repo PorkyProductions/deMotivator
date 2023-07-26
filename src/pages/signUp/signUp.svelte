@@ -14,8 +14,8 @@
   //  Import Misc Helpers
   import { fade } from "svelte/transition";
   import { bsTheme } from "../../utils/darkMode";
-  import { randomInRange } from "@porkyproductions/hat/dist/randomInRange";
-  import { randomInArray } from "@porkyproductions/hat/dist/randomInArray";
+  import { randomInRange } from "@porkyproductions/hat/randomInRange";
+  import { randomInArray } from "@porkyproductions/hat/randomInArray";
   import {name} from '../../typescript/constants'
 
   let names: string[] = [
@@ -174,7 +174,7 @@
   let agreedToTerms = false;
 
   const signUpHandler = async (event) => {
-    const { randomInRange } = await import("@porkyproductions/hat/dist/randomInRange");
+    const { randomInRange } = await import("@porkyproductions/hat/randomInRange");
     const { displayName, email, password, photoURL } = event.target.elements;
     const { emailRegExp, pwRegExp } = await import('../../utils/regEx')
     try {

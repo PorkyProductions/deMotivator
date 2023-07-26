@@ -38,11 +38,11 @@ import {firebaseConfig} from './typescript/insults'
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-import { print } from '@porkyproductions/hat/dist/print'
+import { print } from '@porkyproductions/hat/print'
 print(analytics)
 
 
-import { randomInRange } from '@porkyproductions/hat/dist/randomInRange';
+import { randomInRange } from '@porkyproductions/hat/randomInRange';
 import { bsTheme } from './utils/darkMode';
 
 

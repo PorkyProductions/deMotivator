@@ -16,7 +16,7 @@
   // Import Misc Helpers
   import { onMount, beforeUpdate } from "svelte";
   import { bsTheme, darkMode } from "../../utils/darkMode";
-  import { randomInRange } from "@porkyproductions/hat/dist/randomInRange";
+  import { randomInRange } from "@porkyproductions/hat/randomInRange";
   import { deviceType } from "uadetect/dist/deviceType";
   import { fade } from "svelte/transition";
 
@@ -73,7 +73,7 @@
     if (deviceType === "desktop") {
       ready = false;
     }
-    const { randomInRange } = await import("@porkyproductions/hat/dist/randomInRange");
+    const { randomInRange } = await import("@porkyproductions/hat/randomInRange");
     const { Haptics, ImpactStyle } = await import("@capacitor/haptics");
     const { email, password } = event.target.elements;
     const hapticsVibrate = async () => {
@@ -130,7 +130,7 @@
   };
 
   const launchConfetti = async () => {
-    const { randomInRange } = await import("@porkyproductions/hat/dist/randomInRange");
+    const { randomInRange } = await import("@porkyproductions/hat/randomInRange");
     const { Haptics, ImpactStyle } = await import("@capacitor/haptics");
     const hapticsVibrate = async () => {
       await Haptics.vibrate();
