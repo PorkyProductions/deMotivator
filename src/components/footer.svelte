@@ -105,10 +105,10 @@
                             <Title />
                         </div>
                         <div class="pt-6">
-                            <SiwGoogleButton />
-                        </div>
+                            <SiwGoogleButton /> 
+                        </div> &nbsp;
                         <div class="pt-6">
-                            <button class="btn" on:click={shrinkAndGrow}>
+                            <button class="btn btn-secondary" on:click={shrinkAndGrow}>
                                 {#if shrunk}
                                     Grow Navigation
                                 {:else if grown}
