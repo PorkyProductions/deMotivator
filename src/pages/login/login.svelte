@@ -19,11 +19,17 @@
   import { randomInRange } from "@porkyproductions/hat/randomInRange";
   import { deviceType } from "uadetect/dist/deviceType";
   import { fade } from "svelte/transition";
+  import confetti from "canvas-confetti";
+  import { name } from "../../typescript/constants";
 
+  
 
 
   let emailBoxContent
   let emailBox
+  let emailInvalid = false
+  let pwText = ""
+  let pwInvalid = false
   let dismissedBanner = window.localStorage.getItem("dismissedBanner")
   // Loading Logic
   let ready = false;
@@ -66,9 +72,19 @@
     insultsSeenDB = await readInsults()
   }
 
-  import confetti from "canvas-confetti";
-  import { name } from "../../typescript/constants";
   let keepMeLoggedIn = false;
+
+  const onChangeLoginText = async () => {
+    const { pwRegExp, emailRegExp } = await import( "../../utils/regEx");
+    if (pwRegExp.test(pwText)) {
+      pwInvalid = false
+    } else pwInvalid = true
+    if (emailRegExp.test(emailBoxContent)) {
+      emailInvalid = false
+    } else emailInvalid = true
+  }
+
+
   const loginHandler = async (event) => {
     if (deviceType === "desktop") {
       ready = false;
@@ -312,25 +328,29 @@
                     <div class="mb-4">
                       <label class="form-label" for="email">Email</label>
                       <input
-                        class="input-field form-control dark:bg-black focus:cursor-text hover:focus:cursor-text hover:cursor-text"
+                        class={`input-field form-control dark:bg-black focus:cursor-text hover:focus:cursor-text hover:cursor-text ${emailInvalid ? "is-invalid" : "is-valid"}`}
                         id="email"
                         type="email"
                         placeholder="name@example.com"
                         bind:value={emailBoxContent}
+                        on:change={onChangeLoginText}
                         bind:this={emailBox}
                         required
                       />
+                      <div class="invalid-feedback">Must be valid email!</div>
                     </div>
-                    <div class="invalid-feedback">Email is Required!</div>
                     <div class="mb-6">
                       <label class="form-label" for="password">Password</label>
                       <input
-                        class="input-field form-control dark:bg-black focus:cursor-text hover:focus:cursor-text hover:cursor-text"
+                        class={`input-field form-control dark:bg-black focus:cursor-text hover:focus:cursor-text hover:cursor-text ${pwInvalid ? "is-invalid" : "is-valid"}`}
                         id="password"
                         type="password"
                         placeholder="******************"
                         required
+                        bind:value={pwText}
+                        on:change={onChangeLoginText}
                       />
+                      <div class="invalid-feedback">Password must meet the following requirements: Must be at least 8 characters long. Must contain at least 1 capital letter. Must contain at least 1 number. Must contain at least 1 symbol from the set '@$!%*#?&'</div>
                     </div>
                     <div class="mb-4">
                       <input type="checkbox" name="KeepMeLoggedIn" id="KeepMeLoggedIn" bind:checked={keepMeLoggedIn}>
