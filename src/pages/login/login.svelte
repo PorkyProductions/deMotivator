@@ -27,9 +27,9 @@
 
   let emailBoxContent
   let emailBox
-  let emailInvalid = false
+  let emailInvalid = true
   let pwText = ""
-  let pwInvalid = false
+  let pwInvalid = true
   let dismissedBanner = window.localStorage.getItem("dismissedBanner")
   // Loading Logic
   let ready = false;
