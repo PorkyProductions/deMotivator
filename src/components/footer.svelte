@@ -96,7 +96,7 @@
             </div>
         </footer>
     {:else if grown}
-        <footer class=" bg-primary-majorelleBlue dark:bg-gray-900 portrait:hidden rounded-t-md transition-all">
+        <footer class=" bg-primary-majorelleBlue dark:bg-gray-900 portrait:hidden rounded-t-md transition-all fixed bottom-0 left-0 right-0">
             <div class="flex justify-between content-center">
                 <div class="flex justify-between flex-col">
                     <div class="flex content-center mb-0">
