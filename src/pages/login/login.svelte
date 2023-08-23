@@ -75,16 +75,16 @@
   let keepMeLoggedIn = false;
 
   const onChangeLoginText = async () => {
-    const { pwRegExp, emailRegExp } = await import( "../../utils/regEx");
-    if (pwRegExp.test(pwText)) {
+    const { isEmailValid, isPwValid } = await import( "../../utils/regEx");
+    if (isPwValid(pwText)) {
       pwInvalid = false
     } else pwInvalid = true
-    if (emailRegExp.test(emailBoxContent)) {
+    if (isEmailValid(emailBoxContent)) {
       emailInvalid = false
     } else emailInvalid = true
   }
 
-
+  
   const loginHandler = async (event) => {
     if (deviceType === "desktop") {
       ready = false;
