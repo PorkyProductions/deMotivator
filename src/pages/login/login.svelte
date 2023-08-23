@@ -2,6 +2,8 @@
   // Import generic stylesheets, essential libraries
   import "../../styles/css/app.css";
   import "../../styles/css/customProps.css";
+  import lbl from '../../img/login-background-light.svg'
+  import lbd from '../../img/login-background-dark.svg'
   // Import components
   import BsSpinner from "../../components/bs-spinner.svelte";
   import LoginFooter from "../../components/loginFooter.svelte";
@@ -244,7 +246,6 @@
               />
             </div>
           {/if}
-        <Title />
         <div class="">
           <div class="wrapper flex content-center justify-center">
             {#if loggedIn}
@@ -319,112 +320,62 @@
                 </div>
               </div>
             {:else}
-              <div class="w-full max-w-xs" transition:fade>
-                <div class=" flex content-center justify-center">
-                  <form
-                    on:submit|preventDefault={loginHandler}
-                    class="p-8 shadow-md dark:bg-black border-primary-majorelleBlue border-4 rounded-lg dark:border-secondary-orangePantone"
-                  >
-                    <div class="mb-4">
-                      <label class="form-label" for="email">Email</label>
-                      <input
-                        class={`input-field form-control dark:bg-black focus:cursor-text hover:focus:cursor-text hover:cursor-text ${emailInvalid ? "is-invalid" : "is-valid"}`}
-                        id="email"
-                        type="email"
-                        placeholder="name@example.com"
-                        bind:value={emailBoxContent}
-                        on:change={onChangeLoginText}
-                        bind:this={emailBox}
-                        required
-                      />
-                      <div class="invalid-feedback">Must be valid email!</div>
-                    </div>
-                    <div class="mb-6">
-                      <label class="form-label" for="password">Password</label>
-                      <input
-                        class={`input-field form-control dark:bg-black focus:cursor-text hover:focus:cursor-text hover:cursor-text ${pwInvalid ? "is-invalid" : "is-valid"}`}
-                        id="password"
-                        type="password"
-                        placeholder="******************"
-                        required
-                        bind:value={pwText}
-                        on:change={onChangeLoginText}
-                      />
-                      <div class="invalid-feedback">Password must meet the following requirements: Must be at least 8 characters long. Must contain at least 1 capital letter. Must contain at least 1 number. Must contain at least 1 symbol from the set '@$!%*#?&'</div>
-                    </div>
-                    <div class="mb-4">
-                      <input type="checkbox" name="KeepMeLoggedIn" id="KeepMeLoggedIn" bind:checked={keepMeLoggedIn}>
-                      <label for="KeepMeLoggeedIn">Keep Me Logged In</label>
-                    </div>
-                    <div>
-                      <button type="submit" class="btn btn-primary"
-                        >Sign In</button
-                      >
-                    </div>
-                    {#if darkMode == true}
-                      <div class="mt-3">
-                        <button
-                          type="button"
-                          class="btn btn-dark"
-                          on:click|preventDefault={loginWithGoogle}
-                        >
-                          <span
-                            >Sign In with &nbsp;<span
-                              ><i class="bi bi-google"/></span
-                            ></span
-                          >
-                        </button>
+            <div class="w-full flex flex-wrap">
+
+              <div class="w-full md:w-1/2 flex flex-col" transition:fade>
+      
+                  <div class="flex justify-center md:justify-start pt-12 md:pl-12 md:-mb-24">
+                      <a href="/" class="p-10 m-10 text-center"><Title /></a>
+                  </div>
+      
+                  <div class="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">
+                      <form class="flex flex-col pt-3 md:pt-8" on:submit={loginHandler}>
+                        <div class="mb-4">
+                          <label class="form-label" for="email">Email</label>
+                          <input
+                            class={`input-field form-control dark:bg-black focus:cursor-text hover:focus:cursor-text hover:cursor-text ${emailInvalid ? "is-invalid" : "is-valid"}`}
+                            id="email"
+                            type="email"
+                            placeholder="name@example.com"
+                            bind:value={emailBoxContent}
+                            on:change={onChangeLoginText}
+                            bind:this={emailBox}
+                            required
+                          />
+                          <div class="invalid-feedback">Must be valid email!</div>
+                        </div>
+                        <div class="mb-6">
+                          <label class="form-label" for="password">Password</label>
+                          <input
+                            class={`input-field form-control dark:bg-black focus:cursor-text hover:focus:cursor-text hover:cursor-text ${pwInvalid ? "is-invalid" : "is-valid"}`}
+                            id="password"
+                            type="password"
+                            placeholder="******************"
+                            required
+                            bind:value={pwText}
+                            on:change={onChangeLoginText}
+                          />
+                          <div class="invalid-feedback">Password must meet the following requirements: Must be at least 8 characters long. Must contain at least 1 capital letter. Must contain at least 1 number. Must contain at least 1 symbol from the set '@$!%*#?&'</div>
+                        </div>
+          
+                          <button type="submit" value="Log In" class="btn btn-primary p-2 mt-8">Sign in <Icon name="person-plus" /></button>
+                          <button on:click={loginWithGoogle}  value="Log In With Google" class="btn btn-secondary p-2 mt-8">Sign in with&nbsp; <Icon name="google" /></button>
+                      </form>
+                      <div class="text-center pt-12 pb-12">
+                          <div>Don't have an account? <a href="signUp.html" class="underline font-semibold">Sign up</a></div>
                       </div>
-                    {:else}
-                      <div class="mt-3">
-                        <button
-                          type="button"
-                          class="btn btn-secondary"
-                          on:click|preventDefault={loginWithGoogle}
-                        >
-                          <span
-                            >Sign In with &nbsp;<span
-                              ><i class="bi bi-google" /></span
-                            ></span
-                          >
-                        </button>
-                      </div>
-                    {/if}
-                    <div class="mt-3">
-                      <button
-                        type="button"
-                        class="btn btn-info"
-                        on:click|preventDefault={signInAnonomous}
-                      >
-                        <Icon name="person-slash"/>Sign In as a Guest
-                      </button>
-                    </div>
-                    <div id="emailHelp" class="form-text">
-                      By clicking 'sign in' you are agreeing to share your email
-                      with PorkyProductions, which will be securely stored in our
-                      servers, and will never be shared with anyone else.
-                    </div>
-                    <div class="mt-3">
-                      <a
-                        href="signUp.html"
-                        type="button"
-                        class="btn btn-secondary"><Icon name="person-plus"/>Sign Up</a
-                      >
-                    </div>
-                  </form>
-                </div>
+                  </div>
+      
               </div>
+      
+              <!-- Image Section -->
+              <div class="w-1/2">
+                  <img class="object-cover w-full h-screen hidden md:block" src={darkMode ? lbd : lbl} alt="multicolored polka dots">
+              </div>
+          </div>
+      
             {/if}
           </div>
-        </div>
-        <div class="flex content-center justify-center p-4 pb-10">
-          <BsButton
-            icon="arrow-left"
-            iconAlt="a left facing arrow"
-            text="Go back home"
-            type="primary"
-            href="index.html"
-          />
         </div>
       </div>
     {/if}
