@@ -32,3 +32,17 @@ export interface InsultDBQueryResponse extends DocumentData {
 export interface GlobInsultDBQueryResponse extends DocumentData, InsultDBQueryResponse {
     referrer?: string,
 }
+
+export interface BsModalProps { 
+    preButtonType: BSVarient; 
+    preButtonText: string; 
+    preButtonIcon: string; 
+    icon: string; 
+    title: string; 
+    body: string;
+    confirmButtonType: BSVarient; 
+    confirmButtonText: string; 
+    confirmButtonAction: any; 
+    closeButtonType: BSVarient; 
+    closeButtonText: string; 
+}

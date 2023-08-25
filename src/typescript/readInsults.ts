@@ -34,7 +34,6 @@ export async function readInsults(): Promise<number> {
     }
   });
 }
-
 export let leaderboard: GlobInsultDBQueryResponse[] = []
 
 export async function getListOfAllUsersWhoHaveSeenInsults(): Promise<QuerySnapshot<DocumentData>> {
