@@ -251,6 +251,9 @@
             {#if loggedIn}
               <div class="w-full md:max-w-[30rem]" id="loggedInUI" transition:fade>
                 <div class="text-center">
+                  <Title />
+                </div>
+                <div class="text-center">
                   {#if user.picture}
                     <img
                       src={user.picture}
