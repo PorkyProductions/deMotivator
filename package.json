@@ -55,6 +55,6 @@
     "terser": "^5.19.2",
     "twemoji": "^14.0.2",
     "typescript": "^5.1.6",
-    "uadetect": "^6.0.1"
+    "uadetect": "^7.0.0-alpha-2"
   }
 }
