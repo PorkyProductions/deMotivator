@@ -249,7 +249,7 @@
         <div class="">
           <div class="wrapper flex content-center justify-center">
             {#if loggedIn}
-              <div class="w-full md:max-w-[30rem]" id="loggedInUI" transition:fade>
+              <div class="" id="loggedInUI" transition:fade>
                 <div class="text-center">
                   <Title />
                 </div>
@@ -402,12 +402,7 @@
 
   @media (prefers-color-scheme: dark) {
     div#wrapper {
-    background-size: cover;
-    width: 100%;
-    height: 100%;
     color: hsl(0, 0%, 100%);
-    position: absolute;
-    bottom: 0;
   }
 
     form,
