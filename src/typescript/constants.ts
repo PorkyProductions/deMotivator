@@ -32,7 +32,7 @@ export default {
     banner
 }
 
-abstract class __Constants implements Constants {
+abstract class __Constants {
     private static readonly __PROD: boolean =
         process.env.NODE_ENV === "production";
     private static readonly __name: string = "(de)Motivator";
@@ -54,7 +54,7 @@ abstract class __Constants implements Constants {
 }
 
 export class Constants extends __Constants {
-    private constructor() {
+    constructor() {
         super();
     }
     private static readonly __instance: Constants = new Constants();
