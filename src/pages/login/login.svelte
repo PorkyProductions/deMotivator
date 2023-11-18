@@ -264,9 +264,14 @@
                       id="pfp"
                     />
                   {:else}
-                    <div class="text-[12rem] p-0">
-                      <i class="bi bi-person-circle">
-                    </div>
+                    <img
+                        src={`https://api.dicebear.com/7.x/identicon/svg?seed=${user.id}`}
+                        alt="the profile of the user"
+                        width="40%"
+                        class="m-auto rounded-3xl dark:text-black"
+                        draggable="false"
+                        id="pfp"
+                    />
                   {/if}
                   <span class="font-semibold font-primary text-3xl">
                     Hello, <span class="font-bold">{user.name ?? "Guest"}</span>
