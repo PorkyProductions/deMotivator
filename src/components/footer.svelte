@@ -2,8 +2,8 @@
     var year = new Date();
     import hedgehog from '../img/HedgehogIcon.png'
     import Title from './title.svelte';
-    import { OS } from 'uadetect/dist/operatingSystem'
-    import { deviceType } from 'uadetect/dist/deviceType';
+    import { OS } from 'uadetect/operatingSystem'
+    import { deviceType } from 'uadetect/deviceType';
     import SiwGoogleButton from './siwGoogleButton.svelte';
     import { parentCompany } from '../typescript/constants';
     const navigation = [
@@ -28,6 +28,12 @@
             href: "share.html"
         },
     ]
+    let grown = true;
+    let shrunk = false
+    const shrinkAndGrow = () => {
+        grown = !grown
+        shrunk = !shrunk
+    }
 </script>
 
 
@@ -75,28 +81,53 @@
 
 <!--Desktop-->
 {:else}
-    <footer class=" bg-primary-majorelleBlue dark:bg-gray-900 portrait:hidden fixed bottom-0 right-0 left-0 rounded-t-md">
-        <div class="flex justify-between content-center">
-            <div class="flex justify-between flex-col">
-                <div class="flex content-center mb-0">
-                    <a href="https://porkyproductions.github.io"><img src={hedgehog} alt="Hedgehog" id="logo" class="hover:animate-spin p-0 m-0"></a>
-                    <div class="text-white">
-                        <Title />
-                    </div>
-                    <div class="pt-6">
-                        <SiwGoogleButton />
-                    </div>
-                </div>
-                <hr />
-                <p class="text-white p-4">Copyright &copy; 2020-{year.getFullYear()}, {parentCompany} and/or it's contributors. All Rights Reserved</p>
+    {#if shrunk}
+        <footer class="bg-primary-majorelleBlue dark:bg-gray-900 portrait:hidden pb-0">
+            <div class="flex content-center justify-center text-white">
+                <Title />
             </div>
-            <nav class="flex justify-between flex-col p-4 text-white underline font-primary font-medium mb-0">
+            <div class="flex content-center justify-center">
+                <p class="text-white">Copyright &copy; 2020-{year.getFullYear()}, {parentCompany} and/or it's contributors. All Rights Reserved</p>
+            </div>
+            <div class="flex content-center justify-center">
                 {#each navigation as link}
-                    <a class="footer-link" href={link.href}>{link.name}</a>
+                    <a class="footer-link" href={link.href}>{link.name}</a> &nbsp;
                 {/each}
-            </nav>
-        </div>
-    </footer>
+            </div>
+        </footer>
+    {:else if grown}
+        <footer class=" bg-primary-majorelleBlue dark:bg-gray-900 portrait:hidden rounded-t-md transition-all fixed bottom-0 left-0 right-0">
+            <div class="flex justify-between content-center">
+                <div class="flex justify-between flex-col">
+                    <div class="flex content-center mb-0">
+                        <a href="https://porkyproductions.github.io"><img src={hedgehog} alt="Hedgehog" id="logo" class="hover:animate-spin p-0 m-0"></a>
+                        <div class="text-white">
+                            <Title />
+                        </div>
+                        <div class="pt-6">
+                            <SiwGoogleButton /> 
+                        </div> &nbsp;
+                        <div class="pt-6">
+                            <button class="btn btn-secondary" on:click={shrinkAndGrow}>
+                                {#if shrunk}
+                                    Grow Navigation
+                                {:else if grown}
+                                    Shrink Navigation
+                                {/if}
+                            </button>
+                        </div>
+                    </div>
+                    <hr />
+                    <p class="text-white p-4">Copyright &copy; 2020-{year.getFullYear()}, {parentCompany} and/or it's contributors. All Rights Reserved</p>
+                </div>   
+                    <nav class="flex justify-between flex-col p-4 text-white underline font-primary font-medium mb-0">
+                        {#each navigation as link}
+                            <a class="footer-link" href={link.href}>{link.name}</a>
+                        {/each}
+                    </nav>
+            </div>
+        </footer>
+    {/if}
 {/if}
 
 <style lang="scss">

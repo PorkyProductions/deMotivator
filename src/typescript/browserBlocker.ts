@@ -1,4 +1,4 @@
-import { getCurrentUA } from 'uadetect/dist/getCurrentUA'
+import { getCurrentUA } from 'uadetect/getCurrentUA'
 import sb from '../utils/supportedBrowsers'
 const ua = getCurrentUA()
 if (!sb.test(ua)) { 

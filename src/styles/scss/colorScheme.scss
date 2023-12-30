@@ -18,7 +18,7 @@ $theme-teal: #14b8a6;
 $theme-cyan: #06b6d4;
 $theme-lightBlue: #0ea5e9;
 $theme-blue: #3b82f6;
-$theme-blue-vibrant: #0000F4;
+$theme-blue-vibrant: $highlights;
 $theme-indigo: #6366f1;
 $theme-purple: #a855f7;
 $theme-pink: #ec4899;
@@ -38,13 +38,6 @@ $theme-border-radius-md: 15px;
         cursor: pointer;
     }
 }
-#bsButton,
-#bsModal,
-.btn {
-    &:hover {
-        cursor: url(../../../node_modules/bootstrap-icons/icons/hand-index-thumb-fill.svg), default;
-    }
-}
 
 @media (prefers-color-scheme: dark) {
     * {
@@ -53,10 +46,4 @@ $theme-border-radius-md: 15px;
             background-color: $secondary-orangePantone
         }
     }
-        #bsButton,
-        #bsModal {
-            &:hover {
-                cursor: url(../../../node_modules/bootstrap-icons/icons/hand-index-thumb.svg), default;
-            }
-        }
 }

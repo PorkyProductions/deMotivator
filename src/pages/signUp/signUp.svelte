@@ -3,6 +3,8 @@
   import "../../styles/css/app.css";
   import "../../styles/css/customProps.css";
   import confetti from "canvas-confetti";
+  import lbl from '../../img/login-background-light.svg'
+  import lbd from '../../img/login-background-dark.svg'
   // Import components
   import Title from "../../components/title.svelte";
   import BsSpinner from "../../components/bs-spinner.svelte";
@@ -13,10 +15,11 @@
   import Icon from '../../components/icon.svelte'
   //  Import Misc Helpers
   import { fade } from "svelte/transition";
-  import { bsTheme } from "../../utils/darkMode";
-  import { randomInRange } from "@porkyproductions/hat/dist/randomInRange";
-  import { randomInArray } from "@porkyproductions/hat/dist/randomInArray";
+  import { bsTheme, darkMode } from "../../utils/darkMode";
+  import { randomInRange } from "@porkyproductions/hat/randomInRange";
+  import { randomInArray } from "@porkyproductions/hat/randomInArray";
   import {name} from '../../typescript/constants'
+  import { ClassCreator } from "../../typescript/class";
 
   let names: string[] = [
     "Yamilet Martin",
@@ -174,7 +177,7 @@
   let agreedToTerms = false;
 
   const signUpHandler = async (event) => {
-    const { randomInRange } = await import("@porkyproductions/hat/dist/randomInRange");
+    const { randomInRange } = await import("@porkyproductions/hat/randomInRange");
     const { displayName, email, password, photoURL } = event.target.elements;
     const { emailRegExp, pwRegExp } = await import('../../utils/regEx')
     try {
@@ -213,6 +216,23 @@
       error = err;
     }
   };
+
+  
+  let emailBoxContent: any
+  let emailBox
+  let emailInvalid = true
+  let pwText = ""
+  let pwInvalid = true
+
+  const onChangeLoginText = async () => {
+    const { isEmailValid, isPwValid } = await import( "../../utils/regEx");
+    if (isPwValid(pwText)) {
+      pwInvalid = false
+    } else pwInvalid = true
+    if (isEmailValid(emailBoxContent)) {
+      emailInvalid = false
+    } else emailInvalid = true
+  }
 </script>
 
 <div id="root" data-bs-theme={bsTheme}>
@@ -288,95 +308,100 @@
               />
             </div>
           {/if}
-        <Title />
         <div class="">
           <div class="wrapper flex content-center justify-center ">
             {#if loggedIn}
               <div class="font-primary text-4xl font-medium">
+                <Title />
                 You're already logged in! <a href="/login.html" class="link link-success underline">View your Account</a>
               </div>
             {:else}
-              <div class="w-full max-w-xs" transition:fade>
-                <div class=" flex content-center justify-center">
-                  <form
-                    on:submit|preventDefault={signUpHandler}
-                    class="px-8 pt-6 pb-8 shadow-md border-primary-majorelleBlue border-4 rounded-lg dark:border-secondary-orangePantone dark:border-2"
-                  >
-                    <div class="mb-4">
-                      <label class="form-label" for="displayName"
-                        >Display Name</label
-                      >
-                      <input
-                        class="input-field form-control dark:bg-black focus:cursor-text hover:focus:cursor-text hover:cursor-text"
-                        id="displayName"
-                        type="text"
-                        placeholder={randomName}
-                        required
-                      />
-                    </div>
-                    <div class="mb-4">
-                      <label class="form-label" for="email">Email</label>
-                      <input
-                        class="input-field form-control dark:bg-black focus:cursor-text hover:focus:cursor-text hover:cursor-text"
-                        id="email"
-                        type="email"
-                        placeholder="name@example.com"
-                        required
-                      />
-                    </div>
-                    <div class="mb-4">
-                      <label class="form-label" for="photoURL">URL for your profile photo</label>
-                      <input
-                        class="input-field form-control dark:bg-black focus:cursor-text hover:focus:cursor-text hover:cursor-text"
-                        id="photoURL"
-                        type="url"
-                        placeholder="https://vetmed.illinois.edu/wp-content/uploads/2021/04/pc-keller-hedgehog.jpg"
-                      />
-                    </div>
-                    <div class="mb-6">
-                      <label class="form-label" for="password">Password</label>
-                      <input
-                        class="input-field form-control dark:bg-black focus:cursor-text hover:focus:cursor-text hover:cursor-text"
-                        id="password"
-                        type="password"
-                        placeholder="******************"
-                        required
-                      />
-                    </div>
-                    <div class="form-check pb-4">
-                      <input
-                        class="form-check-input"
-                        type="checkbox"
-                        bind:checked={agreedToTerms}
-                        value=""
-                        id="flexCheckDefault"
-                        required
-                      />
-                      <label class="form-check-label" for="flexCheckDefault">
-                        I agree to the <a href=" ">Terms and Conditions</a> and
-                        <a href="https://policies.google.com/privacy"
-                          >Privacy Policy</a
-                        >
-                      </label>
-                    </div>
-                    <div>
-                      <button type="submit" class="btn btn-primary"
-                        ><Icon name="person-plus"/> Sign Up</button
-                      >
-                    </div>
-                    <div id="emailHelp" class="form-text">
-                      By clicking 'sign up' you are agreeing to share your email
-                      with PorkyProductions, which will be securely stored in our
-                      servers, and will never be shared with anyone else.
-                    </div>
-                    <div class="mt-3">
-                      <a href="login.html" type="button" class="btn btn-secondary"
-                        >Sign In</a
-                      >
-                    </div>
-                  </form>
-                </div>
+            <div class="w-full flex flex-wrap">
+
+              <div class="w-full md:w-1/2 flex flex-col" transition:fade>
+      
+                  <div class="flex justify-center md:justify-start pt-12 md:pl-12 md:-mb-24">
+                      <a href="/" class="p-10 m-10 text-center no-underline text-theme-black dark:text-theme-white"><Title /></a>
+                  </div>
+      
+                  <div class="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">
+                      <form class="flex flex-col pt-3 md:pt-8" on:submit|preventDefault={signUpHandler}>
+                        <div class="mb-4">
+                          <label class="form-label" for="email">Email</label>
+                          <input
+                            class={`input-field form-control dark:bg-black focus:cursor-text hover:focus:cursor-text hover:cursor-text ${emailInvalid ? "is-invalid" : "is-valid"}`}
+                            id="email"
+                            type="email"
+                            placeholder="name@example.com"
+                            bind:value={emailBoxContent}
+                            on:change={onChangeLoginText}
+                            bind:this={emailBox}
+                            required
+                          />
+                          <div class="invalid-feedback">Must be valid email!</div>
+                        </div>
+                        <div class="mb-6">
+                          <label class="form-label" for="password">Password</label>
+                          <input
+                            class={`input-field form-control dark:bg-black focus:cursor-text hover:focus:cursor-text hover:cursor-text ${pwInvalid ? "is-invalid" : "is-valid"}`}
+                            id="password"
+                            type="password"
+                            placeholder="******************"
+                            required
+                            bind:value={pwText}
+                            on:change={onChangeLoginText}
+                          />
+                          <div class="invalid-feedback">Password must meet the following requirements: Must be at least 8 characters long. Must contain at least 1 capital letter. Must contain at least 1 number. Must contain at least 1 symbol from the set '@$!%*#?&'</div>
+                        </div>
+                        <div class="mb-6">
+                          <label class="form-label" for="displayName">Display Name</label>
+                          <input
+                            class={`input-field form-control dark:bg-black focus:cursor-text hover:focus:cursor-text hover:cursor-text`}
+                            id="displayName"
+                            type="text"
+                            placeholder={randomName}
+                          />
+                        </div>
+                        <div class="mb-6">
+                          <label class="form-label" for="photoURL">Photo URL</label>
+                          <input
+                            class={`input-field form-control dark:bg-black focus:cursor-text hover:focus:cursor-text hover:cursor-text`}
+                            id="photoURL"
+                            type="url"
+                            placeholder="https://images.unsplash.com/photo-1692744642837-0afc5b12912b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1287&q=80"
+                          />
+                        </div>
+                        <div class="form-check pb-4">
+                          <input
+                            class="form-check-input"
+                            type="checkbox"
+                            bind:checked={agreedToTerms}
+                            value=""
+                            id="flexCheckDefault"
+                            required
+                          />
+                          <label class="form-check-label" for="flexCheckDefault">
+                            I agree to the <a href=" ">Terms and Conditions</a> and
+                            <a href="https://policies.google.com/privacy"
+                              >Privacy Policy</a
+                            >
+                          </label>
+                        </div>
+          
+                          <button type="submit" value="Log In"   class={`btn btn-${yay ? "success" : "primary"} p-2 mt-8`}>Sign Up <Icon name="person-plus" /></button>
+                      </form>
+                      <div class="text-center pt-12 pb-12">
+                          <div>Already have an account? <a href="login.html" class="underline font-semibold">Sign in</a></div>
+                      </div>
+                  </div>
+      
               </div>
+      
+              <!-- Image Section -->
+              <div class="w-1/2">
+                  <img class="object-cover w-full h-screen hidden md:block" draggable="false"  src={darkMode ? lbd : lbl} alt="multicolored polka dots">
+              </div>
+          </div>
             {/if}
           </div>
           <div class="flex content-center justify-center p-4 pb-10">
@@ -392,20 +417,3 @@
     {/if}
   </Auth>
 </div>
-
-<style>
-  div#wrapper {
-    color: hsl(0, 0%, 0%);
-  }
-  form {
-    background-color: white;
-  }
-  @media (prefers-color-scheme: dark) {
-    div#wrapper {
-      color: hsl(0, 0%, 100%);
-    }
-    form {
-      background-color: black;
-    }
-  }
-</style>

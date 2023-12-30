@@ -2,10 +2,11 @@
 	import {leaderboard} from '../../typescript/readInsults'
 	import { getListOfAllUsersWhoHaveSeenInsults as getList } from '../../typescript/readInsults'
 	import { afterUpdate } from 'svelte';
-	import {randomInRange} from '@porkyproductions/hat/dist/randomInRange'
+	import {randomInRange} from '@porkyproductions/hat/randomInRange'
 	import { fade } from 'svelte/transition';
 	import { name } from '../../typescript/constants';
 	import { bsTheme } from '../../utils/darkMode';
+	import { BsModalProps } from '../../typescript/types';
 
 
 	import Title from '../../components/title.svelte'
@@ -13,6 +14,21 @@
 	import BsLoader from '../../components/bsLoader.svelte';
 	import Icon from '../../components/icon.svelte';
 	import BsSpinner from '../../components/bs-spinner.svelte';
+	import BsModal from '../../components/bs-modal.svelte';
+	
+	const modalProps: BsModalProps = {
+		icon: "patch-question",
+		preButtonIcon: "patch-question",
+		preButtonText: "How do I check my (de)Motivator UserID",
+		preButtonType: "secondary",
+		title: "What is a (de)Motivator UserID",
+		body: "A (de)Motivator UserID is like a unique identifier for your account. Once you create a (de)Motivator account, PorkyProductions will randomly generate a series of characters that is uniquely tied to your account. You can check what your (de)Motivator UserID is on the account page",
+		closeButtonText: "Close",
+		closeButtonType: "secondary",
+		confirmButtonAction: () => window.location.href = "/login.html",
+		confirmButtonText: "Go to the accounts page",
+		confirmButtonType: "info",
+	}
 
 
 
@@ -45,6 +61,9 @@
 					<Icon name="arrow-clockwise" /> Refresh List
 				</button>
 			</div>
+			<div class="flex content-center justify-center p-4">
+				<BsModal {...modalProps} />
+			</div>
 			{#if !!leaderboard}
 			<div class="px-20 portrait:px-0">
 				<table class="table table-striped table-bordered p-4">
@@ -69,7 +88,7 @@
 					<BsButton
 						icon="arrow-left"
 						text="Go back home"
-						type="success"
+						type="secondary"
 						href="index.html"
 					/>
 				</div>

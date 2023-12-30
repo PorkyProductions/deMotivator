@@ -25,8 +25,6 @@
         fade
     } from 'svelte/transition'
 
-
-
     // FROM BEYOND THIS POINT IS FIREBASE LOGIC
     // BEWARE
 
@@ -38,12 +36,14 @@ import {firebaseConfig} from './typescript/insults'
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-import { print } from '@porkyproductions/hat/dist/print'
+import { print } from '@porkyproductions/hat/print'
 print(analytics)
 
 
-import { randomInRange } from '@porkyproductions/hat/dist/randomInRange';
+import { randomInRange } from '@porkyproductions/hat/randomInRange';
 import { bsTheme } from './utils/darkMode';
+import HomeScreenDevWarningBanner from './components/homeScreenDevWarningBanner.svelte';
+  import { PROD } from './typescript/constants';
 
 
 
@@ -56,6 +56,9 @@ import { bsTheme } from './utils/darkMode';
     {:else}
         <div transition:fade>
             <div class="dark:bg-theme-black dark:text-white" id="app">
+                {#if window.location.hostname === "localhost" || window.location.hostname === "demotivator-dev.web.app"}
+                    <HomeScreenDevWarningBanner />  
+                {/if}
                 <Title />
                 <Button />
             <div class="sm:p-3 md:p-4 lg:p-5 xl:p-20"></div>
