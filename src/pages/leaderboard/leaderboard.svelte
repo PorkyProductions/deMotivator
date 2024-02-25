@@ -19,8 +19,8 @@
 	const modalProps: BsModalProps = {
 		icon: "patch-question",
 		preButtonIcon: "patch-question",
-		preButtonText: "How do I check my (de)Motivator UserID",
-		preButtonType: "secondary",
+		preButtonText: "How do I check my (de)Motivator UserID?",
+		preButtonType: "info",
 		title: "What is a (de)Motivator UserID",
 		body: "A (de)Motivator UserID is like a unique identifier for your account. Once you create a (de)Motivator account, PorkyProductions will randomly generate a series of characters that is uniquely tied to your account. You can check what your (de)Motivator UserID is on the account page",
 		closeButtonText: "Close",
