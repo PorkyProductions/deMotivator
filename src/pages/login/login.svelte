@@ -278,7 +278,7 @@
                   </span>
                   <h2 class="font-primary pb-4 text-3xl">{user.email ?? ""}</h2>
                   <h2 class="font-primary pb-4 text-3xl">You've seen {insultsSeenDB ?? "no"} insults</h2>
-                  <h2 class="font-primary">Your {name} UserID:</h2>
+                  <h2 class="font-primary">Your PorkyProductionsID:</h2>
                   <h3 class="font-primary text-xl">
                     {user.id ?? " "}
                   </h3>
@@ -333,7 +333,7 @@
               <div class="w-full md:w-1/2 flex flex-col" transition:fade>
       
                   <div class="flex justify-center md:justify-start pt-12 md:pl-12 md:-mb-24">
-                      <a href="/" class="p-10 m-10 text-center no-underline text-theme-black dark:text-theme-white"><Title /></a>
+                      <a href="/" class="p-10 m-10 text-center no-underline text-theme-black dark:text-theme-white"> <span class="font-primary font-bold text-3xl">PorkyProductionsID</span></a>
                   </div>
       
                   <div class="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">

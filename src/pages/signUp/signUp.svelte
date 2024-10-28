@@ -321,7 +321,7 @@
               <div class="w-full md:w-1/2 flex flex-col" transition:fade>
       
                   <div class="flex justify-center md:justify-start pt-12 md:pl-12 md:-mb-24">
-                      <a href="/" class="p-10 m-10 text-center no-underline text-theme-black dark:text-theme-white"><Title /></a>
+                      <a href="/" class="p-10 m-10 text-center no-underline text-theme-black dark:text-theme-white"><span class="font-primary text-3xl font-bold">PorkyProductionsID</span></a>
                   </div>
       
                   <div class="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">
