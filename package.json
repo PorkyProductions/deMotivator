@@ -25,13 +25,13 @@
     "eslint": "^8.57.1",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.31.0",
-    "postcss": "^8.4.49",
-    "rollup-plugin-visualizer": "^5.12.0",
-    "sass": "^1.80.6",
+    "postcss": "^8.5.1",
+    "rollup-plugin-visualizer": "^5.14.0",
+    "sass": "^1.83.4",
     "svelte": "^4.2.19",
     "svelte-preprocess": "^5.1.4",
-    "tailwindcss": "^3.4.14",
-    "vite": "^5.4.11",
+    "tailwindcss": "^3.4.17",
+    "vite": "^5.4.14",
     "vite-plugin-banner": "^0.7.1"
   },
   "dependencies": {
@@ -51,11 +51,11 @@
     "firebase": "^9.23.0",
     "firebase-tools": "^11.30.0",
     "lodash": "^4.17.21",
-    "sass-migrator": "^2.2.1",
+    "sass-migrator": "^2.3.0",
     "serve": "^14.2.4",
-    "terser": "^5.36.0",
+    "terser": "^5.37.0",
     "twemoji": "^14.0.2",
-    "typescript": "^5.6.3",
+    "typescript": "^5.7.3",
     "uadetect": "^7.0.0-alpha-2"
   }
 }
