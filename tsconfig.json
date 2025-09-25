@@ -1,3 +1,13 @@
 {
-    "extends": "./node_modules/@porkyproductions/hat/tsconfig.json"
+    "extends": "./node_modules/@porkyproductions/hat/tsconfig.json",
+    "files": [],
+    "include": [
+        "src/**/*",
+        "types/**/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "out",
+        "www"
+    ]
 }
