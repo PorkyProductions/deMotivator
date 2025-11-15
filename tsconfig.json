@@ -1,6 +1,15 @@
 {
     "extends": "./node_modules/@porkyproductions/hat/tsconfig.json",
     "files": [],
+    "compilerOptions": {
+        "module": "es2022",
+        "moduleResolution": "bundler",
+        "target": "es2022",
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true
+    },
     "include": [
         "src/**/*",
         "types/**/*"
