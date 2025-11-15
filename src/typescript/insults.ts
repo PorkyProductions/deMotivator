@@ -17,10 +17,10 @@ export const firebaseConfig: FirebaseConfig = {
 // @ts-ignore
 const app = initializeApp(firebaseConfig);
 import { getAuth } from "firebase/auth";
-import { Insult, FirebaseConfig } from "./types";
+import { FirebaseConfig } from "./types";
 const auth = getAuth(app);
 const user = auth.currentUser;
-export const userInsults: Insult[] = [
+export const userInsults: string[] = [
     `If there was ever one person who I hated the most, it would be ${user?.displayName ?? "this guest user"}`,
     `I heard ${user?.displayName ?? "this guest user"} is a really bad person`,
     `I would give you an insult, but I think ${user?.displayName ?? "this guest user"} is too self-righteous to hear it`,
