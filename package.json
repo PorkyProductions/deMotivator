@@ -14,12 +14,10 @@
     "supportedBrowsers": "(echo export default && browserslist-useragent-regexp --allowHigherVersions) > src/utils/supportedBrowsers.ts",
     "preview": "vite preview",
     "push": "firebase deploy",
-    "capBuild": "cap sync",
-    "ionic:build": "npm run build",
-    "ionic:serve": "npm run dev"
+    
   },
   "devDependencies": {
-    "@capacitor/cli": "^5.7.8",
+    
     "@sveltejs/vite-plugin-svelte": "^3.1.2",
     "autoprefixer": "^10.4.22",
     "browserslist-useragent-regexp": "^4.1.3",
@@ -36,14 +34,10 @@
     "vite-plugin-banner": "^0.7.1"
   },
   "dependencies": {
-    "@capacitor/android": "^5.7.8",
-    "@capacitor/clipboard": "^5.0.8",
-    "@capacitor/core": "^5.7.8",
-    "@capacitor/dialog": "^5.0.8",
-    "@capacitor/haptics": "^5.0.8",
-    "@capacitor/ios": "^5.7.8",
-    "@capacitor/splash-screen": "^5.0.8",
+    
     "@porkyproductions/hat": "^1.5.0",
+    "@tailwindcss/postcss": "^4.1.17",
+    "@tailwindcss/vite": "^4.1.17",
     "bootstrap": "^5.3.8",
     "bootstrap-icons": "^1.13.1",
     "canvas-confetti": "^1.9.3",

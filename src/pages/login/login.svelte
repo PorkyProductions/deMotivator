@@ -37,12 +37,17 @@
   let ready = false;
   let duration = randomInRange(1, 3500);
   const load = async () => {
-    const keepMeLoggedIn = window.localStorage.getItem("keepMeLoggedIn")
-    const { SplashScreen } = await import("@capacitor/splash-screen");
-    await SplashScreen.show({
-      showDuration: duration,
-      autoHide: true,
-    });
+    const keepMeLoggedIn = window.localStorage.getItem("keepMeLoggedIn");
+    // safe import of Capacitor splash-screen
+    const capUtil = await import('../../utils/capacitor');
+    const splashMod = await capUtil.importCapacitor('@capacitor/splash-screen');
+    if (splashMod && splashMod.SplashScreen && typeof splashMod.SplashScreen.show === 'function') {
+      try {
+        await splashMod.SplashScreen.show({ showDuration: duration, autoHide: true });
+      } catch (e) {
+        console.warn('SplashScreen.show failed', e);
+      }
+    }
     setTimeout(() => (ready = true), duration);
     if (keepMeLoggedIn == "true") {
       await loginHandler();
@@ -92,14 +97,13 @@
       ready = false;
     }
     const { randomInRange } = await import("@porkyproductions/hat/randomInRange");
-    const { Haptics, ImpactStyle } = await import("@capacitor/haptics");
+    const capUtil = await import('../../utils/capacitor');
+    const hapticsMod = await capUtil.importCapacitor('@capacitor/haptics');
+    const Haptics = hapticsMod?.Haptics;
+    const ImpactStyle = hapticsMod?.ImpactStyle;
     const { email, password } = event.target.elements;
-    const hapticsVibrate = async () => {
-      await Haptics.vibrate();
-    };
-    const hapticsImpactMedium = async () => {
-      await Haptics.impact({ style: ImpactStyle.Medium });
-    };
+    const hapticsVibrate = async () => { if (Haptics && Haptics.vibrate) await Haptics.vibrate(); };
+    const hapticsImpactMedium = async () => { if (Haptics && Haptics.impact && ImpactStyle) await Haptics.impact({ style: ImpactStyle.Medium }); };
     try {
       error = null;
       await loginWithEmailPassword(email.value, password.value);
@@ -124,11 +128,13 @@
 
   const deleteUser = async () => {
     const { deleteUser } = await import("firebase/auth");
-    const { Haptics } = await import("@capacitor/haptics");
+    const capUtil = await import('../../utils/capacitor');
+    const hapticsMod = await capUtil.importCapacitor('@capacitor/haptics');
+    const Haptics = hapticsMod?.Haptics;
     const { showConfirm } = await import("../../typescript/easterEggs");
     const user = auth.currentUser;
     try {
-      await Haptics.vibrate();
+      if (Haptics && Haptics.vibrate) await Haptics.vibrate();
       await showConfirm(
         "Are you sure?",
         "This is your last chance to back out."
@@ -149,13 +155,12 @@
 
   const launchConfetti = async () => {
     const { randomInRange } = await import("@porkyproductions/hat/randomInRange");
-    const { Haptics, ImpactStyle } = await import("@capacitor/haptics");
-    const hapticsVibrate = async () => {
-      await Haptics.vibrate();
-    };
-    const hapticsImpactMedium = async () => {
-      await Haptics.impact({ style: ImpactStyle.Medium });
-    };
+    const capUtil = await import('../../utils/capacitor');
+    const hapticsMod = await capUtil.importCapacitor('@capacitor/haptics');
+    const Haptics = hapticsMod?.Haptics;
+    const ImpactStyle = hapticsMod?.ImpactStyle;
+    const hapticsVibrate = async () => { if (Haptics && Haptics.vibrate) await Haptics.vibrate(); };
+    const hapticsImpactMedium = async () => { if (Haptics && Haptics.impact && ImpactStyle) await Haptics.impact({ style: ImpactStyle.Medium }); };
     let i = 3;
     while (i >= 0) {
       confetti({

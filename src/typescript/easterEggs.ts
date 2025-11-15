@@ -1,6 +1,10 @@
 import type { bool } from './types';
+import { importCapacitor } from '../utils/capacitor';
 
-window.addEventListener("load", async () => await import("@capacitor/core"))
+window.addEventListener("load", async () => {
+    // attempt to import Capacitor core if available, but ignore failure
+    try { await importCapacitor('@capacitor/core'); } catch (e) { /* ignore */ }
+});
 window.addEventListener("load", async () => {
     const { wait } = await import('@porkyproductions/hat/wait');
     wait(10);
@@ -35,20 +39,27 @@ window.addEventListener("load", async () => {
 })
 
 export const showAlert = async (title: string, message: string): Promise<void> => {
-    const { Dialog } = await import('@capacitor/dialog');
-    await Dialog.alert({
-        title: title,
-        message: message
-    });
+    const mod = await importCapacitor('@capacitor/dialog');
+    if (mod && mod.Dialog && typeof mod.Dialog.alert === 'function') {
+        await mod.Dialog.alert({ title: title, message: message });
+    } else {
+        // fallback to window alert in non-capacitor environments
+        // keep behavior similar for simple notifications
+        // eslint-disable-next-line no-alert
+        window.alert(`${title}\n\n${message}`);
+    }
 };
 
 export const showConfirm = async (title: string, message: string): Promise<string | bool | number> => {
-    const { Dialog } = await import('@capacitor/dialog');
-    const { value } = await Dialog.confirm({
-        title: title,
-        message: message,
-    });
-    return value as bool
+    const mod = await importCapacitor('@capacitor/dialog');
+    if (mod && mod.Dialog && typeof mod.Dialog.confirm === 'function') {
+        const { value } = await mod.Dialog.confirm({ title: title, message: message });
+        return value as bool;
+    }
+    // fallback to window.confirm
+    // eslint-disable-next-line no-restricted-globals
+    const ok = window.confirm(`${title}\n\n${message}`);
+    return ok as bool;
 };
 
 document.body.addEventListener('keyup', async (e: KeyboardEvent) => {

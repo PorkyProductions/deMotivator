@@ -40,11 +40,30 @@ const randomize = async () => {
 }
 
 const writeInsultToClipboard = async () => {
-    const { Clipboard } = await import('@capacitor/clipboard')
-    await Clipboard.write({
-        string: result || ""
-    })
-}
+    const text = result || '';
+    // Prefer native clipboard API in browsers
+    if (typeof navigator !== 'undefined' && navigator.clipboard && navigator.clipboard.writeText) {
+        try {
+            await navigator.clipboard.writeText(text);
+            return;
+        } catch (e) {
+            // fall through to Capacitor fallback
+            console.warn('navigator.clipboard.writeText failed, falling back to Capacitor Clipboard', e);
+        }
+    }
+
+    // Fallback: try Capacitor Clipboard if available via helper
+    try {
+        const capUtil = await import('../utils/capacitor');
+        const mod = await capUtil.importCapacitor('@capacitor/clipboard');
+        const Clipboard = mod?.Clipboard;
+        if (Clipboard && typeof Clipboard.write === 'function') {
+            await Clipboard.write({ string: text });
+        }
+    } catch (err) {
+        console.error('Failed to write to clipboard', err);
+    }
+};
 
 /*
 
@@ -52,20 +71,50 @@ MEGAMODE
 
 */
 
-let MEGAMODEresult = ""
-let MEGAMODE = false
-let MEGAMODEspeed = 250
+let MEGAMODEresult = "";
+let MEGAMODE = false;
+let MEGAMODEspeed = 250;
 let MEGAMODEinsults = 0;
 
+let MEGAMODEinterval: ReturnType<typeof setInterval> | null = null;
+
 const MEGAMODErandomize = async () => {
-    const { insults } = await import('demotivator/dist/insults')
-    MEGAMODEresult = insults[Math.floor(Math.random() * insults.length)]
-    MEGAMODEinsults++
-}
-const MEGAMODEspeedControl = async () => {
-    setInterval(() => {
+    const { insults } = await import('demotivator/dist/insults');
+    MEGAMODEresult = insults[Math.floor(Math.random() * insults.length)];
+    MEGAMODEinsults++;
+};
+
+const startMEGAMODE = () => {
+    // ensure we don't create multiple intervals
+    stopMEGAMODE();
+    // clamp speed to a reasonable minimum to avoid freezing the UI
+    const speed = Math.max(20, Number(MEGAMODEspeed) || 250);
+    MEGAMODEinterval = setInterval(() => {
         MEGAMODErandomize();
-    }, MEGAMODEspeed) 
+    }, speed);
+};
+
+const stopMEGAMODE = () => {
+    if (MEGAMODEinterval !== null) {
+        clearInterval(MEGAMODEinterval as unknown as number);
+        MEGAMODEinterval = null;
+    }
+};
+
+const MEGAMODEspeedControl = () => {
+    // Called when the speed control changes; restart interval if active
+    if (MEGAMODE) {
+        startMEGAMODE();
+    }
+};
+
+// Reactively start/stop MEGAMODE when the bound value changes
+$: if (MEGAMODE) {
+    // show one immediately, then start the interval
+    MEGAMODErandomize();
+    startMEGAMODE();
+} else {
+    stopMEGAMODE();
 }
 
 
