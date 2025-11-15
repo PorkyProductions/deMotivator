@@ -130,11 +130,15 @@
   let yay = false;
   let duration = randomInRange(1, 4000);
   const load = async () => {
-    const { SplashScreen } = await import("@capacitor/splash-screen");
-    await SplashScreen.show({
-      showDuration: duration,
-      autoHide: true,
-    });
+    const { importCapacitor } = await import('../../utils/capacitor');
+    const splashMod = await importCapacitor('@capacitor/splash-screen');
+    if (splashMod && splashMod.SplashScreen && typeof splashMod.SplashScreen.show === 'function') {
+      try {
+        await splashMod.SplashScreen.show({ showDuration: duration, autoHide: true });
+      } catch (e) {
+        console.warn('SplashScreen.show failed', e);
+      }
+    }
     setTimeout(() => (ready = true), duration);
   };
   load();

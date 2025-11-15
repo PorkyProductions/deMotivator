@@ -1,7 +1,21 @@
+@reference "../../styles/css/app.css";
+
 .footer-link {
-    @apply text-white visited:text-purple-200 visited:hover:text-purple-400 hover:text-purple-200  dark:hover:text-secondary-orangePantone dark:visited:text-orange-600 dark:hover:visited:text-orange-700;
-};
+    /* Keep only simple utilities with @apply; complex stacked variants aren't supported in v4 */
+    @apply text-white hover:text-purple-200 visited:text-purple-200;
+}
+
+/* Explicitly handle dark-mode hover/visited states with plain CSS to avoid @apply stacked-variant errors */
+.dark .footer-link:hover {
+    color: #F75C03; /* secondary-orangePantone */
+}
+.dark .footer-link:visited {
+    color: #F75C03;
+}
+.dark .footer-link:visited:hover {
+    color: #e65a03;
+}
 
 .title {
-    @apply text-3xl xl:text-4xl
+    @apply text-3xl xl:text-4xl;
 }
