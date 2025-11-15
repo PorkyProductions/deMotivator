@@ -9,12 +9,11 @@ Migrating a multi-page Svelte application (using Vite MPA mode) to Next.js 14+ w
 Create a new Next.js 14+ project with TypeScript, App Router, and Tailwind CSS (if applicable).
 
 ```bash
-npx create-next-app@latest project-name --typescript --app --tailwind
+npx create-next-app@latest demotivator --typescript --app --tailwind
 ```
 
 Configure the following in the new project:
-- Enable TypeScript strict mode
-- Set up ESLint configuration matching original project standards
+- Enable TypeScript
 - Configure any existing environment variables in `.env.local`
 
 ### Task 1.2: Create Route Structure
@@ -38,6 +37,9 @@ app/
 ├── not-found.tsx              (404.html)
 ├── error.tsx                  (500.html)
 └── layout.tsx                 (root layout)
+├── dmv-1/
+│   └── dmv1.html              (the original demotivator. leave completely intact and with no changes)   
+
 ```
 
 Create placeholder components for each route that export a basic React component with the page name as an h1.
@@ -73,10 +75,6 @@ List all reusable Svelte components from the original project (components used a
 
 ```
 components/
-├── ui/           (basic UI elements)
-├── forms/        (form components)
-├── layouts/      (layout components)
-└── providers/    (context providers)
 ```
 
 ### Task 3.2: Convert Svelte Components to React
@@ -175,11 +173,12 @@ router.push('/dashboard');
 ## Phase 5: Styling Migration
 
 ### Task 5.1: Migrate CSS
-- Copy global styles to `app/globals.css`
+- Copy global styles to `app/styles/globals.scss`
 - Convert component-scoped styles:
   - Svelte `<style>` blocks → CSS Modules or Tailwind classes
   - Maintain existing class names and styling logic
-- Import CSS modules in components: `import styles from './Component.module.css'`
+- Maintain bootstrap and scss compatibility
+- Use tailwind 4
 
 ### Task 5.2: Handle Dynamic Styles
 Convert Svelte's dynamic style binding to React patterns:

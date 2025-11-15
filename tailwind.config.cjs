@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./src/**/*.html', './src/**/*.js', './src/**/*.svelte', './src/components/**/*.svelte', 'index.html'],
+  content: ['./src/**/*.{html,js,svelte,ts}', 'index.html'],
   theme: {
     fontFamily: {
       primary: ['Raleway', 'sans-serif'],
