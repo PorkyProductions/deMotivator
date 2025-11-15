@@ -3,6 +3,7 @@ import { visualizer } from "rollup-plugin-visualizer";
 import b from 'vite-plugin-banner'
 import constants from './src/typescript/constants'
 import preprocess from 'svelte-preprocess'
+import tailwindcss from "@tailwindcss/vite";
 import type { UserConfig } from "vite";
 const config: UserConfig = {
   plugins: [
@@ -14,7 +15,8 @@ const config: UserConfig = {
         emitFile: true,
         template: "sunburst",
         filename: "stats.html",
-      })
+      }),
+      tailwindcss()
     ],
   appType: "mpa",
   base: "/",

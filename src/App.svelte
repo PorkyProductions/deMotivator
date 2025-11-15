@@ -7,19 +7,31 @@
     import Title from './components/title.svelte';
     import Loader from './components/loader.svelte'
     let ready = false;
+    import { importCapacitor } from './utils/capacitor';
+
     const load = async () => {
-        let duration = randomInRange(1, 4000)
-        await import('@capacitor/core')
-        const { SplashScreen } = await import('@capacitor/splash-screen');
-        await SplashScreen.show({
-            showDuration: duration,
-            autoHide: true,
-        });
-        setTimeout(async () => {
-            ready = true;
-            await SplashScreen.hide()
-        }, duration);
-    }
+        let duration = randomInRange(1, 4000);
+        // Use safe import helper so removing Capacitor later won't break runtime
+        const mod = await importCapacitor('@capacitor/splash-screen');
+        if (mod && mod.SplashScreen && typeof mod.SplashScreen.show === 'function') {
+            try {
+                await mod.SplashScreen.show({
+                    showDuration: duration,
+                    autoHide: true,
+                });
+            } catch (e) {
+                console.warn('SplashScreen.show failed', e);
+            }
+            setTimeout(async () => {
+                ready = true;
+                try { await mod.SplashScreen.hide(); } catch (e) { /* ignore */ }
+            }, duration);
+            return;
+        }
+
+        // no splash-screen available — just set ready after duration
+        setTimeout(() => { ready = true; }, duration);
+    };
     load();
     import {
         fade
