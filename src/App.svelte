@@ -55,8 +55,7 @@ print(analytics)
 import { randomInRange } from '@porkyproductions/hat/randomInRange';
 import { bsTheme } from './utils/darkMode';
 import HomeScreenDevWarningBanner from './components/homeScreenDevWarningBanner.svelte';
-  import { PROD } from './typescript/constants';
-
+  
 
 
 </script>
