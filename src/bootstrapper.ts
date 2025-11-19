@@ -1,8 +1,8 @@
 import App from './App.svelte'
+import {mount} from "svelte"
 const docApp: HTMLDivElement | HTMLElement | null = document.getElementById('app')
 
-const app = new App({
-  target: docApp ?? document.body
-})
 
-export default app
+export default mount(App, {
+  target: docApp as HTMLElement
+})
