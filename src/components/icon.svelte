@@ -2,7 +2,7 @@
     export let name: string;
 </script>
 
-<i class="bi bi-{name}" />&nbsp;
+<i class="bi bi-{name}"></i>&nbsp;
 
 
 <style lang="scss">

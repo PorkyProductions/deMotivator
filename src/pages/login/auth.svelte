@@ -25,7 +25,7 @@ import {firebaseConfig} from '../../typescript/insults'
 const app = initializeApp(firebaseConfig);
 // @ts-ignore
 const analytics = getAnalytics(app);
-import { getAuth, ParsedToken } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 const auth = getAuth(app);
   
     // Firebase user
@@ -36,7 +36,7 @@ const auth = getAuth(app);
     export let useRedirect = false;
   
     // small mapper function
-    const userMapper = (claims: ParsedToken) => ({
+    const userMapper = (claims: any) => ({
       id: claims.user_id,
       name: claims.name,
       email: claims.email,
