@@ -6,8 +6,17 @@
     import Footer from './components/footer.svelte';
     import Title from './components/title.svelte';
     import Loader from './components/loader.svelte'
-    let ready = false;
     import { importCapacitor } from './utils/capacitor';
+    import { randomInRange } from '@porkyproductions/hat/randomInRange';
+    import { fade } from 'svelte/transition'
+    import { initializeApp } from "firebase/app";
+    import { getAnalytics } from "firebase/analytics";
+    import {firebaseConfig} from './typescript/insults'
+    import { print } from '@porkyproductions/hat/print'
+    import { bsTheme } from './utils/darkMode';
+    import HomeScreenDevWarningBanner from './components/homeScreenDevWarningBanner.svelte';
+    
+    let ready = false;
 
     const load = async () => {
         let duration = randomInRange(1, 4000);
@@ -33,28 +42,14 @@
         setTimeout(() => { ready = true; }, duration);
     };
     load();
-    import {
-        fade
-    } from 'svelte/transition'
 
     // FROM BEYOND THIS POINT IS FIREBASE LOGIC
     // BEWARE
 
-
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import {firebaseConfig} from './typescript/insults'
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-import { print } from '@porkyproductions/hat/print'
-print(analytics)
-
-
-import { randomInRange } from '@porkyproductions/hat/randomInRange';
-import { bsTheme } from './utils/darkMode';
-import HomeScreenDevWarningBanner from './components/homeScreenDevWarningBanner.svelte';
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    print(analytics)
   
 
 
