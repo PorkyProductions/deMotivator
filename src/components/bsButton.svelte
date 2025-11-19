@@ -1,6 +1,6 @@
 <script lang="ts">
     import '../styles/scss/darkMode.scss'
-    import { BSVarient } from '../typescript/types';
+    import type { BSVarient } from '../typescript/types';
     import Icon from './icon.svelte';
     export let href: string;
     export let type: BSVarient;

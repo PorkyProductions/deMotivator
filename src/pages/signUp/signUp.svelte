@@ -19,7 +19,7 @@
   import { randomInRange } from "@porkyproductions/hat/randomInRange";
   import { randomInArray } from "@porkyproductions/hat/randomInArray";
   import {name} from '../../typescript/constants'
-  import { ClassCreator } from "../../typescript/class";
+  // import { ClassCreator } from "../../typescript/class"; // File doesn't exist, unused import
 
   let names: string[] = [
     "Yamilet Martin",
