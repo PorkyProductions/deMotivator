@@ -2,13 +2,13 @@ import { svelte } from "@sveltejs/vite-plugin-svelte";
 import { visualizer } from "rollup-plugin-visualizer";
 import b from 'vite-plugin-banner'
 import constants from './src/typescript/constants'
-import preprocess from 'svelte-preprocess'
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte'
 import tailwindcss from "@tailwindcss/vite";
 import type { UserConfig } from "vite";
 const config: UserConfig = {
   plugins: [
       svelte({
-        preprocess: preprocess()
+        preprocess: vitePreprocess()
       }),
       b(constants.banner),
       visualizer({
