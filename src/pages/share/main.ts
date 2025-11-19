@@ -1,9 +1,7 @@
 import App from "./share.svelte";
-const docApp: HTMLDivElement | HTMLElement | null =
-  document.getElementById("app");
+import { mount } from 'svelte';
+const docApp: any = document.getElementById("app");
 
-const app = new App({
-  target: docApp ?? document.body,
-});
+const app = mount(App, { target: docApp ?? document.body });
 
 export default app;
