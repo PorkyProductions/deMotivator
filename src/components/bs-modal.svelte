@@ -1,6 +1,6 @@
 <script lang="ts">
   import '../styles/scss/darkMode.scss'
-  import { BSVarient } from '../typescript/types';
+  import type { BSVarient } from '../typescript/types';
   import Icon from './icon.svelte';
     const load = async () => {
         await import('bootstrap/js/dist/modal')
@@ -19,7 +19,7 @@
 </script>
 
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-{preButtonType}" data-bs-toggle="modal" data-bs-target="#exampleModal" id="bsModal" on:mouseover={load} on:focus={load}>
+<button type="button" class="btn btn-{preButtonType}" data-bs-toggle="modal" data-bs-target="#exampleModal" id="bsModal" onmouseover={load} onfocus={load}>
     <Icon name={preButtonIcon} />{preButtonText}
   </button>
   
@@ -42,7 +42,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-{closeButtonType}" data-bs-dismiss="modal">{closeButtonText}</button>
-          <button type="button" class="btn btn-{confirmButtonType}" on:click={confirmButtonAction}>{confirmButtonText}</button>
+          <button type="button" class="btn btn-{confirmButtonType}" onclick={confirmButtonAction}>{confirmButtonText}</button>
         </div>
       </div>
     </div>

@@ -1,8 +1,9 @@
 import App from './App.svelte'
-const docApp: HTMLDivElement | HTMLElement | null = document.getElementById('app')
+import { mount } from 'svelte';
 
-const app = new App({
-  target: docApp ?? document.body
-})
+const docApp: any = document.getElementById('app')
+
+// Use Svelte 5 mount API. Keep compat shim active until migration completes.
+const app = mount(App, { target: docApp ?? document.body });
 
 export default app
