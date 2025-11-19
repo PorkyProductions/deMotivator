@@ -6,7 +6,7 @@
 	import { fade } from 'svelte/transition';
 	import { name } from '../../typescript/constants';
 	import { bsTheme } from '../../utils/darkMode';
-	import { BsModalProps } from '../../typescript/types';
+	import type { BsModalProps } from '../../typescript/types';
 
 
 	import Title from '../../components/title.svelte'
