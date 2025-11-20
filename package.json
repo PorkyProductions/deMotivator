@@ -35,7 +35,7 @@
     "vite-plugin-banner": "^0.7.1"
   },
   "dependencies": {
-    "@capacitor/android": "^5.7.8",
+    "@capacitor/android": "^7.4.4",
     "@capacitor/clipboard": "^5.0.8",
     "@capacitor/core": "^5.7.8",
     "@capacitor/dialog": "^5.0.8",
