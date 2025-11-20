@@ -19,7 +19,7 @@
   import { onMount, beforeUpdate } from "svelte";
   import { bsTheme, darkMode } from "../../utils/darkMode";
   import { randomInRange } from "@porkyproductions/hat/randomInRange";
-  import { deviceType } from "uadetect/deviceType";
+  import { deviceType } from "../../utils/uaStub";
   import { fade } from "svelte/transition";
   import confetti from "canvas-confetti";
   import { name } from "../../typescript/constants";
