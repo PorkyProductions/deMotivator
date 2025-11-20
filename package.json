@@ -18,7 +18,7 @@
     "ionic:serve": "npm run dev"
   },
   "devDependencies": {
-    "@capacitor/cli": "^5.7.8",
+    "@capacitor/cli": "^7.4.4",
     "@sveltejs/vite-plugin-svelte": "^2.5.3",
     "autoprefixer": "^10.4.20",
     "browserslist-useragent-regexp": "^4.1.3",
