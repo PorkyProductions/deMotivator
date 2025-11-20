@@ -91,13 +91,16 @@ const MEGAMODEspeedControl = () => {
 
 // Reactively start/stop MEGAMODE when the bound value changes
 $effect(() => {
-	if (MEGAMODE) {
-		// show one immediately, then start the interval
-		MEGAMODErandomize();
-		startMEGAMODE();
-	} else {
-		stopMEGAMODE();
-	}
+    if (MEGAMODE) {
+        MEGAMODErandomize();
+        startMEGAMODE();
+    } else {
+        stopMEGAMODE();
+    }
+    // Cleanup function runs when effect re-runs or component unmounts
+    return () => {
+        stopMEGAMODE();
+    };
 });
 
 
