@@ -201,7 +201,7 @@
             </div>
           {/if}
           {#if !dismissedBanner}
-            <!-- svelte-ignore a11y-no-static-element-interactions -->
+            <!-- svelte-ignore a11y_no_static_element_interactions -->
             <div aria-roledescription="banner" transition:fade class="p-2 mb-6" onclick={() => window.localStorage.setItem("dismissedBanner", "true")} onkeydown={() => void(0)}>
               <BsAlert
               icon="info-circle"
@@ -228,7 +228,7 @@
           <div class="wrapper flex content-center justify-center">
             {#if loggedIn}
               <div class="" id="loggedInUI" transition:fade>
-                <div class="text-center">
+                <div class="text-center font-semibold text-black dark:text-white no-underline">
                   <Title />
                 </div>
                 <div class="text-center">
