@@ -37,7 +37,7 @@
   "dependencies": {
     "@capacitor/android": "^5.7.8",
     "@capacitor/clipboard": "^5.0.8",
-    "@capacitor/core": "^5.7.8",
+    "@capacitor/core": "^7.4.4",
     "@capacitor/dialog": "^5.0.8",
     "@capacitor/haptics": "^5.0.8",
     "@capacitor/ios": "^5.7.8",
