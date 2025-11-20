@@ -228,7 +228,7 @@
           <div class="wrapper flex content-center justify-center">
             {#if loggedIn}
               <div class="" id="loggedInUI" transition:fade>
-                <div class="text-center font-semibold text-black dark:text-white no-underline">
+                <div class="text-center font-semibold text-black dark:text-white">
                   <Title />
                 </div>
                 <div class="text-center">
