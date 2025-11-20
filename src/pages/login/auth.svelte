@@ -29,11 +29,11 @@ import { getAuth } from "firebase/auth";
 const auth = getAuth(app);
   
     // Firebase user
-    let user: { user_id?: string; id?: string; name?: string; email?: string; picture?: string; } | null = null;
+    let user: { user_id?: string; id?: string; name?: string; email?: string; picture?: string; } | null = $state(null);
   
     // expose property on the component that we can use
     // to choose if we want use popup or redirect
-    export let useRedirect = false;
+    let { useRedirect = false }: { useRedirect?: boolean } = $props();
   
     // small mapper function
     const userMapper = (claims: any) => ({
@@ -80,7 +80,7 @@ const auth = getAuth(app);
     });
   
     // reactive helper variable(s)
-    $: loggedIn = user !== null;
+    let loggedIn = $derived(user !== null);
   </script>
   
   <!-- we will expose all required methods and properties on our slot -->

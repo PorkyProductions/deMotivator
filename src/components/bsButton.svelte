@@ -2,10 +2,7 @@
     import '../styles/scss/darkMode.scss'
     import type { BSVarient } from '../typescript/types';
     import Icon from './icon.svelte';
-    export let href: string;
-    export let type: BSVarient;
-    export let text: string;
-    export let icon: string;
+    let { href, type, text, icon }: { href: string; type: BSVarient; text: string; icon: string } = $props();
 </script>
 
 <a href={href} id="bsButton" class="btn btn-{type}"><Icon name={icon}/>{text}</a>

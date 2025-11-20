@@ -1,14 +1,13 @@
 <script lang="ts">
   import '../styles/scss/darkMode.scss'
   import type { BSVarient } from "../typescript/types";
-  export let type: BSVarient;
-  export let loadingTime: number;
+  let { type, loadingTime }: { type: BSVarient; loadingTime: number } = $props();
   import { fade } from "svelte/transition";
   import { onMount, onDestroy } from "svelte";
   
-  let elapsedTime = 0;
-  let value = 0;
-  let timeUntil100Percent = 0;
+  let elapsedTime = $state(0);
+  let value = $state(0);
+  let timeUntil100Percent = $state(0);
   let loadingPercentCalc: any;
   onMount(() => {
     elapsedTime = 0;

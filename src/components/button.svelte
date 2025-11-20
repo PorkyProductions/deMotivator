@@ -15,9 +15,9 @@ Randomizer
 
 */
 
-let insultsShown = 0
-let result = ""
-let userResult = ""
+let insultsShown = $state(0);
+let result = $state("");
+let userResult = $state("");
 const randomize = async () => {
     const { userInsults } = await import('../typescript/insults')
     const { insults } = await import('demotivator/dist/insults')
@@ -52,10 +52,10 @@ MEGAMODE
 
 */
 
-let MEGAMODEresult = "";
-let MEGAMODE = false;
-let MEGAMODEspeed = 250;
-let MEGAMODEinsults = 0;
+let MEGAMODEresult = $state("");
+let MEGAMODE = $state(false);
+let MEGAMODEspeed = $state(250);
+let MEGAMODEinsults = $state(0);
 
 let MEGAMODEinterval: ReturnType<typeof setInterval> | null = null;
 
@@ -90,13 +90,15 @@ const MEGAMODEspeedControl = () => {
 };
 
 // Reactively start/stop MEGAMODE when the bound value changes
-$: if (MEGAMODE) {
-    // show one immediately, then start the interval
-    MEGAMODErandomize();
-    startMEGAMODE();
-} else {
-    stopMEGAMODE();
-}
+$effect(() => {
+	if (MEGAMODE) {
+		// show one immediately, then start the interval
+		MEGAMODErandomize();
+		startMEGAMODE();
+	} else {
+		stopMEGAMODE();
+	}
+});
 
 
 
@@ -105,7 +107,7 @@ $: if (MEGAMODE) {
 <main>
     <!--Reason: its the whole functionality of the app-->
     <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-    <img src={logo} draggable="false" alt="a large, red button" on:click={randomize} on:keypress={randomize} class="p-4 hover:cursor-pointer">
+    <img src={logo} draggable="false" alt="a large, red button" onclick={randomize} onkeypress={randomize} class="p-4 hover:cursor-pointer">
     <div class="sm:p-3 md:p-4 lg:p-5 xl:p-6"></div>
     {#if !MEGAMODE}
             <p class="text-center font-primary" transition:fade>{result}</p>
@@ -119,7 +121,7 @@ $: if (MEGAMODE) {
         </p>
         <div class="flex content-center justify-center">
             <label for="megamodeSpeedControl">
-                <input type="range" class="form-range"  name="megamodeSpeedControl" id="" min="1" max="2000" on:change={MEGAMODEspeedControl} bind:value={MEGAMODEspeed} />
+                <input type="range" class="form-range"  name="megamodeSpeedControl" id="" min="1" max="2000" onchange={MEGAMODEspeedControl} bind:value={MEGAMODEspeed} />
             </label>
             <p>{MEGAMODEspeed}</p>
         </div>
@@ -133,11 +135,11 @@ $: if (MEGAMODE) {
     </div>
     {#if MEGAMODE}
         <div class="flex content-center justify-center transition-all">
-            <button disabled={true} on:click={writeInsultToClipboard} class={!darkMode ? "btn btn-primary" : "btn btn-dark"}><Icon name="clipboard" /> Copy insult to clipboard</button>
+            <button disabled={true} onclick={writeInsultToClipboard} class={!darkMode ? "btn btn-primary" : "btn btn-dark"}><Icon name="clipboard" /> Copy insult to clipboard</button>
         </div>
     {:else}
         <div class="flex content-center justify-center transition-all">
-            <button disabled={false} on:click={writeInsultToClipboard} class={!darkMode ? "btn btn-primary" : "btn btn-dark"}><Icon name="clipboard" /> Copy insult to clipboard</button>
+            <button disabled={false} onclick={writeInsultToClipboard} class={!darkMode ? "btn btn-primary" : "btn btn-dark"}><Icon name="clipboard" /> Copy insult to clipboard</button>
         </div>
     {/if}
     
