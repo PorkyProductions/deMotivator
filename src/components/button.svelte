@@ -1,14 +1,9 @@
 <script lang="ts">
     // Imports
     import logo from '../img/dmv-logo.png';
-    import { Insult, UserInsult } from '../typescript/insult'
     import { darkMode } from '../utils/darkMode'
     import '../styles/scss/buttonsBootstrap.scss';
     import '../styles/scss/bootstrapRange.scss'
-    console.log({
-        Insult,
-        UserInsult
-    })
 
     // Firebase
     import {fade} from 'svelte/transition'
@@ -41,27 +36,13 @@ const randomize = async () => {
 
 const writeInsultToClipboard = async () => {
     const text = result || '';
-    // Prefer native clipboard API in browsers
     if (typeof navigator !== 'undefined' && navigator.clipboard && navigator.clipboard.writeText) {
         try {
             await navigator.clipboard.writeText(text);
             return;
         } catch (e) {
-            // fall through to Capacitor fallback
             console.warn('navigator.clipboard.writeText failed, falling back to Capacitor Clipboard', e);
         }
-    }
-
-    // Fallback: try Capacitor Clipboard if available via helper
-    try {
-        const capUtil = await import('../utils/capacitor');
-        const mod = await capUtil.importCapacitor('@capacitor/clipboard');
-        const Clipboard = mod?.Clipboard;
-        if (Clipboard && typeof Clipboard.write === 'function') {
-            await Clipboard.write({ string: text });
-        }
-    } catch (err) {
-        console.error('Failed to write to clipboard', err);
     }
 };
 
