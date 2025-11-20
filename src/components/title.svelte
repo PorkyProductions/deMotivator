@@ -4,8 +4,8 @@
     import '../styles/css/app.css'
     import { name, PROD, version } from '../typescript/constants';
 </script>
-<a href="/" class="no-underline">
-    <h1 class="font-primary text-center title p-5 font-semibold">
+<a href="/" class="no-underline" id="link">
+    <h1 class="font-primary text-center title p-5 font-semibold" id="text">
         {name} {PROD ? "" : `(v${version})`}
     </h1>
 </a>
@@ -13,5 +13,11 @@
 <style>
     h1 {
         margin-bottom: 0;
+    }
+    #link {
+        text-decoration: none;
+    }
+    #text {
+        font-weight: 600;
     }
 </style>
