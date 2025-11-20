@@ -29,8 +29,7 @@ export async function readInsults(): Promise<number> {
         resolve(0);
       }
     } catch (error) {
-      const { printError } = await import("../utils/print"); 
-      reject((error: Error) => printError(error));
+      reject((err: Error) => console.error(err));
     }
   });
 }

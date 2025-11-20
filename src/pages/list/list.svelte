@@ -3,7 +3,7 @@
     import Icon from '../../components/icon.svelte';
     import shuffle from 'lodash/shuffle'
     import { insults, DeMotivator } from 'demotivator'
-    import {print} from '../../utils/print'
+    import {print} from '@porkyproductions/hat/print'
     const dmv = new DeMotivator()
     print(dmv);
     const profaneArray = dmv.createArray({
