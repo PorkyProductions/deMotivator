@@ -11,7 +11,7 @@
         profane: true
     })
     import { userInsults } from '../../typescript/insults';
-    let userWantsProfaneInsults: boolean = false
+    let userWantsProfaneInsults: boolean = $state(false);
     const allInsults = shuffle(userInsults.concat(insults)); 
     const profaneInsults = shuffle(userInsults.concat(profaneArray))
     import Auth from '../login/auth.svelte';
