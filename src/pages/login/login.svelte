@@ -16,7 +16,7 @@
   import BsButton from "../../components/bsButton.svelte";
   import BsLoader from "../../components/bsLoader.svelte";
   // Import Misc Helpers
-  import { onMount, beforeUpdate } from "svelte";
+  import { onMount } from "svelte";
   import { bsTheme, darkMode } from "../../utils/darkMode";
   import { randomInRange } from "@porkyproductions/hat/randomInRange";
   import { deviceType } from "../../utils/uaStub";
@@ -27,14 +27,14 @@
   
 
 
-  let emailBoxContent
-  let emailBox
-  let emailInvalid = true
-  let pwText = ""
-  let pwInvalid = true
-  let dismissedBanner = window.localStorage.getItem("dismissedBanner")
+  let emailBoxContent = $state();
+  let emailBox;
+  let emailInvalid = $state(true);
+  let pwText = $state("");
+  let pwInvalid = $state(true);
+  let dismissedBanner = window.localStorage.getItem("dismissedBanner");
   // Loading Logic
-  let ready = false;
+  let ready = $state(false);
   let duration = randomInRange(1, 3500);
   const load = async () => {
     const keepMeLoggedIn = window.localStorage.getItem("keepMeLoggedIn");
@@ -62,14 +62,14 @@
   const user = auth.currentUser;
 
   let loginWithEmailPassword;
-  let error = null;
-  let insultsSeenDB;
+  let error = $state(null);
+  let insultsSeenDB = $state();
   const refreshInsultsSeen = async () => {
     let { readInsults } = await import('../../typescript/readInsults')
     insultsSeenDB = await readInsults()
   }
 
-  let keepMeLoggedIn = false;
+  let keepMeLoggedIn = $state(false);
 
   const onChangeLoginText = async () => {
     const { isEmailValid, isPwValid } = await import( "../../utils/regEx");
@@ -124,7 +124,7 @@
     }
   };
 
-  let verifyEmailButtonText = "Verify Email";
+  let verifyEmailButtonText = $state("Verify Email");
 
   const verifyEmail = async () => {
     const { sendEmailVerification } = await import("firebase/auth");
@@ -145,8 +145,10 @@
       i -= 1;
     }
   };
-  onMount(() => refreshInsultsSeen())
-  beforeUpdate(() => refreshInsultsSeen())
+  onMount(() => refreshInsultsSeen());
+  $effect(() => {
+	refreshInsultsSeen();
+  });
 </script>
 
 
@@ -200,7 +202,7 @@
           {/if}
           {#if !dismissedBanner}
             <!-- svelte-ignore a11y-no-static-element-interactions -->
-            <div aria-roledescription="banner" transition:fade class="p-2 mb-6" on:click={window.localStorage.setItem("dismissedBanner", "true")} on:keydown={() => void(0)}>
+            <div aria-roledescription="banner" transition:fade class="p-2 mb-6" onclick={() => window.localStorage.setItem("dismissedBanner", "true")} onkeydown={() => void(0)}>
               <BsAlert
               icon="info-circle"
               iconAlt="info"
@@ -261,14 +263,14 @@
                   <button
                     type="button"
                     class="mt-3 btn btn-primary"
-                    on:click={launchConfetti}
+                    onclick={launchConfetti}
                   >
                     <i class="bi bi-heart"> &nbsp;Launch Confetti
                   </button>
                   <button
                     type="button"
                     class="mt-3 btn btn-warning"
-                    on:click={logout}> <i class="bi bi-door-open"> &nbsp;Logout</button
+                    onclick={logout}> <i class="bi bi-door-open"> &nbsp;Logout</button
                   >
                   <div class="mt-3 pb-3">
                     <BsModal
@@ -291,11 +293,11 @@
                     <BsButton href="/list.html" type="secondary" text="View All Insults" icon="binoculars" />
                     &nbsp;
                     {#if darkMode}
-                      <button type="button" on:click={refreshInsultsSeen} on:keypress={refreshInsultsSeen}>
+                      <button type="button" onclick={refreshInsultsSeen} onkeypress={refreshInsultsSeen}>
                           <BsButton href="" type="dark" text="Refresh Insults Seen" icon="arrow-clockwise" />
                       </button>
                     {:else}
-                      <button type="button" on:click={refreshInsultsSeen} on:keypress={refreshInsultsSeen}>
+                      <button type="button" onclick={refreshInsultsSeen} onkeypress={refreshInsultsSeen}>
                         <BsButton href="" type="light" text="Refresh Insults Seen" icon="arrow-clockwise" />
                       </button>
                     {/if}
@@ -313,7 +315,7 @@
                   </div>
       
                   <div class="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">
-                      <form class="flex flex-col pt-3 md:pt-8" on:submit={loginHandler}>
+                      <form class="flex flex-col pt-3 md:pt-8" onsubmit={loginHandler}>
                         <div class="mb-4">
                           <label class="form-label" for="email">Email</label>
                           <input
@@ -322,7 +324,7 @@
                             type="email"
                             placeholder="name@example.com"
                             bind:value={emailBoxContent}
-                            on:change={onChangeLoginText}
+                            onchange={onChangeLoginText}
                             bind:this={emailBox}
                             required
                           />
@@ -337,13 +339,13 @@
                             placeholder="******************"
                             required
                             bind:value={pwText}
-                            on:change={onChangeLoginText}
+                            onchange={onChangeLoginText}
                           />
                           <div class="invalid-feedback">Password must meet the following requirements: Must be at least 8 characters long. Must contain at least 1 capital letter. Must contain at least 1 number. Must contain at least 1 symbol from the set '@$!%*#?&'</div>
                         </div>
           
                           <button type="submit" value="Log In" class="btn btn-primary p-2 mt-8">Sign in <Icon name="person-plus" /></button>
-                          <button on:click={loginWithGoogle}  value="Log In With Google" class="btn btn-secondary p-2 mt-8">Sign in with&nbsp; <Icon name="google" /></button>
+                          <button onclick={loginWithGoogle}  value="Log In With Google" class="btn btn-secondary p-2 mt-8">Sign in with&nbsp; <Icon name="google" /></button>
                       </form>
                       <div class="text-center pt-12 pb-12">
                           <div>Don't have an account? <a href="signUp.html" class="underline font-semibold">Sign up</a></div>

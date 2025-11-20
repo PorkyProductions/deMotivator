@@ -126,8 +126,8 @@
   let randomName = randomInArray(names);
 
   // Loading Logic
-  let ready = false;
-  let yay = false;
+  let ready = $state(false);
+  let yay = $state(false);
   let duration = randomInRange(1, 4000);
   const load = async () => {
     setTimeout(() => (ready = true), duration);
@@ -151,7 +151,7 @@
   const app = initializeApp(firebaseConfig);
   const analytics = getAnalytics(app);
   const auth = getAuth(app)
-  let error: Error | null | undefined | unknown  = null;
+  let error: Error | null | undefined | unknown  = $state(null);
 // TODO: refactor to async/await
   const signUp = async (auth: any, displayName: string, email: string, password: string, photoURL?: string) => {
     error = null
@@ -169,7 +169,7 @@
       error = e
     }
   };
-  let agreedToTerms = false;
+  let agreedToTerms = $state(false);
 
   const signUpHandler = async (event) => {
     const { randomInRange } = await import("@porkyproductions/hat/randomInRange");
@@ -213,11 +213,11 @@
   };
 
   
-  let emailBoxContent: any
-  let emailBox
-  let emailInvalid = true
-  let pwText = ""
-  let pwInvalid = true
+  let emailBoxContent: any = $state();
+  let emailBox;
+  let emailInvalid = $state(true);
+  let pwText = $state("");
+  let pwInvalid = $state(true);
 
   const onChangeLoginText = async () => {
     const { isEmailValid, isPwValid } = await import( "../../utils/regEx");
@@ -271,7 +271,7 @@
           {/if}
           {#if !dismissedBanner}
             <!-- svelte-ignore a11y-no-static-element-interactions -->
-            <div aria-describedby="banner" aria-labelledby="banner" aria-roledescription="banner"  transition:fade class="p-2 mb-6" on:click={window.localStorage.setItem("dismissedBanner", "true")} on:keydown={() => void(0)}>
+            <div aria-describedby="banner" aria-labelledby="banner" aria-roledescription="banner"  transition:fade class="p-2 mb-6" onclick={() => window.localStorage.setItem("dismissedBanner", "true")} onkeydown={() => void(0)}>
               <BsAlert
               icon="info-circle"
               type="info"
@@ -320,7 +320,7 @@
                   </div>
       
                   <div class="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">
-                      <form class="flex flex-col pt-3 md:pt-8" on:submit|preventDefault={signUpHandler}>
+                      <form class="flex flex-col pt-3 md:pt-8" onsubmit={(e) => { e.preventDefault(); signUpHandler(e); }}>
                         <div class="mb-4">
                           <label class="form-label" for="email">Email</label>
                           <input
@@ -329,7 +329,7 @@
                             type="email"
                             placeholder="name@example.com"
                             bind:value={emailBoxContent}
-                            on:change={onChangeLoginText}
+                            onchange={onChangeLoginText}
                             bind:this={emailBox}
                             required
                           />
@@ -344,7 +344,7 @@
                             placeholder="******************"
                             required
                             bind:value={pwText}
-                            on:change={onChangeLoginText}
+                            onchange={onChangeLoginText}
                           />
                           <div class="invalid-feedback">Password must meet the following requirements: Must be at least 8 characters long. Must contain at least 1 capital letter. Must contain at least 1 number. Must contain at least 1 symbol from the set '@$!%*#?&'</div>
                         </div>
