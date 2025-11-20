@@ -6,7 +6,6 @@
     import Footer from './components/footer.svelte';
     import Title from './components/title.svelte';
     import Loader from './components/loader.svelte'
-    import { importCapacitor } from './utils/capacitor';
     import { randomInRange } from '@porkyproductions/hat/randomInRange';
     import { fade } from 'svelte/transition'
     import { initializeApp } from "firebase/app";
@@ -20,25 +19,6 @@
 
     const load = async () => {
         let duration = randomInRange(1, 4000);
-        // Use safe import helper so removing Capacitor later won't break runtime
-        const mod = await importCapacitor('@capacitor/splash-screen');
-        if (mod && mod.SplashScreen && typeof mod.SplashScreen.show === 'function') {
-            try {
-                await mod.SplashScreen.show({
-                    showDuration: duration,
-                    autoHide: true,
-                });
-            } catch (e) {
-                console.warn('SplashScreen.show failed', e);
-            }
-            setTimeout(async () => {
-                ready = true;
-                try { await mod.SplashScreen.hide(); } catch (e) { /* ignore */ }
-            }, duration);
-            return;
-        }
-
-        // no splash-screen available — just set ready after duration
         setTimeout(() => { ready = true; }, duration);
     };
     load();

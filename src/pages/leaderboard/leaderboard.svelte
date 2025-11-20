@@ -10,7 +10,6 @@
 
 
 	import Title from '../../components/title.svelte'
-	import { importCapacitor } from '../../utils/capacitor';
 	import BsButton from '../../components/bsButton.svelte';
 	import BsLoader from '../../components/bsLoader.svelte';
 	import Icon from '../../components/icon.svelte';
@@ -37,14 +36,6 @@
 	let ready = false
 	let duration = randomInRange(1, 3500);
 	const load = async (d: number = duration) => {
-		const splashMod = await importCapacitor('@capacitor/splash-screen');
-		if (splashMod && splashMod.SplashScreen && typeof splashMod.SplashScreen.show === 'function') {
-			try {
-				await splashMod.SplashScreen.show({ showDuration: d, autoHide: true });
-			} catch (e) {
-				console.warn('SplashScreen.show failed', e);
-			}
-		}
 		setTimeout(() => (ready = true), d);
 	};
 	load();
