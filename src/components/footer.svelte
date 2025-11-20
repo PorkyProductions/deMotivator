@@ -27,8 +27,8 @@
             href: "share.html"
         },
     ]
-    let grown = true;
-    let shrunk = false
+    let grown = $state(true);
+    let shrunk = $state(false);
     const shrinkAndGrow = () => {
         grown = !grown
         shrunk = !shrunk
@@ -107,7 +107,7 @@
                             <SiwGoogleButton /> 
                         </div> &nbsp;
                         <div class="pt-6">
-                            <button class="btn btn-secondary" on:click={shrinkAndGrow}>
+                            <button class="btn btn-secondary" onclick={shrinkAndGrow}>
                                 {#if shrunk}
                                     Grow Navigation
                                 {:else if grown}

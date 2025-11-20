@@ -15,7 +15,7 @@
     import { bsTheme } from './utils/darkMode';
     import HomeScreenDevWarningBanner from './components/homeScreenDevWarningBanner.svelte';
     
-    let ready = false;
+    let ready = $state(false);
 
     const load = async () => {
         let duration = randomInRange(1, 4000);

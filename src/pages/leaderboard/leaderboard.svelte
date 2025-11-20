@@ -1,7 +1,6 @@
 <script lang="ts">
 	import {leaderboard} from '../../typescript/readInsults'
 	import { getListOfAllUsersWhoHaveSeenInsults as getList } from '../../typescript/readInsults'
-	import { afterUpdate } from 'svelte';
 	import {randomInRange} from '@porkyproductions/hat/randomInRange'
 	import { fade } from 'svelte/transition';
 	import { name } from '../../typescript/constants';
@@ -33,13 +32,15 @@
 
 
 	// Loader Logic
-	let ready = false
+	let ready = $state(false);
 	let duration = randomInRange(1, 3500);
 	const load = async (d: number = duration) => {
 		setTimeout(() => (ready = true), d);
 	};
 	load();
-	afterUpdate(async () => await getList())
+	$effect(() => {
+		getList();
+	});
 </script>
 
 <div id="root" data-bs-theme={bsTheme}>
@@ -52,7 +53,7 @@
 				Leaderboard
 			</h1>
 			<div class="flex content-center justify-center p-4">
-				<button on:click={getList} on:keydown={getList} class="btn btn-primary m-auto">
+				<button onclick={getList} onkeydown={getList} class="btn btn-primary m-auto">
 					<Icon name="arrow-clockwise" /> Refresh List
 				</button>
 			</div>

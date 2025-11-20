@@ -3,8 +3,8 @@
     import { tweets } from './tweets.ts'
     import Title from "../../components/title.svelte";
     import { bsTheme } from "../../utils/darkMode";
-    let sendButtonClasses = "btn btn-primary"
-    let emailBoxContent;
+    let sendButtonClasses = $state("btn btn-primary");
+    let emailBoxContent = $state();
 </script>
 
 <div id="root" data-bs-theme={bsTheme}>
@@ -38,7 +38,7 @@
     <input type="email" name="emailTo" id="EmailTo" class="input-field form-control dark:bg-black focus:cursor-text hover:focus:cursor-text hover:cursor-text" bind:value={emailBoxContent}> &nbsp;
 </div>
 <div class="flex content-center justify-center pb-3">
-    <a href="mailto:{emailBoxContent}?subject=I have found the holy grail of websites&body={tweets[Math.floor(Math.random() * tweets.length)]}" class={sendButtonClasses} on:click={() => sendButtonClasses = "btn btn-success"}>Send!</a>
+    <a href="mailto:{emailBoxContent}?subject=I have found the holy grail of websites&body={tweets[Math.floor(Math.random() * tweets.length)]}" class={sendButtonClasses} onclick={() => sendButtonClasses = "btn btn-success"}>Send!</a>
 </div>
 
 

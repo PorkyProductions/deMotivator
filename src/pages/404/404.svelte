@@ -63,9 +63,9 @@
         "bonsoir",
         " "
     ]
-    let currentLine = lines[0] as string | undefined;
-    let showStarted = false
-    let linkVisible = false
+    let currentLine = $state(lines[0] as string | undefined);
+    let showStarted = $state(false);
+    let linkVisible = $state(false);
     setInterval(() => currentLine = lines.shift(), 3000);
     setTimeout(() => linkVisible = true, 36000)
 </script>

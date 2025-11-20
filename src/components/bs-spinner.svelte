@@ -1,7 +1,7 @@
 <script lang="ts">
     import '../styles/scss/darkMode.scss'
     import type { BSVarient } from '../typescript/types';
-    export let type: BSVarient;
+    let { type }: { type: BSVarient } = $props();
     import { darkMode } from '../utils/darkMode';
 </script>
 

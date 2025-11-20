@@ -1,9 +1,6 @@
-// Temporary compatibility config to restore Svelte 4 component API
-// Enables `componentApi: 4` so existing `new Component(...)` style instantiation works.
+// Svelte 5 with Runes mode enabled
 export default {
   compilerOptions: {
-    compatibility: {
-      componentApi: 4
-    }
+    // Runes mode is enabled by default in Svelte 5
   }
 };

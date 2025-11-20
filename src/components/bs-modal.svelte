@@ -5,17 +5,31 @@
     const load = async () => {
         await import('bootstrap/js/dist/modal')
     }
-    export let preButtonType: BSVarient;
-    export let preButtonText: string;
-    export let preButtonIcon: string
-    export let icon: string;
-    export let title: string
-    export let body: string;
-    export let confirmButtonType: BSVarient;
-    export let confirmButtonText: string;
-    export let confirmButtonAction: any
-    export let closeButtonType: BSVarient;
-    export let closeButtonText: string;
+    let { 
+        preButtonType, 
+        preButtonText, 
+        preButtonIcon,
+        icon,
+        title,
+        body,
+        confirmButtonType,
+        confirmButtonText,
+        confirmButtonAction,
+        closeButtonType,
+        closeButtonText 
+    }: { 
+        preButtonType: BSVarient;
+        preButtonText: string;
+        preButtonIcon: string;
+        icon: string;
+        title: string;
+        body: string;
+        confirmButtonType: BSVarient;
+        confirmButtonText: string;
+        confirmButtonAction: any;
+        closeButtonType: BSVarient;
+        closeButtonText: string;
+    } = $props();
 </script>
 
 <!-- Button trigger modal -->
