@@ -6,7 +6,8 @@
     import '../styles/scss/bootstrapRange.scss'
 
     // Firebase
-    import {fade} from 'svelte/transition'
+    import {fade, scale} from 'svelte/transition'
+    import { onMount, onDestroy } from 'svelte';
     import Icon from './icon.svelte';
 
 /*
@@ -66,9 +67,7 @@ const MEGAMODErandomize = async () => {
 };
 
 const startMEGAMODE = () => {
-    // ensure we don't create multiple intervals
     stopMEGAMODE();
-    // clamp speed to a reasonable minimum to avoid freezing the UI
     const speed = Math.max(20, Number(MEGAMODEspeed) || 250);
     MEGAMODEinterval = setInterval(() => {
         MEGAMODErandomize();
@@ -83,13 +82,11 @@ const stopMEGAMODE = () => {
 };
 
 const MEGAMODEspeedControl = () => {
-    // Called when the speed control changes; restart interval if active
     if (MEGAMODE) {
         startMEGAMODE();
     }
 };
 
-// Reactively start/stop MEGAMODE when the bound value changes
 $effect(() => {
     if (MEGAMODE) {
         MEGAMODErandomize();
@@ -97,54 +94,143 @@ $effect(() => {
     } else {
         stopMEGAMODE();
     }
-    // Cleanup function runs when effect re-runs or component unmounts
     return () => {
         stopMEGAMODE();
     };
 });
 
+// Responsive font sizing for insults: scale font down for long insults so they fit without scrolling.
+let windowWidth = typeof window !== 'undefined' ? window.innerWidth : 1280;
 
+const handleResize = () => {
+    windowWidth = typeof window !== 'undefined' ? window.innerWidth : windowWidth;
+};
+
+onMount(() => {
+    if (typeof window !== 'undefined') {
+        window.addEventListener('resize', handleResize);
+    }
+});
+
+onDestroy(() => {
+    if (typeof window !== 'undefined') {
+        window.removeEventListener('resize', handleResize);
+    }
+});
+
+const calcFontSizeRem = (text: string | undefined) => {
+    if (!text) return '1.4rem';
+    const len = Math.max(1, text.trim().length);
+    // Base sizes (rem) for short text by breakpoint
+    const base = windowWidth >= 1280 ? 5.5 : windowWidth >= 768 ? 4.5 : 3.2;
+    // Reduce size with length (non-linear) but clamp to reasonable bounds
+    const scaleFactor = Math.pow(40 / Math.min(len, 400), 0.35);
+    const size = base * scaleFactor;
+    const clamped = Math.max(1.1, Math.min(base, size));
+    return `${clamped.toFixed(3)}rem`;
+};
+let insultFontSize = $state('1.4rem');
+
+$effect(() => {
+    insultFontSize = calcFontSizeRem(result || MEGAMODEresult);
+});
 
 </script>
 
-<main>
-    <!--Reason: its the whole functionality of the app-->
-    <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-    <img src={logo} draggable="false" alt="a large, red button" onclick={randomize} onkeypress={randomize} class="p-4 hover:cursor-pointer">
-    <div class="sm:p-3 md:p-4 lg:p-5 xl:p-6"></div>
-    {#if !MEGAMODE}
-            <p class="text-center font-primary" transition:fade>{result}</p>
-            <div class="sm:p-3 md:p-4 lg:p-5 xl:p-6"></div>
-    {:else if MEGAMODE}
-        <p class="text-center font-primary">{MEGAMODEresult}</p>
-        <br />
-        <br />
-        <p class="text-center font-primary">
-            Insults shown: {MEGAMODEinsults}
-        </p>
-        <div class="flex content-center justify-center">
-            <label for="megamodeSpeedControl">
-                <input type="range" class="form-range"  name="megamodeSpeedControl" id="" min="1" max="2000" onchange={MEGAMODEspeedControl} bind:value={MEGAMODEspeed} />
-            </label>
-            <p>{MEGAMODEspeed}</p>
+<main class={`flex flex-col md:flex-row transition-all duration-500 ${result || MEGAMODEresult ? 'pt-6 md:pt-12' : 'pt-3'}`}>
+    <!-- Left Panel - Button Section -->
+    <div 
+        class={`flex items-center justify-center transition-all duration-500 ${
+            result || MEGAMODEresult 
+                ? 'w-full md:w-1/2 lg:w-2/5' 
+                : 'w-full'
+        }`}
+    >
+        <div class="flex flex-col items-center gap-1 px-8 py-4">
+            <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+            <img 
+                src={logo} 
+                draggable="false" 
+                alt="a large, red button" 
+                onclick={randomize} 
+                onkeypress={randomize} 
+                class="hover:cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-200 pb-4"
+            >
+            
+            <!-- MEGAMODE Toggle -->
+            <div class="form-check">
+                <input 
+                    type="checkbox" 
+                    bind:checked={MEGAMODE} 
+                    class="form-check-input" 
+                    id="megamodeCheck"
+                >
+                <label class="form-check-label" for="megamodeCheck">
+                    MEGAMODE
+                </label>
+            </div>
+
+            <!-- Action Button -->
+            <button 
+                disabled={MEGAMODE} 
+                onclick={writeInsultToClipboard} 
+                class={`btn ${!darkMode ? "btn-primary" : "btn-dark"} ${MEGAMODE ? 'disabled opacity-50' : ''}`}
+            >
+                <Icon name="clipboard" /> 
+                Copy insult to clipboard
+            </button>
         </div>
-        <div class="sm:p-3 md:p-4 lg:p-5 xl:p-6"></div>
-    {/if}
-    <div class="flex content-center justify-center transition-all pb-4">
-        <label class="hover:font-black hover:text-red-600 font-primary">
-            <input type=checkbox bind:checked={MEGAMODE} class="hover:checked:accent-blue-600">
-            MEGAMODE
-        </label>
     </div>
-    {#if MEGAMODE}
-        <div class="flex content-center justify-center transition-all">
-            <button disabled={true} onclick={writeInsultToClipboard} class={!darkMode ? "btn btn-primary" : "btn btn-dark"}><Icon name="clipboard" /> Copy insult to clipboard</button>
-        </div>
-    {:else}
-        <div class="flex content-center justify-center transition-all">
-            <button disabled={false} onclick={writeInsultToClipboard} class={!darkMode ? "btn btn-primary" : "btn btn-dark"}><Icon name="clipboard" /> Copy insult to clipboard</button>
+
+    <!-- Right Panel - Insult Display (slides in from right on desktop/tablet) -->
+    {#if result || MEGAMODEresult}
+        <div 
+            class="flex-1 flex items-center justify-center p-8 border-t md:border-t-0 md:border-l-4 border-primary-majorelle-blue dark:border-secondary-orange-pantone"
+            transition:fade={{duration: 300}}
+        >
+            {#if !MEGAMODE}
+                {#if result}
+                    <div 
+                        class="w-full max-w-4xl"
+                        transition:scale={{duration: 400, start: 0.8}}
+                    >
+                        <p class="font-primary text-center font-bold leading-tight px-4" style="font-size: {insultFontSize}; line-height: 1.02;">
+                            {result}
+                        </p>
+                    </div>
+                {/if}
+            {:else}
+                <div class="w-full max-w-4xl flex flex-col items-center gap-8">
+                    <div class="min-h-[200px] flex items-center justify-center">
+                        <p class="font-primary text-center font-bold leading-tight px-4" style="font-size: {insultFontSize}; line-height: 1.02;">
+                            {MEGAMODEresult}
+                        </p>
+                    </div>
+                    
+                    <div class="w-full max-w-md">
+                        <p class="text-center font-primary text-lg font-semibold mb-4">
+                            Insults shown: <span class="text-primary-majorelle-blue dark:text-secondary-orange-pantone">{MEGAMODEinsults}</span>
+                        </p>
+                        
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="flex-fill">
+                                <input 
+                                    type="range" 
+                                    class="form-range w-100" 
+                                    id="megamodeSpeedControl"
+                                    min="1" 
+                                    max="2000" 
+                                    onchange={MEGAMODEspeedControl} 
+                                    bind:value={MEGAMODEspeed} 
+                                />
+                            </div>
+                            <p class="font-primary text-sm font-mono px-3 py-1 mb-0" style="min-width: 70px;">
+                                {MEGAMODEspeed}ms
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            {/if}
         </div>
     {/if}
-    
-    
 </main>
