@@ -23,7 +23,7 @@
     <Auth
 let:loggedIn
 >
-<div class="p-4 text-9xl">
+<div class="text-md lg:text-4xl p-4 no-underline">
     <Title />
 </div>
 {#if loggedIn}

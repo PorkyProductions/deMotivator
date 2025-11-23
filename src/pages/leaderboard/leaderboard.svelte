@@ -46,7 +46,7 @@
 <div id="root" data-bs-theme={bsTheme}>
 	<div class="" transition:fade>
 		{#if ready}
-			<div class="text-4xl">
+			<div class="text-md lg:text-4xl p-4 no-underline">
 				<Title />
 			</div>
 			<h1 class="text-xl font-medium font-primary text-center">

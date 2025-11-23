@@ -1,156 +1,70 @@
 <script lang="ts">
-    var year = new Date();
-    import hedgehog from '../img/HedgehogIcon.png'
+    import hedgehog from '../img/HedgehogIcon.png';
     import Title from './title.svelte';
     import { OS, deviceType } from '../utils/uaStub';
     import SiwGoogleButton from './siwGoogleButton.svelte';
     import { parentCompany } from '../typescript/constants';
+
+    const year = new Date().getFullYear();
+
     const navigation = [
-        {
-            name: "(de)Motivator 1.0",
-            href: "dmv1.html"
-        },
-        {
-            name: "(de)Motivator.js",
-            href: "https://github.com/PorkyProductions/deMotivator.js"
-        },
-        {
-            name: "Leaderboard",
-            href: "leaderboard.html"
-        },
-        {
-            name: "Credits",
-            href: "credits.html"
-        },
-        {
-            name: "Share",
-            href: "share.html"
-        },
-    ]
-    let grown = $state(true);
-    let shrunk = $state(false);
-    const shrinkAndGrow = () => {
-        grown = !grown
-        shrunk = !shrunk
-    }
+        { name: "(de)Motivator 1.0", href: "dmv1.html" },
+        { name: "(de)Motivator.js", href: "https://github.com/PorkyProductions/deMotivator.js" },
+        { name: "Leaderboard", href: "leaderboard.html" },
+        { name: "Credits", href: "credits.html" },
+        { name: "Share", href: "share.html" },
+    ];
+
+    // Logic: derived check for mobile/tablet to clean up the template
+    const isMobileView = deviceType === 'mobile' || (deviceType === 'tablet' && (OS === 'Android' || OS === 'iOS'));
 </script>
 
-
-
-<!--
-    First we check if it's mobile, which is the catch-all solution
-    Then, we need to account for tablets. However, UADetect sometimes counts laptops as tablets, so we need to ensure the OS
-    This is done by checking the OS, and if the OS is a tablet OS AND the deviceType is tablet, then we can paint the appropriate UI
--->
-
-
-{#if deviceType === 'mobile'}
-<!--Deadspace to cover entire screen on mobile devices-->
-<div class="pb-96 flex content-center justify-center text-center">
-    <footer class="footer pt-20">
-        <a href="login.html" class="text-white dark:bg-secondary-orangePantone bg-primary-majorelleBlue font-primary underline py-2 px-4 rounded-full">
+{#if isMobileView}
+    <footer class="fixed bottom-8 left-0 right-0 flex justify-center items-center pointer-events-none z-50 bg-primary-majorelle-blue">
+        <a 
+            href="login.html" 
+            class="pointer-events-auto shadow-lg transform transition hover:scale-105 text-white dark:bg-secondary-orangePantone bg-primary-majorelleBlue font-primary font-bold py-3 px-8 rounded-full no-underline border-2 border-white/20 backdrop-blur-md"
+        >
             View Account
         </a>
     </footer>
-</div>
 
-<!--If it's an Android Tablet-->
-{:else if OS === 'Android' && deviceType === "tablet"}
-    <div class="pb-96 flex content-center justify-center text-center">
-            <div class="pb-28">
-            </div>
-            <footer class="footer pt-20">
-                <a href="login.html" class="text-white dark:bg-secondary-orangePantone bg-primary-majorelleBlue font-primary underline py-2 px-4 rounded-full">
-                    View Account
-                </a>
-            </footer>
-    </div>
-    
-<!--If it's an iPad-->
-{:else if OS === 'iOS' && deviceType === 'tablet'}
-<div class="pb-96 flex content-center justify-center text-center">
-    <div class="pb-28">
-    </div>
-    <footer class="footer pt-20">
-        <a href="login.html" class="text-white dark:bg-secondary-orangePantone bg-primary-majorelleBlue font-primary underline py-2 px-4 rounded-full">
-            View Account
-        </a>
-  </footer>
-</div>
+    <div class="h-24"></div>
 
-<!--Desktop-->
 {:else}
-    {#if shrunk}
-        <footer class="bg-primary-majorelleBlue dark:bg-gray-900 portrait:hidden pb-0">
-            <div class="flex content-center justify-center text-white">
-                <Title />
-            </div>
-            <div class="flex content-center justify-center">
-                <p class="text-white">Copyright &copy; 2020-{year.getFullYear()}, {parentCompany} and/or it's contributors. All Rights Reserved</p>
-            </div>
-            <div class="flex content-center justify-center">
-                {#each navigation as link}
-                    <a class="footer-link" href={link.href}>{link.name}</a> &nbsp;
-                {/each}
-            </div>
-        </footer>
-    {:else if grown}
-        <footer class=" dark:bg-gray-900 bg-primary-majorelle-blue portrait:hidden rounded-t-md transition-all fixed bottom-0 left-0 right-0">
-            <div class="flex justify-between content-center">
-                <div class="flex justify-between flex-col">
-                    <div class="flex content-center mb-0">
-                        <a href="https://porkyproductions.github.io"><img src={hedgehog} alt="Hedgehog" id="logo" class="hover:animate-spin p-0 m-0"></a>
-                        <div class="text-white">
-                            <Title />
-                        </div>
-                        <div class="pt-6">
-                            <SiwGoogleButton /> 
-                        </div> &nbsp;
-                        <div class="pt-6">
-                            <button class="btn btn-secondary" onclick={shrinkAndGrow}>
-                                {#if shrunk}
-                                    Grow Navigation
-                                {:else if grown}
-                                    Shrink Navigation
-                                {/if}
-                            </button>
-                        </div>
+    <footer 
+        class="fixed bottom-0 left-0 right-0 z-50 h-16 py-2 shadow-xl border-t border-white/10
+        bg-primary-majorelle-blue dark:bg-gray-900/95 backdrop-blur-md portrait:hidden text-white"
+    >
+        <div class="container mx-auto px-6 h-full">
+            <div class="flex justify-between items-center h-full">
+                <!-- Left section: Hedgehog + Title + Copyright -->
+                <div class="flex items-center gap-3">
+                    <a href="https://porkyproductions.github.io" class="block">
+                        <img src={hedgehog} alt="Hedgehog" class="w-10 h-10 hover:animate-spin object-contain" />
+                    </a>
+                    <div class="flex items-center gap-2 text-xs">
+                        <Title />
+                        <span class="opacity-60">| &copy; {year} {parentCompany}</span>
                     </div>
-                    <hr />
-                    <p class="text-white p-4">Copyright &copy; 2020-{year.getFullYear()}, {parentCompany} and/or it's contributors. All Rights Reserved</p>
-                </div>   
-                    <nav class="flex justify-between flex-col p-4 text-white underline font-primary font-medium mb-0">
-                        {#each navigation as link}
-                            <a class="footer-link" href={link.href}>{link.name}</a>
-                        {/each}
-                    </nav>
+                </div>
+
+                <!-- Center section: Navigation links -->
+                <nav class="flex items-center gap-4">
+                    {#each navigation as link}
+                        <a class="text-xs hover:text-secondary-orangePantone transition-colors" href={link.href}>
+                            {link.name}
+                        </a>
+                    {/each}
+                </nav>
+
+                <!-- Right section: Sign in button -->
+                <div class="flex items-center">
+                    <SiwGoogleButton />
+                </div>
             </div>
-        </footer>
-    {/if}
+        </div>
+    </footer>
+    
+    <div class="h-16"></div>
 {/if}
-
-<style lang="scss">
-    #logo {
-        width: 7rem;
-        padding: 1rem;
-    }
-    a {
-        color: white;
-        text-decoration: underline dashed;
-    }
-    hr {
-        border: 1px solid #DABFFF;
-        padding-left: 1rem;
-    }
-
-    @media (prefers-color-scheme: dark) {
-        hr {
-            border: 1px solid #F75C03;
-            color: #F75C03;
-        }
-    } 
-    * {
-        margin-bottom: 0;
-    }
-
-</style>

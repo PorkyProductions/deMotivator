@@ -5,7 +5,7 @@
     import { name, PROD, version } from '../typescript/constants';
 </script>
 <a href="/" class="no-underline" id="link">
-    <h1 class="font-primary text-center title pt-5 pb-0 font-semibold" id="text">
+    <h1 class="font-primary text-center font-semibold" id="text">
         {name} {PROD ? "" : `(v${version})`}
     </h1>
 </a>
