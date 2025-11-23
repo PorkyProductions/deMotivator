@@ -4,6 +4,7 @@
     import '../../styles/css/app.css'
     import '../../styles/css/customProps.css'
     import '../../styles/scss/colorScheme.scss'
+    import { loginWithEmailPassword, loginWithGoogle, signInAnonomous, logout, onAuthStateChanged } from '../../utils/firebase';
     // Loading Logic
 
 
@@ -11,22 +12,6 @@
     // FROM BEYOND THIS POINT IS FIREBASE LOGIC
     // BEWARE
 
-
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-import {firebaseConfig} from '../../typescript/insults'
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-// @ts-ignore
-const analytics = getAnalytics(app);
-import { getAuth } from "firebase/auth";
-const auth = getAuth(app);
   
     // Firebase user
     let user: { user_id?: string; id?: string; name?: string; email?: string; picture?: string; } | null = $state(null);
@@ -35,48 +20,14 @@ const auth = getAuth(app);
     // to choose if we want use popup or redirect
     let { useRedirect = false }: { useRedirect?: boolean } = $props();
   
-    // small mapper function
-    const userMapper = (claims: any) => ({
-      id: claims.user_id,
-      name: claims.name,
-      email: claims.email,
-      picture: claims.picture
-    });
-  
-    export const loginWithEmailPassword = async (email: string, password: string) => {
-      const { signInWithEmailAndPassword } = await import("firebase/auth")
-      signInWithEmailAndPassword(auth, email, password);
-    }
-    export const loginWithGoogle = async () => {
-      const { signInWithPopup, signInWithRedirect, GoogleAuthProvider } = await import("firebase/auth")
-      const provider = new GoogleAuthProvider();
-      if (useRedirect) {
-        return signInWithRedirect(auth, provider);
-      } else {
-        return signInWithPopup(auth, provider);
-      }
+    // Create wrapped versions of the auth functions to handle useRedirect
+    const wrappedLoginWithGoogle = async () => {
+        return loginWithGoogle(useRedirect);
     };
-    export const signInAnonomous = async () => {
-      const { getAuth, signInAnonymously } = await import("firebase/auth");
-      const auth = getAuth();
-      await signInAnonymously(auth);
-    }
-    export const logout = () => auth.signOut();
   
-    // will be fired every time auth state changes
-    auth.onAuthStateChanged(async fireUser => {
-      if (fireUser) {
-        // in here you might want to do some further actions
-        // such as loading more data, etc.
-  
-        // if you want to set custom claims such as roles on a user
-        // this is how to get them because they will be present
-        // on the token.claims object
-        const token = await fireUser.getIdTokenResult();
-        user = userMapper(token.claims);
-      } else {
-        user = null;
-      }
+    // Setup auth state listener
+    onAuthStateChanged((mappedUser) => {
+        user = mappedUser;
     });
   
     // reactive helper variable(s)
@@ -85,5 +36,5 @@ const auth = getAuth(app);
   
   <!-- we will expose all required methods and properties on our slot -->
   <div>
-    <slot {user} {loggedIn} {loginWithGoogle} {loginWithEmailPassword} {signInAnonomous} {logout}>Error fetching Login API. Sorry about that :(</slot>
+    <slot {user} {loggedIn} loginWithGoogle={wrappedLoginWithGoogle} {loginWithEmailPassword} {signInAnonomous} {logout}>Error fetching Login API. Sorry about that :(</slot>
   </div>

@@ -8,9 +8,7 @@
     import Loader from './components/loader.svelte'
     import { randomInRange } from '@porkyproductions/hat/randomInRange';
     import { fade } from 'svelte/transition'
-    import { initializeApp } from "firebase/app";
-    import { getAnalytics } from "firebase/analytics";
-    import {firebaseConfig} from './typescript/insults'
+    import { analytics } from './utils/firebase';
     import { print } from '@porkyproductions/hat/print'
     import { bsTheme } from './utils/darkMode';
     import HomeScreenDevWarningBanner from './components/homeScreenDevWarningBanner.svelte';
@@ -26,9 +24,7 @@
     // FROM BEYOND THIS POINT IS FIREBASE LOGIC
     // BEWARE
 
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
+    // Firebase is initialized in utils/firebase.ts
     print(analytics)
   
 
