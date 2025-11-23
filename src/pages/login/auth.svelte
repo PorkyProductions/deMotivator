@@ -4,7 +4,7 @@
     import '../../styles/css/app.css'
     import '../../styles/css/customProps.css'
     import '../../styles/scss/colorScheme.scss'
-    import { loginWithEmailPassword, loginWithGoogle, signInAnonomous, logout, onAuthStateChanged } from '../../utils/firebase';
+    import { loginWithEmailPassword, loginWithGoogle, signInAnonymous, logout, onAuthStateChanged } from '../../utils/firebase';
     // Loading Logic
 
 
@@ -36,5 +36,5 @@
   
   <!-- we will expose all required methods and properties on our slot -->
   <div>
-    <slot {user} {loggedIn} loginWithGoogle={wrappedLoginWithGoogle} {loginWithEmailPassword} {signInAnonomous} {logout}>Error fetching Login API. Sorry about that :(</slot>
+    <slot {user} {loggedIn} loginWithGoogle={wrappedLoginWithGoogle} {loginWithEmailPassword} signInAnonomous={signInAnonymous} {logout}>Error fetching Login API. Sorry about that :(</slot>
   </div>
