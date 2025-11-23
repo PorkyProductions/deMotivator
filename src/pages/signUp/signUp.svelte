@@ -1,414 +1,357 @@
-<script lang="ts">
+<script>
   // Import generic stylesheets, essential libraries
   import "../../styles/css/app.css";
   import "../../styles/css/customProps.css";
-  import confetti from "canvas-confetti";
   import lbl from '../../img/login-background-light.svg'
   import lbd from '../../img/login-background-dark.svg'
+  
   // Import components
-  import Title from "../../components/title.svelte";
   import BsSpinner from "../../components/bs-spinner.svelte";
+  import Icon from "../../components/icon.svelte";
   import Auth from "../login/auth.svelte";
   import BsAlert from "../../components/bs-Alert.svelte";
-  import BsButton from "../../components/bsButton.svelte";
   import BsLoader from "../../components/bsLoader.svelte";
-  import Icon from '../../components/icon.svelte'
-  //  Import Misc Helpers
-  import { fade } from "svelte/transition";
+
+  // Import Misc Helpers
+  import { onMount } from "svelte";
   import { bsTheme, darkMode } from "../../utils/darkMode";
   import { randomInRange } from "@porkyproductions/hat/randomInRange";
   import { randomInArray } from "@porkyproductions/hat/randomInArray";
-  import {name} from '../../typescript/constants'
-  // import { ClassCreator } from "../../typescript/class"; // File doesn't exist, unused import
+  import { deviceType } from "../../utils/uaStub";
+  import { fade, fly } from "svelte/transition";
+  import confetti from "canvas-confetti";
+  import { name } from "../../typescript/constants";
 
-  let names: string[] = [
-    "Yamilet Martin",
-    "Patrick Tormey",
-    "Ronald Martin",
-    "Mohammad Kadel",
-    "Jes Tabbert",
-    "Stephen White",
-    "Reuben White",
-    "Cecelia Rainey",
-    "Anthony Irwin",
-    "Andrew Lopez",
-    "Brian Ohrt",
-    "Etha Jackowski",
-    "Avery Taylor",
-    "Raymond Abelson",
-    "Taylor Irwin",
-    "Dixie Fadler",
-    "Emily Garcia",
-    "Steve Scott",
-    "Brooklyn Tevlin",
-    "Javion Hanz",
-    "Emmy Martin",
-    "Deacon Green",
-    "Jazlynn Gabbert",
-    "Fred Fader",
-    "Holly Westcott",
-    "Carl Kairis",
-    "Patrick Smith",
-    "Scott Abby",
-    "Sophia Carter",
-    "Amani Urick",
-    "Dexter Cabello",
-    "Abigail Eady",
-    "Miranda Fader",
-    "Efrain Williams",
-    "Samantha Abelson",
-    "Etha Phillips",
-    "Emmanuel Hernandez",
-    "Jerry Ealy",
-    "Andrew Labelle",
-    "Marisol Urick",
-    "Tyler Waggett",
-    "Javion Mabrey",
-    "Tabitha Tevlin",
-    "Natalie Garcia",
-    "Cecelia Mitchell",
-    "Diamond Collins",
-    "Dallas Davis",
-    "Amber Thomas",
-    "Miranda Evans",
-    "Katherine Bacon",
-    "Glenn Uhler",
-    "Morgan Williams",
-    "Atticus Yniguez",
-    "Riley Miller",
-    "Diamond Anderson",
-    "Aldo Labelle",
-    "Henry Fadler",
-    "Grace Rainey",
-    "Jackson Taylor",
-    "Mark Smith",
-    "Alexis Xavier",
-    "Cesar Hill",
-    "Olivia Garcia",
-    "Van Campbell",
-    "Jackson Clark",
-    "Jason Allen",
-    "Hunter Nagy",
-    "Ryan Parker",
-    "Brooklyn Thompson",
-    "Aniya Anderson",
-    "Jeffrey Tabbert",
-    "Miah Cahn",
-    "Caden Williams",
-    "Victor Xavier",
-    "Cesar Garcia",
-    "Jes Gagnon",
-    "Jose Scott",
-    "Aubrey Kadel",
-    "Mia Tevlin",
-    "Aiden Wesenberg",
-    "Gregory White",
-    "Mia Harris",
-    "David Miller",
-    "Reuben Turner",
-    "Camilla Tabbert",
-    "Raymond Perez",
-    "Xzavier Yniguez",
-    "Steve Vasko",
-    "Jacquelyn Jackson",
-    "Glenn Fadler",
-    "Cierra Wilson",
-    "Paityn Irwin",
-    "Henry Evans",
-    "Saige Perez",
-    "Avery Xander",
-    "Brenton Lopez",
-    "Jose Jackowski",
-    "Ryan Mullin",
-    "Tristan Winata"
-  ];
-  let dismissedBanner = window.localStorage.getItem("dismissedBanner")
-  let randomName = randomInArray(names);
-
-  // Loading Logic
-  let ready = $state(false);
-  let yay = $state(false);
-  let duration = randomInRange(1, 4000);
-  const load = async () => {
-    setTimeout(() => (ready = true), duration);
-  };
-  load();
-
-  // FROM BEYOND THIS POINT IS FIREBASE LOGIC
-  // BEWARE
-
-  import {  initializeApp } from "firebase/app";
-  import { getAnalytics, } from "firebase/analytics";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  // Firebase Logic
+  import { initializeApp } from "firebase/app";
+  import { getAnalytics } from "firebase/analytics";
   import { firebaseConfig } from "../../typescript/insults";
-  import { getAuth } from "firebase/auth";
+  import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from "firebase/auth";
 
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const analytics = getAnalytics(app);
-  const auth = getAuth(app)
-  let error: Error | null | undefined | unknown  = $state(null);
-// TODO: refactor to async/await
-  const signUp = async (auth: any, displayName: string, email: string, password: string, photoURL?: string) => {
-    error = null
-    try {
-      const { createUserWithEmailAndPassword, sendEmailVerification, updateProfile } =
-      await import("firebase/auth");
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password)
-      const user = userCredential.user
-      await sendEmailVerification(user)
-      await updateProfile(user, {
-        displayName: displayName,
-        photoURL: photoURL
-      })
-    } catch (e) {
-      error = e
-    }
-  };
+  const auth = getAuth(app);
+
+  // Sample names for placeholder
+  let names = [
+    "Yamilet Martin", "Patrick Tormey", "Ronald Martin", "Mohammad Kadel",
+    "Jes Tabbert", "Stephen White", "Reuben White", "Cecelia Rainey",
+    "Anthony Irwin", "Andrew Lopez", "Brian Ohrt", "Etha Jackowski"
+  ];
+  let randomName = randomInArray(names);
+
+  // UI State
+  let emailBoxContent = $state("");
+  let pwText = $state("");
+  let confirmPwText = $state("");
+  let displayNameText = $state("");
+  let photoURLText = $state("");
+  let emailInvalid = $state(false);
+  let pwInvalid = $state(false);
+  let confirmPwInvalid = $state(false);
   let agreedToTerms = $state(false);
+  let dismissedBanner = $state(window.localStorage.getItem("dismissedBanner") === "true");
+  let signupSuccess = $state(false);
+
+  // Loading Logic
+  let ready = $state(false);
+  let loadingDuration = randomInRange(800, 2000);
+
+  let error = $state(null);
+
+  const load = async () => {
+    setTimeout(() => (ready = true), loadingDuration);
+  };
+  load();
+
+  const onChangeSignupText = async () => {
+    const { isEmailValid, isPwValid } = await import("../../utils/regEx");
+    pwInvalid = !isPwValid(pwText);
+    emailInvalid = !isEmailValid(emailBoxContent);
+    confirmPwInvalid = pwText !== confirmPwText || !confirmPwText;
+  };
+  
+  // Helper function to determine form validation classes
+  const getValidationClass = (value, isInvalid) => {
+    if (!value) return ""; // No validation class if empty
+    return isInvalid ? "is-invalid" : "is-valid";
+  };
 
   const signUpHandler = async (event) => {
-    const { randomInRange } = await import("@porkyproductions/hat/randomInRange");
-    const { displayName, email, password, photoURL } = event.target.elements;
-    const { emailRegExp, pwRegExp } = await import('../../utils/regEx')
+    event.preventDefault();
+    
+    if (deviceType === "desktop") {
+      ready = false;
+    }
+
     try {
       error = null;
+      
+      // Validate agreement to terms
       if (!agreedToTerms) {
-        throw new Error(
-          "You must agree to the terms and conditions before signing up!"
-        );
+        throw new Error("You must agree to the terms and conditions before signing up!");
       }
-      if (password.length <= 7) {
-        throw new Error(
-          "Password must be at least 8 characters"
-        );
+      
+      // Validate password match
+      if (pwText !== confirmPwText) {
+        throw new Error("Passwords do not match!");
       }
-      if (emailRegExp.test(email.value) === false) {
-        throw new Error(
-          "Must be a valid email adress"
-        );
+      
+      // Validate email and password format
+      const { emailRegExp, pwRegExp } = await import('../../utils/regEx');
+      if (!emailRegExp.test(emailBoxContent)) {
+        throw new Error("Must be a valid email address");
       }
-      if (pwRegExp.test(password.value) === false) {
-        throw new Error(
-          "Password must meet the following requirements: Must be at least 8 characters long. Must contain at least 1 capital letter. Must contain at least 1 number. Must contain at least 1 symbol from the set '@$!%*#?&'"
-        );
+      if (!pwRegExp.test(pwText)) {
+        throw new Error("Password must meet security requirements");
       }
-      await signUp(auth, displayName.value, email.value, password.value, photoURL.value);
-      for (let i = 0; i <= 3; i++) {
-        confetti({
-          angle: randomInRange(55, 125),
-          spread: randomInRange(50, 70),
-          particleCount: randomInRange(50, 100),
-          origin: { y: 0.6 },
-        });
-      }
-      yay = true
+      
+      // Create user account
+      const userCredential = await createUserWithEmailAndPassword(auth, emailBoxContent, pwText);
+      const user = userCredential.user;
+      
+      // Send verification email
+      await sendEmailVerification(user);
+      
+      // Update profile with display name and photo
+      await updateProfile(user, {
+        displayName: displayNameText || randomName,
+        photoURL: photoURLText || null
+      });
+      
+      // Success celebration
+      const { randomInRange } = await import("@porkyproductions/hat/randomInRange");
+      confetti({
+        angle: randomInRange(55, 125),
+        spread: randomInRange(50, 70),
+        particleCount: randomInRange(50, 100),
+        origin: { y: 0.6 },
+      });
+      
+      if (typeof hapticsImpactMedium !== 'undefined') await hapticsImpactMedium();
+      if (typeof hapticsVibrate !== 'undefined') await hapticsVibrate();
+      
+      signupSuccess = true;
+      setTimeout(() => (ready = true), 1000);
+      
     } catch (err) {
       error = err;
+      ready = true;
     }
   };
-
-  
-  let emailBoxContent: any = $state();
-  let emailBox;
-  let emailInvalid = $state(true);
-  let pwText = $state("");
-  let pwInvalid = $state(true);
-
-  const onChangeLoginText = async () => {
-    const { isEmailValid, isPwValid } = await import( "../../utils/regEx");
-    if (isPwValid(pwText)) {
-      pwInvalid = false
-    } else pwInvalid = true
-    if (isEmailValid(emailBoxContent)) {
-      emailInvalid = false
-    } else emailInvalid = true
-  }
 </script>
 
-<div id="root" data-bs-theme={bsTheme}>
-  <Auth useRedirect={true} let:loggedIn>
+<div id="root" data-bs-theme={bsTheme} class="min-h-screen w-full bg-body">
+  <Auth useRedirect={signupSuccess} let:loggedIn>
     {#if !ready}
-      {#if loggedIn}
-        <div class="p-4">
-          <BsSpinner type="success" />
+      <div transition:fade={{ duration: 300 }} class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-body backdrop-blur-sm">
+        <div class="mb-4">
+          <BsSpinner type={signupSuccess ? "success" : error ? "danger" : "primary"} />
         </div>
-        <div class="m-auto px-8">
-          <BsLoader type="success" loadingTime={duration} />
-        </div>
-      {:else}
-        {#if error}
-          <div class="p-4">
-            <BsSpinner type="danger" />
-          </div>
-          <div class="m-auto px-8">
-            <BsLoader type="danger" loadingTime={duration} />
-          </div>
-        {/if}
-          <div class="p-4">
-            <BsSpinner type="primary" />
-          </div>
-          <div class="m-auto px-8">
-            <BsLoader type="primary" loadingTime={duration} />
-          </div>
-      {/if}
-    {:else}
-      <div id="wrapper" class="relative right-0 left-0 top-0 bottom-0">
-          {#if error}
-            <div transition:fade class="p-2 mb-6">
-              <BsAlert
-                icon="exclamation-diamond-fill"
-                actionLink=" "
-                actionText=" "
-                type="danger"
-                text={error.message ?? "An error occured. Try again"}
-              />
-            </div>
-          {/if}
-          {#if !dismissedBanner}
-            <!-- svelte-ignore a11y-no-static-element-interactions -->
-            <div aria-describedby="banner" aria-labelledby="banner" aria-roledescription="banner"  transition:fade class="p-2 mb-6" onclick={() => window.localStorage.setItem("dismissedBanner", "true")} onkeydown={() => void(0)}>
-              <BsAlert
-              icon="info-circle"
-              type="info"
-              text={`By using ${name} with an account, you consent to our, as well as Google's cookies`}
-              actionLink="https://policies.google.com/privacy"
-              actionText="Learn More"
-              />
-            </div>
-          {/if}
-          {#if error}
-            <div transition:fade class="p-2 mb-6">
-              <BsAlert
-                icon="exclamation-diamond-fill"
-                actionLink=" "
-                actionText=" "
-                type="danger"
-                text={error.message ?? "An error occured. Try again"}
-              />
-            </div>
-          {/if}
-          {#if yay}
-            <div transition:fade class="p-2 mb-6">
-              <BsAlert
-                icon="emoji-laughing"
-                actionLink="/login.html"
-                actionText="View your account"
-                type="success"
-                text={"Account successfully created!"}
-              />
-            </div>
-          {/if}
-        <div class="">
-          <div class="wrapper flex content-center justify-center ">
-            {#if loggedIn}
-              <div class="font-primary text-4xl font-medium">
-                <Title />
-                You're already logged in! <a href="/login.html" class="link link-success underline">View your Account</a>
-              </div>
-            {:else}
-            <div class="w-full flex flex-wrap">
-
-              <div class="w-full md:w-1/2 flex flex-col" transition:fade>
-      
-                  <div class="flex justify-center md:justify-start pt-12 md:pl-12 md:-mb-24">
-                      <a href="/" class="p-10 m-10 text-center no-underline text-theme-black dark:text-theme-white"><span class="font-primary text-3xl font-bold">PorkyProductionsID</span></a>
-                  </div>
-      
-                  <div class="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">
-                      <form class="flex flex-col pt-3 md:pt-8" onsubmit={(e) => { e.preventDefault(); signUpHandler(e); }}>
-                        <div class="mb-4">
-                          <label class="form-label" for="email">Email</label>
-                          <input
-                            class={`input-field form-control dark:bg-black focus:cursor-text hover:focus:cursor-text hover:cursor-text ${emailInvalid ? "is-invalid" : "is-valid"}`}
-                            id="email"
-                            type="email"
-                            placeholder="name@example.com"
-                            bind:value={emailBoxContent}
-                            onchange={onChangeLoginText}
-                            bind:this={emailBox}
-                            required
-                          />
-                          <div class="invalid-feedback">Must be valid email!</div>
-                        </div>
-                        <div class="mb-6">
-                          <label class="form-label" for="password">Password</label>
-                          <input
-                            class={`input-field form-control dark:bg-black focus:cursor-text hover:focus:cursor-text hover:cursor-text ${pwInvalid ? "is-invalid" : "is-valid"}`}
-                            id="password"
-                            type="password"
-                            placeholder="******************"
-                            required
-                            bind:value={pwText}
-                            onchange={onChangeLoginText}
-                          />
-                          <div class="invalid-feedback">Password must meet the following requirements: Must be at least 8 characters long. Must contain at least 1 capital letter. Must contain at least 1 number. Must contain at least 1 symbol from the set '@$!%*#?&'</div>
-                        </div>
-                        <div class="mb-6">
-                          <label class="form-label" for="displayName">Display Name</label>
-                          <input
-                            class={`input-field form-control dark:bg-black focus:cursor-text hover:focus:cursor-text hover:cursor-text`}
-                            id="displayName"
-                            type="text"
-                            placeholder={randomName}
-                          />
-                        </div>
-                        <div class="mb-6">
-                          <label class="form-label" for="photoURL">Photo URL</label>
-                          <input
-                            class={`input-field form-control dark:bg-black focus:cursor-text hover:focus:cursor-text hover:cursor-text`}
-                            id="photoURL"
-                            type="url"
-                            placeholder="https://images.unsplash.com/photo-1692744642837-0afc5b12912b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1287&q=80"
-                          />
-                        </div>
-                        <div class="form-check pb-4">
-                          <input
-                            class="form-check-input"
-                            type="checkbox"
-                            bind:checked={agreedToTerms}
-                            value=""
-                            id="flexCheckDefault"
-                            required
-                          />
-                          <label class="form-check-label" for="flexCheckDefault">
-                            I agree to the <a href=" ">Terms and Conditions</a> and
-                            <a href="https://policies.google.com/privacy"
-                              >Privacy Policy</a
-                            >
-                          </label>
-                        </div>
-          
-                          <button type="submit" value="Log In"   class={`btn btn-${yay ? "success" : "primary"} p-2 mt-8`}>Sign Up <Icon name="person-plus" /></button>
-                      </form>
-                      <div class="text-center pt-12 pb-12">
-                          <div>Already have an account? <a href="login.html" class="underline font-semibold">Sign in</a></div>
-                      </div>
-                  </div>
-      
-              </div>
-      
-              <!-- Image Section -->
-              <div class="w-1/2">
-                  <img class="object-cover w-full h-screen hidden md:block" draggable="false"  src={darkMode ? lbd : lbl} alt="multicolored polka dots">
-              </div>
-          </div>
-            {/if}
-          </div>
-          <div class="flex content-center justify-center p-4 pb-10">
-            <BsButton
-              icon="arrow-left"
-              text="Go back home"
-              type={yay ? "success" : "primary"}
-              href="index.html"
-            />
-          </div>
-        </div>
+        <BsLoader type={signupSuccess ? "success" : error ? "danger" : "primary"} loadingTime={loadingDuration} />
       </div>
     {/if}
+
+    <div class="flex min-h-screen w-full overflow-hidden">
+      <div class="w-full lg:w-1/2 flex flex-col justify-center p-4 sm:p-5 lg:p-12 relative z-10">
+        <div class="mb-5 text-center lg:text-start">
+          <a href="/" class="text-decoration-none">
+            <span class="display-6 fw-bold text-body">
+              PorkyProductions<span class="text-secondary">ID</span>
+            </span>
+          </a>
+        </div>
+
+        {#if error}
+          <div transition:fly={{ y: -20 }} class="mb-4">
+            <BsAlert
+              icon="exclamation-diamond-fill"
+              type="danger"
+              text={error.message ?? "An unknown error occurred."}
+            />
+          </div>
+        {/if}
+
+        {#if !dismissedBanner && !loggedIn}
+          <div transition:fade class="mb-4">
+            <BsAlert
+              icon="info-circle"
+              type="info"
+              text={`By using ${name} with an account, you consent to our and Google's cookies.`}
+              actionLink="https://policies.google.com/privacy"
+              actionText="Learn More"
+              onclick={() => { dismissedBanner = true; window.localStorage.setItem("dismissedBanner", "true"); }}
+            />
+          </div>
+        {/if}
+
+        {#if signupSuccess}
+          <div transition:fly={{ y: -20 }} class="mb-4">
+            <BsAlert
+              icon="check-circle-fill"
+              type="success"
+              text="Account successfully created! Please check your email for verification."
+              actionLink="/login.html"
+              actionText="Sign In"
+            />
+          </div>
+        {/if}
+
+        {#if loggedIn}
+          <div in:fade={{ duration: 300, delay: 150 }} class="card shadow-lg border-0 rounded-4 overflow-hidden">
+            <div class="card-body p-5 text-center">
+              <h2 class="card-title fw-bold mb-3">You're Already Logged In!</h2>
+              <p class="text-secondary mb-4">You already have an active session.</p>
+              <a href="/login.html" class="btn btn-primary btn-lg w-100 rounded-3">
+                <i class="bi bi-person-circle me-2"></i> View Your Account
+              </a>
+            </div>
+          </div>
+        {:else}
+          <div in:fade={{ duration: 300, delay: 150 }} class="mx-auto w-100" style="max-width: 480px;">
+            <div class="mb-5">
+              <h1 class="fw-bold mb-2">Create your account</h1>
+            </div>
+
+            <form onsubmit={signUpHandler} class="d-flex flex-column gap-3">
+              <div class="row g-3">
+                <div class="col-12">
+                  <label class="form-label fw-semibold" for="email">Email Address</label>
+                  <input
+                    class={`form-control form-control-lg ${getValidationClass(emailBoxContent, emailInvalid)}`}
+                    id="email"
+                    type="email"
+                    placeholder="you@example.com"
+                    bind:value={emailBoxContent}
+                    onchange={onChangeSignupText}
+                    oninput={onChangeSignupText}
+                    required
+                  />
+                  {#if emailInvalid && emailBoxContent}
+                    <div class="invalid-feedback">
+                      Please enter a valid email address.
+                    </div>
+                  {/if}
+                </div>
+
+                <div class="col-12">
+                  <label class="form-label fw-semibold" for="displayName">Display Name</label>
+                  <input
+                    class="form-control form-control-lg"
+                    id="displayName"
+                    type="text"
+                    placeholder={randomName}
+                    bind:value={displayNameText}
+                  />
+                </div>
+
+                <div class="col-12">
+                  <label class="form-label fw-semibold" for="password">Password</label>
+                  <input
+                    class={`form-control form-control-lg ${getValidationClass(pwText, pwInvalid)}`}
+                    id="password"
+                    type="password"
+                    placeholder="••••••••••••"
+                    bind:value={pwText}
+                    onchange={onChangeSignupText}
+                    oninput={onChangeSignupText}
+                    required
+                  />
+                  {#if pwInvalid && pwText}
+                    <div class="invalid-feedback">
+                      Password must be at least 8 characters with 1 uppercase, 1 number, and 1 special character (@$!%*#?&).
+                    </div>
+                  {/if}
+                  {#if !pwInvalid && pwText}
+                    <div class="valid-feedback">
+                      Strong password (not stronger than your ego)
+                    </div>
+                  {/if}
+                </div>
+
+                <div class="col-12">
+                  <label class="form-label fw-semibold" for="confirmPassword">Confirm Password</label>
+                  <input
+                    class={`form-control form-control-lg ${getValidationClass(confirmPwText, confirmPwInvalid)}`}
+                    id="confirmPassword"
+                    type="password"
+                    placeholder="••••••••••••"
+                    bind:value={confirmPwText}
+                    onchange={onChangeSignupText}
+                    oninput={onChangeSignupText}
+                    required
+                  />
+                  {#if confirmPwInvalid && confirmPwText}
+                    <div class="invalid-feedback">
+                      Passwords do not match.
+                    </div>
+                  {/if}
+                </div>
+
+                <div class="col-12">
+                  <label class="form-label fw-semibold" for="photoURL">Profile Photo URL</label>
+                  <input
+                    class="form-control form-control-lg"
+                    id="photoURL"
+                    type="url"
+                    placeholder="https://example.com/photo.jpg"
+                    bind:value={photoURLText}
+                  />
+                  <div class="form-text">Optional - provide a URL to your profile picture</div>
+                </div>
+              </div>
+
+              <div class="form-check my-3">
+                <input 
+                  class="form-check-input" 
+                  type="checkbox" 
+                  id="agreeTerms" 
+                  bind:checked={agreedToTerms}
+                  required
+                >
+                <label class="form-check-label text-secondary" for="agreeTerms">
+                  I agree to the <a href="#" class="text-primary">Terms and Conditions</a> and 
+                  <a href="https://policies.google.com/privacy" class="text-primary">Privacy Policy</a>
+                </label>
+              </div>
+
+              <div class="d-grid gap-3 mt-3">
+                <button 
+                  type="submit" 
+                  class="btn btn-primary btn-lg shadow-sm"
+                  disabled={!agreedToTerms}
+                >
+                  Create Account <Icon name="person-plus" />
+                </button>
+              </div>
+            </form>
+
+            <div class="mt-5 text-center">
+              <p class="text-secondary">
+                Already have an account? <a href="/login.html" class="fw-bold text-primary text-decoration-none">Sign in</a>
+              </p>
+            </div>
+          </div>
+        {/if}
+      </div>
+
+      <div class="hidden lg:block lg:w-1/2 relative bg-black">
+        <img 
+          class="absolute inset-0 w-full h-full object-cover opacity-90" 
+          src={darkMode ? lbd : lbl} 
+          alt="Decorative Background"
+          draggable="false"
+        />
+        <div class="absolute inset-0 bg-linear-to-l from-black/10 to-transparent"></div>
+      </div>
+    </div>
   </Auth>
 </div>
+
+<style>
+  :global(body), :global(html) {
+    height: 100%;
+    margin: 0;
+  }
+</style>
