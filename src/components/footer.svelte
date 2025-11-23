@@ -11,8 +11,6 @@
         { name: "(de)Motivator 1.0", href: "dmv1.html" },
         { name: "(de)Motivator.js", href: "https://github.com/PorkyProductions/deMotivator.js" },
         { name: "Leaderboard", href: "leaderboard.html" },
-        { name: "Credits", href: "credits.html" },
-        { name: "Share", href: "share.html" },
     ];
 
     // Logic: derived check for mobile/tablet to clean up the template
@@ -20,7 +18,7 @@
 </script>
 
 {#if isMobileView}
-    <footer class="fixed bottom-8 left-0 right-0 flex justify-center items-center pointer-events-none z-50 bg-primary-majorelle-blue">
+    <footer class="fixed bottom-8 left-0 right-0 flex justify-center items-center pointer-events-none z-50 bg-primary-majorelle-blue dark:bg-gray-900/95 backdrop-blur-md">
         <a 
             href="login.html" 
             class="pointer-events-auto shadow-lg transform transition hover:scale-105 text-white dark:bg-secondary-orangePantone bg-primary-majorelleBlue font-primary font-bold py-3 px-8 rounded-full no-underline border-2 border-white/20 backdrop-blur-md"
