@@ -37,7 +37,7 @@ export const loginWithGoogle = async (useRedirect = false) => {
 	}
 };
 
-export const signInAnonomous = async () => {
+export const signInAnonymous = async () => {
 	return signInAnonymously(auth);
 };
 
