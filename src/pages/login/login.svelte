@@ -26,15 +26,8 @@
   import { name } from "../../typescript/constants";
 
   // Firebase Logic
-  import { initializeApp } from "firebase/app";
-  import { getAnalytics } from "firebase/analytics";
-  import { firebaseConfig } from "../../typescript/insults";
-  import { getAuth, deleteUser as firebaseDeleteUser } from "firebase/auth";
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-  const auth = getAuth();
+  import { auth } from "../../utils/firebase";
+  import { deleteUser as firebaseDeleteUser } from "firebase/auth";
 
   // UI State
   let emailBoxContent = $state("");
