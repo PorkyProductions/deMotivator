@@ -15,7 +15,7 @@ export const launchConfetti = async () => {
 			origin: { y: 0.6 },
 		});
 		i--;
-	}, 200);
+	}, 500);
 };
 
 // Login handler
@@ -23,8 +23,7 @@ export const createLoginHandler = (
 	deviceType: string,
 	setReady: (ready: boolean) => void,
 	setError: (error: any) => void
-) => {
-	return async (event: Event, loginAction: (email: string, password: string) => Promise<any>, email: string, password: string, keepMeLoggedIn: boolean) => {
+) => async (event: Event, loginAction: (email: string, password: string) => Promise<any>, email: string, password: string, keepMeLoggedIn: boolean) => {
 		event.preventDefault();
 
 		if (deviceType === 'desktop') {
@@ -44,9 +43,6 @@ export const createLoginHandler = (
 				origin: { y: 0.6 },
 			});
 
-			if (typeof (window as any).hapticsImpactMedium !== 'undefined') await (window as any).hapticsImpactMedium();
-			if (typeof (window as any).hapticsVibrate !== 'undefined') await (window as any).hapticsVibrate();
-
 			if (keepMeLoggedIn) {
 				window.localStorage.setItem('keepMeLoggedIn', 'true');
 			} else {
@@ -59,4 +55,3 @@ export const createLoginHandler = (
 			setReady(true);
 		}
 	};
-};

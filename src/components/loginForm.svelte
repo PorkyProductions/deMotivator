@@ -75,7 +75,7 @@
 
 		<div class="d-grid gap-3 mt-3">
 			<button type="submit" class="btn btn-primary btn-lg shadow-sm">
-				Sign In <Icon name="person-plus" />
+				<Icon name="person-plus" /> Sign In
 			</button>
 			<button type="button" onclick={loginWithGoogle} class="btn btn-outline-secondary btn-lg bg-body text-body">
 				<Icon name="google" /> &nbsp; Sign in with Google
