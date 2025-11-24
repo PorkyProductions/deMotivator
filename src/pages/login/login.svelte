@@ -2,8 +2,7 @@
   // Import generic stylesheets, essential libraries
   import "../../styles/css/app.css";
   import "../../styles/css/customProps.css";
-  import lbl from '../../img/login-background-light.svg'
-  import lbd from '../../img/login-background-dark.svg'
+  import hedgehog from '../../img/HedgehogIcon.png'
   
   // Import components
   import BsSpinner from "../../components/bs-spinner.svelte";
@@ -181,8 +180,8 @@
       <div class="hidden lg:block lg:w-1/2 relative bg-black">
         <img 
           class="absolute inset-0 w-full h-full object-cover opacity-90" 
-          src={darkMode ? lbd : lbl} 
-          alt="Decorative Background"
+          src={hedgehog} 
+          alt="a hand drawn hedgehog"
           draggable="false"
         />
         <div class="absolute inset-0 bg-linear-to-l from-black/10 to-transparent"></div>
