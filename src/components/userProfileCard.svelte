@@ -25,7 +25,7 @@
 			/>
 		</div>
 		<h2 class="card-title fw-bold mb-1">
-			Hello, <span class="text-primary-majorelle-blue dark:text-secondary-orange-pantone">{user.name ?? "Guest"}</span>
+			Hello, <span class="text-primary-majorelle-blue dark:text-primary-majorelle-blue">{user.name ?? "Guest"}</span>
 		</h2>
 		<p class="card-text text-muted font-monospace mb-4">{user.email}</p>
 		

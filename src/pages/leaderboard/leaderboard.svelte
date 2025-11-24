@@ -148,7 +148,7 @@
 					<div class="col-md-4">
 						<div class="card border-0 shadow-sm h-100">
 							<div class="card-body text-center">
-								<div class="text-primary-majorelle-blue dark:text-secondary-orange-pantone mb-2 text-4xl">
+								<div class="text-primary-majorelle-blue dark:text-primary-majorelle-blue mb-2 text-4xl">
 									<Icon name="people-fill" />
 								</div>
 								<h3 class="card-title h5 text-secondary">Total Participants</h3>
@@ -199,7 +199,7 @@
 											<p class="text-muted small mb-2">
 												<code>{leaderboard[1].referrer}</code>
 											</p>
-											<p class="display-6 fw-bold text-primary-majorelle-blue dark:text-secondary-orange-pantone">{formatNumber(leaderboard[1].data)}</p>
+											<p class="display-6 fw-bold text-primary-majorelle-blue dark:text-primary-majorelle-blue">{formatNumber(leaderboard[1].data)}</p>
 											<p class="text-muted small mb-0">insults seen</p>
 										</div>
 									</div>
@@ -214,7 +214,7 @@
 											<p class="text-muted small mb-2">
 												<code>{leaderboard[0].referrer}</code>
 											</p>
-											<p class="display-5 fw-bold text-primary-majorelle-blue dark:text-secondary-orange-pantone">{formatNumber(leaderboard[0].data)}</p>
+											<p class="display-5 fw-bold text-primary-majorelle-blue dark:text-primary-majorelle-blue">{formatNumber(leaderboard[0].data)}</p>
 											<p class="text-muted small mb-0">insults seen</p>
 										</div>
 									</div>
@@ -229,7 +229,7 @@
 											<p class="text-muted small mb-2">
 												<code>{leaderboard[2].referrer}</code>
 											</p>
-											<p class="display-6 fw-bold text-primary-majorelle-blue dark:text-secondary-orange-pantone">{formatNumber(leaderboard[2].data)}</p>
+											<p class="display-6 fw-bold text-primary-majorelle-blue dark:text-primary-majorelle-blue">{formatNumber(leaderboard[2].data)}</p>
 											<p class="text-muted small mb-0">insults seen</p>
 										</div>
 									</div>

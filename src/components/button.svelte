@@ -185,7 +185,7 @@ $effect(() => {
     <!-- Right Panel - Insult Display (slides in from right on desktop/tablet) -->
     {#if result || MEGAMODEresult}
         <div 
-            class="flex-1 flex items-center justify-center p-8 border-t md:border-t-0 md:border-l-4 border-primary-majorelle-blue dark:border-secondary-orange-pantone"
+            class="flex-1 flex items-center justify-center p-8 border-t md:border-t-0 md:border-l-4 border-primary-majorelle-blue dark:border-primary-majorelle-blue"
             transition:fade={{duration: 300}}
         >
             {#if !MEGAMODE}
@@ -209,7 +209,7 @@ $effect(() => {
                     
                     <div class="w-full max-w-md">
                         <p class="text-center font-primary text-lg font-semibold mb-4">
-                            Insults shown: <span class="text-primary-majorelle-blue dark:text-secondary-orange-pantone">{MEGAMODEinsults}</span>
+                            Insults shown: <span class="text-primary-majorelle-blue dark:text-primary-majorelle-blue">{MEGAMODEinsults}</span>
                         </p>
                         
                         <div class="d-flex align-items-center gap-3">
