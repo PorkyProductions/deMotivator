@@ -1,7 +1,6 @@
 <script>
   // Import generic stylesheets, essential libraries
   import "../../styles/css/app.css";
-  import "../../styles/css/customProps.css";
   import hedgehog from '../../img/HedgehogIcon.png'
   
   // Import components
