@@ -12,7 +12,6 @@
     import Auth from '../login/auth.svelte';
     import { bsTheme } from '../../utils/darkMode';
     import { userInsults } from '../../typescript/insults';
-  import Footer from '../../components/footer.svelte';
     
     // Initialize DeMotivator
     const dmv = new DeMotivator()
@@ -22,9 +21,9 @@
         profane: true
     })
     
-    // Prepare insult arrays
-    const allInsults = shuffle(userInsults.concat(insults)); 
-    const profaneInsults = shuffle(userInsults.concat(profaneArray));
+    // Prepare insult arrays (make reactive with $state so reassignments update UI)
+    let allInsults = $state(shuffle(userInsults.concat(insults))); 
+    let profaneInsults = $state(shuffle(userInsults.concat(profaneArray)));
     
     // State management
     let userWantsProfaneInsults = $state(false);
@@ -92,8 +91,9 @@
     };
     
     const shuffleInsults = () => {
-        allInsults.sort(() => Math.random() - 0.5);
-        profaneInsults.sort(() => Math.random() - 0.5);
+        // Use lodash.shuffle to reshuffle arrays (don't mutate via random sort)
+        allInsults = shuffle([...allInsults]);
+        profaneInsults = shuffle([...profaneInsults]);
         currentPage = 1;
     };
     
