@@ -2,7 +2,6 @@
     import Title from '../../components/title.svelte';
     import { fade } from 'svelte/transition';
     import '../../styles/css/app.css'
-    import '../../styles/css/customProps.css'
     import '../../styles/scss/colorScheme.scss'
     import '../../styles/scss/spin.scss'
     let lines = [
