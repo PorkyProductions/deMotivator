@@ -2,7 +2,6 @@
 
 <script lang="ts">
     import '../../styles/css/app.css'
-    import '../../styles/css/customProps.css'
     import '../../styles/scss/colorScheme.scss'
     import { loginWithEmailPassword, loginWithGoogle, signInAnonymous, logout, onAuthStateChanged } from '../../utils/firebase';
     // Loading Logic

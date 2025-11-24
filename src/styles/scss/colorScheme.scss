@@ -38,12 +38,3 @@ $theme-border-radius-md: 15px;
         cursor: pointer;
     }
 }
-
-@media (prefers-color-scheme: dark) {
-    * {
-        accent-color: mix($secondary-orangePantone, $theme-orange, 10%);
-        &::selection {
-            background-color: $secondary-orangePantone
-        }
-    }
-}

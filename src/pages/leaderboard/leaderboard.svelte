@@ -286,11 +286,15 @@
 											<td class="text-center">
 												{#if index < 3}
 													<span class="badge bg-success-subtle text-success">
-														<Icon name="graph-up-arrow" /> Top 3
+														<Icon name="lightning" /> Top 3
 													</span>
 												{:else if index < 10}
 													<span class="badge bg-primary-subtle text-primary">
-														Top 10
+														<Icon name="graph-up-arrow" /> Top 10
+													</span>
+												{:else if index < 25}
+													<span class="badge bg-info-subtle text-info">
+														<Icon name="arrow-up-right" /> Top 25
 													</span>
 												{:else}
 													<span class="text-muted">—</span>
