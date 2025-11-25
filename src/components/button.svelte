@@ -9,6 +9,7 @@
     import {fade, scale} from 'svelte/transition'
     import { onMount, onDestroy } from 'svelte';
     import Icon from './icon.svelte';
+    import { isFavorite, toggleFavorite } from '../utils/favorites';
 
 /*
 
@@ -44,6 +45,24 @@ const writeInsultToClipboard = async () => {
         } catch (e) {
             console.warn('navigator.clipboard.writeText failed, falling back to Capacitor Clipboard', e);
         }
+    }
+};
+
+/*
+
+Favorites
+
+*/
+
+let isCurrentFavorite = $state(false);
+
+$effect(() => {
+    isCurrentFavorite = result ? isFavorite(result) : false;
+});
+
+const handleToggleFavorite = () => {
+    if (result) {
+        isCurrentFavorite = toggleFavorite(result);
     }
 };
 
@@ -193,6 +212,18 @@ $effect(() => {
                 <Icon name="clipboard" /> 
                 Copy insult to clipboard
             </button>
+
+            <!-- Favorite Button -->
+            {#if result && !MEGAMODE}
+                <button 
+                    onclick={handleToggleFavorite} 
+                    class={`btn ${isCurrentFavorite ? 'btn-danger' : !darkMode ? 'btn-outline-danger' : 'btn-outline-light'} mt-2`}
+                    title={isCurrentFavorite ? 'Remove from favorites' : 'Add to favorites'}
+                >
+                    <Icon name={isCurrentFavorite ? 'heart-fill' : 'heart'} /> 
+                    {isCurrentFavorite ? 'Favorited!' : 'Save to Favorites'}
+                </button>
+            {/if}
         </div>
     </div>
 
