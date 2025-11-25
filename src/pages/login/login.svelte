@@ -176,7 +176,7 @@
         {/if}
       </div>
 
-      <div class="hidden lg:block lg:w-1/2 relative bg-black">
+      <div class="hidden lg:block lg:w-1/2 relative dark:bg-black">
         <img 
           class="absolute inset-0 w-full h-full object-cover opacity-90" 
           src={hedgehog} 

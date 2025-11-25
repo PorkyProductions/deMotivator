@@ -58,6 +58,12 @@ let MEGAMODE = $state(false);
 let MEGAMODEspeed = $state(250);
 let MEGAMODEinsults = $state(0);
 
+// Slider mapping: sliderValue is a "throttle" where right = fast.
+const sliderMin = 1;
+const sliderMax = 2000;
+// initialize to match the default MEGAMODEspeed (250) without referencing it
+let sliderValue = $state(sliderMax + sliderMin - 250);
+
 let MEGAMODEinterval: ReturnType<typeof setInterval> | null = null;
 
 const MEGAMODErandomize = async () => {
@@ -86,6 +92,14 @@ const MEGAMODEspeedControl = () => {
         startMEGAMODE();
     }
 };
+
+$effect(() => {
+    // Map the slider throttle to interval milliseconds (inverted):
+    // sliderValue == sliderMax  -> smallest interval (fastest)
+    // sliderValue == sliderMin  -> largest interval (slowest)
+    const v = Number(sliderValue) || sliderMax;
+    MEGAMODEspeed = sliderMax + sliderMin - v;
+});
 
 $effect(() => {
     if (MEGAMODE) {
@@ -214,14 +228,14 @@ $effect(() => {
                         
                         <div class="d-flex align-items-center gap-3">
                             <div class="flex-fill">
-                                <input 
-                                    type="range" 
-                                    class="form-range w-100" 
+                                <input
+                                    type="range"
+                                    class="form-range w-100"
                                     id="megamodeSpeedControl"
-                                    min="1" 
-                                    max="2000" 
-                                    onchange={MEGAMODEspeedControl} 
-                                    bind:value={MEGAMODEspeed} 
+                                    min={sliderMin}
+                                    max={sliderMax}
+                                    onchange={MEGAMODEspeedControl}
+                                    bind:value={sliderValue}
                                 />
                             </div>
                             <p class="font-primary text-sm font-mono px-3 py-1 mb-0" style="min-width: 70px;">
