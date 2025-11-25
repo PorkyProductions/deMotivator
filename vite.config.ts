@@ -21,7 +21,7 @@ const config: UserConfig = {
     devSourcemap: true,
   },
   build: {
-    target: "es2017",
+    target: "es2022",
     emptyOutDir: false,
     cssCodeSplit: true,
     sourcemap: false,
@@ -34,11 +34,8 @@ const config: UserConfig = {
         fiveHundred: "./500.html",
         login: "./login.html",
         signUp: "./signUp.html",
-        // share: "./share.html",
         list: "./list.html",
-        // credits: "./credits.html",
         leaderboard: "./leaderboard.html",
-        // DMV1: './dmv1.html',
       },
       output: {
         dir: "out",
