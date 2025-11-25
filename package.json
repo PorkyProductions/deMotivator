@@ -37,7 +37,7 @@
     "bootstrap": "^5.3.8",
     "bootstrap-icons": "^1.13.1",
     "canvas-confetti": "^1.9.3",
-    "demotivator": "^13.0.0",
+    "demotivator": "^14.0.0",
     "firebase": "^9.23.0",
     "lodash": "^4.17.21",
     "uadetect": "^7.0.0-alpha-2"
