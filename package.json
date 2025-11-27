@@ -51,7 +51,7 @@
     "firebase": "^9.23.0",
     "firebase-tools": "^11.30.0",
     "lodash": "^4.17.21",
-    "serve": "^14.2.3",
+    "serve": "^14.2.5",
     "terser": "^5.31.6",
     "twemoji": "^14.0.2",
     "typescript": "^5.5.4",
