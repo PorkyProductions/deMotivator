@@ -39,6 +39,7 @@
     "canvas-confetti": "^1.9.3",
     "demotivator": "^14.0.0",
     "firebase": "^9.23.0",
+    "firebase-tools": "^14.26.0",
     "lodash": "^4.17.21",
     "uadetect": "^7.0.0-alpha-2"
   }
