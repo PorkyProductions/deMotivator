@@ -171,4 +171,4 @@ This project is licensed under the **ISC License**. See the LICENSE file for det
 
 ---
 
-Enjoy the app, and remember: hedgehogs are cool. 🦔
+Enjoy the app, and remember: porky rules 🦔
