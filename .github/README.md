@@ -8,11 +8,6 @@ Also check out [(de)Motivator.js](https://github.com/PorkyProductions/deMotivato
 **Brought to you by your friends at [PorkyProductions](https://porkyproductions.github.io/)**
 ![PorkyProdutions Logo](https://avatars.githubusercontent.com/u/82683662?s=200&v=4)
 
----
-
-(de)Motivator is a satirical web app designed to deliver demotivational insults. Built with **Svelte 5** and **TypeScript**, it’s a fun, cross-platform app that works on the web and mobile. Whether you’re looking for a laugh or just want to lower your self-esteem, (de)Motivator has you covered.
-
----
 
 ## 🚀 Features
 
