@@ -1,0 +1,125 @@
+name: Dependabot Auto-Merge and PR Management ha ha ha
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  pull-requests: write
+  contents: write
+  issues: write
+
+jobs:
+  dependabot:
+    runs-on: ubuntu-latest
+    if: github.actor == 'dependabot[bot]'
+    
+    steps:
+      - name: Dependabot metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@v2
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+      
+      - name: Get package info
+        id: package-info
+        run: |
+          echo "package_name=${{ steps.metadata.outputs.dependency-names }}" >> $GITHUB_OUTPUT
+          echo "previous_version=${{ steps.metadata.outputs.previous-version }}" >> $GITHUB_OUTPUT
+          echo "new_version=${{ steps.metadata.outputs.new-version }}" >> $GITHUB_OUTPUT
+          echo "update_type=${{ steps.metadata.outputs.update-type }}" >> $GITHUB_OUTPUT
+          
+          # Determine upgrade type label
+          if [[ "${{ steps.metadata.outputs.update-type }}" == "version-update:semver-major" ]]; then
+            echo "upgrade_label=MAJOR" >> $GITHUB_OUTPUT
+          elif [[ "${{ steps.metadata.outputs.update-type }}" == "version-update:semver-minor" ]]; then
+            echo "upgrade_label=MINOR" >> $GITHUB_OUTPUT
+          else
+            echo "upgrade_label=PATCH" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Update PR title and body
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const packageName = '${{ steps.package-info.outputs.package_name }}';
+            const previousVersion = '${{ steps.package-info.outputs.previous_version }}';
+            const newVersion = '${{ steps.package-info.outputs.new_version }}';
+            const upgradeType = '${{ steps.package-info.outputs.upgrade_label }}';
+            const prNumber = context.issue.number;
+            const currentDate = new Date().toISOString().split('T')[0];
+            
+            // Update PR title
+            const newTitle = `[${upgradeType}] upgrade to ${packageName} from ${previousVersion} to ${newVersion}`;
+            
+            // Update PR body
+            const newBody = `PR created on ${currentDate}`;
+            
+            await github.rest.pulls.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: prNumber,
+              title: newTitle,
+              body: newBody
+            });
+            
+            // Update commit message (for squash merge)
+            await github.rest.pulls.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: prNumber,
+              commit_title: `Upgrade ${packageName} from ${previousVersion} to ${newVersion}`
+            });
+      
+      - name: Check auto-merge eligibility
+        id: check-auto-merge
+        run: |
+          PACKAGE="${{ steps.package-info.outputs.package_name }}"
+          UPDATE_TYPE="${{ steps.metadata.outputs.update-type }}"
+          TARGET_BRANCH="${{ github.base_ref }}"
+          
+          # List of packages allowed for minor auto-updates
+          MINOR_AUTO_PACKAGES="demotivator jquery uadetect @porkyproductions/hat bootstrap-icons lodash"
+          
+          # Check if we should auto-merge
+          if [[ "$TARGET_BRANCH" == "dev" ]]; then
+            # Dev branch: auto-merge everything
+            echo "should_merge=true" >> $GITHUB_OUTPUT
+          elif [[ "$UPDATE_TYPE" == "version-update:semver-patch" ]]; then
+            # Main branch: auto-merge all patches
+            echo "should_merge=true" >> $GITHUB_OUTPUT
+          elif [[ "$UPDATE_TYPE" == "version-update:semver-minor" ]]; then
+            # Check if package is in special minor auto-merge list
+            for pkg in $MINOR_AUTO_PACKAGES; do
+              if [[ "$PACKAGE" == *"$pkg"* ]]; then
+                echo "should_merge=true" >> $GITHUB_OUTPUT
+                exit 0
+              fi
+            done
+            echo "should_merge=false" >> $GITHUB_OUTPUT
+          else
+            echo "should_merge=false" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Auto-merge if eligible
+        if: steps.check-auto-merge.outputs.should_merge == 'true'
+        run: gh pr merge --auto --squash "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Add review labels
+        if: steps.check-auto-merge.outputs.should_merge == 'false'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              labels: ['needs-review', '${{ steps.package-info.outputs.upgrade_label }}-upgrade']
+            });
