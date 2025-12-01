@@ -1,4 +1,5 @@
-# [(de)Motivator](https://demotivator.web.app)
+
+# (de)Motivator 🦔
 
 Also check out [(de)Motivator.js](https://github.com/PorkyProductions/deMotivator.js) for the JavaScript Library
 
@@ -7,80 +8,172 @@ Also check out [(de)Motivator.js](https://github.com/PorkyProductions/deMotivato
 **Brought to you by your friends at [PorkyProductions](https://porkyproductions.github.io/)**
 ![PorkyProdutions Logo](https://avatars.githubusercontent.com/u/82683662?s=200&v=4)
 
-- [(de)Motivator](#demotivator)
-- [How to Download](#how-to-download)
-  - [For desktop](#for-desktop)
-    - [PWA](#pwa)
-    - [Windows Native](#windows-native)
-  - [For Android](#for-android)
-  - [For iOSc](#for-iosc)
-- [Technologies Used](#technologies-used)
-- [Available On](#available-on)
-- [Tour](#tour)
+---
 
+(de)Motivator is a satirical web app designed to deliver demotivational insults. Built with **Svelte 5** and **TypeScript**, it’s a fun, cross-platform app that works on the web and mobile. Whether you’re looking for a laugh or just want to lower your self-esteem, (de)Motivator has you covered.
 
-# How to Download
+---
 
-## For desktop
-### PWA
-Navigate to [(de)Motivator Web](https://demotivator.web.app). Your browser should prompt you to install the app to your system.
-### Windows Native
-Navigate to the [releases page](https://github.com/PorkyProductions/deMotivator/releases), and select one of the installer options. We reccomend the `demotivator.(version).setup.exe` file for the easiest experience
-## For Android
-Navigate to [(de)Motivator Web](https://demotivator.web.app). Your browser should prompt you to install the app to your system. If not, you may need to add the website to your home screen.
+## 🚀 Features
 
-Alternatively, you may want to build the app from its source. Becuase the app is not available on the play store, you must build the APK yourself. Navigate to the [releases page](https://github.com/PorkyProductions/deMotivator/releases) and download `android.zip`, open the extracted folder in android studio, and build the app from source there.
-## For iOSc
-Navigate to [(de)Motivator Web](https://demotivator.web.app). You will need to add the website to your home screen.
+- **Dynamic Insults**: Randomized insults from the `demotivator` npm package, with optional user-specific insults.
+- **Multi-Platform**: 
+  - Web app hosted on **Firebase Hosting**.
+- **Dark Mode**: Fully styled with **TailwindCSS** and **Bootstrap**, including dark mode support.
+- **Leaderboard**: Track users who have seen the most insults.
+- **Shareable Content**: Share insults via email or social media.
+- **PWA Support**: Installable as a Progressive Web App.
 
-Alternatively, becuase the app is not available on the app store, you may want to build the app from its source. Navigate to the [releases page](https://github.com/PorkyProductions/deMotivator/releases) and download `ios.zip`, and open the extracted folder in Xcode. You can build the app from source there
+---
 
+## 🛠️ Tech Stack
 
-# Technologies Used
+- **Frontend**: Svelte 5 + TypeScript
+- **Styling**: TailwindCSS + Bootstrap
+- **Bundler**: Vite
+- **Hosting**: Firebase Hosting
+- **Data**: Firebase Firestore
+- **Utilities**: 
+  - `@porkyproductions/hat` for randomization and utility functions.
+  - `demotivator` npm package for insult generation.
 
-<img alt="HTML5" width="26px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/HTML5_logo_and_wordmark.svg/1200px-HTML5_logo_and_wordmark.svg.png" /><img alt="CSS3" width="20px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/CSS3_logo_and_wordmark.svg/1200px-CSS3_logo_and_wordmark.svg.png" /><img alt="TypeScript" width="26px" src="https://blog.jeremylikness.com/blog/2019-03-05_typescript-for-javascript-developers-by-refactoring-part-1-of-2/images/1.jpeg"/><img alt="JavaScript" width="26px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/javascript/javascript.png" /><img alt="TailwindCSS" width="26px" src="https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg"><img src="https://getbootstrap.com/docs/5.3/assets/brand/bootstrap-logo.svg" alt="bootstrap" width="30px" /><img src="https://user-images.githubusercontent.com/236501/105104854-e5e42e80-5a67-11eb-8cb8-46fccb079062.png" alt="capacitor" width="100px"><img src="https://avatars.githubusercontent.com/u/23617963?s=200&v=4" width="30px" alt="svelte">
+---
 
-# Available On
-<img src="https://user-images.githubusercontent.com/3104648/28351989-7f68389e-6c4b-11e7-9bf2-e9fcd4977e7a.png" alt="PWA" width="100px"><br>
-<img src="https://static.wikia.nocookie.net/logopedia/images/6/63/IOS_wordmark_%282017%29.svg/revision/latest/scale-to-width-down/200?cb=20170621150256" alt="iOS" width="85px"><br>
-<img src="https://developer.android.com/images/brand/Android_Robot.png" alt="android" width="75"><br>
-<img src="https://static.wikia.nocookie.net/logopedia/images/b/b3/Windows_2021.svg/revision/latest?cb=20220510113535" alt="windows" width="150">
+## 📂 Project Structure
 
-# Tour
+```bash
+/
+├── index.html              # Main web entry point
+├── src/
+│   ├── App.svelte          # Top-level Svelte component
+│   ├── bootstrapper.ts     # Mounts the app
+│   ├── components/         # Reusable Svelte components
+│   ├── pages/              # Page-specific Svelte components
+│   ├── typescript/         # Helper functions and logic
+│   ├── styles/             # Global SCSS styles
+│   └── utils/              # Utility functions
+├── www/                    # PWA assets (manifest, icons, etc.)
+├── android/                # Capacitor Android project
+├── ios/                    # Capacitor iOS project
+├── out/                    # Build output directory
+└── docs/                   # Documentation and redirects
+```
 
-This is a **monorepo**, meaning multiple apps are being hosted from this one repository. Let's take a tour of all of the directories
+---
 
-- `.github/` 
-  - this hosts all of the files for maintaining the upstream repository on GitHub, additionally
-  - `/workflows`
-    - the CI workflows used in GitHub actions
-- `.vscode/`
-  - configuration files for Visual Studio code users. Most importantly, the reccomended extentions
-- `android/`
-  - the andorid port of (de)Motivator. Open this folder in android studio to run the android app
-- `docs/`
-  - This is the redirect file used to redirect users who used the legacy GitHub pages link to the new firebase link. 
-- `electron/`
-  - The Desktop port of (de)Motivator. Works as a standard node.js project would.
-- `ios/`
-  -  the iOS port of (de)Motivator. Open this folder in Xcode to run the iOS app
-- `src/`
-  - `components/`
-    - all of the svelte UI components for the main website.
-  - `icons/`
-    - All icons and sizes of icons used in the apps.
-  - `pages/`
-    - different directories for the different pages of the site. Purely for organization
-  - `styles/`
-    - All of the `.css` and `.scss` files used for manual styling
-  - `typescript/`
-    - All of the typescript files used for manual scripting used outside of the svelte files
-  - `App.svelte`
-    - This is main svelte file for the `index.html`
-  - `bootstrapper.ts`
-    - This is what links the `html` file to the svelte file for vite
-  - `vite-env.d.ts`
-- `www/`
-  - All files needed to maintain the PWA of the app. 
-- `./`
-  - The root of the project contains misc config files, as well as the `.html` files that vite uses as entry points to the app. 
+## 🖥️ Local Development
+
+### Prerequisites
+- Node.js 25+
+- npm
+
+### Setup
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/PorkyProductions/deMotivator.git
+   cd deMotivator
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+   - Open your browser at [http://localhost:5173](http://localhost:5173).
+
+4. Preview the production build:
+   ```bash
+   npm run build
+   npm run preview
+   ```
+
+5. Deploy to Firebase:
+   ```bash
+   npm run push
+   ```
+
+6. Build for mobile:
+   ```bash
+   npm run capBuild
+   ```
+
+---
+
+## 📦 Deployment
+
+### Firebase Hosting
+1. Ensure you are logged into Firebase:
+   ```bash
+   firebase login
+   ```
+2. Deploy the app:
+   ```bash
+   npm run push
+   ```
+
+---
+
+## 🎨 Styling
+
+- **Bootstrap**: Used for structural components (e.g., modals, cards).
+- **TailwindCSS**: Used for utility classes (e.g., spacing, colors, dark mode).
+- **SCSS**: Global styles and theme overrides.
+
+---
+
+## 🧑‍💻 Contributing
+
+We welcome contributions! Please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch:
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+3. Commit your changes:
+   ```bash
+   git commit -m "Add your message here"
+   ```
+4. Push to your branch:
+   ```bash
+   git push origin feature/your-feature-name
+   ```
+5. Open a pull request.
+
+---
+
+## 📜 License
+
+This project is licensed under the **ISC License**. See the LICENSE file for details.
+
+---
+
+## ❤️ Credits
+
+- **Developers**: PorkyProductions (more specifically Ryan Mullin (@hiteacheryouare)) and contributors.
+- **Creator** Tristan Winata (@HedgehogDubz)
+- **Libraries**: 
+  - Svelte
+  - TailwindCSS
+  - Bootstrap
+  - Capacitor
+  - Firebase
+  - `@porkyproductions/hat`
+  - `demotivator`
+- **Special Thanks**: To all the users who keep coming back for more insults!
+
+---
+
+## 🌐 Links
+
+- **Live App**: [https://demotivator.web.app](https://demotivator.web.app)
+- **Dev Mode** [https://demotivator-dev.web.app](https://demotivator-dev.web.app)
+- **GitHub Repo**: [https://github.com/PorkyProductions/deMotivator](https://github.com/PorkyProductions/deMotivator)
+
+---
+
+Enjoy the app, and remember: hedgehogs are cool. 🦔
