@@ -154,8 +154,8 @@ This project is licensed under the **ISC License**. See the LICENSE file for det
 
 ## ❤️ Credits
 
-- **Developers**: PorkyProductions (more specifically Ryan Mullin (@hiteacheryouare)) and contributors.
-- **Creator** Tristan Winata (@HedgehogDubz)
+- **Developers**: PorkyProductions (more specifically Ryan Mullin ([@hiteacheryouare](https://github.com/hiteacheryouare))) and contributors.
+- **Creator** Tristan Winata ([@HedgehogDubz](https://github.com/HedgehogDubz))
 - **Libraries**: 
   - Svelte
   - TailwindCSS
