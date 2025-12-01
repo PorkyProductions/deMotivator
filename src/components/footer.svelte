@@ -41,18 +41,25 @@
                     <a href="https://porkyproductions.github.io" class="block">
                         <img src={hedgehog} alt="Hedgehog" class="w-10 h-10 hover:animate-spin object-contain" />
                     </a>
-                    <div class="flex items-center gap-2 text-xs">
-                        <Title />
-                        <span class="opacity-60">| &copy; {year} {parentCompany}</span>
+                    <div class="flex flex-col leading-tight">
+                        <div class="flex items-center gap-2">
+                            <Title />
+                        </div>
+                        <div class="text-xs text-white/70 mt-0.5">
+                            &copy; {year} {parentCompany}
+                        </div>
                     </div>
                 </div>
 
                 <!-- Center section: Navigation links -->
-                <nav class="flex items-center gap-4">
-                    {#each navigation as link}
-                        <a class="text-xs hover:text-secondary-orangePantone transition-colors" href={link.href}>
+                <nav class="flex items-center text-sm">
+                    {#each navigation as link, i}
+                        <a class="text-sm text-white/90 hover:text-white transition-colors" href={link.href}>
                             {link.name}
                         </a>
+                        {#if i < navigation.length - 1}
+                            <span class="mx-2 text-white/40">·</span>
+                        {/if}
                     {/each}
                 </nav>
 
