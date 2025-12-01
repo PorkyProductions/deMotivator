@@ -1,5 +1,5 @@
 
-# (de)Motivator 🦔
+# (de)Motivator 🔴
 
 Also check out [(de)Motivator.js](https://github.com/PorkyProductions/deMotivator.js) for the JavaScript Library
 
