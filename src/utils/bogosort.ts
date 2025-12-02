@@ -1,0 +1,34 @@
+export const bogosort = (input: number[], maxAttempts = 1000000): number[] => {
+	const arr = input.slice();
+	if (arr.length < 2) {
+		return arr;
+	}
+
+	const isSorted = (a: number[]): boolean => {
+		for (let i = 0; i < a.length - 1; i++) {
+			if (a[i] > a[i + 1]) {
+				return false;
+			}
+		}
+		return true;
+	};
+
+	const shuffle = (a: number[]): void => {
+		for (let i = a.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			const tmp = a[i];
+			a[i] = a[j];
+			a[j] = tmp;
+		}
+	};
+
+	let attempts = 0;
+	while (!isSorted(arr)) {
+		if (++attempts > maxAttempts) {
+			throw new Error('bogosort: reached maxAttempts');
+		}
+		shuffle(arr);
+	}
+
+	return arr;
+};
