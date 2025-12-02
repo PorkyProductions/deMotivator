@@ -1,3 +1,4 @@
+import shuffle from 'lodash/shuffle'
 export const bogosort = (input: number[], maxAttempts = 1000000): number[] => {
 	const arr = input.slice();
 	if (arr.length < 2) {
@@ -11,15 +12,6 @@ export const bogosort = (input: number[], maxAttempts = 1000000): number[] => {
 			}
 		}
 		return true;
-	};
-
-	const shuffle = (a: number[]): void => {
-		for (let i = a.length - 1; i > 0; i--) {
-			const j = Math.floor(Math.random() * (i + 1));
-			const tmp = a[i];
-			a[i] = a[j];
-			a[j] = tmp;
-		}
 	};
 
 	let attempts = 0;
