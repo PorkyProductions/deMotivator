@@ -14,7 +14,7 @@
 </script>
 
 {#if isMobileView}
-    <footer class="fixed bottom-0 left-0 right-0 z-50 bg-gradient-to-r from-primary-majorelleBlue via-indigo-600 to-primary-majorelleBlue dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 shadow-2xl border-t border-white/10 backdrop-blur-md">
+    <footer class="fixed bottom-0 left-0 right-0 z-50 bg-linear-to-r from-primary-majorelle-blue via-indigo-600 to-primary-majorelle-blue dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 shadow-2xl border-t border-white/10 backdrop-blur-md">
         <div class="container mx-auto px-4 py-3">
             <div class="flex flex-col items-center gap-3">
                 <!-- Mobile Navigation Row -->
@@ -52,7 +52,7 @@
 {:else}
     <footer 
         class="fixed bottom-0 left-0 right-0 z-50 py-3 shadow-2xl border-t border-white/10
-        bg-gradient-to-r from-primary-majorelleBlue via-indigo-600 to-primary-majorelleBlue dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 backdrop-blur-md portrait:hidden text-white"
+        bg-linear-to-r from-primary-majorelle-blue via-indigo-600 to-primary-majorelle-blue dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 backdrop-blur-md portrait:hidden text-white"
     >
         <div class="container mx-auto px-6">
             <div class="flex justify-between items-center">
