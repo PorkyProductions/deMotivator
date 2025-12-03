@@ -1,4 +1,6 @@
 <script lang="ts">
+	import '../../styles/css/app.css';
+	import '../../styles/scss/colorScheme.scss';
 	import { leaderboard } from '../../typescript/readInsults'
 	import { getListOfAllUsersWhoHaveSeenInsults as getList } from '../../typescript/readInsults'
 	import { randomInRange } from '@porkyproductions/hat/randomInRange'
