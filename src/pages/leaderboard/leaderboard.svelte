@@ -334,7 +334,6 @@
 			</div>
 		</div>
 	{/if}
-	<Footer />
 </div>
 
 <style>

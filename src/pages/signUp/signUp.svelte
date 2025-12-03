@@ -346,7 +346,6 @@
         <div class="absolute inset-0 bg-linear-to-l from-black/10 to-transparent"></div>
       </div>
     </div>
-    <Footer />
   </Auth>
 </div>
 

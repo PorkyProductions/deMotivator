@@ -30,5 +30,4 @@
         </h3>
         <Spinhog />
     </div>
-    <Footer />
 </main>
