@@ -1,13 +1,12 @@
 # GitHub Copilot Instructions
 
 ## Project Context
-This is (de)Motivator — a small satirical web app that shows short, cheeky one-liners. Built with Svelte 4 + TypeScript, bundled with Vite, packaged for web and mobile via Capacitor, and deployed to Firebase hosting. We value pragmatic solutions over dogmatic conventions. No bikeshedding allowed. We like giraffes and hedgehogs.
+This is (de)Motivator — a satirical web app that shows short, cheeky one-liners. Built with Svelte 5 + TypeScript, bundled with Vite, and deployed to Firebase hosting. We value pragmatic solutions over dogmatic conventions. No bikeshedding allowed. We like giraffes and hedgehogs.
 
 ## Quick Overview
 
-- **Language/frameworks**: Svelte 4 + TypeScript
+- **Language/frameworks**: Svelte 5 (with Runes enabled) + TypeScript
 - **Bundler**: Vite (config in `vite.config.ts`)
-- **Mobile**: Capacitor (Android/iOS under `android/` and `ios/`)
 - **Hosting**: Firebase (`firebase.json` + `npm run push`)
 - **UI**: Tailwind + Bootstrap (some customized theme files)
 - **Insults/data**: provided by the `demotivator` npm package (dependency)
@@ -32,7 +31,7 @@ This is (de)Motivator — a small satirical web app that shows short, cheeky one
 ## Language and Framework Rules
 
 ### Svelte Components
-- Use Svelte 4 as the primary framework
+- Use Svelte 5 (with runes) as the primary framework
 - TypeScript for all helper functions and complex components
 - Use JavaScript (not TypeScript) for simple components that:
   - Don't use props
@@ -150,7 +149,7 @@ export const processData = () => { /* complex logic */ };
    - No Chakra UI
    - No other component libraries
 3. **NO explicit function declarations** - Always use arrow functions
-4. **NO `var` keyword** - Exception: Single-use variables without hoisting issues
+4. **NO `var` keyword** - **Exception**: Single-use variables without hoisting issues
 5. **NO .sass files** - Use .scss instead
 6. **NO mainstream conventions just because they're popular**
 7. **NO magic** - codemods and random naming conventions that do crazy things just because they are named a certain way should be avoided at all costs. All things should be explicit and easy to understand.
