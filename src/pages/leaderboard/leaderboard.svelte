@@ -1,4 +1,6 @@
 <script lang="ts">
+	import '../../styles/css/app.css';
+	import '../../styles/scss/colorScheme.scss';
 	import { leaderboard } from '../../typescript/readInsults'
 	import { getListOfAllUsersWhoHaveSeenInsults as getList } from '../../typescript/readInsults'
 	import { randomInRange } from '@porkyproductions/hat/randomInRange'
@@ -13,6 +15,7 @@
 	import BsSpinner from '../../components/bs-spinner.svelte';
 	import BsModal from '../../components/bs-modal.svelte';
 	import BsAlert from '../../components/bs-Alert.svelte';
+	import Footer from '../../components/footer.svelte';
 	
 	const modalProps: BsModalProps = {
 		icon: "patch-question",

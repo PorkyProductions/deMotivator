@@ -1,6 +1,7 @@
 <script>
   // Import generic stylesheets, essential libraries
   import "../../styles/css/app.css";
+  import "../../styles/scss/colorScheme.scss";
   import hedgehog from '../../img/HedgehogIcon.png'
   
   // Import components
@@ -10,6 +11,7 @@
   import BsLoader from "../../components/bsLoader.svelte";
   import LoginForm from "../../components/loginForm.svelte";
   import UserProfileCard from "../../components/userProfileCard.svelte";
+  import Footer from "../../components/footer.svelte";
 
   // Import Misc Helpers
   import { bsTheme, darkMode } from "../../utils/darkMode";
