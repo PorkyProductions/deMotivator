@@ -21,7 +21,12 @@ let result = $state("");
 let userResult = $state("");
 const randomize = async () => {
     const { userInsults } = await import('../typescript/insults')
-    const { insults } = await import('demotivator/dist/insults')
+    const { DeMotivator } = await import('demotivator')
+    const DMV = new DeMotivator()
+    const insults = DMV.createArray({
+        original: true,
+        profane: false
+    })
     let { readInsults } = await import('../typescript/readInsults')
     const {updateInsultsSeen} = await import('../typescript/updateInsults')
     const demotivatorAndUserIsults = userInsults.concat(insults)
