@@ -19,25 +19,28 @@ Randomizer
 let insultsShown = $state(0);
 let result = $state("");
 let userResult = $state("");
+let includeOriginal = $state(true);
+let includeProfane = $state(false);
+
+// Update randomize function to use checkbox states
 const randomize = async () => {
-    const { userInsults } = await import('../typescript/insults')
-    const { DeMotivator } = await import('demotivator')
-    const DMV = new DeMotivator()
-    const insults = DMV.createArray({
-        original: true,
-        profane: false
-    })
-    let { readInsults } = await import('../typescript/readInsults')
-    const {updateInsultsSeen} = await import('../typescript/updateInsults')
-    const demotivatorAndUserIsults = userInsults.concat(insults)
-    userResult = demotivatorAndUserIsults[Math.floor(Math.random() * demotivatorAndUserIsults.length)]
-    result = insults[Math.floor(Math.random() * insults.length)]
-    let insultsSeenDB: number;
-    insultsShown++
-    insultsSeenDB = await readInsults()
-    if (!MEGAMODE) {
-        updateInsultsSeen(insultsSeenDB + 1)
-    }
+	const { userInsults } = await import('../typescript/insults');
+	const { DeMotivator } = await import('demotivator');
+	const DMV = new DeMotivator();
+	const insults = DMV.createArray({
+		original: includeOriginal,
+		profane: includeProfane
+	});
+	let { readInsults } = await import('../typescript/readInsults');
+	const { updateInsultsSeen } = await import('../typescript/updateInsults');
+	const demotivatorAndUserInsults = userInsults.concat(insults);
+	userResult = demotivatorAndUserInsults[Math.floor(Math.random() * demotivatorAndUserInsults.length)];
+	result = insults[Math.floor(Math.random() * insults.length)];
+	let insultsSeenDB = await readInsults();
+	insultsShown++;
+	if (!MEGAMODE) {
+		updateInsultsSeen(insultsSeenDB + 1);
+	}
 }
 
 const writeInsultToClipboard = async () => {
@@ -154,6 +157,28 @@ $effect(() => {
     insultFontSize = calcFontSizeRem(result || MEGAMODEresult);
 });
 
+/*
+
+Profanity Warning
+
+*/
+
+
+const handleProfaneCheckbox = () => {
+    if (includeProfane) {
+        alert('Warning: Enabling profanity will include offensive content.');
+    }
+};
+
+$effect(() => {
+    handleProfaneCheckbox();
+});
+/*
+
+End of Script
+
+*/
+
 </script>
 
 <main class={`flex flex-col md:flex-row transition-all duration-500 ${result || MEGAMODEresult ? 'pt-6 md:pt-12' : 'pt-3'}`}>
@@ -175,7 +200,32 @@ $effect(() => {
                 onkeypress={randomize} 
                 class="hover:cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-200 pb-4"
             >
-            
+
+            <!-- Checkboxes for insult options -->
+            <div class="form-check">
+                <input 
+                    type="checkbox" 
+                    bind:checked={includeOriginal} 
+                    class="form-check-input" 
+                    id="originalCheck"
+                >
+                <label class="form-check-label" for="originalCheck">
+                    Include Original
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input 
+                    type="checkbox" 
+                    bind:checked={includeProfane} 
+                    class="form-check-input" 
+                    id="profaneCheck"
+                >
+                <label class="form-check-label" for="profaneCheck">
+                    Include Profane
+                </label>
+            </div>
+
             <!-- MEGAMODE Toggle -->
             <div class="form-check">
                 <input 
