@@ -10,6 +10,7 @@
   import BsLoader from "../../components/bsLoader.svelte";
   import LoginForm from "../../components/loginForm.svelte";
   import UserProfileCard from "../../components/userProfileCard.svelte";
+  import Footer from "../../components/footer.svelte";
 
   // Import Misc Helpers
   import { bsTheme, darkMode } from "../../utils/darkMode";
@@ -186,6 +187,7 @@
         <div class="absolute inset-0 bg-linear-to-l from-black/10 to-transparent"></div>
       </div>
     </div>
+    <Footer />
   </Auth>
 </div>
 

@@ -9,6 +9,7 @@
   import Auth from "../login/auth.svelte";
   import BsAlert from "../../components/bs-Alert.svelte";
   import BsLoader from "../../components/bsLoader.svelte";
+  import Footer from "../../components/footer.svelte";
 
   // Import Misc Helpers
   import { onMount } from "svelte";
@@ -344,6 +345,7 @@
         <div class="absolute inset-0 bg-linear-to-l from-black/10 to-transparent"></div>
       </div>
     </div>
+    <Footer />
   </Auth>
 </div>
 

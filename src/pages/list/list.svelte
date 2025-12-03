@@ -3,6 +3,7 @@
     import Icon from '../../components/icon.svelte';
     import BsSpinner from '../../components/bs-spinner.svelte';
     import BsLoader from '../../components/bsLoader.svelte';
+    import Footer from '../../components/footer.svelte';
     import shuffle from 'lodash/shuffle'
     import { insults, DeMotivator } from 'demotivator'
     import { print } from '@porkyproductions/hat/print'
@@ -468,6 +469,7 @@
 
         {/if}
     </Auth>
+    <Footer />
 </div>
 
 <style>

@@ -1,6 +1,7 @@
 <script lang="ts">
     import Title from '../../components/title.svelte';
     import Icon from '../../components/icon.svelte';
+    import Footer from '../../components/footer.svelte';
     import { fade, fly, scale, blur } from 'svelte/transition';
     import { bsTheme } from '../../utils/darkMode';
     import confetti from 'canvas-confetti';
@@ -667,6 +668,7 @@
             </div>
         </div>
     </div>
+    <Footer />
 </div>
 
 <style>
