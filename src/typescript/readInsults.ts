@@ -1,6 +1,6 @@
 import { DocumentData, QuerySnapshot } from "firebase/firestore";
 import { GlobInsultDBQueryResponse, type InsultDBQueryResponse  } from "./types";
-export async function readInsults(): Promise<number> {
+export const readInsults = async (): Promise<number> => {
   const { getFirestore, doc, getDoc } = await import("firebase/firestore");
   const { initializeApp } = await import("firebase/app");
   const { getAuth } = await import("firebase/auth");
@@ -35,7 +35,7 @@ export async function readInsults(): Promise<number> {
 }
 export let leaderboard: GlobInsultDBQueryResponse[] = []
 
-export async function getListOfAllUsersWhoHaveSeenInsults(): Promise<QuerySnapshot<DocumentData>> {
+export const getListOfAllUsersWhoHaveSeenInsults = async (): Promise<QuerySnapshot<DocumentData>> => {
   leaderboard = []
   const { getFirestore, getDocs, collection, where, query  } = await import("firebase/firestore");
   const { initializeApp } = await import("firebase/app");
