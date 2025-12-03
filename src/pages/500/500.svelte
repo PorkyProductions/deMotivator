@@ -1,7 +1,9 @@
 <script>
     import Spinhog from '../../components/spinhog.svelte';
     import '../../styles/css/app.css'
+    import '../../styles/scss/colorScheme.scss'
     import Title from '../../components/title.svelte';
+    import Footer from '../../components/footer.svelte';
     let countdown = 15
     const countdownTimer = setInterval(() => {
             countdown--

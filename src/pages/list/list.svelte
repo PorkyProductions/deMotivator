@@ -1,8 +1,11 @@
 <script lang="ts">
+    import '../../styles/css/app.css';
+    import '../../styles/scss/colorScheme.scss';
     import Title from '../../components/title.svelte';
     import Icon from '../../components/icon.svelte';
     import BsSpinner from '../../components/bs-spinner.svelte';
     import BsLoader from '../../components/bsLoader.svelte';
+    import Footer from '../../components/footer.svelte';
     import shuffle from 'lodash/shuffle'
     import { insults, DeMotivator } from 'demotivator'
     import { print } from '@porkyproductions/hat/print'
@@ -468,6 +471,7 @@
 
         {/if}
     </Auth>
+    <Footer />
 </div>
 
 <style>
