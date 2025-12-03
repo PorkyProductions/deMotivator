@@ -1,4 +1,4 @@
-export async function updateInsultsSeen(insultsSeen: number) {
+export const updateInsultsSeen = async (insultsSeen: number) => {
   const { getFirestore, doc, setDoc } = await import("firebase/firestore");
   const { initializeApp } = await import("firebase/app");
   const { getAuth } = await import("firebase/auth");
