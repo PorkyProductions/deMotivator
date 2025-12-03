@@ -1,6 +1,7 @@
 <script>
   // Import generic stylesheets, essential libraries
-  import "../../styles/css/app.css";
+    import '../../styles/css/app.css'
+    import '../../styles/scss/colorScheme.scss'
   import hedgehog from '../../img/HedgehogIcon.png'
   
   // Import components
@@ -187,7 +188,10 @@
         <div class="absolute inset-0 bg-linear-to-l from-black/10 to-transparent"></div>
       </div>
     </div>
-    <Footer />
+    <div class="sm:p-3 md:p-4 lg:p-5 xl:p-20"></div>
+      <div id="footer" class="" >
+          <Footer />
+      </div>
   </Auth>
 </div>
 
