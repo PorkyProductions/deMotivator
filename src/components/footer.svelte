@@ -1,64 +1,94 @@
 <script lang="ts">
     import hedgehog from '../img/HedgehogIcon.png';
     import Title from './title.svelte';
+    import Icon from './icon.svelte';
     import { OS, deviceType } from '../utils/uaStub';
     import SiwGoogleButton from './siwGoogleButton.svelte';
     import { parentCompany } from '../typescript/constants';
+    import { navigation } from '../utils/navigation';
 
     const year = new Date().getFullYear();
-
-    const navigation = [
-        { name: "(de)Motivator 1.0", href: "dmv1.html" },
-        { name: "(de)Motivator.js", href: "https://github.com/PorkyProductions/deMotivator.js" },
-        { name: "Leaderboard", href: "leaderboard.html" },
-    ];
 
     // Logic: derived check for mobile/tablet to clean up the template
     const isMobileView = deviceType === 'mobile' || (deviceType === 'tablet' && (OS === 'Android' || OS === 'iOS'));
 </script>
 
 {#if isMobileView}
-    <footer class="fixed bottom-8 left-0 right-0 flex justify-center items-center pointer-events-none z-50 bg-primary-majorelle-blue dark:bg-gray-900/95 backdrop-blur-md">
-        <a 
-            href="login.html" 
-            class="pointer-events-auto shadow-lg transform transition hover:scale-105 text-white dark:bg-secondary-orangePantone bg-primary-majorelleBlue font-primary font-bold py-3 px-8 rounded-full no-underline border-2 border-white/20 backdrop-blur-md"
-        >
-            View Account
-        </a>
+    <footer class="fixed bottom-0 left-0 right-0 z-50 bg-linear-to-r from-primary-majorelle-blue via-indigo-600 to-primary-majorelle-blue dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 shadow-2xl border-t border-white/10 backdrop-blur-md">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex flex-col items-center gap-3">
+                <!-- Mobile Navigation Row -->
+                <nav class="flex items-center justify-center gap-4 flex-wrap">
+                    {#each navigation as link}
+                        <a 
+                            href={link.href}
+                            target={link.external ? '_blank' : undefined}
+                            rel={link.external ? 'noopener noreferrer' : undefined}
+                            class="flex items-center gap-1.5 text-white/80 hover:text-white transition-all duration-200 hover:scale-105 text-sm"
+                        >
+                            <Icon name={link.icon} />
+                            <span>{link.name}</span>
+                        </a>
+                    {/each}
+                </nav>
+                <!-- Mobile Account Button -->
+                <a 
+                    href="login.html" 
+                    class="flex items-center gap-2 shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-xl text-white bg-gradient-to-r from-secondary-orangePantone to-orange-500 dark:from-secondary-orangePantone dark:to-orange-600 font-primary font-bold py-2.5 px-6 rounded-full no-underline border-2 border-white/20"
+                >
+                    <Icon name="person-circle" />
+                    <span>View Account</span>
+                </a>
+                <!-- Copyright -->
+                <div class="text-xs text-white/60">
+                    &copy; {year} {parentCompany}
+                </div>
+            </div>
+        </div>
     </footer>
 
-    <div class="h-24"></div>
+    <div class="h-36"></div>
 
 {:else}
     <footer 
-        class="fixed bottom-0 left-0 right-0 z-50 h-16 py-2 shadow-xl border-t border-white/10
-        bg-primary-majorelle-blue dark:bg-gray-900/95 backdrop-blur-md portrait:hidden text-white"
+        class="fixed bottom-0 left-0 right-0 z-50 py-3 shadow-2xl border-t border-white/10
+        bg-linear-to-r from-primary-majorelle-blue via-indigo-600 to-primary-majorelle-blue dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 backdrop-blur-md portrait:hidden text-white"
     >
-        <div class="container mx-auto px-6 h-full">
-            <div class="flex justify-between items-center h-full">
+        <div class="container mx-auto px-6">
+            <div class="flex justify-between items-center">
                 <!-- Left section: Hedgehog + Title + Copyright -->
-                <div class="flex items-center gap-3">
-                    <a href="https://porkyproductions.github.io" class="block">
-                        <img src={hedgehog} alt="Hedgehog" class="w-10 h-10 hover:animate-spin object-contain" />
+                <div class="flex items-center gap-4">
+                    <a href="https://porkyproductions.github.io" class="block group">
+                        <img src={hedgehog} alt="Hedgehog" class="w-11 h-11 group-hover:animate-spin object-contain drop-shadow-lg transition-transform duration-300 group-hover:scale-110" />
                     </a>
                     <div class="flex flex-col leading-tight">
                         <div class="flex items-center gap-2">
                             <Title />
                         </div>
-                        <div class="text-xs text-white/70 mt-0.5">
-                            &copy; {year} {parentCompany}
+                        <div class="text-xs text-white/60 mt-0.5 flex items-center gap-1">
+                            <Icon name="c-circle" />
+                            <span>{year} {parentCompany}</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Center section: Navigation links -->
-                <nav class="flex items-center text-sm">
+                <!-- Center section: Navigation links with icons -->
+                <nav class="flex items-center gap-1">
                     {#each navigation as link, i}
-                        <a class="text-sm text-white/90 hover:text-white transition-colors" href={link.href}>
-                            {link.name}
+                        <a 
+                            class="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm text-white/80 hover:text-white hover:bg-white/10 transition-all duration-200"
+                            href={link.href}
+                            target={link.external ? '_blank' : undefined}
+                            rel={link.external ? 'noopener noreferrer' : undefined}
+                        >
+                            <Icon name={link.icon} />
+                            <span>{link.name}</span>
+                            {#if link.external}
+                                <Icon name="box-arrow-up-right" />
+                            {/if}
                         </a>
                         {#if i < navigation.length - 1}
-                            <span class="mx-2 text-white/40">·</span>
+                            <span class="text-white/20">|</span>
                         {/if}
                     {/each}
                 </nav>

@@ -1,6 +1,7 @@
 <script>
   // Import generic stylesheets, essential libraries
   import "../../styles/css/app.css";
+  import "../../styles/scss/colorScheme.scss";
   import hedgehog from '../../img/HedgehogIcon.png'
   
   // Import components
@@ -9,6 +10,7 @@
   import Auth from "../login/auth.svelte";
   import BsAlert from "../../components/bs-Alert.svelte";
   import BsLoader from "../../components/bsLoader.svelte";
+  import Footer from "../../components/footer.svelte";
 
   // Import Misc Helpers
   import { onMount } from "svelte";
