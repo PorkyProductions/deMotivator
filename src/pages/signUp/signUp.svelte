@@ -142,10 +142,10 @@
   };
 </script>
 
-<div id="root" data-bs-theme={bsTheme} class="min-h-screen w-full bg-body">
+<div id="root" data-bs-theme={bsTheme} class="min-h-screen w-full">
   <Auth useRedirect={signupSuccess} let:loggedIn>
     {#if !ready}
-      <div transition:fade={{ duration: 300 }} class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-body backdrop-blur-sm">
+      <div transition:fade={{ duration: 300 }} class="fixed inset-0 z-50 flex flex-col items-center justify-center backdrop-blur-sm">
         <div class="mb-4">
           <BsSpinner type={signupSuccess ? "success" : error ? "danger" : "primary"} />
         </div>
@@ -336,14 +336,14 @@
         {/if}
       </div>
 
-      <div class="hidden lg:block lg:w-1/2 relative bg-black">
+      <div class="hidden lg:block lg:w-1/2 relative dark:bg-black">
         <img 
           class="absolute inset-0 w-full h-full object-cover opacity-90" 
           src={hedgehog} 
           alt="a hand drawn hedgehog"
           draggable="false"
         />
-        <div class="absolute inset-0 bg-linear-to-l from-black/10 to-transparent"></div>
+        <div class="absolute inset-0"></div>
       </div>
     </div>
      <div class="container text-center mt-5 pb-5">
