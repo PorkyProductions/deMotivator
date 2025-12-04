@@ -112,7 +112,9 @@
     const getPaginationRange = () => {
         const range = [];
         const showPages = 5;
-        let start = Math.max(1, currentPage - Math.floor(showPages / 2));
+        let pagesCopy = showPages;
+        pagesCopy >>= 1; // equivalent to Math.floor(showPages / 2) for small positive ints
+        let start = Math.max(1, currentPage - pagesCopy);
         let end = Math.min(totalPages, start + showPages - 1);
         
         if (end - start < showPages - 1) {
