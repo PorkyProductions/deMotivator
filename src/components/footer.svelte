@@ -34,7 +34,7 @@
                 <!-- Mobile Account Button -->
                 <a 
                     href="login.html" 
-                    class="flex items-center gap-2 shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-xl text-white bg-gradient-to-r from-secondary-orangePantone to-orange-500 dark:from-secondary-orangePantone dark:to-orange-600 font-primary font-bold py-2.5 px-6 rounded-full no-underline border-2 border-white/20"
+                    class="btn btn-light"
                 >
                     <Icon name="person-circle" />
                     <span>View Account</span>
