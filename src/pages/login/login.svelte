@@ -1,7 +1,7 @@
 <script>
   // Import generic stylesheets, essential libraries
   import "../../styles/css/app.css";
-  import "../../styles/scss/colorScheme.scss";
+  import "../../styles/scss/bootstrap.scss"
   import hedgehog from '../../img/HedgehogIcon.png'
   
   // Import components
@@ -12,6 +12,7 @@
   import LoginForm from "../../components/loginForm.svelte";
   import UserProfileCard from "../../components/userProfileCard.svelte";
   import Footer from "../../components/footer.svelte";
+  import Icon from "../../components/icon.svelte";
 
   // Import Misc Helpers
   import { bsTheme, darkMode } from "../../utils/darkMode";
@@ -101,7 +102,7 @@
 </script>
 
 
-<div id="root" data-bs-theme={bsTheme} class="min-h-screen w-full bg-body">
+<div id="root" data-bs-theme={bsTheme} class="min-h-screen w-full">
   <Auth
     useRedirect={false}
     let:user
@@ -112,7 +113,7 @@
     let:logout
   >
     {#if !ready}
-      <div transition:fade={{ duration: 300 }} class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-body backdrop-blur-sm">
+      <div transition:fade={{ duration: 300 }} class="fixed inset-0 z-50 flex flex-col items-center justify-center backdrop-blur-sm">
         <div class="mb-4">
            <BsSpinner type={loggedIn ? "success" : "primary"} />
         </div>
@@ -185,9 +186,14 @@
           alt="a hand drawn hedgehog"
           draggable="false"
         />
-        <div class="absolute inset-0 bg-linear-to-l from-black/10 to-transparent"></div>
+        <div class="absolute inset-0 "></div>
       </div>
     </div>
+     <div class="container text-center mt-5 pb-5">
+                <a href="/" class="btn btn-outline-secondary btn-lg">
+                    <Icon name="house-door" /> Back to Home
+                </a>
+      </div>
   </Auth>
 </div>
 

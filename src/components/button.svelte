@@ -2,7 +2,6 @@
     // Imports
     import logo from '../img/dmv-logo.png';
     import { darkMode } from '../utils/darkMode'
-    import '../styles/scss/buttonsBootstrap.scss';
     import '../styles/scss/bootstrapRange.scss'
 
     // Firebase
