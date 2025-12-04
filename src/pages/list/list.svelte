@@ -471,7 +471,6 @@
 
         {/if}
     </Auth>
-    <Footer />
 </div>
 
 <style>
