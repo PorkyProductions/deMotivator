@@ -325,14 +325,6 @@
 					</div>
 				</div>
 			{/if}
-
-			<!-- Footer Navigation -->
-			<div class="text-center mt-5">
-				<a href="/" class="btn btn-outline-secondary btn-lg">
-					<Icon name="arrow-left" /> Back to Home
-				</a>
-			</div>
-		</div>
 		
 	{/if}
 	 <div class="container text-center mt-5 pb-5">
