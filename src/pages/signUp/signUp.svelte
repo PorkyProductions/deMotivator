@@ -346,6 +346,11 @@
         <div class="absolute inset-0 bg-linear-to-l from-black/10 to-transparent"></div>
       </div>
     </div>
+     <div class="container text-center mt-5 pb-5">
+                <a href="/" class="btn btn-outline-secondary btn-lg">
+                    <Icon name="house-door" /> Back to Home
+                </a>
+            </div>
   </Auth>
 </div>
 
