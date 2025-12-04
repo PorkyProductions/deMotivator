@@ -15,7 +15,6 @@
 	import BsSpinner from '../../components/bs-spinner.svelte';
 	import BsModal from '../../components/bs-modal.svelte';
 	import BsAlert from '../../components/bs-Alert.svelte';
-	import Footer from '../../components/footer.svelte';
 	
 	const modalProps: BsModalProps = {
 		icon: "patch-question",
@@ -100,7 +99,7 @@
 						<h1 class="display-4 fw-bold mt-3 mb-2">
 							<Icon name="trophy-fill" /> Leaderboard
 						</h1>
-						
+
 						<!-- Action Buttons -->
 						<div class="d-flex gap-2 justify-content-center flex-wrap">
 							<button 
@@ -120,7 +119,7 @@
 								<Icon name="person-circle" /> My Account
 							</a>
 						</div>
-						
+
 						{#if lastUpdated}
 							<small class="text-muted d-block mt-3">
 								Last updated: {lastUpdated.toLocaleTimeString()}
@@ -207,7 +206,7 @@
 										</div>
 									</div>
 								</div>
-								
+
 								<!-- Gold - 1st Place -->
 								<div class="col-md-4 order-md-2">
 									<div class="card border-0 shadow-lg bg-warning bg-opacity-10 h-100" transition:scale={{ delay: 500 }}>
@@ -222,7 +221,7 @@
 										</div>
 									</div>
 								</div>
-								
+
 								<!-- Bronze - 3rd Place -->
 								<div class="col-md-4 order-md-3">
 									<div class="card border-0 shadow bg-info bg-opacity-10 h-100" transition:scale={{ delay: 600 }}>
@@ -315,7 +314,7 @@
 				<div class="card border-0 shadow-sm">
 					<div class="card-body text-center py-5">
 						<div class="text-muted mb-3">
-							<Icon name="inbox" size="3rem" />
+							<Icon name="inbox"/>
 						</div>
 						<h3 class="h4">No Data Available</h3>
 						<p class="text-muted mb-4">The leaderboard is currently empty.</p>
@@ -325,14 +324,15 @@
 					</div>
 				</div>
 			{/if}
-		
-	{/if}
-	 <div class="container text-center mt-5 pb-5">
-                <a href="/" class="btn btn-outline-secondary btn-lg">
-                    <Icon name="house-door" /> Back to Home
-                </a>
-    </div>
-</div>
+			</div>
+
+			<div class="container text-center mt-5 pb-5">
+			<a href="/" class="btn btn-outline-secondary btn-lg">
+				<Icon name="house-door" /> Back to Home
+			</a>
+		</div>
+		{/if}
+	</div>
 
 <style>
 	:global(body), :global(html) {
