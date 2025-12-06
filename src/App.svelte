@@ -41,7 +41,7 @@
                 {#if window.location.hostname === "localhost" || window.location.hostname === "demotivator-dev.web.app"}
                     <HomeScreenDevWarningBanner />  
                 {/if}
-                <div class="text-md lg:text-4xl p-4">
+                <div class="text-md lg:text-4xl p-4 text-black dark:text-white">
                     <Title />
                 </div>
                 <Button />
