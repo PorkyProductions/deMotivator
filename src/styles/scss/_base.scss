@@ -1,0 +1,29 @@
+// _base.scss
+// Base global styles - import only once at the app entry point
+@use './variables' as *;
+
+// Global element styling
+* {
+	accent-color: $primary-majorelleBlue;
+	cursor: url(../../../node_modules/bootstrap-icons/icons/hand-thumbs-down.svg);
+	&::selection {
+		background-color: mix($highlights, $primary-majorelleBlue, 50%);
+		color: $theme-white;
+	}
+	input,
+	label {
+		cursor: pointer;
+	}
+}
+
+// Dark mode support
+body {
+	background: $theme-white;
+}
+
+@media (prefers-color-scheme: dark) {
+	body {
+		background: $theme-black !important;
+		color: $theme-white !important;
+	}
+}

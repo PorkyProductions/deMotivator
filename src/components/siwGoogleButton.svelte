@@ -2,7 +2,6 @@
     import Auth from "../pages/login/auth.svelte";
     import { darkMode } from "../utils/darkMode";
     import Icon from "./icon.svelte";
-    import '../styles/scss/buttonsBootstrap.scss'
 </script>
 
 <Auth

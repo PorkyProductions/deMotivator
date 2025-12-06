@@ -1,5 +1,4 @@
 <script lang="ts">
-    import '../styles/scss/darkMode.scss' 
     import { type BSVarient } from '../typescript/types';
     let { type, icon, text, actionLink, actionText }: { type: BSVarient; icon: string; text: string; actionLink: string; actionText: string } = $props();
     const load = async () => {

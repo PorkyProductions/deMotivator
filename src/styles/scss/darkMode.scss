@@ -1,12 +1,5 @@
-@import './colorScheme.scss';
+// darkMode.scss
+// This file provides global base styles including dark mode support
+// Import this at the page level (HTML or root component) for theme styling
 
-body {
-    background: $theme-white;
-};
-
-@media (prefers-color-scheme: dark) {
-    body {
-        background: $theme-black !important;
-        color: $theme-white !important;
-    }
-}
+@use './base';

@@ -1,40 +1,6 @@
-// Main Theme
+// colorScheme.scss
+// This file forwards the variables from _variables.scss
+// Use @use './variables' to access variables without side effects
+// Kept for backward compatibility with existing imports
 
-$primary-majorelleBlue: #4f46e5;
-$highlights: hsl(240, 100%, 48%);
-$secondary-orangePantone: #F75C03;
-$tertiary-mauve: #DABFFF;
-
-
-
-// Base Colors & Theme
-
-$theme-red: #ef4444;
-$theme-orange: #f97316;
-$theme-yellow: #fbbf24;
-$theme-lime: #84cc16;
-$theme-green: #22c55e;
-$theme-teal: #14b8a6;
-$theme-cyan: #06b6d4;
-$theme-lightBlue: #0ea5e9;
-$theme-blue: #3b82f6;
-$theme-blue-vibrant: $highlights;
-$theme-indigo: #6366f1;
-$theme-purple: #a855f7;
-$theme-pink: #ec4899;
-$theme-white: #fafafa;
-$theme-black: #0a0a0a;
-
-$theme-border-radius-md: 15px;
-* {
-    accent-color: $primary-majorelleBlue;
-    cursor: url(../../../node_modules/bootstrap-icons/icons/hand-thumbs-down.svg);
-    &::selection {
-        background-color: mix($highlights, $primary-majorelleBlue, 50%);
-        color: $theme-white;
-    }
-    input,
-    label {
-        cursor: pointer;
-    }
-}
+@forward './variables';

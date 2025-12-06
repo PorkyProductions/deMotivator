@@ -1,5 +1,4 @@
 <script lang="ts">
-	import '../styles/scss/alertsBootstrap.scss'
     import BsAlert from './bs-Alert.svelte';
     import type { BSVarient } from '../typescript/types';
     const warnBannerProps : { type: BSVarient; icon: string; text: string; actionLink: string; actionText: string; } = { 

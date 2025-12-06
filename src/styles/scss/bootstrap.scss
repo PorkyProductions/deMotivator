@@ -1,29 +1,33 @@
-@import './colorScheme.scss';
-$prefix: "dmv-ppio-";
+// bootstrap.scss
+// Full Bootstrap with customized theme variables
+// This file provides all Bootstrap CSS needed for the app
+
+@use './variables' as *;
+
+// Bootstrap requires functions first
+@import "../../../node_modules/bootstrap/scss/functions";
+
+// Use our custom prefix and variables
+$prefix: $prefix;
 $primary: $primary-majorelleBlue;
+$info: $info;
+$blue: $blue;
+$indigo: $indigo;
+$purple: $purple;
+$pink: $pink;
+$red: $red;
+$orange: $orange;
+$yellow: $yellow;
+$green: $green;
+$teal: $teal;
+$cyan: $cyan;
+$black: $black;
+$white: $white;
+$gray: $gray;
+$gray-600: $gray-600;
+$enable-rounded: $enable-rounded;
+$enable-shadows: $enable-shadows;
+$font-family-base: $font-family-base;
 
-[data-bs-theme="dark"] {
-    $primary: $secondary-orangePantone;  
-}
-$info: mix($theme-lightBlue, $theme-blue);
-$blue: $theme-blue;
-$indigo: $theme-indigo;
-$purple: $theme-purple;
-$pink: $theme-pink;
-$red: $theme-red;
-$orange: $theme-orange;
-$yellow: $theme-yellow;
-$green: $theme-green;
-$teal: $theme-teal;
-$cyan: $theme-cyan;
-$black: $theme-black;
-$white: $theme-white;
-$gray: #656D75;
-$gray-600: #656D75;
-$enable-rounded: true;
-$enable-shadows: true;
-$font-family-base: 'Raleway', 'sans-serif';
-
-
+// Import full Bootstrap (includes reboot)
 @import "../../../node_modules/bootstrap/scss/bootstrap";
-@import "../../../node_modules/bootstrap/scss/bootstrap-reboot";
