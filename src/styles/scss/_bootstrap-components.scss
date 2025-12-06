@@ -1,0 +1,44 @@
+// _bootstrap-components.scss
+// Partial Bootstrap import - only specific components needed
+// Use this when you need Bootstrap components without the full reboot
+// which can override Tailwind link styles
+
+@use './variables' as vars;
+
+// Bootstrap requires these in order
+@import "../../../node_modules/bootstrap/scss/functions";
+
+// Override Bootstrap variables with our custom theme
+$prefix: vars.$prefix;
+$primary: vars.$primary-majorelleBlue;
+$info: vars.$info;
+$blue: vars.$blue;
+$indigo: vars.$indigo;
+$purple: vars.$purple;
+$pink: vars.$pink;
+$red: vars.$red;
+$orange: vars.$orange;
+$yellow: vars.$yellow;
+$green: vars.$green;
+$teal: vars.$teal;
+$cyan: vars.$cyan;
+$black: vars.$black;
+$white: vars.$white;
+$gray: vars.$gray;
+$gray-600: vars.$gray-600;
+$enable-rounded: vars.$enable-rounded;
+$enable-shadows: vars.$enable-shadows;
+$font-family-base: vars.$font-family-base;
+
+// Core Bootstrap dependencies
+@import "../../../node_modules/bootstrap/scss/variables";
+@import "../../../node_modules/bootstrap/scss/variables-dark";
+@import "../../../node_modules/bootstrap/scss/maps";
+@import "../../../node_modules/bootstrap/scss/mixins";
+@import "../../../node_modules/bootstrap/scss/root";
+
+// Only the components we need (without reboot which overrides link styles)
+@import "../../../node_modules/bootstrap/scss/buttons";
+@import "../../../node_modules/bootstrap/scss/forms";
+@import "../../../node_modules/bootstrap/scss/utilities";
+@import "../../../node_modules/bootstrap/scss/utilities/api";

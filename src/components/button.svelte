@@ -2,6 +2,7 @@
     // Imports
     import logo from '../img/dmv-logo.png';
     import { darkMode } from '../utils/darkMode'
+    import '../styles/scss/_bootstrap-components.scss'
 
     // Firebase
     import {fade, scale} from 'svelte/transition'
