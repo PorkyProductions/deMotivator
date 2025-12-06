@@ -2,32 +2,33 @@
 // Full Bootstrap with customized theme variables
 // This file provides all Bootstrap CSS needed for the app
 
-@use './variables' as *;
+@use './variables' as vars;
 
 // Bootstrap requires functions first
 @import "../../../node_modules/bootstrap/scss/functions";
 
-// Use our custom prefix and variables
-$prefix: $prefix;
-$primary: $primary-majorelleBlue;
-$info: $info;
-$blue: $blue;
-$indigo: $indigo;
-$purple: $purple;
-$pink: $pink;
-$red: $red;
-$orange: $orange;
-$yellow: $yellow;
-$green: $green;
-$teal: $teal;
-$cyan: $cyan;
-$black: $black;
-$white: $white;
-$gray: $gray;
-$gray-600: $gray-600;
-$enable-rounded: $enable-rounded;
-$enable-shadows: $enable-shadows;
-$font-family-base: $font-family-base;
+// Override Bootstrap variables with our custom theme
+// These must be set before importing Bootstrap
+$prefix: vars.$prefix;
+$primary: vars.$primary-majorelleBlue;
+$info: vars.$info;
+$blue: vars.$blue;
+$indigo: vars.$indigo;
+$purple: vars.$purple;
+$pink: vars.$pink;
+$red: vars.$red;
+$orange: vars.$orange;
+$yellow: vars.$yellow;
+$green: vars.$green;
+$teal: vars.$teal;
+$cyan: vars.$cyan;
+$black: vars.$black;
+$white: vars.$white;
+$gray: vars.$gray;
+$gray-600: vars.$gray-600;
+$enable-rounded: vars.$enable-rounded;
+$enable-shadows: vars.$enable-shadows;
+$font-family-base: vars.$font-family-base;
 
 // Import full Bootstrap (includes reboot)
 @import "../../../node_modules/bootstrap/scss/bootstrap";
