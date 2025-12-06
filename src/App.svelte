@@ -1,6 +1,7 @@
 <script lang="ts">
     import './styles/css/app.css'
     import './styles/scss/colorScheme.scss'
+    import './styles/scss/bootstrap.scss'
     import Button from './components/button.svelte';
     import Footer from './components/footer.svelte';
     import Title from './components/title.svelte';
