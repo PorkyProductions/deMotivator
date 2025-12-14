@@ -428,7 +428,7 @@
 
 <div id="root" data-bs-theme={bsTheme} class="min-h-screen bg-body">
     <!-- Hero Section -->
-    <div class="bg-linear-to-br from-warning-subtle via-danger-subtle to-body-tertiary py-5 px-4" transition:fade>
+    <div class="bg-gradient-to-br from-warning-subtle via-danger-subtle to-body-tertiary py-5 px-4" transition:fade>
         <div class="container">
             <div class="text-center">
                 <a href="/" class="text-decoration-none">

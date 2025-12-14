@@ -14,7 +14,7 @@
 </script>
 
 {#if isMobileView}
-    <footer class="fixed bottom-0 left-0 right-0 z-50 bg-linear-to-r from-primary-majorelle-blue via-indigo-600 to-primary-majorelle-blue dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 shadow-2xl border-t border-white/10 backdrop-blur-md">
+    <footer class="dmv-footer fixed bottom-0 left-0 right-0 z-50 bg-gradient-to-r from-primary-majorelle-blue via-indigo-600 to-primary-majorelle-blue dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 shadow-2xl border-t border-white/10 backdrop-blur-md">
         <div class="container mx-auto px-4 py-3">
             <div class="flex flex-col items-center gap-3">
                 <!-- Mobile Navigation Row -->
@@ -51,8 +51,8 @@
 
 {:else}
     <footer 
-        class="fixed bottom-0 left-0 right-0 z-50 py-3 shadow-2xl border-t border-white/10
-        bg-linear-to-r from-primary-majorelle-blue via-indigo-600 to-primary-majorelle-blue dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 backdrop-blur-md portrait:hidden text-white"
+        class="dmv-footer fixed bottom-0 left-0 right-0 z-50 py-3 shadow-2xl border-t border-white/10
+        bg-gradient-to-r from-primary-majorelle-blue via-indigo-600 to-primary-majorelle-blue dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 backdrop-blur-md portrait:hidden text-white"
     >
         <div class="container mx-auto px-6">
             <div class="flex justify-between items-center">
@@ -103,3 +103,23 @@
     
     <div class="h-16"></div>
 {/if}
+
+<style>
+	/* Ensure footer styles are not overridden by Bootstrap */
+	:global(.dmv-footer) {
+		position: fixed !important;
+		bottom: 0 !important;
+		left: 0 !important;
+		right: 0 !important;
+		z-index: 50 !important;
+	}
+	
+	:global(.dmv-footer .container) {
+		max-width: 100% !important;
+	}
+	
+	/* Prevent Bootstrap from removing custom background gradients */
+	:global(.dmv-footer.bg-gradient-to-r) {
+		background-image: linear-gradient(to right, var(--tw-gradient-stops)) !important;
+	}
+</style>
