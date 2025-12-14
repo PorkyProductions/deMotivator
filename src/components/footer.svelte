@@ -137,11 +137,13 @@
 		color: white !important;
 	}
 	
-	:global(footer.dmv-footer .text-white\/80) {
+	:global(footer.dmv-footer .text-white\/80),
+	:global(footer.dmv-footer [class*="text-white/80"]) {
 		color: rgba(255, 255, 255, 0.8) !important;
 	}
 	
-	:global(footer.dmv-footer .text-white\/60) {
+	:global(footer.dmv-footer .text-white\/60),
+	:global(footer.dmv-footer [class*="text-white/60"]) {
 		color: rgba(255, 255, 255, 0.6) !important;
 	}
 </style>
