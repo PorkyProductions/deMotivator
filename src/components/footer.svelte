@@ -106,20 +106,42 @@
 
 <style>
 	/* Ensure footer styles are not overridden by Bootstrap */
-	:global(.dmv-footer) {
+	:global(footer.dmv-footer) {
 		position: fixed !important;
 		bottom: 0 !important;
 		left: 0 !important;
 		right: 0 !important;
 		z-index: 50 !important;
+		color: white !important;
 	}
 	
-	:global(.dmv-footer .container) {
+	:global(footer.dmv-footer .container) {
 		max-width: 100% !important;
+		padding-left: 1rem !important;
+		padding-right: 1rem !important;
 	}
 	
 	/* Prevent Bootstrap from removing custom background gradients */
-	:global(.dmv-footer.bg-gradient-to-r) {
+	:global(footer.dmv-footer.bg-gradient-to-r) {
 		background-image: linear-gradient(to right, var(--tw-gradient-stops)) !important;
+		background-color: transparent !important;
+	}
+	
+	/* Ensure text colors are preserved */
+	:global(footer.dmv-footer a) {
+		color: inherit !important;
+		text-decoration: none !important;
+	}
+	
+	:global(footer.dmv-footer .text-white) {
+		color: white !important;
+	}
+	
+	:global(footer.dmv-footer .text-white\/80) {
+		color: rgba(255, 255, 255, 0.8) !important;
+	}
+	
+	:global(footer.dmv-footer .text-white\/60) {
+		color: rgba(255, 255, 255, 0.6) !important;
 	}
 </style>
