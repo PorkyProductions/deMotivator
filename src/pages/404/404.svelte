@@ -325,7 +325,8 @@
         "Finale.",
         "Fin.",
         "...",
-        "THE END"
+        "THE END",
+        "YAY!"
     ];
     
     // State management
@@ -334,7 +335,7 @@
     let linkVisible = $state(false);
     let storyComplete = $state(false);
     let userInteracted = $state(false);
-    let messageSpeed = $state(3000);
+    let messageSpeed = $state(2500);
     let paused = $state(false);
     let autoplayInterval: any;
     
@@ -352,10 +353,9 @@
         
         // Small confetti for starting
         confetti({
-            particleCount: 30,
-            spread: 60,
-            origin: { y: 0.8 },
-            colors: ['#4f46e5', '#F75C03', '#DABFFF']
+            particleCount: 9999,
+            spread: 360,
+            colors: ['#4f46e5', '#F75C03', '#DABFFF', "#db0000", "#ff7b00", "#ffbb00", "#00ff22", "#046d00", "#00fffb", "#001eff", "#6f00ff", "#36008c", "#ff00d4", "#0000F4"]
         });
     };
     
@@ -366,9 +366,9 @@
             // Check for special moments
             if (currentLine === "YAY!") {
                 confetti({
-                    particleCount: 100,
-                    spread: 70,
-                    origin: { y: 0.6 }
+                    particleCount: 99999,
+                    spread: 360,
+                    colors: ['#4f46e5', '#F75C03', '#DABFFF', "#db0000", "#ff7b00", "#ffbb00", "#00ff22", "#046d00", "#00fffb", "#001eff", "#6f00ff", "#36008c", "#ff00d4", "#0000F4"]
                 });
             }
             
