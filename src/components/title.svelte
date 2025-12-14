@@ -13,6 +13,8 @@
 <style>
     h1 {
         margin-bottom: 0;
+        font-size: inherit;
+        color: inherit;
     }
     #link {
         text-decoration: none;

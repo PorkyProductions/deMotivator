@@ -86,7 +86,7 @@
         </div>
     {:else}
         <!-- Hero Section -->
-        <div class="bg-linear-to-br from-primary-subtle to-body-tertiary py-5 px-4 mb-5" transition:fade>
+        <div class="bg-gradient-to-br from-primary-subtle to-body-tertiary py-5 px-4 mb-5" transition:fade>
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-12 text-center">
