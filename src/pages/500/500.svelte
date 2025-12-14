@@ -4,6 +4,7 @@
     import '../../styles/scss/colorScheme.scss'
     import Title from '../../components/title.svelte';
     import Footer from '../../components/footer.svelte';
+    import Icon from '../../components/icon.svelte';
     let countdown = 15
     const countdownTimer = setInterval(() => {
             countdown--
