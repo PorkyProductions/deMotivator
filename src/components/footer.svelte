@@ -14,7 +14,7 @@
 </script>
 
 {#if isMobileView}
-    <footer class="dmv-footer fixed bottom-0 left-0 right-0 z-50 bg-linear-to-r from-primary-majorelle-blue via-indigo-600 to-primary-majorelle-blue dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 shadow-2xl border-t border-white/10 backdrop-blur-md">
+    <footer class="dmv-footer fixed bottom-0 left-0 right-0 z-50 bg-gradient-to-r from-primary-majorelle-blue via-indigo-600 to-primary-majorelle-blue dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 shadow-2xl border-t border-white/10 backdrop-blur-md">
         <div class="container mx-auto px-4 py-3">
             <div class="flex flex-col items-center gap-3">
                 <!-- Mobile Navigation Row -->
@@ -52,7 +52,7 @@
 {:else}
     <footer 
         class="dmv-footer fixed bottom-0 left-0 right-0 z-50 py-3 shadow-2xl border-t border-white/10
-        bg-linear-to-r from-primary-majorelle-blue via-indigo-600 to-primary-majorelle-blue dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 backdrop-blur-md portrait:hidden text-white"
+        bg-gradient-to-r from-primary-majorelle-blue via-indigo-600 to-primary-majorelle-blue dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 backdrop-blur-md portrait:hidden text-white"
     >
         <div class="container mx-auto px-6">
             <div class="flex justify-between items-center">
@@ -112,6 +112,7 @@
 		left: 0 !important;
 		right: 0 !important;
 		z-index: 50 !important;
+		color: white !important;
 	}
 	
 	:global(footer.dmv-footer .container) {
@@ -126,8 +127,46 @@
 		background-color: transparent !important;
 	}
 	
-	/* Ensure text colors are preserved */
-	:global(footer.dmv-footer a) {
+	/* Ensure text colors are preserved - override Bootstrap reboot */
+	:global(footer.dmv-footer a),
+	:global(footer.dmv-footer a:link),
+	:global(footer.dmv-footer a:visited),
+	:global(footer.dmv-footer a:hover),
+	:global(footer.dmv-footer a:active) {
+		color: inherit !important;
 		text-decoration: none !important;
+	}
+	
+	:global(footer.dmv-footer .text-white) {
+		color: white !important;
+	}
+	
+	:global(footer.dmv-footer .text-white\/80),
+	:global(footer.dmv-footer [class*="text-white/80"]) {
+		color: rgba(255, 255, 255, 0.8) !important;
+	}
+	
+	:global(footer.dmv-footer .text-white\/60),
+	:global(footer.dmv-footer [class*="text-white/60"]) {
+		color: rgba(255, 255, 255, 0.6) !important;
+	}
+	
+	:global(footer.dmv-footer .text-white\/20),
+	:global(footer.dmv-footer [class*="text-white/20"]) {
+		color: rgba(255, 255, 255, 0.2) !important;
+	}
+	
+	/* Ensure Title component text is white */
+	:global(footer.dmv-footer #logoText),
+	:global(footer.dmv-footer #logoText *),
+	:global(footer.dmv-footer #logoText h1),
+	:global(footer.dmv-footer #logoText a) {
+		color: white !important;
+		font-size: inherit !important;
+	}
+	
+	/* Ensure button text is correct */
+	:global(footer.dmv-footer .btn) {
+		color: var(--bs-btn-color, inherit) !important;
 	}
 </style>
