@@ -176,25 +176,21 @@
               {loginWithGoogle}
             />
           </div>
-        {/if}
-      </div>
-
-      <div class="hidden lg:block lg:w-1/2 relative dark:bg-black">
-        <img 
+          {/if}
+        </div>
+        
+        <div class="hidden lg:block lg:w-1/2 relative dark:bg-black">
+          <img 
           class="absolute inset-0 w-full h-full object-cover opacity-90" 
           src={hedgehog} 
           alt="a hand drawn hedgehog"
           draggable="false"
-        />
-        <div class="absolute inset-0 "></div>
+          />
+          <div class="absolute inset-0 "></div>
+        </div>
       </div>
-    </div>
-     <div class="container text-center mt-5 pb-5">
-                <a href="/" class="btn btn-outline-secondary btn-lg">
-                    <Icon name="house-door" /> Back to Home
-                </a>
-      </div>
-  </Auth>
+      <Footer />
+    </Auth>
 </div>
 
 <style>
