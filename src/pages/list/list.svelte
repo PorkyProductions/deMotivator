@@ -6,27 +6,31 @@
     import BsSpinner from '../../components/bs-spinner.svelte';
     import BsLoader from '../../components/bsLoader.svelte';
     import Footer from '../../components/footer.svelte';
-    import shuffle from 'lodash/shuffle'
-    import { insults, DeMotivator } from 'demotivator'
-    import { print } from '@porkyproductions/hat/print'
     import { randomInRange } from '@porkyproductions/hat/randomInRange';
     import { fade, fly, scale } from 'svelte/transition';
     import { flip } from 'svelte/animate';
     import Auth from '../login/auth.svelte';
     import { bsTheme } from '../../utils/darkMode';
     import { userInsults } from '../../typescript/insults';
+    import { onMount } from 'svelte';
+    import shuffle from 'lodash/shuffle'
+    let dmv;
+    let allInsults = $state([]);
+    let profaneInsults = $state([]);
+
+    const initDemotivator = async () => {
+        const dem = await import('demotivator')
+        const { DeMotivator, insults: demInsults } = dem;
+        dmv = new DeMotivator();
+        const profaneArray = dmv.createArray({ original: true, profane: true });
+        allInsults = shuffle(userInsults.concat(demInsults));
+        profaneInsults = shuffle(userInsults.concat(profaneArray));
+    };
+
+    onMount(() => {
+        initDemotivator();
+    });
     
-    // Initialize DeMotivator
-    const dmv = new DeMotivator()
-    print(dmv);
-    const profaneArray = dmv.createArray({
-        original: true,
-        profane: true
-    })
-    
-    // Prepare insult arrays (make reactive with $state so reassignments update UI)
-    let allInsults = $state(shuffle(userInsults.concat(insults))); 
-    let profaneInsults = $state(shuffle(userInsults.concat(profaneArray)));
     
     // State management
     let userWantsProfaneInsults = $state(false);
@@ -93,8 +97,7 @@
         localStorage.setItem('favoriteInsults', JSON.stringify(Array.from(favoriteInsults)));
     };
     
-    const shuffleInsults = () => {
-        // Use lodash.shuffle to reshuffle arrays (don't mutate via random sort)
+    const shuffleInsults = async () => {
         allInsults = shuffle([...allInsults]);
         profaneInsults = shuffle([...profaneInsults]);
         currentPage = 1;
@@ -140,7 +143,7 @@
             </div>
         {:else}
             <!-- Hero Section -->
-            <div class="bg-gradient-to-br from-danger-subtle to-body-tertiary py-5 px-4 mb-5" transition:fade>
+            <div class="bg-linear-to-br from-danger-subtle to-body-tertiary py-5 px-4 mb-5" transition:fade>
                 <div class="container">
                     <div class="text-center">
                         <a href="/" class="text-decoration-none">
