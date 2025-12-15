@@ -27,7 +27,7 @@
     "serve": "^14.2.5",
     "svelte": "^5.43.12",
     "svelte-preprocess": "^5.1.4",
-    "tailwindcss": "^4.1.17",
+    "tailwindcss": "^4.1.18",
     "terser": "^5.44.0",
     "typescript": "^5.9.2",
     "vite": "^7.2.2"
