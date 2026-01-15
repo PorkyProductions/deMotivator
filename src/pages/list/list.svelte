@@ -19,11 +19,10 @@
     let profaneInsults = $state([]);
 
     const initDemotivator = async () => {
-        const dem = await import('demotivator')
-        const { DeMotivator, insults: demInsults } = dem;
+        const { DeMotivator, insults } = await import('demotivator')
         dmv = new DeMotivator();
         const profaneArray = dmv.createArray({ original: true, profane: true });
-        allInsults = shuffle(userInsults.concat(demInsults));
+        allInsults = shuffle(userInsults.concat(insults));
         profaneInsults = shuffle(userInsults.concat(profaneArray));
     };
 
