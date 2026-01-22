@@ -6,19 +6,19 @@ export const updateInsultsSeen = async (insultsSeen: number) => {
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
   const auth = getAuth(app);
-  auth.onAuthStateChanged(async (user) => {
-    if (user) {
-      const usersRef = doc(db, "users", user.uid);
-      await setDoc(
-        usersRef,
-        {
-          insultsSeen: insultsSeen,
-        },
-        {
-          merge: true,
-        }
-      );
-    } else {
-    }
-  });
+  
+  // Use currentUser instead of onAuthStateChanged for synchronous check
+  const user = auth.currentUser;
+  if (user) {
+    const usersRef = doc(db, "users", user.uid);
+    await setDoc(
+      usersRef,
+      {
+        insultsSeen: insultsSeen,
+      },
+      {
+        merge: true,
+      }
+    );
+  }
 }
