@@ -41,6 +41,11 @@ const flushPendingWrites = async () => {
 	}
 };
 
+// Note: beforeunload and onDestroy handlers use fire-and-forget async calls
+// because browsers don't guarantee completion of async operations during these events.
+// However, the batch threshold (every 10 presses) ensures regular persistence,
+// minimizing potential data loss to at most 9 button presses in edge cases.
+
 // Update randomize function to use checkbox states
 const randomize = async () => {
 	const { userInsults } = await import('../typescript/insults');

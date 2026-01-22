@@ -5,6 +5,8 @@
 	import { launchConfetti } from '../utils/loginHandlers';
 	import { onMount } from 'svelte';
 
+	const LOADING_PLACEHOLDER = "...";
+
 	let {
 		user,
 		insultsSeenDB,
@@ -15,7 +17,7 @@
 	
 	// Load profile data on mount
 	onMount(() => {
-		if (insultsSeenDB === "...") {
+		if (insultsSeenDB === LOADING_PLACEHOLDER) {
 			onRefreshInsultsSeen();
 		}
 	});

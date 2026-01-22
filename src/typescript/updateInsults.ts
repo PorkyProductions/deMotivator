@@ -9,16 +9,19 @@ export const updateInsultsSeen = async (insultsSeen: number) => {
   
   // Use currentUser instead of onAuthStateChanged for synchronous check
   const user = auth.currentUser;
-  if (user) {
-    const usersRef = doc(db, "users", user.uid);
-    await setDoc(
-      usersRef,
-      {
-        insultsSeen: insultsSeen,
-      },
-      {
-        merge: true,
-      }
-    );
+  if (!user) {
+    console.warn('updateInsultsSeen: No authenticated user, skipping database write');
+    return;
   }
+  
+  const usersRef = doc(db, "users", user.uid);
+  await setDoc(
+    usersRef,
+    {
+      insultsSeen: insultsSeen,
+    },
+    {
+      merge: true,
+    }
+  );
 }
