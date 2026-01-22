@@ -40,7 +40,7 @@
     "demotivator": "^14.0.0",
     "firebase": "^10.9.0",
     "firebase-tools": "^14.26.0",
-    "lodash": "^4.17.21",
+    "lodash": "^4.17.23",
     "uadetect": "^7.0.0-alpha-2"
   }
 }
