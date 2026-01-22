@@ -40,7 +40,6 @@
   let error = $state(null);
   let insultsSeenDB = $state("...");
   let keepMeLoggedIn = $state(false);
-  let profileDataLoaded = $state(false);
 
   const load = async () => {
     const keepMeLoggedIn = window.localStorage.getItem("keepMeLoggedIn");

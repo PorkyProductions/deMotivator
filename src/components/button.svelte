@@ -155,7 +155,11 @@ const handleResize = () => {
 onMount(() => {
     if (typeof window !== 'undefined') {
         window.addEventListener('resize', handleResize);
-        window.addEventListener('beforeunload', flushPendingWrites);
+        // Use beforeunload to trigger flush immediately (fire-and-forget)
+        window.addEventListener('beforeunload', () => {
+            // Trigger flush immediately (browsers give limited time for async ops)
+            flushPendingWrites();
+        });
     }
     // Initialize insult count from database
     initializeInsultCount();
@@ -164,9 +168,9 @@ onMount(() => {
 onDestroy(() => {
     if (typeof window !== 'undefined') {
         window.removeEventListener('resize', handleResize);
-        window.removeEventListener('beforeunload', flushPendingWrites);
     }
-    // Flush any pending writes when component unmounts
+    // Flush any pending writes when component unmounts (fire-and-forget)
+    // Note: This is best-effort as component destruction may not wait for completion
     flushPendingWrites();
 });
 
