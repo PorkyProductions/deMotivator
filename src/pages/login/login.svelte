@@ -40,6 +40,7 @@
   let error = $state(null);
   let insultsSeenDB = $state("...");
   let keepMeLoggedIn = $state(false);
+  let profileDataLoaded = $state(false);
 
   const load = async () => {
     const keepMeLoggedIn = window.localStorage.getItem("keepMeLoggedIn");
@@ -80,6 +81,9 @@
         window.localStorage.setItem("keepMeLoggedIn", "false")
       }
       
+      // Load profile data after successful login
+      await refreshInsultsSeen();
+      
       setTimeout(() => (ready = true), 1000);
     } catch (err) {
       error = err;
@@ -95,10 +99,6 @@
       error = err;
     }
   };
-
-  $effect(() => {
-    refreshInsultsSeen();
-  });
 </script>
 
 

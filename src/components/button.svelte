@@ -21,6 +21,26 @@ let userResult = $state("");
 let includeOriginal = $state(true);
 let includeProfane = $state(false);
 
+// Database optimization: cache and batch writes
+let cachedInsultCount = $state(0);
+let pendingWrites = $state(0);
+const batchThreshold = 10; // Write to DB every 10 presses
+
+// Initialize insult count from database on mount
+const initializeInsultCount = async () => {
+	const { readInsults } = await import('../typescript/readInsults');
+	cachedInsultCount = await readInsults();
+};
+
+// Batch write pending insults to database
+const flushPendingWrites = async () => {
+	if (pendingWrites > 0) {
+		const { updateInsultsSeen } = await import('../typescript/updateInsults');
+		await updateInsultsSeen(cachedInsultCount);
+		pendingWrites = 0;
+	}
+};
+
 // Update randomize function to use checkbox states
 const randomize = async () => {
 	const { userInsults } = await import('../typescript/insults');
@@ -30,15 +50,20 @@ const randomize = async () => {
 		original: includeOriginal,
 		profane: includeProfane
 	});
-	let { readInsults } = await import('../typescript/readInsults');
-	const { updateInsultsSeen } = await import('../typescript/updateInsults');
 	const demotivatorAndUserInsults = userInsults.concat(insults);
 	userResult = demotivatorAndUserInsults[Math.floor(Math.random() * demotivatorAndUserInsults.length)];
 	result = insults[Math.floor(Math.random() * insults.length)];
-	let insultsSeenDB = await readInsults();
+	
+	// Increment local counters
 	insultsShown++;
 	if (!MEGAMODE) {
-		updateInsultsSeen(insultsSeenDB + 1);
+		cachedInsultCount++;
+		pendingWrites++;
+		
+		// Batch write to database every N presses
+		if (pendingWrites >= batchThreshold) {
+			await flushPendingWrites();
+		}
 	}
 }
 
@@ -130,13 +155,19 @@ const handleResize = () => {
 onMount(() => {
     if (typeof window !== 'undefined') {
         window.addEventListener('resize', handleResize);
+        window.addEventListener('beforeunload', flushPendingWrites);
     }
+    // Initialize insult count from database
+    initializeInsultCount();
 });
 
 onDestroy(() => {
     if (typeof window !== 'undefined') {
         window.removeEventListener('resize', handleResize);
+        window.removeEventListener('beforeunload', flushPendingWrites);
     }
+    // Flush any pending writes when component unmounts
+    flushPendingWrites();
 });
 
 const calcFontSizeRem = (text: string | undefined) => {

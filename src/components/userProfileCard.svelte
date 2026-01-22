@@ -3,6 +3,7 @@
 	import BsModal from './bs-modal.svelte';
 	import { darkMode } from '../utils/darkMode';
 	import { launchConfetti } from '../utils/loginHandlers';
+	import { onMount } from 'svelte';
 
 	let {
 		user,
@@ -11,6 +12,13 @@
 		onLogout,
 		onDeleteAccount
 	} = $props();
+	
+	// Load profile data on mount
+	onMount(() => {
+		if (insultsSeenDB === "...") {
+			onRefreshInsultsSeen();
+		}
+	});
 </script>
 
 <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
