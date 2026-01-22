@@ -35,6 +35,7 @@
     let error = $state(null);
     let lastUpdated = $state(new Date());
     let duration = randomInRange(800, 2000);
+    let initialLoadComplete = $state(false);
     
     const load = async (d: number = duration) => {
         setTimeout(() => (ready = true), d);
@@ -70,8 +71,12 @@
 
     load();
     
+    // Load leaderboard data on mount (only once)
     $effect(() => {
-        getList();
+        if (!initialLoadComplete) {
+            getList();
+            initialLoadComplete = true;
+        }
     });
 </script>
 
