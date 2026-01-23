@@ -38,8 +38,10 @@ const initializeInsultCount = async () => {
 const flushPendingWrites = async () => {
 	if (pendingWrites > 0) {
 		const { updateInsultsSeen } = await import('../typescript/updateInsults');
-		await updateInsultsSeen(cachedInsultCount);
-		pendingWrites = 0;
+		const success = await updateInsultsSeen(cachedInsultCount);
+		if (success) {
+			pendingWrites = 0;
+		}
 	}
 };
 
