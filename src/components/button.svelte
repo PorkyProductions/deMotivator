@@ -21,6 +21,32 @@ let userResult = $state("");
 let includeOriginal = $state(true);
 let includeProfane = $state(false);
 
+// Database optimization: cache and batch writes
+let cachedInsultCount = $state(0);
+let pendingWrites = $state(0);
+const batchThreshold = 10; // Write to DB every 10 presses
+const batchFlushTimeout = 10000; // Also flush every 10 seconds if there are pending writes
+
+// Initialize insult count from database on mount
+const initializeInsultCount = async () => {
+	const { readInsults } = await import('../typescript/readInsults');
+	cachedInsultCount = await readInsults();
+};
+
+// Batch write pending insults to database
+const flushPendingWrites = async () => {
+	if (pendingWrites > 0) {
+		const { updateInsultsSeen } = await import('../typescript/updateInsults');
+		await updateInsultsSeen(cachedInsultCount);
+		pendingWrites = 0;
+	}
+};
+
+// Note: beforeunload and onDestroy handlers use fire-and-forget async calls
+// because browsers don't guarantee completion of async operations during these events.
+// However, the batch threshold (every 10 presses) ensures regular persistence,
+// minimizing potential data loss to at most 9 button presses in edge cases.
+
 // Update randomize function to use checkbox states
 const randomize = async () => {
 	const { userInsults } = await import('../typescript/insults');
@@ -30,15 +56,20 @@ const randomize = async () => {
 		original: includeOriginal,
 		profane: includeProfane
 	});
-	let { readInsults } = await import('../typescript/readInsults');
-	const { updateInsultsSeen } = await import('../typescript/updateInsults');
 	const demotivatorAndUserInsults = userInsults.concat(insults);
 	userResult = demotivatorAndUserInsults[Math.floor(Math.random() * demotivatorAndUserInsults.length)];
 	result = insults[Math.floor(Math.random() * insults.length)];
-	let insultsSeenDB = await readInsults();
+	
+	// Increment local counters
 	insultsShown++;
 	if (!MEGAMODE) {
-		updateInsultsSeen(insultsSeenDB + 1);
+		cachedInsultCount++;
+		pendingWrites++;
+		
+		// Batch write to database every N presses
+		if (pendingWrites >= batchThreshold) {
+			await flushPendingWrites();
+		}
 	}
 }
 
@@ -130,13 +161,52 @@ const handleResize = () => {
 onMount(() => {
     if (typeof window !== 'undefined') {
         window.addEventListener('resize', handleResize);
+        // Use beforeunload to trigger flush immediately (fire-and-forget)
+        window.addEventListener('beforeunload', () => {
+            // Trigger flush immediately (browsers give limited time for async ops)
+            flushPendingWrites();
+        });
     }
+    // Initialize insult count from database
+    initializeInsultCount();
 });
 
 onDestroy(() => {
     if (typeof window !== 'undefined') {
         window.removeEventListener('resize', handleResize);
     }
+    flushPendingWrites();
+});
+
+// On destroy doesnt work after navigation away, so also flush when the page is changed
+// To combat this, it will flush every 15 seconds iff there are pending writes
+let periodicFlushInterval: ReturnType<typeof setInterval> | null = null;
+    const startPeriodicFlush = () => {
+	if (typeof window === 'undefined') return;
+	if (periodicFlushInterval !== null) return;
+	periodicFlushInterval = setInterval(() => {
+		if (pendingWrites > 0) {
+			flushPendingWrites();
+		}
+	}, batchFlushTimeout);
+};
+const stopPeriodicFlush = () => {
+	if (periodicFlushInterval !== null) {
+		clearInterval(periodicFlushInterval as unknown as number);
+		periodicFlushInterval = null;
+	}
+};
+// Start/stop the periodic flusher automatically based on pendingWrites
+$effect(() => {
+	if (pendingWrites > 0) {
+		startPeriodicFlush();
+	} else {
+		stopPeriodicFlush();
+	}
+});
+// Extra cleanup in case onDestroy wasn't reached elsewhere
+onDestroy(() => {
+	stopPeriodicFlush();
 });
 
 const calcFontSizeRem = (text: string | undefined) => {
@@ -195,8 +265,7 @@ End of Script
                 src={logo} 
                 draggable="false" 
                 alt="a large, red button" 
-                onclick={randomize} 
-                onkeypress={randomize} 
+                onclick={randomize}
                 class="hover:cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-200 pb-4"
             >
 
@@ -269,7 +338,7 @@ End of Script
                 {/if}
             {:else}
                 <div class="w-full max-w-4xl flex flex-col items-center gap-8">
-                    <div class="min-h-[200px] flex items-center justify-center">
+                    <div class="min-h-50 flex items-center justify-center">
                         <p class="font-primary text-center font-bold leading-tight px-4" style="font-size: {insultFontSize}; line-height: 1.02;">
                             {MEGAMODEresult}
                         </p>
