@@ -101,7 +101,7 @@ let MEGAMODEinsults = $state(0);
 
 // Slider mapping: sliderValue is a "throttle" where right = fast.
 const sliderMin = 1;
-const sliderMax = 2000;
+const sliderMax = 4680;
 // initialize to match the default MEGAMODEspeed (250) without referencing it
 let sliderValue = $state(sliderMax + sliderMin - 250);
 
@@ -293,7 +293,7 @@ End of Script
                     id="profaneCheck"
                 >
                 <label class="form-check-label" for="profaneCheck">
-                    Include Profane
+                    Include Profanity
                 </label>
             </div>
 
@@ -306,7 +306,7 @@ End of Script
                     id="megamodeCheck"
                 >
                 <label class="form-check-label" for="megamodeCheck">
-                    MEGAMODE
+                    <b>MEGAMODE</b>
                 </label>
             </div>
 
@@ -317,7 +317,7 @@ End of Script
                 class={`btn ${!darkMode ? "btn-primary" : "btn-dark"} ${MEGAMODE ? 'disabled opacity-50' : ''}`}
             >
                 <Icon name="clipboard" /> 
-                Copy insult to clipboard
+                Copy Insult to Clipboard
             </button>
         </div>
     </div>
