@@ -179,7 +179,7 @@ onDestroy(() => {
     flushPendingWrites();
 });
 
-// On destroy doesnt work after navigation away, so also flush when the page is changed
+// On destroy doesn't work after navigation away, so also flush when the page is changed
 // To combat this, it will flush every 15 seconds iff there are pending writes
 let periodicFlushInterval: ReturnType<typeof setInterval> | null = null;
     const startPeriodicFlush = () => {
