@@ -30,7 +30,8 @@ const batchFlushTimeout = 10000; // Also flush every 10 seconds if there are pen
 // Initialize insult count from database on mount
 const initializeInsultCount = async () => {
 	const { readInsults } = await import('../typescript/readInsults');
-	cachedInsultCount = await readInsults();
+	const loadedInsults = await readInsults();
+	cachedInsultCount = loadedInsults + cachedInsultCount;
 };
 
 // Batch write pending insults to database
