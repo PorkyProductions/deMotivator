@@ -80,6 +80,9 @@
         window.localStorage.setItem("keepMeLoggedIn", "false")
       }
       
+      // Load profile data after successful login
+      await refreshInsultsSeen();
+      
       setTimeout(() => (ready = true), 1000);
     } catch (err) {
       error = err;
@@ -95,10 +98,6 @@
       error = err;
     }
   };
-
-  $effect(() => {
-    refreshInsultsSeen();
-  });
 </script>
 
 
