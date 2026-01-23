@@ -25,6 +25,7 @@ let includeProfane = $state(false);
 let cachedInsultCount = $state(0);
 let pendingWrites = $state(0);
 const batchThreshold = 10; // Write to DB every 10 presses
+const batchFlushTimeout = 10000; // Also flush every 10 seconds if there are pending writes
 
 // Initialize insult count from database on mount
 const initializeInsultCount = async () => {
@@ -174,9 +175,38 @@ onDestroy(() => {
     if (typeof window !== 'undefined') {
         window.removeEventListener('resize', handleResize);
     }
-    // Flush any pending writes when component unmounts (fire-and-forget)
-    // Note: This is best-effort as component destruction may not wait for completion
     flushPendingWrites();
+});
+
+// On destroy doesnt work after navigation away, so also flush when the page is changed
+// To combat this, it will flush every 15 seconds iff there are pending writes
+let periodicFlushInterval: ReturnType<typeof setInterval> | null = null;
+    const startPeriodicFlush = () => {
+	if (typeof window === 'undefined') return;
+	if (periodicFlushInterval !== null) return;
+	periodicFlushInterval = setInterval(() => {
+		if (pendingWrites > 0) {
+			flushPendingWrites();
+		}
+	}, batchFlushTimeout);
+};
+const stopPeriodicFlush = () => {
+	if (periodicFlushInterval !== null) {
+		clearInterval(periodicFlushInterval as unknown as number);
+		periodicFlushInterval = null;
+	}
+};
+// Start/stop the periodic flusher automatically based on pendingWrites
+$effect(() => {
+	if (pendingWrites > 0) {
+		startPeriodicFlush();
+	} else {
+		stopPeriodicFlush();
+	}
+});
+// Extra cleanup in case onDestroy wasn't reached elsewhere
+onDestroy(() => {
+	stopPeriodicFlush();
 });
 
 const calcFontSizeRem = (text: string | undefined) => {
@@ -235,8 +265,7 @@ End of Script
                 src={logo} 
                 draggable="false" 
                 alt="a large, red button" 
-                onclick={randomize} 
-                onkeypress={randomize} 
+                onclick={randomize}
                 class="hover:cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-200 pb-4"
             >
 
@@ -309,7 +338,7 @@ End of Script
                 {/if}
             {:else}
                 <div class="w-full max-w-4xl flex flex-col items-center gap-8">
-                    <div class="min-h-[200px] flex items-center justify-center">
+                    <div class="min-h-50 flex items-center justify-center">
                         <p class="font-primary text-center font-bold leading-tight px-4" style="font-size: {insultFontSize}; line-height: 1.02;">
                             {MEGAMODEresult}
                         </p>
