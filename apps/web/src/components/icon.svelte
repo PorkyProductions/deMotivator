@@ -6,7 +6,6 @@
 
 
 <style lang="scss">
-    @import "../../node_modules/bootstrap-icons/font/bootstrap-icons.scss";
     i {
         font-style: normal;
     }

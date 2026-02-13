@@ -1,5 +1,6 @@
-@import './colorScheme.scss';
+@import "bootstrap/scss/functions";
 $prefix: "dmv-ppio-";
+@import './colorScheme.scss';
 $primary: $primary-majorelleBlue;
 
 [data-bs-theme="dark"] {
@@ -22,8 +23,9 @@ $gray: #656D75;
 $gray-600: #656D75;
 $enable-rounded: true;
 $enable-shadows: true;
-$font-family-base: 'Raleway', 'sans-serif';
-
-
-@import "../../../node_modules/bootstrap/scss/bootstrap";
-@import "../../../node_modules/bootstrap/scss/bootstrap-reboot";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/variables-dark";
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/root";
+@import "bootstrap/scss/alert";

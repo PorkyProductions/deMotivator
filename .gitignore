@@ -16,6 +16,7 @@ dist-ssr
 out/*
 /out
 *.local
+/apps/web/out
 
 # Editor directories and files
 .vscode/*
@@ -37,3 +38,5 @@ resources/android/**/*
 # Environment Variables
 .env.*
 .env
+.env.turbo
+.turbo

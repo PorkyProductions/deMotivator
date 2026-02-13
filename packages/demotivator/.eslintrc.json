@@ -1,0 +1,53 @@
+{
+    "env": {
+      "browser": true,
+      "es2021": true,
+      "node": true
+    },
+    "extends": [
+      "eslint:recommended",
+      // "airbnb-base", // use if you dare. I'm sure it looks nicer but omg is it hard to refactor
+      "plugin:@typescript-eslint/recommended"
+    ],
+    "ignorePatterns": [
+      "./dist/*"
+    ],
+    "overrides": [
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "ecmaVersion": "latest",
+      "sourceType": "module"
+    },
+    "plugins": [
+      "@typescript-eslint"
+    ],
+    "rules": {
+      "indent": [
+        "error",
+        "tab"
+      ],
+      "linebreak-style": [
+        "error",
+        "windows"
+      ],
+      "quotes": [
+        "error",
+        "single"
+      ],
+      "semi": [
+        "error",
+        "always"
+      ],
+      "camelcase": 2,
+      "eqeqeq": [
+        "error",
+        "smart"
+      ],
+      "prefer-arrow-callback": "error",
+      "prefer-const": "error",
+      "block-scoped-var": "error",
+      "require-await": "error"
+    }
+  }
+  

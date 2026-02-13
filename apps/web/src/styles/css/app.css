@@ -1,5 +1,6 @@
 @config "../../../tailwind.config.cjs";
 @import 'tailwindcss';
+@import 'bootstrap-icons/font/bootstrap-icons.css';
 
 /* Ensure Raleway is applied globally as a fallback in case other stylesheets load before Tailwind */
 @layer base {
