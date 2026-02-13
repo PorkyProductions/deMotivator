@@ -7,6 +7,9 @@ const countInsultWords = (insult: string): number => {
 };
 
 const isInsultWithinWordLimit = (insult: string, maxWords: number): boolean => {
+	if (maxWords <= 0) {
+		return true;
+	}
 	return countInsultWords(insult) <= maxWords;
 };
 

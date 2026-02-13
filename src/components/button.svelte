@@ -56,6 +56,7 @@ const randomize = async () => {
 	const { userInsults } = await import('../typescript/insults');
 	const { DeMotivator } = await import('demotivator');
 	const DMV = new DeMotivator();
+	const maxWordsLabel = $settingsStore.maxInsultWords <= 0 ? 'no word limit' : `${$settingsStore.maxInsultWords} words`;
 	const insults = DMV.createArray({
 		original: includeOriginal,
 		profane: $settingsStore.allowProfanity
@@ -63,7 +64,7 @@ const randomize = async () => {
 	const filteredInsults = filterInsultsByMaxWords(insults, $settingsStore.maxInsultWords);
 	const demotivatorAndUserInsults = filterInsultsByMaxWords(userInsults.concat(filteredInsults), $settingsStore.maxInsultWords);
 	if (filteredInsults.length === 0) {
-		const noMatchingInsultsMessage = `No insults found within ${$settingsStore.maxInsultWords} words.`;
+		const noMatchingInsultsMessage = `No insults found with ${maxWordsLabel}.`;
 		result = noMatchingInsultsMessage;
 		userResult = noMatchingInsultsMessage;
 		return;
@@ -117,9 +118,10 @@ let MEGAMODEinterval: ReturnType<typeof setInterval> | null = null;
 
 const MEGAMODErandomize = async () => {
     const { insults } = await import('demotivator/dist/insults');
+    const maxWordsLabel = $settingsStore.maxInsultWords <= 0 ? 'no word limit' : `${$settingsStore.maxInsultWords} words`;
     const filteredInsults = filterInsultsByMaxWords(insults, $settingsStore.maxInsultWords);
     if (filteredInsults.length === 0) {
-        MEGAMODEresult = `No insults found within ${$settingsStore.maxInsultWords} words.`;
+        MEGAMODEresult = `No insults found with ${maxWordsLabel}.`;
         return;
     }
     MEGAMODEresult = filteredInsults[Math.floor(Math.random() * filteredInsults.length)];

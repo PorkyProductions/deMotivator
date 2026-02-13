@@ -11,7 +11,7 @@ type SettingDefinition<T> = {
 	sanitize: (value: unknown) => T;
 };
 
-const maxInsultWordsMin = 1;
+const maxInsultWordsMin = 0;
 const maxInsultWordsMax = 100;
 const maxInsultWordsDefault = 25;
 
@@ -30,6 +30,9 @@ const userSettingsDefinitionMap: UserSettingsDefinitionMap = {
 			const parsedValue = Math.floor(Number(value));
 			if (!Number.isFinite(parsedValue)) {
 				return maxInsultWordsDefault;
+			}
+			if (parsedValue <= maxInsultWordsMin) {
+				return maxInsultWordsMin;
 			}
 			return Math.max(maxInsultWordsMin, Math.min(maxInsultWordsMax, parsedValue));
 		}

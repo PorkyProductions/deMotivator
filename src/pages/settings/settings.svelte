@@ -60,7 +60,7 @@
 			title: 'Length Limit',
 			icon: 'text-paragraph',
 			label: 'Maximum words per insult',
-			description: 'Insults longer than this are filtered out across the app.',
+			description: 'Insults longer than this are filtered out across the app (set to 0 for unlimited).',
 			min: maxInsultWordsMin,
 			max: maxInsultWordsMax,
 			step: 1
