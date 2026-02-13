@@ -285,12 +285,13 @@ End of Script
             </div>
 
             <!-- MEGAMODE Toggle -->
-            <div class="form-check">
+            <div class="form-check form-switch">
                 <input 
                     type="checkbox" 
                     bind:checked={MEGAMODE} 
                     class="form-check-input" 
                     id="megamodeCheck"
+                    role="switch"
                 >
                 <label class="form-check-label" for="megamodeCheck">
                     <b>MEGAMODE</b>
