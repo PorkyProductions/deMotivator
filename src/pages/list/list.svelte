@@ -14,6 +14,7 @@
     import { userInsults } from '../../typescript/insults';
     import { onMount } from 'svelte';
     import shuffle from 'lodash/shuffle'
+    import { initSettingsListener, settingsStore } from '../../utils/userSettings';
     let dmv;
     let allInsults = $state([]);
     let profaneInsults = $state([]);
@@ -27,12 +28,12 @@
     };
 
     onMount(() => {
+        initSettingsListener();
         initDemotivator();
     });
     
     
     // State management
-    let userWantsProfaneInsults = $state(false);
     let searchQuery = $state("");
     let currentPage = $state(1);
     let itemsPerPage = $state(20);
@@ -55,7 +56,7 @@
     load();
     
     // Computed values for filtering and pagination
-    const currentInsultSet = $derived(userWantsProfaneInsults ? profaneInsults : allInsults)
+    const currentInsultSet = $derived($settingsStore.allowProfanity ? profaneInsults : allInsults)
     
     const filteredInsults = $derived(currentInsultSet.filter((insult: string) => {
         const matchesSearch = insult.toLowerCase().includes(searchQuery.toLowerCase());
@@ -70,7 +71,7 @@
     ));
     
     $effect(() => {
-        if (searchQuery || userWantsProfaneInsults || showFavoritesOnly) {
+        if (searchQuery || $settingsStore.allowProfanity || showFavoritesOnly) {
             currentPage = 1;
         }
     });
@@ -226,16 +227,6 @@
                                 <!-- Filters -->
                                 <div class="col-lg-4">
                                     <div class="btn-group w-100" role="group">
-                                        <input 
-                                            type="checkbox" 
-                                            class="btn-check" 
-                                            id="profaneCheck" 
-                                            bind:checked={userWantsProfaneInsults}
-                                        />
-                                        <label class="btn btn-outline-danger" for="profaneCheck">
-                                            <Icon name="explicit-fill" /> Profanity {userWantsProfaneInsults ? 'ON' : 'OFF'}
-                                        </label>
-                                        
                                         <input 
                                             type="checkbox" 
                                             class="btn-check" 

@@ -6,11 +6,13 @@
     import Title from './components/title.svelte';
     import Loader from './components/loader.svelte'
     import { randomInRange } from '@porkyproductions/hat/randomInRange';
-    import { fade } from 'svelte/transition'
+    import { onMount } from 'svelte';
+    import { fade } from 'svelte/transition';
     import { analytics } from './utils/firebase';
     import { print } from '@porkyproductions/hat/print'
     import { bsTheme } from './utils/darkMode';
     import HomeScreenDevWarningBanner from './components/homeScreenDevWarningBanner.svelte';
+    import { initSettingsListener } from './utils/userSettings';
     
     let ready = $state(false);
 
@@ -19,6 +21,10 @@
         setTimeout(() => { ready = true; }, duration);
     };
     load();
+
+    onMount(() => {
+        initSettingsListener();
+    });
 
     // FROM BEYOND THIS POINT IS FIREBASE LOGIC
     // BEWARE

@@ -35,6 +35,7 @@ const config: UserConfig = {
         login: "./login.html",
         signUp: "./signUp.html",
         list: "./list.html",
+        settings: "./settings.html",
         leaderboard: "./leaderboard.html",
       },
       output: {

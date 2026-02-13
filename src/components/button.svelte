@@ -8,6 +8,7 @@
     import {fade, scale} from 'svelte/transition'
     import { onMount, onDestroy } from 'svelte';
     import Icon from './icon.svelte';
+    import { settingsStore } from '../utils/userSettings';
 
 /*
 
@@ -19,7 +20,6 @@ let insultsShown = $state(0);
 let result = $state("");
 let userResult = $state("");
 let includeOriginal = $state(true);
-let includeProfane = $state(false);
 
 // Database optimization: cache and batch writes
 let cachedInsultCount = $state(0);
@@ -57,7 +57,7 @@ const randomize = async () => {
 	const DMV = new DeMotivator();
 	const insults = DMV.createArray({
 		original: includeOriginal,
-		profane: includeProfane
+		profane: $settingsStore.allowProfanity
 	});
 	const demotivatorAndUserInsults = userInsults.concat(insults);
 	userResult = demotivatorAndUserInsults[Math.floor(Math.random() * demotivatorAndUserInsults.length)];
@@ -231,22 +231,6 @@ $effect(() => {
 
 /*
 
-Profanity Warning
-
-*/
-
-
-const handleProfaneCheckbox = () => {
-    if (includeProfane) {
-        alert('Warning: Enabling profanity will include offensive content.');
-    }
-};
-
-$effect(() => {
-    handleProfaneCheckbox();
-});
-/*
-
 End of Script
 
 */
@@ -282,18 +266,6 @@ End of Script
                 >
                 <label class="form-check-label" for="originalCheck">
                     Include Original
-                </label>
-            </div>
-
-            <div class="form-check">
-                <input 
-                    type="checkbox" 
-                    bind:checked={includeProfane} 
-                    class="form-check-input" 
-                    id="profaneCheck"
-                >
-                <label class="form-check-label" for="profaneCheck">
-                    Include Profanity
                 </label>
             </div>
 
