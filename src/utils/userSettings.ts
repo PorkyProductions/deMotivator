@@ -5,15 +5,55 @@ export type UserSettings = {
 	allowProfanity: boolean;
 };
 
-const defaultSettings: UserSettings = {
-	allowProfanity: false
+type SettingDefinition<T> = {
+	defaultValue: T;
+	sanitize: (value: unknown) => T;
 };
+
+type UserSettingsDefinitionMap = {
+	[K in keyof UserSettings]: SettingDefinition<UserSettings[K]>;
+};
+
+const userSettingsDefinitionMap: UserSettingsDefinitionMap = {
+	allowProfanity: {
+		defaultValue: false,
+		sanitize: (value) => Boolean(value)
+	}
+};
+
+export type UserSettingKey = keyof UserSettings;
+const userSettingKeys = Object.keys(userSettingsDefinitionMap) as UserSettingKey[];
+
+const createDefaultSettings = (): UserSettings => {
+	const defaults = {} as UserSettings;
+	for (const key of userSettingKeys) {
+		defaults[key] = userSettingsDefinitionMap[key].defaultValue;
+	}
+	return defaults;
+};
+
+const defaultSettings: UserSettings = createDefaultSettings();
 
 const settingsStore = writable<UserSettings>({ ...defaultSettings });
 
-const sanitizeSettings = (settings: Partial<UserSettings> | null | undefined): UserSettings => ({
-	allowProfanity: Boolean(settings?.allowProfanity)
-});
+const sanitizeSettings = (settings: Partial<UserSettings> | null | undefined): UserSettings => {
+	const sanitizedSettings = {} as UserSettings;
+	for (const key of userSettingKeys) {
+		sanitizedSettings[key] = userSettingsDefinitionMap[key].sanitize(settings?.[key]);
+	}
+	return sanitizedSettings;
+};
+
+const sanitizePartialSettings = (settings: Partial<UserSettings>): Partial<UserSettings> => {
+	const sanitizedSettings: Partial<UserSettings> = {};
+	for (const key of userSettingKeys) {
+		if (!(key in settings)) {
+			continue;
+		}
+		sanitizedSettings[key] = userSettingsDefinitionMap[key].sanitize(settings[key]);
+	}
+	return sanitizedSettings;
+};
 
 const getFirebaseApp = async () => {
 	const { getApps, getApp, initializeApp } = await import('firebase/app');
@@ -34,7 +74,7 @@ const readUserSettings = async (userId: string): Promise<UserSettings> => {
 	return sanitizeSettings(data?.settings);
 };
 
-const saveUserSettings = async (settings: UserSettings): Promise<void> => {
+const saveUserSettings = async (settings: Partial<UserSettings>): Promise<void> => {
 	const { getFirestore, doc, setDoc } = await import('firebase/firestore');
 	const { getAuth } = await import('firebase/auth');
 	const app = await getFirebaseApp();
@@ -45,11 +85,19 @@ const saveUserSettings = async (settings: UserSettings): Promise<void> => {
 		throw new Error('saveUserSettings: No authenticated user.');
 	}
 	const userRef = doc(db, 'users', user.uid);
+	const settingsPatch: Record<string, UserSettings[UserSettingKey]> = {};
+	for (const key of userSettingKeys) {
+		if (!(key in settings)) {
+			continue;
+		}
+		settingsPatch[`settings.${key}`] = settings[key] as UserSettings[UserSettingKey];
+	}
+	if (Object.keys(settingsPatch).length === 0) {
+		return;
+	}
 	await setDoc(
 		userRef,
-		{
-			settings: settings
-		},
+		settingsPatch,
 		{
 			merge: true
 		}
@@ -57,13 +105,18 @@ const saveUserSettings = async (settings: UserSettings): Promise<void> => {
 };
 
 const setUserSettings = async (partialSettings: Partial<UserSettings>) => {
+	const sanitizedPartialSettings = sanitizePartialSettings(partialSettings);
 	const currentSettings = get(settingsStore);
-	const nextSettings = sanitizeSettings({
+	const nextSettings = {
 		...currentSettings,
-		...partialSettings
-	});
+		...sanitizedPartialSettings
+	};
 	settingsStore.set(nextSettings);
-	await saveUserSettings(nextSettings);
+	await saveUserSettings(sanitizedPartialSettings);
+};
+
+const setUserSetting = async <K extends UserSettingKey>(key: K, value: UserSettings[K]) => {
+	await setUserSettings({ [key]: value } as Partial<UserSettings>);
 };
 
 const exportSettingsJson = (settings: UserSettings) => JSON.stringify(settings, null, 2);
@@ -89,4 +142,4 @@ const initSettingsListener = () => {
 	});
 };
 
-export { settingsStore, defaultSettings, initSettingsListener, setUserSettings, exportSettingsJson };
+export { settingsStore, defaultSettings, initSettingsListener, setUserSettings, setUserSetting, exportSettingsJson };

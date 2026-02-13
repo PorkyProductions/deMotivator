@@ -7,15 +7,43 @@
 	import Icon from '../../components/icon.svelte';
 	import Title from '../../components/title.svelte';
 	import { bsTheme } from '../../utils/darkMode';
-	import { exportSettingsJson, initSettingsListener, setUserSettings, settingsStore } from '../../utils/userSettings';
+	import {
+		exportSettingsJson,
+		initSettingsListener,
+		setUserSetting,
+		settingsStore,
+		type UserSettingKey
+	} from '../../utils/userSettings';
 
-	const handleProfanityToggle = async (event: Event) => {
-		const target = event.target as HTMLInputElement;
-		const allowProfanity = target.checked;
-		if (allowProfanity) {
-			alert('Warning: Enabling profanity will include offensive content.');
+	type ToggleSettingConfig = {
+		key: UserSettingKey;
+		title: string;
+		icon: string;
+		label: string;
+		description: string;
+		enableWarningMessage?: string;
+	};
+
+	const toggleSettings: ToggleSettingConfig[] = [
+		{
+			key: 'allowProfanity',
+			title: 'Profanity',
+			icon: 'explicit-fill',
+			label: 'Allow profane insults',
+			description: 'This setting applies across the app.',
+			enableWarningMessage: 'Warning: Enabling profanity will include offensive content.'
 		}
-		await setUserSettings({ allowProfanity: allowProfanity });
+	];
+
+	const getSettingInputId = (settingKey: UserSettingKey) => `${settingKey}Setting`;
+
+	const handleToggleSettingChange = async (setting: ToggleSettingConfig, event: Event) => {
+		const target = event.target as HTMLInputElement;
+		const nextValue = target.checked;
+		if (nextValue && setting.enableWarningMessage) {
+			alert(setting.enableWarningMessage);
+		}
+		await setUserSetting(setting.key, nextValue);
 	};
 
 	const downloadSettings = () => {
@@ -57,26 +85,28 @@
 				<div class="row justify-content-center">
 					<div class="col-lg-8">
 						<div class="card border-0 shadow-sm mb-4">
-							<div class="card-body">
-								<h2 class="h5 mb-3">
-									<Icon name="explicit-fill" /> Profanity
-								</h2>
-								<div class="form-check form-switch">
-									<input
-										class="form-check-input"
-										type="checkbox"
-										id="allowProfanitySetting"
-										checked={$settingsStore.allowProfanity}
-										onchange={handleProfanityToggle}
-									/>
-									<label class="form-check-label" for="allowProfanitySetting">
-										Allow profane insults
-									</label>
+							{#each toggleSettings as setting (setting.key)}
+								<div class="card-body">
+									<h2 class="h5 mb-3">
+										<Icon name={setting.icon} /> {setting.title}
+									</h2>
+									<div class="form-check form-switch">
+										<input
+											class="form-check-input"
+											type="checkbox"
+											id={getSettingInputId(setting.key)}
+											checked={$settingsStore[setting.key]}
+											onchange={(event) => handleToggleSettingChange(setting, event)}
+										/>
+										<label class="form-check-label" for={getSettingInputId(setting.key)}>
+											{setting.label}
+										</label>
+									</div>
+									<p class="text-muted small mt-2 mb-0">
+										{setting.description}
+									</p>
 								</div>
-								<p class="text-muted small mt-2 mb-0">
-									This setting applies across the app.
-								</p>
-							</div>
+							{/each}
 						</div>
 
 						<div class="card border-0 shadow-sm">
