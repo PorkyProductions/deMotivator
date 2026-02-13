@@ -100,19 +100,19 @@ const saveUserSettings = async (settings: Partial<UserSettings>): Promise<void> 
 		throw new Error('saveUserSettings: No authenticated user.');
 	}
 	const userRef = doc(db, 'users', user.uid);
-	const settingsPatch: Record<string, UserSettings[UserSettingKey]> = {};
+	const settingsPatch: Partial<UserSettings> = {};
 	for (const key of userSettingKeys) {
 		if (!(key in settings)) {
 			continue;
 		}
-		settingsPatch[`settings.${key}`] = settings[key] as UserSettings[UserSettingKey];
+		settingsPatch[key] = settings[key] as UserSettings[UserSettingKey];
 	}
 	if (Object.keys(settingsPatch).length === 0) {
 		return;
 	}
 	await setDoc(
 		userRef,
-		settingsPatch,
+		{ settings: settingsPatch },
 		{
 			merge: true
 		}

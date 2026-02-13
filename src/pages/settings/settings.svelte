@@ -13,6 +13,7 @@
 		maxInsultWordsMax,
 		maxInsultWordsMin,
 		setUserSetting,
+		setUserSettings,
 		settingsStore,
 		type UserSettings,
 		type UserSettingKey
@@ -101,6 +102,11 @@
 		anchor.download = 'demotivator-settings.json';
 		anchor.click();
 		URL.revokeObjectURL(url);
+	};
+
+	const saveSettings = async () => {
+		await setUserSettings($settingsStore);
+		alert('Settings saved.');
 	};
 
 	onMount(() => {
@@ -196,15 +202,20 @@
 							<div class="card-body d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
 								<div>
 									<h2 class="h5 mb-1">
-										<Icon name="download" /> Export settings
+										<Icon name="floppy-fill" /> Save or export settings
 									</h2>
 									<p class="text-muted small mb-0">
-										Download your settings as JSON.
+										Save to your account or download as JSON.
 									</p>
 								</div>
-								<button class="btn btn-outline-primary" onclick={downloadSettings}>
-									<Icon name="download" /> Export JSON
-								</button>
+								<div class="d-flex flex-wrap gap-2">
+									<button class="btn btn-primary" onclick={saveSettings}>
+										<Icon name="floppy-fill" /> Save
+									</button>
+									<button class="btn btn-outline-primary" onclick={downloadSettings}>
+										<Icon name="download" /> Export JSON
+									</button>
+								</div>
 							</div>
 						</div>
 					</div>
