@@ -3,12 +3,17 @@ import { onAuthStateChanged } from './firebase';
 
 export type UserSettings = {
 	allowProfanity: boolean;
+	maxInsultWords: number;
 };
 
 type SettingDefinition<T> = {
 	defaultValue: T;
 	sanitize: (value: unknown) => T;
 };
+
+const maxInsultWordsMin = 1;
+const maxInsultWordsMax = 100;
+const maxInsultWordsDefault = 25;
 
 type UserSettingsDefinitionMap = {
 	[K in keyof UserSettings]: SettingDefinition<UserSettings[K]>;
@@ -18,6 +23,16 @@ const userSettingsDefinitionMap: UserSettingsDefinitionMap = {
 	allowProfanity: {
 		defaultValue: false,
 		sanitize: (value) => Boolean(value)
+	},
+	maxInsultWords: {
+		defaultValue: maxInsultWordsDefault,
+		sanitize: (value) => {
+			const parsedValue = Math.floor(Number(value));
+			if (!Number.isFinite(parsedValue)) {
+				return maxInsultWordsDefault;
+			}
+			return Math.max(maxInsultWordsMin, Math.min(maxInsultWordsMax, parsedValue));
+		}
 	}
 };
 
@@ -143,3 +158,4 @@ const initSettingsListener = () => {
 };
 
 export { settingsStore, defaultSettings, initSettingsListener, setUserSettings, setUserSetting, exportSettingsJson };
+export { maxInsultWordsMin, maxInsultWordsMax };

@@ -10,8 +10,11 @@
 	import {
 		exportSettingsJson,
 		initSettingsListener,
+		maxInsultWordsMax,
+		maxInsultWordsMin,
 		setUserSetting,
 		settingsStore,
+		type UserSettings,
 		type UserSettingKey
 	} from '../../utils/userSettings';
 
@@ -24,6 +27,21 @@
 		enableWarningMessage?: string;
 	};
 
+	type NumericSettingKey = {
+		[K in UserSettingKey]: UserSettings[K] extends number ? K : never;
+	}[UserSettingKey];
+
+	type NumericSettingConfig = {
+		key: NumericSettingKey;
+		title: string;
+		icon: string;
+		label: string;
+		description: string;
+		min: number;
+		max: number;
+		step?: number;
+	};
+
 	const toggleSettings: ToggleSettingConfig[] = [
 		{
 			key: 'allowProfanity',
@@ -32,6 +50,19 @@
 			label: 'Allow profane insults',
 			description: 'This setting applies across the app.',
 			enableWarningMessage: 'Warning: Enabling profanity will include offensive content.'
+		},
+	];
+
+	const numericSettings: NumericSettingConfig[] = [
+		{
+			key: 'maxInsultWords',
+			title: 'Length Limit',
+			icon: 'text-paragraph',
+			label: 'Maximum words per insult',
+			description: 'Insults longer than this are filtered out across the app.',
+			min: maxInsultWordsMin,
+			max: maxInsultWordsMax,
+			step: 1
 		}
 	];
 
@@ -44,6 +75,20 @@
 			alert(setting.enableWarningMessage);
 		}
 		await setUserSetting(setting.key, nextValue);
+	};
+
+	const clampSettingNumber = (value: number, min: number, max: number) => {
+		return Math.max(min, Math.min(max, value));
+	};
+
+	const handleNumberSettingChange = async (setting: NumericSettingConfig, event: Event) => {
+		const target = event.target as HTMLInputElement;
+		const parsedValue = Number.parseInt(target.value, 10);
+		const fallbackValue = Number($settingsStore[setting.key]);
+		const valueToSave = Number.isFinite(parsedValue) ? parsedValue : fallbackValue;
+		const clampedValue = clampSettingNumber(valueToSave, setting.min, setting.max);
+		target.value = clampedValue.toString();
+		await setUserSetting(setting.key, clampedValue);
 	};
 
 	const downloadSettings = () => {
@@ -101,6 +146,44 @@
 										<label class="form-check-label" for={getSettingInputId(setting.key)}>
 											{setting.label}
 										</label>
+									</div>
+									<p class="text-muted small mt-2 mb-0">
+										{setting.description}
+									</p>
+								</div>
+							{/each}
+						</div>
+
+						<div class="card border-0 shadow-sm mb-4">
+							{#each numericSettings as setting (setting.key)}
+								<div class="card-body">
+									<h2 class="h5 mb-3">
+										<Icon name={setting.icon} /> {setting.title}
+									</h2>
+									<label class="form-label" for={getSettingInputId(setting.key)}>
+										{setting.label}
+									</label>
+									<div class="d-flex flex-column flex-md-row gap-3 align-items-md-center">
+										<input
+											class="form-range grow"
+											type="range"
+											id={getSettingInputId(setting.key)}
+											min={setting.min}
+											max={setting.max}
+											step={setting.step ?? 1}
+											value={$settingsStore[setting.key]}
+											onchange={(event) => handleNumberSettingChange(setting, event)}
+										/>
+										<input
+											class="form-control"
+											type="number"
+											min={setting.min}
+											max={setting.max}
+											step={setting.step ?? 1}
+											value={$settingsStore[setting.key]}
+											onchange={(event) => handleNumberSettingChange(setting, event)}
+											style="max-width: 7rem;"
+										/>
 									</div>
 									<p class="text-muted small mt-2 mb-0">
 										{setting.description}

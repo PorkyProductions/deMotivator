@@ -9,6 +9,7 @@
     import { onMount, onDestroy } from 'svelte';
     import Icon from './icon.svelte';
     import { settingsStore } from '../utils/userSettings';
+    import { filterInsultsByMaxWords } from '../utils/insultLength';
 
 /*
 
@@ -59,9 +60,16 @@ const randomize = async () => {
 		original: includeOriginal,
 		profane: $settingsStore.allowProfanity
 	});
-	const demotivatorAndUserInsults = userInsults.concat(insults);
+	const filteredInsults = filterInsultsByMaxWords(insults, $settingsStore.maxInsultWords);
+	const demotivatorAndUserInsults = filterInsultsByMaxWords(userInsults.concat(filteredInsults), $settingsStore.maxInsultWords);
+	if (filteredInsults.length === 0) {
+		const noMatchingInsultsMessage = `No insults found within ${$settingsStore.maxInsultWords} words.`;
+		result = noMatchingInsultsMessage;
+		userResult = noMatchingInsultsMessage;
+		return;
+	}
 	userResult = demotivatorAndUserInsults[Math.floor(Math.random() * demotivatorAndUserInsults.length)];
-	result = insults[Math.floor(Math.random() * insults.length)];
+	result = filteredInsults[Math.floor(Math.random() * filteredInsults.length)];
 	
 	// Increment local counters
 	insultsShown++;
@@ -109,7 +117,12 @@ let MEGAMODEinterval: ReturnType<typeof setInterval> | null = null;
 
 const MEGAMODErandomize = async () => {
     const { insults } = await import('demotivator/dist/insults');
-    MEGAMODEresult = insults[Math.floor(Math.random() * insults.length)];
+    const filteredInsults = filterInsultsByMaxWords(insults, $settingsStore.maxInsultWords);
+    if (filteredInsults.length === 0) {
+        MEGAMODEresult = `No insults found within ${$settingsStore.maxInsultWords} words.`;
+        return;
+    }
+    MEGAMODEresult = filteredInsults[Math.floor(Math.random() * filteredInsults.length)];
     MEGAMODEinsults++;
 };
 

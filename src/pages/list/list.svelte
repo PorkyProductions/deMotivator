@@ -15,6 +15,7 @@
     import { onMount } from 'svelte';
     import shuffle from 'lodash/shuffle'
     import { initSettingsListener, settingsStore } from '../../utils/userSettings';
+    import { filterInsultsByMaxWords } from '../../utils/insultLength';
     let dmv;
     let allInsults = $state([]);
     let profaneInsults = $state([]);
@@ -56,7 +57,10 @@
     load();
     
     // Computed values for filtering and pagination
-    const currentInsultSet = $derived($settingsStore.allowProfanity ? profaneInsults : allInsults)
+    const currentInsultSet = $derived.by(() => {
+        const baseInsultSet = $settingsStore.allowProfanity ? profaneInsults : allInsults;
+        return filterInsultsByMaxWords(baseInsultSet, $settingsStore.maxInsultWords);
+    });
     
     const filteredInsults = $derived(currentInsultSet.filter((insult: string) => {
         const matchesSearch = insult.toLowerCase().includes(searchQuery.toLowerCase());
@@ -71,7 +75,7 @@
     ));
     
     $effect(() => {
-        if (searchQuery || $settingsStore.allowProfanity || showFavoritesOnly) {
+        if (searchQuery || $settingsStore.allowProfanity || showFavoritesOnly || $settingsStore.maxInsultWords) {
             currentPage = 1;
         }
     });
