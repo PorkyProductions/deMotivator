@@ -93,7 +93,7 @@ const readUserSettings = async (userId: string): Promise<UserSettings> => {
 };
 
 const saveUserSettings = async (settings: Partial<UserSettings>): Promise<void> => {
-	const { getFirestore, doc, setDoc } = await import('firebase/firestore');
+	const { getFirestore, doc, updateDoc, setDoc } = await import('firebase/firestore');
 	const { getAuth } = await import('firebase/auth');
 	const app = await getFirebaseApp();
 	const db = getFirestore(app);
@@ -113,13 +113,16 @@ const saveUserSettings = async (settings: Partial<UserSettings>): Promise<void> 
 	if (Object.keys(settingsPatch).length === 0) {
 		return;
 	}
-	await setDoc(
-		userRef,
-		settingsPatch,
-		{
-			merge: true
+	try {
+		await updateDoc(userRef, settingsPatch);
+	} catch (error: unknown) {
+		if (error && typeof error === 'object' && 'code' in error && error.code === 'not-found') {
+			const currentSettings = get(settingsStore);
+			await setDoc(userRef, { settings: currentSettings });
+		} else {
+			throw error;
 		}
-	);
+	}
 };
 
 const setUserSettings = async (partialSettings: Partial<UserSettings>) => {
