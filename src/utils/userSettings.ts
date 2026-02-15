@@ -117,8 +117,8 @@ const saveUserSettings = async (settings: Partial<UserSettings>): Promise<void> 
 		await updateDoc(userRef, settingsPatch);
 	} catch (error: unknown) {
 		if (error && typeof error === 'object' && 'code' in error && error.code === 'not-found') {
-			const currentSettings = get(settingsStore);
-			await setDoc(userRef, { settings: currentSettings });
+			const sanitizedSettings = sanitizePartialSettings(settings);
+			await setDoc(userRef, { settings: sanitizedSettings });
 		} else {
 			throw error;
 		}
