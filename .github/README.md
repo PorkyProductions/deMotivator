@@ -36,23 +36,17 @@ Also check out [(de)Motivator.js](https://github.com/PorkyProductions/deMotivato
 
 ## 📂 Project Structure
 
-```bash
-/
-├── index.html              # Main web entry point
-├── src/
-│   ├── App.svelte          # Top-level Svelte component
-│   ├── bootstrapper.ts     # Mounts the app
-│   ├── components/         # Reusable Svelte components
-│   ├── pages/              # Page-specific Svelte components
-│   ├── typescript/         # Helper functions and logic
-│   ├── styles/             # Global SCSS styles
-│   └── utils/              # Utility functions
-├── www/                    # PWA assets (manifest, icons, etc.)
-├── android/                # Capacitor Android project
-├── ios/                    # Capacitor iOS project
-├── out/                    # Build output directory
-└── docs/                   # Documentation and redirects
-```
+This repository is a monorepo with the web app and local packages organized under apps/ and packages/.
+
+- apps/web/ — the main Svelte 5 + TypeScript web app; contains src/bootstrapper.ts, App.svelte, HTML entry pages (index.html, login.html, etc.), and its own vite.config.ts; this is where the site is built and served.
+- packages/demotivator/ — local npm package providing insults and helper code (source/ → dist/), consumed by the web app.
+- www/ — PWA assets (manifest, icons, service-worker.js) and static files.
+- out/ — production build output directory.
+- docs/ — project documentation.
+
+Top-level files: package.json, package-lock.json, turbo.json, LICENSE, and CI/config files; node_modules/ holds local dependencies.
+
+See apps/web/src and packages/demotivator/source for the main application entry points and insult data.
 
 ---
 
