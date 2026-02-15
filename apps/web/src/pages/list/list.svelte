@@ -16,6 +16,7 @@
     import shuffle from 'lodash/shuffle'
     import { initSettingsListener, settingsStore } from '../../utils/userSettings';
     import { filterInsultsByMaxWords } from '../../utils/insultLength';
+    import { submitInsultRequest } from '../../utils/insultRequests';
     let dmv;
     let allInsults = $state([]);
     let profaneInsults = $state([]);
@@ -43,6 +44,12 @@
     let copySuccess = $state("");
     let favoriteInsults = $state(new Set());
     let showFavoritesOnly = $state(false);
+    
+    // Insult request state
+    let requestText = $state("");
+    let requestSubmitting = $state(false);
+    let requestSuccess = $state("");
+    let requestError = $state("");
     
     // Loading
     let duration = randomInRange(800, 1500);
@@ -105,6 +112,26 @@
         allInsults = shuffle([...allInsults]);
         profaneInsults = shuffle([...profaneInsults]);
         currentPage = 1;
+    };
+    
+    const submitRequest = async () => {
+        if (!requestText.trim()) return;
+        
+        requestSubmitting = true;
+        requestError = "";
+        requestSuccess = "";
+        
+        try {
+            await submitInsultRequest(requestText);
+            requestSuccess = "Request submitted successfully!";
+            requestText = "";
+            setTimeout(() => (requestSuccess = ""), 3000);
+        } catch (err: any) {
+            requestError = err.message || "Failed to submit request.";
+            setTimeout(() => (requestError = ""), 5000);
+        } finally {
+            requestSubmitting = false;
+        }
     };
     
     
@@ -198,6 +225,54 @@
                                     <div class="h4 mb-0 fw-bold">{currentPage}/{totalPages || 1}</div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+
+                    <!-- Insult Request Form -->
+                    <div class="card border-0 shadow-sm mb-4" transition:fly={{ y: 20, delay: 250 }}>
+                        <div class="card-body">
+                            <h2 class="h6 mb-3 fw-bold">
+                                <Icon name="chat-left-text" /> Request a New Insult
+                            </h2>
+                            <p class="text-muted small mb-3">
+                                Have an idea for a demotivating insult? Submit it for review!
+                            </p>
+                            <div class="row g-2">
+                                <div class="col-lg-8">
+                                    <input 
+                                        type="text" 
+                                        class="form-control" 
+                                        placeholder="Your demotivating insult idea..."
+                                        bind:value={requestText}
+                                        disabled={requestSubmitting}
+                                        maxlength="500"
+                                    />
+                                </div>
+                                <div class="col-lg-4">
+                                    <button 
+                                        class="btn btn-primary w-100"
+                                        onclick={submitRequest}
+                                        disabled={requestSubmitting || !requestText.trim()}
+                                    >
+                                        {#if requestSubmitting}
+                                            <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                                            Submitting...
+                                        {:else}
+                                            <Icon name="send" /> Submit Request
+                                        {/if}
+                                    </button>
+                                </div>
+                            </div>
+                            {#if requestSuccess}
+                                <div transition:fly={{ y: -10 }} class="alert alert-success mt-3 mb-0">
+                                    <Icon name="check-circle-fill" /> {requestSuccess}
+                                </div>
+                            {/if}
+                            {#if requestError}
+                                <div transition:fly={{ y: -10 }} class="alert alert-danger mt-3 mb-0">
+                                    <Icon name="exclamation-triangle-fill" /> {requestError}
+                                </div>
+                            {/if}
                         </div>
                     </div>
 
