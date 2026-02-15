@@ -93,7 +93,7 @@ const readUserSettings = async (userId: string): Promise<UserSettings> => {
 };
 
 const saveUserSettings = async (settings: Partial<UserSettings>): Promise<void> => {
-	const { getFirestore, doc, setDoc } = await import('firebase/firestore');
+	const { getFirestore, doc, updateDoc, setDoc } = await import('firebase/firestore');
 	const { getAuth } = await import('firebase/auth');
 	const app = await getFirebaseApp();
 	const db = getFirestore(app);
@@ -103,23 +103,31 @@ const saveUserSettings = async (settings: Partial<UserSettings>): Promise<void> 
 		throw new Error('saveUserSettings: No authenticated user.');
 	}
 	const userRef = doc(db, 'users', user.uid);
-	const settingsPatch: Partial<UserSettings> = {};
+	const settingsPatch: Record<string, UserSettings[UserSettingKey]> = {};
 	for (const key of userSettingKeys) {
 		if (!(key in settings)) {
 			continue;
 		}
-		settingsPatch[key] = settings[key] as UserSettings[UserSettingKey];
+		settingsPatch[`settings.${key}`] = settings[key] as UserSettings[UserSettingKey];
 	}
 	if (Object.keys(settingsPatch).length === 0) {
 		return;
 	}
-	await setDoc(
-		userRef,
-		{ settings: settingsPatch },
-		{
-			merge: true
+	try {
+		await updateDoc(userRef, settingsPatch);
+	} catch (error: unknown) {
+		const isNotFoundError =
+			error &&
+			typeof error === 'object' &&
+			'code' in error &&
+			(error.code === 'not-found' || error.code === 'NOT_FOUND');
+		if (isNotFoundError) {
+			const sanitizedSettings = sanitizePartialSettings(settings);
+			await setDoc(userRef, { settings: sanitizedSettings });
+		} else {
+			throw error;
 		}
-	);
+	}
 };
 
 const setUserSettings = async (partialSettings: Partial<UserSettings>) => {
