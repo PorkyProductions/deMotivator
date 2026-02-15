@@ -263,6 +263,7 @@ End of Script
     >
         <div class="flex flex-col items-center gap-1 px-8 py-4">
             <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+            <!-- svelte-ignore a11y_click_events_have_key_events -->
             <img 
                 src={logo} 
                 draggable="false" 
@@ -270,19 +271,6 @@ End of Script
                 onclick={randomize}
                 class="hover:cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-200 pb-4"
             >
-
-            <!-- Checkboxes for insult options -->
-            <div class="form-check">
-                <input 
-                    type="checkbox" 
-                    bind:checked={includeOriginal} 
-                    class="form-check-input" 
-                    id="originalCheck"
-                >
-                <label class="form-check-label" for="originalCheck">
-                    Include Original
-                </label>
-            </div>
 
             <!-- MEGAMODE Toggle -->
             <div class="form-check form-switch">
