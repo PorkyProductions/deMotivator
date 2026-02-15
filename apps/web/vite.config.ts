@@ -37,6 +37,7 @@ const config: UserConfig = {
         list: "./list.html",
         settings: "./settings.html",
         leaderboard: "./leaderboard.html",
+        admin: "./admin.html",
       },
       output: {
         dir: "out",

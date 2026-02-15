@@ -13,6 +13,7 @@
     import { bsTheme } from './utils/darkMode';
     import HomeScreenDevWarningBanner from './components/homeScreenDevWarningBanner.svelte';
     import { initSettingsListener } from './utils/userSettings';
+    import { initAdminAccessListener } from './utils/adminAccess';
     
     let ready = $state(false);
 
@@ -24,6 +25,7 @@
 
     onMount(() => {
         initSettingsListener();
+        initAdminAccessListener();
     });
 
     // FROM BEYOND THIS POINT IS FIREBASE LOGIC

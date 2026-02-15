@@ -6,11 +6,19 @@
     import SiwGoogleButton from './siwGoogleButton.svelte';
     import { parentCompany } from '../typescript/constants';
     import { navigation } from '../utils/navigation';
+    import { adminAccessStore } from '../utils/adminAccess';
 
     const year = new Date().getFullYear();
 
     // Logic: derived check for mobile/tablet to clean up the template
     const isMobileView = deviceType === 'mobile' || (deviceType === 'tablet' && (OS === 'Android' || OS === 'iOS'));
+    
+    // Only show admin link when user is authenticated AND admin field is explicitly true
+    const showAdminLink = $derived(
+        $adminAccessStore.isAuthenticated === true && 
+        $adminAccessStore.isAdmin === true && 
+        $adminAccessStore.loading === false
+    );
 </script>
 
 {#if isMobileView}
@@ -30,6 +38,15 @@
                             <span>{link.name}</span>
                         </a>
                     {/each}
+                    {#if showAdminLink}
+                        <a 
+                            href="/admin.html"
+                            class="flex items-center gap-1.5 text-warning hover:text-white transition-all duration-200 hover:scale-105 text-sm"
+                        >
+                            <Icon name="speedometer2" />
+                            <span>Admin</span>
+                        </a>
+                    {/if}
                 </nav>
                 <!-- Mobile Account Button -->
                 <a 
@@ -87,10 +104,19 @@
                                 <Icon name="box-arrow-up-right" />
                             {/if}
                         </a>
-                        {#if i < navigation.length - 1}
+                        {#if i < navigation.length - 1 || showAdminLink}
                             <span class="text-white/20">|</span>
                         {/if}
                     {/each}
+                    {#if showAdminLink}
+                        <a 
+                            class="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm text-warning hover:text-white hover:bg-white/10 transition-all duration-200"
+                            href="/admin.html"
+                        >
+                            <Icon name="speedometer2" />
+                            <span>Admin</span>
+                        </a>
+                    {/if}
                 </nav>
 
                 <!-- Right section: Sign in button -->
