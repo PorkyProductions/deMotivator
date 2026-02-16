@@ -2,8 +2,12 @@
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
     "build": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["lint", "prebuild", "^build"],
       "outputs": ["out/**", "dist/**"]
+    },
+    "prebuild": {
+      "dependsOn": ["lint"],
+      "outputs": []
     },
     "lint": {
       "dependsOn": ["^lint"],

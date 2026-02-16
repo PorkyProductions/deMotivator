@@ -28,7 +28,7 @@ export const adminAccessStore = createAdminAccessStore();
 
 export const checkAdminAccess = async (): Promise<AdminAccessState> => {
 	try {
-		adminAccessStore.update(state => ({ ...state, loading: true, error: null }));
+		adminAccessStore.update((state) => ({ ...state, loading: true, error: null }));
 
 		const { getAuth } = await import('firebase/auth');
 		const { getFirestore, doc, getDoc } = await import('firebase/firestore');
@@ -53,7 +53,7 @@ export const checkAdminAccess = async (): Promise<AdminAccessState> => {
 
 		const db = getFirestore(app);
 		const userRef = doc(db, 'users', user.uid);
-		
+
 		let isAdmin = false;
 		try {
 			const userSnap = await getDoc(userRef);

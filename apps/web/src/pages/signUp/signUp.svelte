@@ -1,32 +1,32 @@
 <script>
   // Import generic stylesheets, essential libraries
-  import "../../styles/css/app.css";
-  import "../../styles/scss/colorScheme.scss";
-  import hedgehog from '../../img/HedgehogIcon.png'
-  
+  import '../../styles/css/app.css';
+  import '../../styles/scss/colorScheme.scss';
+  import hedgehog from '../../img/HedgehogIcon.png';
+
   // Import components
-  import BsSpinner from "../../components/bs-spinner.svelte";
-  import Icon from "../../components/icon.svelte";
-  import Auth from "../login/auth.svelte";
-  import BsAlert from "../../components/bs-Alert.svelte";
-  import BsLoader from "../../components/bsLoader.svelte";
-  import Footer from "../../components/footer.svelte";
+  import BsSpinner from '../../components/bs-spinner.svelte';
+  import Icon from '../../components/icon.svelte';
+  import Auth from '../login/auth.svelte';
+  import BsAlert from '../../components/bs-Alert.svelte';
+  import BsLoader from '../../components/bsLoader.svelte';
+  import Footer from '../../components/footer.svelte';
 
   // Import Misc Helpers
-  import { onMount } from "svelte";
-  import { bsTheme, darkMode } from "../../utils/darkMode";
-  import { randomInRange } from "@porkyproductions/hat/randomInRange";
-  import { randomInArray } from "@porkyproductions/hat/randomInArray";
-  import { deviceType } from "../../utils/uaStub";
-  import { fade, fly } from "svelte/transition";
-  import confetti from "canvas-confetti";
-  import { name } from "../../typescript/constants";
+  import { onMount } from 'svelte';
+  import { bsTheme, darkMode } from '../../utils/darkMode';
+  import { randomInRange } from '@porkyproductions/hat/randomInRange';
+  import { randomInArray } from '@porkyproductions/hat/randomInArray';
+  import { deviceType } from '../../utils/uaStub';
+  import { fade, fly } from 'svelte/transition';
+  import confetti from 'canvas-confetti';
+  import { name } from '../../typescript/constants';
 
   // Firebase Logic
-  import { initializeApp } from "firebase/app";
-  import { getAnalytics } from "firebase/analytics";
-  import { firebaseConfig } from "../../typescript/insults";
-  import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from "firebase/auth";
+  import { initializeApp } from 'firebase/app';
+  import { getAnalytics } from 'firebase/analytics';
+  import { firebaseConfig } from '../../typescript/insults';
+  import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from 'firebase/auth';
 
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
@@ -34,111 +34,111 @@
   const auth = getAuth(app);
 
   // Sample names for placeholder
-  let names = [
-    "Yamilet Martin", "Patrick Tormey", "Ronald Martin", "Mohammad Kadel",
-    "Jes Tabbert", "Stephen White", "Reuben White", "Cecelia Rainey",
-    "Anthony Irwin", "Andrew Lopez", "Brian Ohrt", "Etha Jackowski"
+  const names = [
+  	'Yamilet Martin', 'Patrick Tormey', 'Ronald Martin', 'Mohammad Kadel',
+  	'Jes Tabbert', 'Stephen White', 'Reuben White', 'Cecelia Rainey',
+  	'Anthony Irwin', 'Andrew Lopez', 'Brian Ohrt', 'Etha Jackowski'
   ];
-  let randomName = randomInArray(names);
+  const randomName = randomInArray(names);
 
   // UI State
-  let emailBoxContent = $state("");
-  let pwText = $state("");
-  let confirmPwText = $state("");
-  let displayNameText = $state("");
-  let photoURLText = $state("");
+  let emailBoxContent = $state('');
+  let pwText = $state('');
+  let confirmPwText = $state('');
+  let displayNameText = $state('');
+  let photoURLText = $state('');
   let emailInvalid = $state(false);
   let pwInvalid = $state(false);
   let confirmPwInvalid = $state(false);
   let agreedToTerms = $state(false);
-  let dismissedBanner = $state(window.localStorage.getItem("dismissedBanner") === "true");
+  let dismissedBanner = $state(window.localStorage.getItem('dismissedBanner') === 'true');
   let signupSuccess = $state(false);
 
   // Loading Logic
   let ready = $state(false);
-  let loadingDuration = randomInRange(800, 2000);
+  const loadingDuration = randomInRange(800, 2000);
 
   let error = $state(null);
 
   const load = async () => {
-    setTimeout(() => (ready = true), loadingDuration);
+  	setTimeout(() => (ready = true), loadingDuration);
   };
   load();
 
   const onChangeSignupText = async () => {
-    const { isEmailValid, isPwValid } = await import("../../utils/regEx");
-    pwInvalid = !isPwValid(pwText);
-    emailInvalid = !isEmailValid(emailBoxContent);
-    confirmPwInvalid = pwText !== confirmPwText || !confirmPwText;
+  	const { isEmailValid, isPwValid } = await import('../../utils/regEx');
+  	pwInvalid = !isPwValid(pwText);
+  	emailInvalid = !isEmailValid(emailBoxContent);
+  	confirmPwInvalid = pwText !== confirmPwText || !confirmPwText;
   };
-  
+
   // Helper function to determine form validation classes
   const getValidationClass = (value, isInvalid) => {
-    if (!value) return ""; // No validation class if empty
-    return isInvalid ? "is-invalid" : "is-valid";
+  	if (!value) return ''; // No validation class if empty
+  	return isInvalid ? 'is-invalid' : 'is-valid';
   };
 
   const signUpHandler = async (event) => {
-    event.preventDefault();
-    
-    if (deviceType === "desktop") {
-      ready = false;
-    }
+  	event.preventDefault();
 
-    try {
-      error = null;
-      
-      // Validate agreement to terms
-      if (!agreedToTerms) {
-        throw new Error("You must agree to the terms and conditions before signing up!");
-      }
-      
-      // Validate password match
-      if (pwText !== confirmPwText) {
-        throw new Error("Passwords do not match!");
-      }
-      
-      // Validate email and password format
-      const { emailRegExp, pwRegExp } = await import('../../utils/regEx');
-      if (!emailRegExp.test(emailBoxContent)) {
-        throw new Error("Must be a valid email address");
-      }
-      if (!pwRegExp.test(pwText)) {
-        throw new Error("Password must meet security requirements");
-      }
-      
-      // Create user account
-      const userCredential = await createUserWithEmailAndPassword(auth, emailBoxContent, pwText);
-      const user = userCredential.user;
-      
-      // Send verification email
-      await sendEmailVerification(user);
-      
-      // Update profile with display name and photo
-      await updateProfile(user, {
-        displayName: displayNameText || randomName,
-        photoURL: photoURLText || null
-      });
-      
-      // Success celebration
-      const { randomInRange } = await import("@porkyproductions/hat/randomInRange");
-      confetti({
-        angle: randomInRange(55, 125),
-        spread: randomInRange(50, 70),
-        particleCount: randomInRange(50, 100),
-        origin: { y: 0.6 },
-      });
-      
-      if (typeof hapticsImpactMedium !== 'undefined') await hapticsImpactMedium();
-      if (typeof hapticsVibrate !== 'undefined') await hapticsVibrate();
-      
-      signupSuccess = true;
-      setTimeout(() => (ready = true), 1000);
-      
-    } catch (err) {
-      error = err;
-      ready = true;
-    }
+  	if (deviceType === 'desktop') {
+  		ready = false;
+  	}
+
+  	try {
+  		error = null;
+
+  		// Validate agreement to terms
+  		if (!agreedToTerms) {
+  			throw new Error('You must agree to the terms and conditions before signing up!');
+  		}
+
+  		// Validate password match
+  		if (pwText !== confirmPwText) {
+  			throw new Error('Passwords do not match!');
+  		}
+
+  		// Validate email and password format
+  		const { emailRegExp, pwRegExp } = await import('../../utils/regEx');
+  		if (!emailRegExp.test(emailBoxContent)) {
+  			throw new Error('Must be a valid email address');
+  		}
+  		if (!pwRegExp.test(pwText)) {
+  			throw new Error('Password must meet security requirements');
+  		}
+
+  		// Create user account
+  		const userCredential = await createUserWithEmailAndPassword(auth, emailBoxContent, pwText);
+  		const user = userCredential.user;
+
+  		// Send verification email
+  		await sendEmailVerification(user);
+
+  		// Update profile with display name and photo
+  		await updateProfile(user, {
+  			displayName: displayNameText || randomName,
+  			photoURL: photoURLText || null
+  		});
+
+  		// Success celebration
+  		const { randomInRange } = await import('@porkyproductions/hat/randomInRange');
+  		confetti({
+  			angle: randomInRange(55, 125),
+  			spread: randomInRange(50, 70),
+  			particleCount: randomInRange(50, 100),
+  			origin: { y: 0.6 }
+  		});
+
+  		if (typeof hapticsImpactMedium !== 'undefined') await hapticsImpactMedium();
+  		if (typeof hapticsVibrate !== 'undefined') await hapticsVibrate();
+
+  		signupSuccess = true;
+  		setTimeout(() => (ready = true), 1000);
+
+  	} catch (err) {
+  		error = err;
+  		ready = true;
+  	}
   };
 </script>
 
@@ -147,9 +147,9 @@
     {#if !ready}
       <div transition:fade={{ duration: 300 }} class="fixed inset-0 z-50 flex flex-col items-center justify-center backdrop-blur-sm">
         <div class="mb-4">
-          <BsSpinner type={signupSuccess ? "success" : error ? "danger" : "primary"} />
+          <BsSpinner type={signupSuccess ? 'success' : error ? 'danger' : 'primary'} />
         </div>
-        <BsLoader type={signupSuccess ? "success" : error ? "danger" : "primary"} loadingTime={loadingDuration} />
+        <BsLoader type={signupSuccess ? 'success' : error ? 'danger' : 'primary'} loadingTime={loadingDuration} />
       </div>
     {/if}
 
@@ -168,7 +168,7 @@
             <BsAlert
               icon="exclamation-diamond-fill"
               type="danger"
-              text={error.message ?? "An unknown error occurred."}
+              text={error.message ?? 'An unknown error occurred.'}
             />
           </div>
         {/if}
@@ -181,7 +181,7 @@
               text={`By using ${name} with an account, you consent to our and Google's cookies.`}
               actionLink="https://policies.google.com/privacy"
               actionText="Learn More"
-              onclick={() => { dismissedBanner = true; window.localStorage.setItem("dismissedBanner", "true"); }}
+              onclick={() => { dismissedBanner = true; window.localStorage.setItem('dismissedBanner', 'true'); }}
             />
           </div>
         {/if}
@@ -303,22 +303,22 @@
               </div>
 
               <div class="form-check my-3">
-                <input 
-                  class="form-check-input" 
-                  type="checkbox" 
-                  id="agreeTerms" 
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="agreeTerms"
                   bind:checked={agreedToTerms}
                   required
                 >
                 <label class="form-check-label text-secondary" for="agreeTerms">
-                  I agree to the <a href="#" class="text-primary">Terms and Conditions</a> and 
+                  I agree to the <a href="#" class="text-primary">Terms and Conditions</a> and
                   <a href="https://policies.google.com/privacy" class="text-primary">Privacy Policy</a>
                 </label>
               </div>
 
               <div class="d-grid gap-3 mt-3">
-                <button 
-                  type="submit" 
+                <button
+                  type="submit"
                   class="btn btn-primary btn-lg shadow-sm"
                   disabled={!agreedToTerms}
                 >
@@ -337,9 +337,9 @@
       </div>
 
       <div class="hidden lg:block lg:w-1/2 relative dark:bg-black">
-        <img 
-          class="absolute inset-0 w-full h-full object-cover opacity-90" 
-          src={hedgehog} 
+        <img
+          class="absolute inset-0 w-full h-full object-cover opacity-90"
+          src={hedgehog}
           alt="a hand drawn hedgehog"
           draggable="false"
         />

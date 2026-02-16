@@ -3,10 +3,8 @@
     import { insultAt, createArray } from 'demotivator';
     import { randomInRange } from '@porkyproductions/hat/randomInRange';
     import { parentCompany } from '../typescript/constants';
-    var year = new Date().getFullYear()
+    var year = new Date().getFullYear();
 </script>
-
-
 
 <div class="flex justify-between dark:bg-gray-900 bg-primary-majorelleBlue">
     <div class="text-white">
@@ -15,16 +13,16 @@
     <div class="text-white font-primary text-center p-5 font-normal">
         {
             insultAt(
-                randomInRange(
-                    1,
-                    300
-                ),
-                createArray(
-                    {
-                        original: true, 
-                        profane: false
-                    }
-                )
+            	randomInRange(
+            		1,
+            		300
+            	),
+            	createArray(
+            		{
+            			original: true,
+            			profane: false
+            		}
+            	)
             )
         }
     </div>

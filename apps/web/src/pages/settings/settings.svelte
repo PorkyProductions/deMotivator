@@ -51,7 +51,7 @@
 			label: 'Allow profane insults',
 			description: 'This setting applies across the app.',
 			enableWarningMessage: 'Warning: Enabling profanity will include offensive content.'
-		},
+		}
 	];
 
 	const numericSettings: NumericSettingConfig[] = [

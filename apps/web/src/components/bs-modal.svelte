@@ -1,23 +1,23 @@
 <script lang="ts">
-  import '../styles/scss/darkMode.scss'
+  import '../styles/scss/darkMode.scss';
   import type { BSVarient } from '../typescript/types';
   import Icon from './icon.svelte';
     const load = async () => {
-        await import('bootstrap/js/dist/modal')
-    }
-    let { 
-        preButtonType, 
-        preButtonText, 
-        preButtonIcon,
-        icon,
-        title,
-        body,
-        confirmButtonType,
-        confirmButtonText,
-        confirmButtonAction,
-        closeButtonType,
-        closeButtonText 
-    }: { 
+    	await import('bootstrap/js/dist/modal');
+    };
+    const {
+    	preButtonType,
+    	preButtonText,
+    	preButtonIcon,
+    	icon,
+    	title,
+    	body,
+    	confirmButtonType,
+    	confirmButtonText,
+    	confirmButtonAction,
+    	closeButtonType,
+    	closeButtonText
+    }: {
         preButtonType: BSVarient;
         preButtonText: string;
         preButtonIcon: string;
@@ -36,7 +36,7 @@
 <button type="button" class="btn btn-{preButtonType}" data-bs-toggle="modal" data-bs-target="#exampleModal" id="bsModal" onmouseover={load} onfocus={load}>
     <Icon name={preButtonIcon} />{preButtonText}
   </button>
-  
+
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -61,4 +61,4 @@
       </div>
     </div>
   </div>
-  
+

@@ -1,14 +1,14 @@
 <script lang="ts">
-    import '../styles/scss/bootstrap.scss'
-    import { leaderboard } from '../typescript/readInsults'
-    import { getListOfAllUsersWhoHaveSeenInsults as getList } from '../typescript/readInsults'
-    import { randomInRange } from '@porkyproductions/hat/randomInRange'
+    import '../styles/scss/bootstrap.scss';
+    import { leaderboard } from '../typescript/readInsults';
+    import { getListOfAllUsersWhoHaveSeenInsults as getList } from '../typescript/readInsults';
+    import { randomInRange } from '@porkyproductions/hat/randomInRange';
     import { fade, fly, scale } from 'svelte/transition';
     import { parentCompany } from '../typescript/constants';
     import { bsTheme } from '../utils/darkMode';
     import type { BsModalProps } from '../typescript/types';
 
-    import Title from './title.svelte'
+    import Title from './title.svelte';
     import BsLoader from './bsLoader.svelte';
     import Icon from './icon.svelte';
     import BsSpinner from './bs-spinner.svelte';
@@ -16,67 +16,67 @@
     import BsAlert from './bs-Alert.svelte';
 
     const modalProps: BsModalProps = {
-        icon: "patch-question",
-        preButtonIcon: "patch-question",
-        preButtonText: `What is a ${parentCompany}ID?`,
-        preButtonType: "info",
-        title: `About ${parentCompany}IDs`,
-        body: `A ${parentCompany}ID is a unique identifier for your account. When you create an account, PorkyProductions generates a unique series of characters tied to your profile. You can find your UserID on the account page.`,
-        closeButtonText: "Got it",
-        closeButtonType: "secondary",
-        confirmButtonAction: () => window.location.href = "/login.html",
-        confirmButtonText: "View My Account",
-        confirmButtonType: "info",
-    }
+    	icon: 'patch-question',
+    	preButtonIcon: 'patch-question',
+    	preButtonText: `What is a ${parentCompany}ID?`,
+    	preButtonType: 'info',
+    	title: `About ${parentCompany}IDs`,
+    	body: `A ${parentCompany}ID is a unique identifier for your account. When you create an account, PorkyProductions generates a unique series of characters tied to your profile. You can find your UserID on the account page.`,
+    	closeButtonText: 'Got it',
+    	closeButtonType: 'secondary',
+    	confirmButtonAction: () => window.location.href = '/login.html',
+    	confirmButtonText: 'View My Account',
+    	confirmButtonType: 'info'
+    };
 
     // State management
     let ready = $state(false);
     let loading = $state(false);
     let error = $state(null);
     let lastUpdated = $state(new Date());
-    let duration = randomInRange(800, 2000);
+    const duration = randomInRange(800, 2000);
     let initialLoadComplete = $state(false);
-    
+
     const load = async (d: number = duration) => {
-        setTimeout(() => (ready = true), d);
+    	setTimeout(() => (ready = true), d);
     };
-    
+
     const refreshLeaderboard = async () => {
-        loading = true;
-        error = null;
-        try {
-            await getList();
-            lastUpdated = new Date();
-            setTimeout(() => (loading = false), 300);
-        } catch (err) {
-            error = err;
-            loading = false;
-        }
+    	loading = true;
+    	error = null;
+    	try {
+    		await getList();
+    		lastUpdated = new Date();
+    		setTimeout(() => (loading = false), 300);
+    	} catch (err) {
+    		error = err;
+    		loading = false;
+    	}
     };
-    
+
     // Get medal icon based on position
     const getMedalIcon = (position: number) => {
-        switch(position) {
-            case 1: return '🥇';
-            case 2: return '🥈';
-            case 3: return '🥉';
-            default: return null;
-        }
+    	switch(position) {
+    		case 1: return '🥇';
+    		case 2: return '🥈';
+    		case 3: return '🥉';
+    		default: return null;
+    	}
     };
-    
+
     // Format large numbers
     const formatNumber = (num: number) => {
-        return num.toLocaleString();
+    	return num.toLocaleString();
     };
 
     load();
-    
+
     // Load leaderboard data on mount (only once)
     $effect(() => {
-        if (!initialLoadComplete) {
-            getList();
-            initialLoadComplete = true;
-        }
+    	if (!initialLoadComplete) {
+    		getList();
+    		initialLoadComplete = true;
+    	}
     });
 </script>
 
@@ -106,8 +106,8 @@
 
                         <!-- Action Buttons -->
                         <div class="d-flex gap-2 justify-content-center flex-wrap">
-                            <button 
-                                onclick={refreshLeaderboard} 
+                            <button
+                                onclick={refreshLeaderboard}
                                 class="btn btn-primary btn-lg shadow-sm"
                                 disabled={loading}
                             >
@@ -141,7 +141,7 @@
                     <BsAlert
                         icon="exclamation-triangle-fill"
                         type="danger"
-                        text={error.message ?? "Failed to load leaderboard. Please try again."}
+                        text={error.message ?? 'Failed to load leaderboard. Please try again.'}
                         actionLink="/leaderboard.html"
                         actionText="Retry"
                     />
@@ -275,7 +275,7 @@
                                             </td>
                                             <td>
                                                 <div class="d-flex align-items-center">
-                                                    <img 
+                                                    <img
                                                         src={`https://api.dicebear.com/7.x/identicon/svg?seed=${entry.referrer}`}
                                                         alt="User Avatar"
                                                         class="rounded-circle me-3"
@@ -337,13 +337,13 @@
         height: 100%;
         margin: 0;
     }
-    
+
     /* Add subtle hover effect to table rows */
     :global(.table-hover tbody tr:hover) {
         transform: translateX(4px);
         transition: transform 0.2s ease;
     }
-    
+
     /* Smooth loading spinner */
     :global(.spinner-border-sm) {
         width: 1rem;

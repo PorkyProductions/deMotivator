@@ -20,11 +20,10 @@ import generateInsult, { insultAt } from './generateinsult';
 import {
 	type __DeMotivator,
 	type Insult,
-	type CreateArrayConfig,
+	type CreateArrayConfig
 } from './typings';
 
 export { insults, generateInsult, insultAt, type Insult, type CreateArrayConfig };
-
 
 /**
  * createArray is a new function itroduced in version 12 that creates a custom insult array based on a configuration you provide.
@@ -43,7 +42,6 @@ export const createArray = (configuration: CreateArrayConfig): Insult[] => {
 	}
 };
 
-
 /**
  * The main deMotivator object.
  * Contains all the functions and properties of the deMotivator.
@@ -56,7 +54,7 @@ export const deMotivator: __DeMotivator = {
 	profaneInsults: profaneInsults,
 	createArray: createArray,
 	generateInsult: generateInsult,
-	insultAt: insultAt,
+	insultAt: insultAt
 };
 export default deMotivator;
 

@@ -5,16 +5,16 @@
 	import { launchConfetti } from '../utils/loginHandlers';
 	import { onMount } from 'svelte';
 
-	const LOADING_PLACEHOLDER = "...";
+	const LOADING_PLACEHOLDER = '...';
 
-	let {
+	const {
 		user,
 		insultsSeenDB,
 		onRefreshInsultsSeen,
 		onLogout,
 		onDeleteAccount
 	} = $props();
-	
+
 	// Load profile data on mount
 	onMount(() => {
 		if (insultsSeenDB === LOADING_PLACEHOLDER) {
@@ -35,10 +35,10 @@
 			/>
 		</div>
 		<h2 class="card-title fw-bold mb-1">
-			Hello, <span class="text-primary-majorelle-blue dark:text-primary-majorelle-blue">{user.name ?? "Guest"}</span>
+			Hello, <span class="text-primary-majorelle-blue dark:text-primary-majorelle-blue">{user.name ?? 'Guest'}</span>
 		</h2>
 		<p class="card-text text-muted font-monospace mb-4">{user.email}</p>
-		
+
 		<div class="row g-3 mb-4">
 			<div class="col-6">
 				<div class="p-3 bg-body-tertiary rounded-3">
@@ -57,11 +57,11 @@
 		<button class="btn btn-primary btn-lg w-100 rounded-3 mb-3" onclick={launchConfetti}>
 			<i class="bi bi-heart-fill me-2"></i> Launch Confetti
 		</button>
-		
+
 		<div class="d-flex gap-2 justify-content-center mb-4">
 			<BsButton href="/list.html" type="secondary" text="All Insults" icon="binoculars" />
 			<div onclick={onRefreshInsultsSeen} onkeypress={onRefreshInsultsSeen} role="button" tabindex="0">
-				<BsButton href="#" type={darkMode ? "dark" : "light"} text="Refresh Stats" icon="arrow-clockwise" />
+				<BsButton href="#" type={darkMode ? 'dark' : 'light'} text="Refresh Stats" icon="arrow-clockwise" />
 			</div>
 		</div>
 
@@ -73,7 +73,7 @@
 			</button>
 			<BsModal
 				preButtonText="Delete Account"
-				preButtonType="danger" 
+				preButtonType="danger"
 				preButtonIcon="person-x"
 				title="Delete Account?"
 				body="Once an account is deleted, it cannot be undone, and any data associated with that account will be forever lost. Be absolutely sure."

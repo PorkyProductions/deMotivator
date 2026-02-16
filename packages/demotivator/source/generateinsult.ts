@@ -22,7 +22,6 @@ import { insults } from './insults';
  */
 export default (array: Insult[] = insults): Insult => array[Math.floor(Math.random() * array.length)];
 
-
 /**
  * Get a specific insult from a point and array that you specify
  *

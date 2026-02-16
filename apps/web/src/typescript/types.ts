@@ -1,11 +1,10 @@
-import { type DocumentData } from "firebase/firestore";
+import { type DocumentData } from 'firebase/firestore';
 
 export type bool = boolean;
 import { deMotivator } from 'demotivator';
 export type Insults = typeof deMotivator.insults;
 
-export type BSVarient = "primary" | "secondary" | "success" | "danger" | "warning" | "info" | "light" | "dark"
-
+export type BSVarient = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark'
 
 export interface FirebaseConfig {
     apiKey: string;
@@ -25,7 +24,6 @@ export interface _Insult {
 
 export interface _UserInsult extends _Insult { containsUser: bool }
 
-
 export interface InsultDBQueryResponse extends DocumentData {
     data?: number
 }
@@ -33,16 +31,16 @@ export interface GlobInsultDBQueryResponse extends DocumentData, InsultDBQueryRe
     referrer?: string,
 }
 
-export interface BsModalProps { 
-    preButtonType: BSVarient; 
-    preButtonText: string; 
-    preButtonIcon: string; 
-    icon: string; 
-    title: string; 
+export interface BsModalProps {
+    preButtonType: BSVarient;
+    preButtonText: string;
+    preButtonIcon: string;
+    icon: string;
+    title: string;
     body: string;
-    confirmButtonType: BSVarient; 
-    confirmButtonText: string; 
-    confirmButtonAction: any; 
-    closeButtonType: BSVarient; 
-    closeButtonText: string; 
+    confirmButtonType: BSVarient;
+    confirmButtonText: string;
+    confirmButtonAction: any;
+    closeButtonType: BSVarient;
+    closeButtonText: string;
 }

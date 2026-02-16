@@ -1,23 +1,23 @@
 <script lang="ts">
-  import '../styles/scss/darkMode.scss'
-  import type { BSVarient } from "../typescript/types";
-  let { type, loadingTime }: { type: BSVarient; loadingTime: number } = $props();
-  import { fade } from "svelte/transition";
-  import { onMount, onDestroy } from "svelte";
-  
+  import '../styles/scss/darkMode.scss';
+  import type { BSVarient } from '../typescript/types';
+  const { type, loadingTime }: { type: BSVarient; loadingTime: number } = $props();
+  import { fade } from 'svelte/transition';
+  import { onMount, onDestroy } from 'svelte';
+
   let elapsedTime = $state(0);
   let value = $state(0);
   let timeUntil100Percent = $state(0);
   let loadingPercentCalc: any;
   onMount(() => {
-    elapsedTime = 0;
-    value = 0;
-    timeUntil100Percent = 10000 / loadingTime;
-    loadingPercentCalc = setInterval(() => {
-      value += timeUntil100Percent;
-      elapsedTime += 1;
-    }, 100);
-  })
+  	elapsedTime = 0;
+  	value = 0;
+  	timeUntil100Percent = 10000 / loadingTime;
+  	loadingPercentCalc = setInterval(() => {
+  		value += timeUntil100Percent;
+  		elapsedTime += 1;
+  	}, 100);
+  });
 
   onDestroy(() => clearInterval(loadingPercentCalc));
 </script>
@@ -37,7 +37,7 @@
 <div class="text-center font-primary p-4">
     {
         Math.round(value) > 100
-        ? 100
-        : Math.round(value)
+        	? 100
+        	: Math.round(value)
     }%
 </div>

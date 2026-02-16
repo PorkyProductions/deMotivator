@@ -12,7 +12,7 @@ export const launchConfetti = async () => {
 			angle: randomInRange(50, 90),
 			spread: randomInRange(25, 100),
 			particleCount: randomInRange(20, 50),
-			origin: { y: 0.6 },
+			origin: { y: 0.6 }
 		});
 		i--;
 	}, 500);
@@ -24,34 +24,34 @@ export const createLoginHandler = (
 	setReady: (ready: boolean) => void,
 	setError: (error: any) => void
 ) => async (event: Event, loginAction: (email: string, password: string) => Promise<any>, email: string, password: string, keepMeLoggedIn: boolean) => {
-		event.preventDefault();
+	event.preventDefault();
 
-		if (deviceType === 'desktop') {
-			setReady(false);
+	if (deviceType === 'desktop') {
+		setReady(false);
+	}
+
+	try {
+		setError(null);
+
+		// Use the function passed from the component
+		await loginAction(email, password);
+
+		confetti({
+			angle: randomInRange(55, 125),
+			spread: randomInRange(50, 70),
+			particleCount: randomInRange(50, 100),
+			origin: { y: 0.6 }
+		});
+
+		if (keepMeLoggedIn) {
+			window.localStorage.setItem('keepMeLoggedIn', 'true');
+		} else {
+			window.localStorage.setItem('keepMeLoggedIn', 'false');
 		}
 
-		try {
-			setError(null);
-
-			// Use the function passed from the component
-			await loginAction(email, password);
-
-			confetti({
-				angle: randomInRange(55, 125),
-				spread: randomInRange(50, 70),
-				particleCount: randomInRange(50, 100),
-				origin: { y: 0.6 },
-			});
-
-			if (keepMeLoggedIn) {
-				window.localStorage.setItem('keepMeLoggedIn', 'true');
-			} else {
-				window.localStorage.setItem('keepMeLoggedIn', 'false');
-			}
-
-			setTimeout(() => setReady(true), 1000);
-		} catch (err) {
-			setError(err);
-			setReady(true);
-		}
-	};
+		setTimeout(() => setReady(true), 1000);
+	} catch (err) {
+		setError(err);
+		setReady(true);
+	}
+};

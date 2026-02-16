@@ -1,56 +1,56 @@
-import { DocumentData, QuerySnapshot } from "firebase/firestore";
-import { GlobInsultDBQueryResponse, type InsultDBQueryResponse  } from "./types";
+import { DocumentData, QuerySnapshot } from 'firebase/firestore';
+import { GlobInsultDBQueryResponse, type InsultDBQueryResponse  } from './types';
 export const readInsults = async (): Promise<number> => {
-  const { getFirestore, doc, getDoc } = await import("firebase/firestore");
-  const { initializeApp } = await import("firebase/app");
-  const { getAuth } = await import("firebase/auth");
-  const { firebaseConfig } = await import("./insults");
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-  const auth = getAuth(app);
+	const { getFirestore, doc, getDoc } = await import('firebase/firestore');
+	const { initializeApp } = await import('firebase/app');
+	const { getAuth } = await import('firebase/auth');
+	const { firebaseConfig } = await import('./insults');
+	const app = initializeApp(firebaseConfig);
+	const db = getFirestore(app);
+	const auth = getAuth(app);
 
-  return new Promise(async (resolve, reject) => {
-    try {
-      const user = auth.currentUser;
-      if (user) {
-        const usersRef = doc(db, "users", user.uid);
-        const usersSnap = await getDoc(usersRef);
-        if (usersSnap.exists()) {
-          let data: InsultDBQueryResponse = usersSnap.data();
-          if (typeof data.insultsSeen === "number") {
-            resolve(data.insultsSeen);
-          } else {
-            resolve(0);
-          }
-        } else {
-          resolve(0);
-        }
-      } else {
-        resolve(0);
-      }
-    } catch (error) {
-      reject((err: Error) => console.error(err));
-    }
-  });
-}
-export let leaderboard: GlobInsultDBQueryResponse[] = []
+	return new Promise(async (resolve, reject) => {
+		try {
+			const user = auth.currentUser;
+			if (user) {
+				const usersRef = doc(db, 'users', user.uid);
+				const usersSnap = await getDoc(usersRef);
+				if (usersSnap.exists()) {
+					const data: InsultDBQueryResponse = usersSnap.data();
+					if (typeof data.insultsSeen === 'number') {
+						resolve(data.insultsSeen);
+					} else {
+						resolve(0);
+					}
+				} else {
+					resolve(0);
+				}
+			} else {
+				resolve(0);
+			}
+		} catch (error) {
+			reject((err: Error) => console.error(err));
+		}
+	});
+};
+export let leaderboard: GlobInsultDBQueryResponse[] = [];
 
 export const getListOfAllUsersWhoHaveSeenInsults = async (): Promise<QuerySnapshot<DocumentData>> => {
-  leaderboard = []
-  const { getFirestore, getDocs, collection, where, query  } = await import("firebase/firestore");
-  const { initializeApp } = await import("firebase/app");
-  const { firebaseConfig } = await import("./insults");
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-  const usersCollectionRef = collection(db, "users");
-  const querySnapshot = await getDocs(query(usersCollectionRef, where("insultsSeen", ">", 0)));
-  querySnapshot.forEach((doc) => leaderboard.push({
-    referrer: doc.id,
-    data: doc.data().insultsSeen
-  }))
-  leaderboard.sort((a, b) => Number(a.data ?? 0) - Number(b.data ?? 0));
-  leaderboard = leaderboard.reverse() as GlobInsultDBQueryResponse[];
-  console.log("SCOREBOARD: ", leaderboard)
-  return querySnapshot
-}
+	leaderboard = [];
+	const { getFirestore, getDocs, collection, where, query  } = await import('firebase/firestore');
+	const { initializeApp } = await import('firebase/app');
+	const { firebaseConfig } = await import('./insults');
+	const app = initializeApp(firebaseConfig);
+	const db = getFirestore(app);
+	const usersCollectionRef = collection(db, 'users');
+	const querySnapshot = await getDocs(query(usersCollectionRef, where('insultsSeen', '>', 0)));
+	querySnapshot.forEach((doc) => leaderboard.push({
+		referrer: doc.id,
+		data: doc.data().insultsSeen
+	}));
+	leaderboard.sort((a, b) => Number(a.data ?? 0) - Number(b.data ?? 0));
+	leaderboard = leaderboard.reverse() as GlobInsultDBQueryResponse[];
+	console.log('SCOREBOARD: ', leaderboard);
+	return querySnapshot;
+};
 

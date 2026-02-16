@@ -12,11 +12,11 @@
 
     // Logic: derived check for mobile/tablet to clean up the template
     const isMobileView = deviceType === 'mobile' || (deviceType === 'tablet' && (OS === 'Android' || OS === 'iOS'));
-    
+
     // Only show admin link when user is authenticated AND admin field is explicitly true
     const showAdminLink = $derived(
-        $adminAccessStore.isAuthenticated === true && 
-        $adminAccessStore.isAdmin === true && 
+    	$adminAccessStore.isAuthenticated === true &&
+        $adminAccessStore.isAdmin === true &&
         $adminAccessStore.loading === false
     );
 </script>
@@ -28,7 +28,7 @@
                 <!-- Mobile Navigation Row -->
                 <nav class="flex items-center justify-center gap-4 flex-wrap">
                     {#each navigation as link}
-                        <a 
+                        <a
                             href={link.href}
                             target={link.external ? '_blank' : undefined}
                             rel={link.external ? 'noopener noreferrer' : undefined}
@@ -39,7 +39,7 @@
                         </a>
                     {/each}
                     {#if showAdminLink}
-                        <a 
+                        <a
                             href="/admin.html"
                             class="flex items-center gap-1.5 text-warning hover:text-white transition-all duration-200 hover:scale-105 text-sm"
                         >
@@ -49,8 +49,8 @@
                     {/if}
                 </nav>
                 <!-- Mobile Account Button -->
-                <a 
-                    href="login.html" 
+                <a
+                    href="login.html"
                     class="btn btn-light"
                 >
                     <Icon name="person-circle" />
@@ -67,7 +67,7 @@
     <div class="h-36"></div>
 
 {:else}
-    <footer 
+    <footer
         class="dmv-footer fixed bottom-0 left-0 right-0 z-50 py-3 shadow-2xl border-t border-white/10
         bg-linear-to-r from-primary-majorelle-blue via-indigo-600 to-primary-majorelle-blue dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 backdrop-blur-md portrait:hidden text-white"
     >
@@ -92,7 +92,7 @@
                 <!-- Center section: Navigation links with icons -->
                 <nav class="flex items-center gap-1">
                     {#each navigation as link, i}
-                        <a 
+                        <a
                             class="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm text-white/80 hover:text-white hover:bg-white/10 transition-all duration-200"
                             href={link.href}
                             target={link.external ? '_blank' : undefined}
@@ -109,7 +109,7 @@
                         {/if}
                     {/each}
                     {#if showAdminLink}
-                        <a 
+                        <a
                             class="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm text-warning hover:text-white hover:bg-white/10 transition-all duration-200"
                             href="/admin.html"
                         >
@@ -126,7 +126,7 @@
             </div>
         </div>
     </footer>
-    
+
     <div class="h-16"></div>
 {/if}
 
@@ -140,19 +140,19 @@
 		z-index: 50 !important;
 		color: white !important;
 	}
-	
+
 	:global(footer.dmv-footer .container) {
 		max-width: 100% !important;
 		padding-left: 1rem !important;
 		padding-right: 1rem !important;
 	}
-	
+
 	/* Prevent Bootstrap from removing custom background gradients */
 	:global(footer.dmv-footer.bg-gradient-to-r) {
 		background-image: linear-gradient(to right, var(--tw-gradient-stops)) !important;
 		background-color: transparent !important;
 	}
-	
+
 	/* Ensure text colors are preserved - override Bootstrap reboot */
 	:global(footer.dmv-footer a),
 	:global(footer.dmv-footer a:link),
@@ -161,26 +161,26 @@
 	:global(footer.dmv-footer a:active) {
 		text-decoration: none !important;
 	}
-	
+
 	:global(footer.dmv-footer .text-white) {
 		color: white !important;
 	}
-	
+
 	:global(footer.dmv-footer .text-white\/80),
 	:global(footer.dmv-footer [class*="text-white/80"]) {
 		color: rgba(255, 255, 255, 0.8) !important;
 	}
-	
+
 	:global(footer.dmv-footer .text-white\/60),
 	:global(footer.dmv-footer [class*="text-white/60"]) {
 		color: rgba(255, 255, 255, 0.6) !important;
 	}
-	
+
 	:global(footer.dmv-footer .text-white\/20),
 	:global(footer.dmv-footer [class*="text-white/20"]) {
 		color: rgba(255, 255, 255, 0.2) !important;
 	}
-	
+
 	/* Ensure Title component text is white */
 	:global(footer.dmv-footer #logoText),
 	:global(footer.dmv-footer #logoText *),
@@ -189,5 +189,5 @@
 		color: white !important;
 		font-size: inherit !important;
 	}
-	
+
 </style>

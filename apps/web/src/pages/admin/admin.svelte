@@ -13,17 +13,17 @@
 	import { bsTheme } from '../../utils/darkMode';
 	import { randomInRange } from '@porkyproductions/hat/randomInRange';
 	import { adminAccessStore, initAdminAccessListener } from '../../utils/adminAccess';
-	import { 
-		listInsultRequests, 
+	import {
+		listInsultRequests,
 		approveInsultRequest,
-		rejectInsultRequest, 
+		rejectInsultRequest,
 		flushApprovedRequests,
 		getInsultRequestStats,
 		type InsultRequest
 	} from '../../utils/insultRequests';
 	import { getListOfAllUsersWhoHaveSeenInsults, leaderboard } from '../../typescript/readInsults';
 
-	let loadingDuration = randomInRange(800, 1500);
+	const loadingDuration = randomInRange(800, 1500);
 	let ready = $state(false);
 	let loading = $state(false);
 	let error = $state<string | null>(null);
@@ -93,7 +93,7 @@
 
 	const handleApprove = async (requestId: string) => {
 		if (!requestId) return;
-		
+
 		approvingIds.add(requestId);
 		approvingIds = new Set(approvingIds);
 
@@ -111,7 +111,7 @@
 
 	const handleReject = async (requestId: string) => {
 		if (!requestId) return;
-		
+
 		rejectingIds.add(requestId);
 		rejectingIds = new Set(rejectingIds);
 
@@ -244,8 +244,8 @@
 							<Icon name="speedometer2" /> Admin Dashboard
 						</h1>
 						<p class="text-muted">Welcome, Administrator</p>
-						<button 
-							onclick={loadRequests} 
+						<button
+							onclick={loadRequests}
 							class="btn btn-primary mt-2"
 							disabled={loading}
 						>
@@ -316,7 +316,7 @@
 					<div class="card-header bg-body-tertiary border-0">
 						<ul class="nav nav-tabs card-header-tabs" role="tablist">
 							<li class="nav-item" role="presentation">
-								<button 
+								<button
 									class={`nav-link ${activeTab === 'pending' ? 'active' : ''}`}
 									onclick={() => activeTab = 'pending'}
 									type="button"
@@ -325,7 +325,7 @@
 								</button>
 							</li>
 							<li class="nav-item" role="presentation">
-								<button 
+								<button
 									class={`nav-link ${activeTab === 'approved' ? 'active' : ''}`}
 									onclick={() => activeTab = 'approved'}
 									type="button"
@@ -334,7 +334,7 @@
 								</button>
 							</li>
 							<li class="nav-item" role="presentation">
-								<button 
+								<button
 									class={`nav-link ${activeTab === 'rejected' ? 'active' : ''}`}
 									onclick={() => activeTab = 'rejected'}
 									type="button"
@@ -343,7 +343,7 @@
 								</button>
 							</li>
 							<li class="nav-item" role="presentation">
-								<button 
+								<button
 									class={`nav-link ${activeTab === 'recent' ? 'active' : ''}`}
 									onclick={() => activeTab = 'recent'}
 									type="button"
@@ -387,7 +387,7 @@
 													</td>
 													<td class="align-middle">
 														<div class="btn-group btn-group-sm" role="group">
-															<button 
+															<button
 																class="btn btn-success"
 																onclick={() => handleApprove(request.id!)}
 																disabled={approvingIds.has(request.id!) || rejectingIds.has(request.id!)}
@@ -398,7 +398,7 @@
 																	<Icon name="check-lg" />
 																{/if}
 															</button>
-															<button 
+															<button
 																class="btn btn-danger"
 																onclick={() => handleReject(request.id!)}
 																disabled={approvingIds.has(request.id!) || rejectingIds.has(request.id!)}
@@ -422,7 +422,7 @@
 							<div class="d-flex justify-content-between align-items-center mb-3">
 								<h3 class="h6 mb-0">Approved Insult Requests</h3>
 								{#if approvedRequests.length > 0}
-									<button 
+									<button
 										class="btn btn-sm btn-danger"
 										onclick={handleFlush}
 										disabled={loading}

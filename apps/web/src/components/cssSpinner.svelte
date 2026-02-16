@@ -1,9 +1,7 @@
 
-
 <div id="wrap" class="m-auto">
   <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
 </div>
-
 
 <style>
     .lds-ring {

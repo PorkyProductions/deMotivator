@@ -13,7 +13,7 @@
     import { bsTheme } from '../../utils/darkMode';
     import { userInsults } from '../../typescript/insults';
     import { onMount } from 'svelte';
-    import shuffle from 'lodash/shuffle'
+    import shuffle from 'lodash/shuffle';
     import { initSettingsListener, settingsStore } from '../../utils/userSettings';
     import { filterInsultsByMaxWords } from '../../utils/insultLength';
     import { submitInsultRequest } from '../../utils/insultRequests';
@@ -22,143 +22,141 @@
     let profaneInsults = $state([]);
 
     const initDemotivator = async () => {
-        const { DeMotivator, insults } = await import('demotivator')
-        dmv = new DeMotivator();
-        const profaneArray = dmv.createArray({ original: true, profane: true });
-        allInsults = shuffle(userInsults.concat(insults));
-        profaneInsults = shuffle(userInsults.concat(profaneArray));
+    	const { DeMotivator, insults } = await import('demotivator');
+    	dmv = new DeMotivator();
+    	const profaneArray = dmv.createArray({ original: true, profane: true });
+    	allInsults = shuffle(userInsults.concat(insults));
+    	profaneInsults = shuffle(userInsults.concat(profaneArray));
     };
 
     onMount(() => {
-        initSettingsListener();
-        initDemotivator();
+    	initSettingsListener();
+    	initDemotivator();
     });
-    
-    
+
     // State management
-    let searchQuery = $state("");
+    let searchQuery = $state('');
     let currentPage = $state(1);
-    let itemsPerPage = $state(20);
-    let viewMode = $state("cards"); // "cards" or "list"
+    const itemsPerPage = $state(20);
+    let viewMode = $state('cards'); // "cards" or "list"
     let ready = $state(false);
-    let copySuccess = $state("");
+    let copySuccess = $state('');
     let favoriteInsults = $state(new Set());
     let showFavoritesOnly = $state(false);
-    
+
     // Insult request state
-    let requestText = $state("");
+    let requestText = $state('');
     let requestSubmitting = $state(false);
-    let requestSuccess = $state("");
-    let requestError = $state("");
-    
+    let requestSuccess = $state('');
+    let requestError = $state('');
+
     // Loading
-    let duration = randomInRange(800, 1500);
+    const duration = randomInRange(800, 1500);
     const load = async () => {
-        // Load favorites from localStorage
-        const saved = localStorage.getItem('favoriteInsults');
-        if (saved) {
-            favoriteInsults = new Set(JSON.parse(saved));
-        }
-        setTimeout(() => (ready = true), duration);
+    	// Load favorites from localStorage
+    	const saved = localStorage.getItem('favoriteInsults');
+    	if (saved) {
+    		favoriteInsults = new Set(JSON.parse(saved));
+    	}
+    	setTimeout(() => (ready = true), duration);
     };
     load();
-    
+
     // Computed values for filtering and pagination
     const currentInsultSet = $derived.by(() => {
-        const baseInsultSet = $settingsStore.allowProfanity ? profaneInsults : allInsults;
-        return filterInsultsByMaxWords(baseInsultSet, $settingsStore.maxInsultWords);
+    	const baseInsultSet = $settingsStore.allowProfanity ? profaneInsults : allInsults;
+    	return filterInsultsByMaxWords(baseInsultSet, $settingsStore.maxInsultWords);
     });
-    
+
     const filteredInsults = $derived(currentInsultSet.filter((insult: string) => {
-        const matchesSearch = insult.toLowerCase().includes(searchQuery.toLowerCase());
-        const matchesFavorite = !showFavoritesOnly || favoriteInsults.has(insult);
-        return matchesSearch && matchesFavorite;
+    	const matchesSearch = insult.toLowerCase().includes(searchQuery.toLowerCase());
+    	const matchesFavorite = !showFavoritesOnly || favoriteInsults.has(insult);
+    	return matchesSearch && matchesFavorite;
     }));
-    
+
     const totalPages = $derived(Math.ceil(filteredInsults.length / itemsPerPage));
     const paginatedInsults = $derived(filteredInsults.slice(
-        (currentPage - 1) * itemsPerPage, 
-        currentPage * itemsPerPage
+    	(currentPage - 1) * itemsPerPage,
+    	currentPage * itemsPerPage
     ));
-    
+
     $effect(() => {
-        if (searchQuery || $settingsStore.allowProfanity || showFavoritesOnly || $settingsStore.maxInsultWords) {
-            currentPage = 1;
-        }
+    	if (searchQuery || $settingsStore.allowProfanity || showFavoritesOnly || $settingsStore.maxInsultWords) {
+    		currentPage = 1;
+    	}
     });
-    
+
     // Functions
     const copyToClipboard = async (text: string) => {
-        try {
-            await navigator.clipboard.writeText(text);
-            copySuccess = text;
-            setTimeout(() => (copySuccess = ""), 2000);
-        } catch (err) {
-            console.error('Failed to copy:', err);
-        }
+    	try {
+    		await navigator.clipboard.writeText(text);
+    		copySuccess = text;
+    		setTimeout(() => (copySuccess = ''), 2000);
+    	} catch (err) {
+    		console.error('Failed to copy:', err);
+    	}
     };
-    
+
     const toggleFavorite = (insult: string) => {
-        if (favoriteInsults.has(insult)) {
-            favoriteInsults.delete(insult);
-        } else {
-            favoriteInsults.add(insult);
-        }
-        favoriteInsults = new Set(favoriteInsults); // Trigger reactivity
-        localStorage.setItem('favoriteInsults', JSON.stringify(Array.from(favoriteInsults)));
+    	if (favoriteInsults.has(insult)) {
+    		favoriteInsults.delete(insult);
+    	} else {
+    		favoriteInsults.add(insult);
+    	}
+    	favoriteInsults = new Set(favoriteInsults); // Trigger reactivity
+    	localStorage.setItem('favoriteInsults', JSON.stringify(Array.from(favoriteInsults)));
     };
-    
+
     const shuffleInsults = async () => {
-        allInsults = shuffle([...allInsults]);
-        profaneInsults = shuffle([...profaneInsults]);
-        currentPage = 1;
+    	allInsults = shuffle([...allInsults]);
+    	profaneInsults = shuffle([...profaneInsults]);
+    	currentPage = 1;
     };
-    
+
     const submitRequest = async () => {
-        if (!requestText.trim()) return;
-        
-        requestSubmitting = true;
-        requestError = "";
-        requestSuccess = "";
-        
-        try {
-            await submitInsultRequest(requestText);
-            requestSuccess = "Request submitted successfully!";
-            requestText = "";
-            setTimeout(() => (requestSuccess = ""), 3000);
-        } catch (err: any) {
-            requestError = err.message || "Failed to submit request.";
-            setTimeout(() => (requestError = ""), 5000);
-        } finally {
-            requestSubmitting = false;
-        }
+    	if (!requestText.trim()) return;
+
+    	requestSubmitting = true;
+    	requestError = '';
+    	requestSuccess = '';
+
+    	try {
+    		await submitInsultRequest(requestText);
+    		requestSuccess = 'Request submitted successfully!';
+    		requestText = '';
+    		setTimeout(() => (requestSuccess = ''), 3000);
+    	} catch (err: any) {
+    		requestError = err.message || 'Failed to submit request.';
+    		setTimeout(() => (requestError = ''), 5000);
+    	} finally {
+    		requestSubmitting = false;
+    	}
     };
-    
-    
+
     // Pagination helpers
     const goToPage = (page: number) => {
-        if (page >= 1 && page <= totalPages) {
-            currentPage = page;
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+    	if (page >= 1 && page <= totalPages) {
+    		currentPage = page;
+    		window.scrollTo({ top: 0, behavior: 'smooth' });
+    	}
     };
-    
+
     const getPaginationRange = () => {
-        const range = [];
-        const showPages = 5;
-        let pagesCopy = showPages;
-        pagesCopy >>= 1; // equivalent to Math.floor(showPages / 2) for small positive ints
-        let start = Math.max(1, currentPage - pagesCopy);
-        let end = Math.min(totalPages, start + showPages - 1);
-        
-        if (end - start < showPages - 1) {
-            start = Math.max(1, end - showPages + 1);
-        }
-        
-        for (let i = start; i <= end; i++) {
-            range.push(i);
-        }
-        return range;
+    	const range = [];
+    	const showPages = 5;
+    	let pagesCopy = showPages;
+    	pagesCopy >>= 1; // equivalent to Math.floor(showPages / 2) for small positive ints
+    	let start = Math.max(1, currentPage - pagesCopy);
+    	const end = Math.min(totalPages, start + showPages - 1);
+
+    	if (end - start < showPages - 1) {
+    		start = Math.max(1, end - showPages + 1);
+    	}
+
+    	for (let i = start; i <= end; i++) {
+    		range.push(i);
+    	}
+    	return range;
     };
 </script>
 
@@ -239,9 +237,9 @@
                             </p>
                             <div class="row g-2">
                                 <div class="col-lg-8">
-                                    <input 
-                                        type="text" 
-                                        class="form-control" 
+                                    <input
+                                        type="text"
+                                        class="form-control"
                                         placeholder="Your demotivating insult idea..."
                                         bind:value={requestText}
                                         disabled={requestSubmitting}
@@ -249,7 +247,7 @@
                                     />
                                 </div>
                                 <div class="col-lg-4">
-                                    <button 
+                                    <button
                                         class="btn btn-primary w-100"
                                         onclick={submitRequest}
                                         disabled={requestSubmitting || !requestText.trim()}
@@ -286,16 +284,16 @@
                                         <span class="input-group-text">
                                             <Icon name="search" />
                                         </span>
-                                        <input 
-                                            type="text" 
-                                            class="form-control" 
+                                        <input
+                                            type="text"
+                                            class="form-control"
                                             placeholder="Search insults..."
                                             bind:value={searchQuery}
                                         />
                                         {#if searchQuery}
-                                            <button 
-                                                class="btn btn-outline-secondary" 
-                                                onclick={() => searchQuery = ""}
+                                            <button
+                                                class="btn btn-outline-secondary"
+                                                onclick={() => searchQuery = ''}
                                             >
                                                 <Icon name="x-lg" />
                                             </button>
@@ -306,10 +304,10 @@
                                 <!-- Filters -->
                                 <div class="col-lg-4">
                                     <div class="btn-group w-100" role="group">
-                                        <input 
-                                            type="checkbox" 
-                                            class="btn-check" 
-                                            id="favCheck" 
+                                        <input
+                                            type="checkbox"
+                                            class="btn-check"
+                                            id="favCheck"
                                             bind:checked={showFavoritesOnly}
                                         />
                                         <label class="btn btn-outline-warning" for="favCheck">
@@ -321,13 +319,13 @@
                                 <!-- Actions -->
                                 <div class="col-lg-4">
                                     <div class="btn-group w-100" role="group">
-                                        <button 
+                                        <button
                                             class="btn btn-outline-primary"
                                             onclick={shuffleInsults}
                                         >
                                             <Icon name="shuffle" /> Shuffle
                                         </button>
-                                        <button 
+                                        <button
                                             class="btn btn-outline-secondary"
                                             onclick={() => viewMode = viewMode === 'cards' ? 'list' : 'cards'}
                                         >
@@ -358,7 +356,7 @@
                             <!-- Card View -->
                             <div class="row g-4 mb-4">
                                 {#each paginatedInsults as insult, i (insult)}
-                                    <div 
+                                    <div
                                         class="col-lg-6"
                                         transition:scale={{ delay: i * 50 }}
                                         animate:flip={{ duration: 300 }}
@@ -369,14 +367,14 @@
                                                     "{insult}"
                                                 </p>
                                                 <div class="d-flex gap-2 justify-content-end">
-                                                    <button 
+                                                    <button
                                                         class="btn btn-sm btn-outline-primary"
                                                         onclick={() => copyToClipboard(insult)}
                                                         title="Copy"
                                                     >
                                                         <Icon name="clipboard" />
                                                     </button>
-                                                    <button 
+                                                    <button
                                                         class={`btn btn-sm ${favoriteInsults.has(insult) ? 'btn-warning' : 'btn-outline-warning'}`}
                                                         onclick={() => toggleFavorite(insult)}
                                                         title="Favorite"
@@ -394,7 +392,7 @@
                             <div class="card border-0 shadow-sm mb-4">
                                 <ul class="list-group list-group-flush">
                                     {#each paginatedInsults as insult, i (insult)}
-                                        <li 
+                                        <li
                                             class="list-group-item py-3 hover-bg-light"
                                             transition:fade={{ delay: i * 30 }}
                                             animate:flip={{ duration: 300 }}
@@ -402,14 +400,14 @@
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <span class="fs-5 me-3">"{insult}"</span>
                                                 <div class="d-flex gap-2">
-                                                    <button 
+                                                    <button
                                                         class="btn btn-sm btn-outline-primary"
                                                         onclick={() => copyToClipboard(insult)}
                                                         title="Copy"
                                                     >
                                                         <Icon name="clipboard" />
                                                     </button>
-                                                    <button 
+                                                    <button
                                                         class={`btn btn-sm ${favoriteInsults.has(insult) ? 'btn-warning' : 'btn-outline-warning'}`}
                                                         onclick={() => toggleFavorite(insult)}
                                                         title="Favorite"
@@ -429,15 +427,15 @@
                             <nav aria-label="Insults pagination">
                                 <ul class="pagination pagination-lg justify-content-center">
                                     <li class={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
-                                        <button 
-                                            class="page-link" 
+                                        <button
+                                            class="page-link"
                                             onclick={() => goToPage(currentPage - 1)}
                                             disabled={currentPage === 1}
                                         >
                                             <Icon name="chevron-left" />
                                         </button>
                                     </li>
-                                    
+
                                     {#if currentPage > 3}
                                         <li class="page-item">
                                             <button class="page-link" onclick={() => goToPage(1)}>1</button>
@@ -448,18 +446,18 @@
                                             </li>
                                         {/if}
                                     {/if}
-                                    
+
                                     {#each getPaginationRange() as page}
                                         <li class={`page-item ${currentPage === page ? 'active' : ''}`}>
-                                            <button 
-                                                class="page-link" 
+                                            <button
+                                                class="page-link"
                                                 onclick={() => goToPage(page)}
                                             >
                                                 {page}
                                             </button>
                                         </li>
                                     {/each}
-                                    
+
                                     {#if currentPage < totalPages - 2}
                                         {#if currentPage < totalPages - 3}
                                             <li class="page-item disabled">
@@ -472,10 +470,10 @@
                                             </button>
                                         </li>
                                     {/if}
-                                    
+
                                     <li class={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
-                                        <button 
-                                            class="page-link" 
+                                        <button
+                                            class="page-link"
                                             onclick={() => goToPage(currentPage + 1)}
                                             disabled={currentPage === totalPages}
                                         >
@@ -496,7 +494,7 @@
                                 <p class="text-muted mb-4">
                                     Try adjusting your filters or search terms
                                 </p>
-                                <button 
+                                <button
                                     class="btn btn-primary"
                                     onclick={() => { searchQuery = ''; showFavoritesOnly = false; }}
                                 >
@@ -518,7 +516,7 @@
                                     </div>
                                     <h2 class="card-title fw-bold mb-3">Authentication Required</h2>
                                     <p class="card-text text-muted mb-4">
-                                        You must be logged in to view the complete insult collection. 
+                                        You must be logged in to view the complete insult collection.
                                         Create an account or sign in to access all features.
                                     </p>
                                     <div class="d-flex gap-3 justify-content-center">
@@ -548,26 +546,26 @@
         height: 100%;
         margin: 0;
     }
-    
+
     /* Hover effects */
     :global(.hover-shadow-lg) {
         transition: box-shadow 0.3s ease;
     }
-    
+
     :global(.hover-shadow-lg:hover) {
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
     }
-    
+
     :global(.hover-bg-light:hover) {
         background-color: rgba(0, 0, 0, 0.02);
         transition: background-color 0.2s ease;
     }
-    
+
     /* Smooth transitions */
     :global(.transition-shadow) {
         transition: box-shadow 0.3s ease;
     }
-    
+
     /* Fixed positioning for copy alert */
     :global(.z-3) {
         z-index: 1050;

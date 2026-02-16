@@ -1,9 +1,8 @@
 <script lang="ts">
-    let { name }: { name: string } = $props();
+    const { name }: { name: string } = $props();
 </script>
 
 <i class="bi bi-{name}"></i>&nbsp;
-
 
 <style lang="scss">
     i {

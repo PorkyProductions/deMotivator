@@ -1,0 +1,6 @@
+dist/*
+out/*
+node_modules/*
+.turbo/*
+*.min.js
+*.bundle.js

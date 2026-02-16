@@ -1,20 +1,20 @@
 <script>
     import Spinhog from '../../components/spinhog.svelte';
-    import '../../styles/css/app.css'
-    import '../../styles/scss/colorScheme.scss'
+    import '../../styles/css/app.css';
+    import '../../styles/scss/colorScheme.scss';
     import Title from '../../components/title.svelte';
     import Footer from '../../components/footer.svelte';
     import Icon from '../../components/icon.svelte';
-    let countdown = 15
+    let countdown = 15;
     const countdownTimer = setInterval(() => {
-            countdown--
-            if (countdown == 0) {
-                clearInterval(countdownTimer);
-                window.location.href="index.html"
-            }
-        },
-        1000
-    )
+    	countdown--;
+    	if (countdown == 0) {
+    		clearInterval(countdownTimer);
+    		window.location.href='index.html';
+    	}
+    },
+    1000
+    );
 </script>
 
 <main>
