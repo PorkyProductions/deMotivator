@@ -13,22 +13,32 @@ const analytics = getAnalytics(app);
 const auth = getAuth(app);
 
 // Export instances
+import type { IdTokenResult, User as FirebaseUser } from 'firebase/auth';
+
 export { app, analytics, auth };
 
+// User type
+export interface AppUser {
+	id: string;
+	name: string;
+	email: string;
+	picture: string;
+}
+
 // User mapper function - converts Firebase claims to our user format
-export const userMapper = (claims: any) => ({
-	id: claims.user_id,
-	name: claims.name,
-	email: claims.email,
-	picture: claims.picture
+export const userMapper = (claims: IdTokenResult['claims']): AppUser => ({
+	id: claims.user_id as string,
+	name: claims.name as string,
+	email: claims.email as string,
+	picture: claims.picture as string
 });
 
 // Auth helper functions
-export const loginWithEmailPassword = async (email: string, password: string) => {
+export const loginWithEmailPassword = (email: string, password: string) => {
 	return signInWithEmailAndPassword(auth, email, password);
 };
 
-export const loginWithGoogle = async (useRedirect = false) => {
+export const loginWithGoogle = (useRedirect = false) => {
 	const provider = new GoogleAuthProvider();
 	if (useRedirect) {
 		return signInWithRedirect(auth, provider);
@@ -37,15 +47,15 @@ export const loginWithGoogle = async (useRedirect = false) => {
 	}
 };
 
-export const signInAnonymous = async () => {
+export const signInAnonymous = () => {
 	return signInAnonymously(auth);
 };
 
 export const logout = () => auth.signOut();
 
 // Setup auth state change listener
-export const onAuthStateChanged = (callback: (user: any) => void) => {
-	return auth.onAuthStateChanged(async (fireUser) => {
+export const onAuthStateChanged = (callback: (user: AppUser | null) => void) => {
+	return auth.onAuthStateChanged(async (fireUser: FirebaseUser | null) => {
 		if (fireUser) {
 			const token = await fireUser.getIdTokenResult();
 			callback(userMapper(token.claims));

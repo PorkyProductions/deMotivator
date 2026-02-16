@@ -14,7 +14,7 @@ export const firebaseConfig: FirebaseConfig = {
 	measurementId: import.meta.env.VITE_FB_MEASUREMENT_ID
 };
 // Initialize Firebase
-// @ts-ignore
+// @ts-expect-error - Firebase config types mismatch
 const app = initializeApp(firebaseConfig);
 import { getAuth } from 'firebase/auth';
 import { Insults, FirebaseConfig } from './types';

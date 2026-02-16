@@ -2,14 +2,13 @@
 	import '../../styles/css/app.css';
 	import '../../styles/scss/colorScheme.scss';
 	import { onMount } from 'svelte';
-	import { fade, fly, scale } from 'svelte/transition';
+	import { fade, fly } from 'svelte/transition';
 	import Auth from '../login/auth.svelte';
 	import Footer from '../../components/footer.svelte';
 	import Icon from '../../components/icon.svelte';
 	import Title from '../../components/title.svelte';
 	import BsSpinner from '../../components/bs-spinner.svelte';
 	import BsLoader from '../../components/bsLoader.svelte';
-	import BsModal from '../../components/bs-modal.svelte';
 	import { bsTheme } from '../../utils/darkMode';
 	import { randomInRange } from '@porkyproductions/hat/randomInRange';
 	import { adminAccessStore, initAdminAccessListener } from '../../utils/adminAccess';
@@ -47,12 +46,13 @@
 	let rejectingIds = $state<Set<string>>(new Set());
 
 	const load = async () => {
-		setTimeout(() => (ready = true), loadingDuration);
+		await new Promise((resolve) => setTimeout(resolve, loadingDuration));
+		ready = true;
 	};
 
 	const loadStats = async () => {
 		try {
-			const [requestStats, _] = await Promise.all([
+			const [requestStats] = await Promise.all([
 				getInsultRequestStats(),
 				getListOfAllUsersWhoHaveSeenInsults()
 			]);
@@ -62,7 +62,7 @@
 			rejectedCount = requestStats.rejected;
 			totalUsers = leaderboard.length;
 			totalInsultsSeen = leaderboard.reduce((sum, entry) => sum + (entry.data || 0), 0);
-		} catch (err: any) {
+		} catch (err) {
 			console.error('Failed to load stats:', err);
 		}
 	};
@@ -84,7 +84,7 @@
 			recentRequests = recent.slice(0, 10);
 
 			await loadStats();
-		} catch (err: any) {
+		} catch (err) {
 			error = err.message || 'Failed to load requests';
 		} finally {
 			loading = false;
@@ -100,7 +100,7 @@
 		try {
 			await approveInsultRequest(requestId);
 			await loadRequests();
-		} catch (err: any) {
+		} catch (err) {
 			error = err.message || 'Failed to approve request';
 			setTimeout(() => (error = null), 5000);
 		} finally {
@@ -118,7 +118,7 @@
 		try {
 			await rejectInsultRequest(requestId);
 			await loadRequests();
-		} catch (err: any) {
+		} catch (err) {
 			error = err.message || 'Failed to reject request';
 			setTimeout(() => (error = null), 5000);
 		} finally {
@@ -137,7 +137,7 @@
 			const count = await flushApprovedRequests();
 			alert(`Successfully flushed ${count} approved request(s).`);
 			await loadRequests();
-		} catch (err: any) {
+		} catch (err) {
 			error = err.message || 'Failed to flush approved requests';
 			setTimeout(() => (error = null), 5000);
 		} finally {

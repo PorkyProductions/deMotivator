@@ -1,5 +1,5 @@
 const year = new Date().getFullYear();
-export var PROD: boolean = process.env.NODE_ENV === 'production';
+export const PROD: boolean = process.env.NODE_ENV === 'production';
 
 import pkg from '../../package.json';
 
@@ -41,9 +41,9 @@ abstract class __Constants {
 	private static readonly __version: string = pkg.version;
 	private static readonly __url: string = this.__PROD ? 'https://demotivator.web.app/' : 'http://localhost:5173/';
 	private static readonly __banner: string = `
-        Copyright (c) 2020-${year}, ${parentCompany}, and contributors
-        This software is licensed under the ISC License.
-    `;
+		Copyright (c) 2020-${year}, ${parentCompany}, and contributors
+		This software is licensed under the ISC License.
+	`;
 	public static readonly PROD: boolean = this.__PROD;
 	public static readonly appName: string = this.__name;
 	public static readonly shortName: string = this.__shortName;

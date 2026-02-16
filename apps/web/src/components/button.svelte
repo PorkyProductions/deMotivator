@@ -1,15 +1,15 @@
 <script lang="ts">
-    // Imports
-    import logo from '../img/dmv-logo.png';
-    import { darkMode } from '../utils/darkMode';
-    import '../styles/scss/bootstrapRange.scss';
+	// Imports
+	import logo from '../img/dmv-logo.png';
+	import { darkMode } from '../utils/darkMode';
+	import '../styles/scss/bootstrapRange.scss';
 
-    // Firebase
-    import { fade, scale } from 'svelte/transition';
-    import { onMount, onDestroy } from 'svelte';
-    import Icon from './icon.svelte';
-    import { settingsStore } from '../utils/userSettings';
-    import { filterInsultsByMaxWords } from '../utils/insultLength';
+	// Firebase
+	import { fade, scale } from 'svelte/transition';
+	import { onMount, onDestroy } from 'svelte';
+	import Icon from './icon.svelte';
+	import { settingsStore } from '../utils/userSettings';
+	import { filterInsultsByMaxWords } from '../utils/insultLength';
 
 /*
 
@@ -17,9 +17,11 @@ Randomizer
 
 */
 
-let insultsShown = $state(0);
 let result = $state('');
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 let userResult = $state('');
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+let insultsShown = $state(0);
 const includeOriginal = $state(true);
 
 // Database optimization: cache and batch writes
@@ -199,15 +201,15 @@ onDestroy(() => {
 // On destroy doesn't work after navigation away, so also flush when the page is changed
 // To combat this, it will flush every 15 seconds iff there are pending writes
 let periodicFlushInterval: ReturnType<typeof setInterval> | null = null;
-    const startPeriodicFlush = () => {
-    	if (typeof window === 'undefined') return;
-    	if (periodicFlushInterval !== null) return;
-    	periodicFlushInterval = setInterval(() => {
-    		if (pendingWrites > 0) {
-    			flushPendingWrites();
-    		}
-    	}, batchFlushTimeout);
-    };
+	const startPeriodicFlush = () => {
+		if (typeof window === 'undefined') return;
+		if (periodicFlushInterval !== null) return;
+		periodicFlushInterval = setInterval(() => {
+			if (pendingWrites > 0) {
+				flushPendingWrites();
+			}
+		}, batchFlushTimeout);
+	};
 const stopPeriodicFlush = () => {
 	if (periodicFlushInterval !== null) {
 		clearInterval(periodicFlushInterval as unknown as number);
@@ -253,100 +255,100 @@ End of Script
 </script>
 
 <main class={`flex flex-col md:flex-row transition-all duration-500 ${result || MEGAMODEresult ? 'pt-6 md:pt-12' : 'pt-3'}`}>
-    <!-- Left Panel - Button Section -->
-    <div
-        class={`flex items-center justify-center transition-all duration-500 ${
-        	result || MEGAMODEresult
-        		? 'w-full md:w-1/2 lg:w-2/5'
-        		: 'w-full'
-        }`}
-    >
-        <div class="flex flex-col items-center gap-1 px-8 py-4">
-            <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-            <!-- svelte-ignore a11y_click_events_have_key_events -->
-            <img
-                src={logo}
-                draggable="false"
-                alt="a large, red button"
-                onclick={randomize}
-                class="hover:cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-200 pb-4"
-            >
+	<!-- Left Panel - Button Section -->
+	<div
+		class={`flex items-center justify-center transition-all duration-500 ${
+			result || MEGAMODEresult
+				? 'w-full md:w-1/2 lg:w-2/5'
+				: 'w-full'
+		}`}
+	>
+		<div class="flex flex-col items-center gap-1 px-8 py-4">
+			<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+			<!-- svelte-ignore a11y_click_events_have_key_events -->
+			<img
+				src={logo}
+				draggable="false"
+				alt="a large, red button"
+				onclick={randomize}
+				class="hover:cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-200 pb-4"
+			>
 
-            <!-- MEGAMODE Toggle -->
-            <div class="form-check form-switch">
-                <input
-                    type="checkbox"
-                    bind:checked={MEGAMODE}
-                    class="form-check-input"
-                    id="megamodeCheck"
-                    role="switch"
-                >
-                <label class="form-check-label" for="megamodeCheck">
-                    <b>MEGAMODE</b>
-                </label>
-            </div>
+			<!-- MEGAMODE Toggle -->
+			<div class="form-check form-switch">
+				<input
+					type="checkbox"
+					bind:checked={MEGAMODE}
+					class="form-check-input"
+					id="megamodeCheck"
+					role="switch"
+				>
+				<label class="form-check-label" for="megamodeCheck">
+					<b>MEGAMODE</b>
+				</label>
+			</div>
 
-            <!-- Action Button -->
-            <button
-                disabled={MEGAMODE}
-                onclick={writeInsultToClipboard}
-                class={`btn ${!darkMode ? 'btn-primary' : 'btn-dark'} ${MEGAMODE ? 'disabled opacity-50' : ''}`}
-            >
-                <Icon name="clipboard" />
-                Copy Insult to Clipboard
-            </button>
-        </div>
-    </div>
+			<!-- Action Button -->
+			<button
+				disabled={MEGAMODE}
+				onclick={writeInsultToClipboard}
+				class={`btn ${!darkMode ? 'btn-primary' : 'btn-dark'} ${MEGAMODE ? 'disabled opacity-50' : ''}`}
+			>
+				<Icon name="clipboard" />
+				Copy Insult to Clipboard
+			</button>
+		</div>
+	</div>
 
-    <!-- Right Panel - Insult Display (slides in from right on desktop/tablet) -->
-    {#if result || MEGAMODEresult}
-        <div
-            class="flex-1 flex items-center justify-center p-8 border-t md:border-t-0 md:border-l-4 border-primary-majorelle-blue dark:border-primary-majorelle-blue"
-            transition:fade={{ duration: 300 }}
-        >
-            {#if !MEGAMODE}
-                {#if result}
-                    <div
-                        class="w-full max-w-4xl"
-                        transition:scale={{ duration: 400, start: 0.8 }}
-                    >
-                        <p class="font-primary text-center font-bold leading-tight px-4" style="font-size: {insultFontSize}; line-height: 1.02;">
-                            {result}
-                        </p>
-                    </div>
-                {/if}
-            {:else}
-                <div class="w-full max-w-4xl flex flex-col items-center gap-8">
-                    <div class="min-h-50 flex items-center justify-center">
-                        <p class="font-primary text-center font-bold leading-tight px-4" style="font-size: {insultFontSize}; line-height: 1.02;">
-                            {MEGAMODEresult}
-                        </p>
-                    </div>
+	<!-- Right Panel - Insult Display (slides in from right on desktop/tablet) -->
+	{#if result || MEGAMODEresult}
+		<div
+			class="flex-1 flex items-center justify-center p-8 border-t md:border-t-0 md:border-l-4 border-primary-majorelle-blue dark:border-primary-majorelle-blue"
+			transition:fade={{ duration: 300 }}
+		>
+			{#if !MEGAMODE}
+				{#if result}
+					<div
+						class="w-full max-w-4xl"
+						transition:scale={{ duration: 400, start: 0.8 }}
+					>
+						<p class="font-primary text-center font-bold leading-tight px-4" style="font-size: {insultFontSize}; line-height: 1.02;">
+							{result}
+						</p>
+					</div>
+				{/if}
+			{:else}
+				<div class="w-full max-w-4xl flex flex-col items-center gap-8">
+					<div class="min-h-50 flex items-center justify-center">
+						<p class="font-primary text-center font-bold leading-tight px-4" style="font-size: {insultFontSize}; line-height: 1.02;">
+							{MEGAMODEresult}
+						</p>
+					</div>
 
-                    <div class="w-full max-w-md">
-                        <p class="text-center font-primary text-lg font-semibold mb-4">
-                            Insults shown: <span class="text-primary-majorelle-blue dark:text-primary-majorelle-blue">{MEGAMODEinsults}</span>
-                        </p>
+					<div class="w-full max-w-md">
+						<p class="text-center font-primary text-lg font-semibold mb-4">
+							Insults shown: <span class="text-primary-majorelle-blue dark:text-primary-majorelle-blue">{MEGAMODEinsults}</span>
+						</p>
 
-                        <div class="d-flex align-items-center gap-3">
-                            <div class="flex-fill">
-                                <input
-                                    type="range"
-                                    class="form-range w-100"
-                                    id="megamodeSpeedControl"
-                                    min={sliderMin}
-                                    max={sliderMax}
-                                    onchange={MEGAMODEspeedControl}
-                                    bind:value={sliderValue}
-                                />
-                            </div>
-                            <p class="font-primary text-sm font-mono px-3 py-1 mb-0" style="min-width: 70px;">
-                                {MEGAMODEspeed}ms
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            {/if}
-        </div>
-    {/if}
+						<div class="d-flex align-items-center gap-3">
+							<div class="flex-fill">
+								<input
+									type="range"
+									class="form-range w-100"
+									id="megamodeSpeedControl"
+									min={sliderMin}
+									max={sliderMax}
+									onchange={MEGAMODEspeedControl}
+									bind:value={sliderValue}
+								/>
+							</div>
+							<p class="font-primary text-sm font-mono px-3 py-1 mb-0" style="min-width: 70px;">
+								{MEGAMODEspeed}ms
+							</p>
+						</div>
+					</div>
+				</div>
+			{/if}
+		</div>
+	{/if}
 </main>

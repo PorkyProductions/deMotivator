@@ -9,28 +9,31 @@ export const readInsults = async (): Promise<number> => {
 	const db = getFirestore(app);
 	const auth = getAuth(app);
 
-	return new Promise(async (resolve, reject) => {
-		try {
-			const user = auth.currentUser;
-			if (user) {
-				const usersRef = doc(db, 'users', user.uid);
-				const usersSnap = await getDoc(usersRef);
-				if (usersSnap.exists()) {
-					const data: InsultDBQueryResponse = usersSnap.data();
-					if (typeof data.insultsSeen === 'number') {
-						resolve(data.insultsSeen);
+	return new Promise((resolve, reject) => {
+		const fetchData = async () => {
+			try {
+				const user = auth.currentUser;
+				if (user) {
+					const usersRef = doc(db, 'users', user.uid);
+					const usersSnap = await getDoc(usersRef);
+					if (usersSnap.exists()) {
+						const data: InsultDBQueryResponse = usersSnap.data();
+						if (typeof data.insultsSeen === 'number') {
+							resolve(data.insultsSeen);
+						} else {
+							resolve(0);
+						}
 					} else {
 						resolve(0);
 					}
 				} else {
 					resolve(0);
 				}
-			} else {
-				resolve(0);
+			} catch (err) {
+				reject(err);
 			}
-		} catch (error) {
-			reject((err: Error) => console.error(err));
-		}
+		};
+		fetchData();
 	});
 };
 export let leaderboard: GlobInsultDBQueryResponse[] = [];

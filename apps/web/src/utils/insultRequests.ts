@@ -65,11 +65,11 @@ export const listInsultRequests = async (statusFilter?: InsultRequestStatus): Pr
 
 	const requests: InsultRequest[] = [];
 	querySnapshot.forEach((doc) => {
-		const data = doc.data() as any;
+		const data = doc.data();
 		requests.push({
 			id: doc.id,
-			text: data.text,
-			status: data.status,
+			text: data.text as string,
+			status: data.status as string,
 			requestedByUid: data.requestedByUid,
 			requestedByName: data.requestedByName,
 			requestedByEmail: data.requestedByEmail,

@@ -1,10 +1,10 @@
 import { randomInRange } from '@porkyproductions/hat/randomInRange';
 
-// @ts-ignore - canvas-confetti doesn't have type definitions
+// @ts-expect-error - canvas-confetti doesn't have type definitions
 import confetti from 'canvas-confetti';
 
 // Launch confetti animation
-export const launchConfetti = async () => {
+export const launchConfetti = () => {
 	let i = 3;
 	const interval = setInterval(() => {
 		if (i <= 0) clearInterval(interval);
@@ -22,8 +22,14 @@ export const launchConfetti = async () => {
 export const createLoginHandler = (
 	deviceType: string,
 	setReady: (ready: boolean) => void,
-	setError: (error: any) => void
-) => async (event: Event, loginAction: (email: string, password: string) => Promise<any>, email: string, password: string, keepMeLoggedIn: boolean) => {
+	setError: (error: Error) => void
+) => async (
+	event: Event,
+	loginAction: (email: string, password: string) => Promise<unknown>,
+	email: string,
+	password: string,
+	keepMeLoggedIn: boolean
+) => {
 	event.preventDefault();
 
 	if (deviceType === 'desktop') {
