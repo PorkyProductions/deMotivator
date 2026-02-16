@@ -8,10 +8,13 @@
   ],
   "scripts": {
     "dev": "turbo run dev",
-    "build": "turbo run build",
-    "lint": "turbo run lint",
-    "typeCheck": "turbo run typeCheck",
-    "test": "turbo run test"
+    "build": "turbo run build --concurrency=75%",
+    "build:force": "turbo run build --force",
+    "lint": "turbo run lint --concurrency=100%",
+    "typeCheck": "turbo run typeCheck --concurrency=100%",
+    "test": "turbo run test",
+    "clean": "turbo run clean && rm -rf node_modules/.cache .turbo",
+    "turbo:prune": "turbo prune --scope=@apps/web"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^8.55.0",

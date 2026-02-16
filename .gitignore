@@ -40,3 +40,8 @@ resources/android/**/*
 .env
 .env.turbo
 .turbo
+
+# Build cache
+.eslintcache
+*.tsbuildinfo
+.vite

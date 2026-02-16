@@ -1,29 +1,78 @@
 {
   "$schema": "https://turbo.build/schema.json",
+  "ui": "stream",
+  "daemon": true,
+  "globalDependencies": [
+    ".env",
+    ".env.*",
+    "tsconfig.json",
+    "turbo.json",
+    "package.json"
+  ],
+  "globalEnv": [
+    "NODE_ENV",
+    "CI"
+  ],
   "tasks": {
     "build": {
       "dependsOn": ["lint", "prebuild", "^build"],
-      "outputs": ["out/**", "dist/**"]
+      "outputs": ["out/**", "dist/**", ".vite/**"],
+      "cache": true,
+      "inputs": [
+        "src/**",
+        "public/**",
+        "*.html",
+        "vite.config.ts",
+        "tsconfig.json",
+        "package.json"
+      ],
+      "outputLogs": "new-only"
     },
     "prebuild": {
       "dependsOn": ["lint"],
-      "outputs": []
+      "outputs": [],
+      "cache": true,
+      "inputs": [
+        "src/**",
+        "package.json"
+      ],
+      "outputLogs": "errors-only"
     },
     "lint": {
       "dependsOn": ["^lint"],
-      "outputs": []
+      "cache": true,
+      "inputs": [
+        "src/**/*.{js,ts,svelte}",
+        ".eslintrc.*",
+        ".eslintignore"
+      ],
+      "outputLogs": "errors-only"
     },
     "typeCheck": {
       "dependsOn": ["^typeCheck"],
-      "outputs": []
+      "outputs": ["*.tsbuildinfo"],
+      "cache": true,
+      "inputs": [
+        "src/**/*.{ts,tsx,svelte}",
+        "tsconfig.json"
+      ],
+      "outputLogs": "errors-only"
     },
     "dev": {
       "cache": false,
-      "persistent": true
+      "persistent": true,
+      "inputs": []
     },
     "test": {
       "dependsOn": ["^test"],
-      "outputs": []
+      "outputs": ["coverage/**"],
+      "cache": true,
+      "inputs": [
+        "src/**",
+        "test/**",
+        "*.config.{js,ts}"
+      ],
+      "outputLogs": "new-only"
     }
   }
 }
