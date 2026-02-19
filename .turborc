@@ -1,5 +1,0 @@
-{
-	"telemetry": true,
-	"daemon": true,
-	"ui": "stream"
-}
