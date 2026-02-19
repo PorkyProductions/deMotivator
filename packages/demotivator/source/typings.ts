@@ -19,7 +19,22 @@
  * @type Insult
  * an alias for the 'string' type for easier readibilty
  */
-export type Insult = string
+export type Insult = string;
+
+/**
+ * A single insult pack definition.
+ */
+export interface InsultPack {
+	key: string;
+	title: string;
+	explicit: boolean;
+	insults: Insult[];
+}
+
+/**
+ * A map of insult packs by key.
+ */
+export type InsultPackMap = Record<string, InsultPack>;
 
 /**
  * An typesafe interface for `deMotivator` and `DeMotivator`
@@ -29,11 +44,13 @@ export type Insult = string
  * @typedef {__DeMotivator}
  */
 export interface __DeMotivator {
-  insults: Insult[];
-  profaneInsults: Insult[];
-  createArray: (configuration: CreateArrayConfig) => Insult[];
-  generateInsult: (array: Insult[]) => Insult;
-  insultAt: (position: number, array: Insult[]) => Insult;
+	insults: Insult[];
+	profaneInsults: Insult[];
+	insultPacks: InsultPackMap;
+	insultPackList: InsultPack[];
+	createArray: (configuration: CreateArrayConfig) => Insult[];
+	generateInsult: (array: Insult[]) => Insult;
+	insultAt: (position: number, array: Insult[]) => Insult;
 }
 
 /**
@@ -44,6 +61,5 @@ export interface __DeMotivator {
  * @see createArray
  */
 export interface CreateArrayConfig {
-  original: boolean,
-  profane: boolean,
+	packs: string[],
 }

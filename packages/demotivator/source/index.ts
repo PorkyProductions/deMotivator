@@ -15,31 +15,47 @@
  * limitations under the License.
  */
 
-import { insults, profaneInsults } from './insults';
+import { insults, profaneInsults, insultPacks, insultPackList } from './insults';
 import generateInsult, { insultAt } from './generateinsult';
 import {
 	type __DeMotivator,
 	type Insult,
-	type CreateArrayConfig
+	type CreateArrayConfig,
+	type InsultPack,
+	type InsultPackMap
 } from './typings';
 
-export { insults, generateInsult, insultAt, type Insult, type CreateArrayConfig };
+export {
+	insults,
+	profaneInsults,
+	insultPacks,
+	insultPackList,
+	generateInsult,
+	insultAt,
+	type Insult,
+	type InsultPack,
+	type InsultPackMap,
+	type CreateArrayConfig
+};
 
 /**
  * createArray is a new function itroduced in version 12 that creates a custom insult array based on a configuration you provide.
- * @param {CreateArrayConfig} configuration an object that has two properties: profane, and original. Both of which accept a boolean value
+ * @param {CreateArrayConfig} configuration an object with the `packs` field containing insult pack IDs.
  * @since 12.0.0
  * @see CreateArrayConfig
  * @returns {Insult[]} an array of insults
  */
 export const createArray = (configuration: CreateArrayConfig): Insult[] => {
-	if (configuration.profane && !configuration.original) {
-		return profaneInsults;
-	} else if (configuration.profane && configuration.original) {
-		return insults.concat(profaneInsults);
-	} else {
-		return insults;
+	const selectedPackKeys = new Set(configuration.packs);
+	const selectedInsults: Insult[] = [];
+	for (const selectedPackKey of selectedPackKeys) {
+		const selectedPack = insultPacks[selectedPackKey];
+		if (!selectedPack) {
+			continue;
+		}
+		selectedInsults.push(...selectedPack.insults);
 	}
+	return selectedInsults;
 };
 
 /**
@@ -52,6 +68,8 @@ export const createArray = (configuration: CreateArrayConfig): Insult[] => {
 export const deMotivator: __DeMotivator = {
 	insults: insults,
 	profaneInsults: profaneInsults,
+	insultPacks: insultPacks,
+	insultPackList: insultPackList,
 	createArray: createArray,
 	generateInsult: generateInsult,
 	insultAt: insultAt
@@ -82,6 +100,20 @@ export class DeMotivator implements __DeMotivator {
    */
 	profaneInsults: Insult[] = profaneInsults;
 	/**
+   * A map of all available insult packs by key.
+   * @date 2/19/2026
+   *
+   * @type {InsultPackMap}
+   */
+	insultPacks: InsultPackMap = insultPacks;
+	/**
+   * A list of all available insult packs.
+   * @date 2/19/2026
+   *
+   * @type {InsultPack[]}
+   */
+	insultPackList: InsultPack[] = insultPackList;
+	/**
    * Creates a basic array of insults.
    * @date 6/15/2023 - 11:39:04 AM
    * @internal
@@ -89,7 +121,7 @@ export class DeMotivator implements __DeMotivator {
    * @returns {Insult[]}
    */
 	private __createBasicArray(): Insult[] {
-		return createArray({ original: true, profane: false }) as Insult[];
+		return createArray({ packs: ['original'] }) as Insult[];
 	}
 	/**
    * Creates a custom insult array based on a configuration you provide.

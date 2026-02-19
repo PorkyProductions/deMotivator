@@ -51,11 +51,22 @@ import deMotivator from 'demotivator';
 ## Usage
 `generateInsult` will return a random insult. Run this function anytime you need to refresh the random insult. Takes one argument, the array of insults to generate from.
 `insultAt`returns the insult at the specified point in the array. Takes 2 arguments, the first of which is the spot in the array to return, and the second is the array to pick from.
-`insults` gives you access to the full array of insults. Do with it as you wish.
+`insults` gives you access to the original non-explicit insults.
 `profaneInsults` gives you all of the profane, or "dirty" insults that come with the package.
-`createArray` creates an array of insults based on a configuration of your choosing
+`insultPacks` gives you all available insult packs keyed by pack ID.
+`insultPackList` gives you all available insult packs as an array.
+`createArray` creates an array of insults from selected packs.
 `deMotivator` Contains all the functions and properties of the deMotivator.
 `DeMotivator` A class version of the `deMotivator` object
+
+### Breaking change (v15+)
+`createArray` is now packs-first:
+
+```javascript
+createArray({ packs: ['original'] });
+```
+
+The old boolean shape (`{ original: true, profane: false }`) is no longer supported.
 
 
 ## Examples
@@ -96,12 +107,16 @@ This is an example for a basic web page integrated with (de)Motivator.js
 ```javascript
 // src/index.js
 // As always, you'll need a module bundler like webpack or rollup to compile your code into a form the browser can understand.
-import { generateInsult } from 'demotivator';
+import { createArray, generateInsult, insultPackList } from 'demotivator';
+const button = document.querySelector('button');
 const insult = document.getElementById('insult');
-button.addEventListener('click', () => insult.innerHTML = generateInsult(createArray({
-  original: true,
-  profane: false,
-));
+const selectedPacks = insultPackList.filter((pack) => !pack.explicit).map((pack) => pack.key);
+
+button.addEventListener('click', () => {
+	insult.innerHTML = generateInsult(createArray({
+		packs: selectedPacks
+	}));
+});
 
 ```
 

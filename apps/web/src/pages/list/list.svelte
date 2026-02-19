@@ -14,24 +14,34 @@
 	import { userInsults } from '../../typescript/insults';
 	import { onMount } from 'svelte';
 	import shuffle from 'lodash/shuffle';
-	import { initSettingsListener, settingsStore } from '../../utils/userSettings';
+	import { initSettingsListener, resolveEnabledPackKeys, settingsStore } from '../../utils/userSettings';
 	import { filterInsultsByMaxWords } from '../../utils/insultLength';
 	import { submitInsultRequest } from '../../utils/insultRequests';
 	let dmv;
-	let allInsults = $state([]);
-	let profaneInsults = $state([]);
+	let availableInsults = $state([]);
 
 	const initDemotivator = async () => {
-		const { DeMotivator, insults } = await import('demotivator');
+		const { DeMotivator } = await import('demotivator');
 		dmv = new DeMotivator();
-		const profaneArray = dmv.createArray({ original: true, profane: true });
-		allInsults = shuffle(userInsults.concat(insults));
-		profaneInsults = shuffle(userInsults.concat(profaneArray));
+		const selectedPacks = resolveEnabledPackKeys($settingsStore);
+		const insults = dmv.createArray({ packs: selectedPacks });
+		availableInsults = shuffle(userInsults.concat(insults));
 	};
 
 	onMount(() => {
 		initSettingsListener();
 		initDemotivator();
+	});
+
+	$effect(() => {
+		$settingsStore.allowProfanity;
+		$settingsStore.selectedPacks;
+		if (!dmv) {
+			return;
+		}
+		const selectedPacks = resolveEnabledPackKeys($settingsStore);
+		const insults = dmv.createArray({ packs: selectedPacks });
+		availableInsults = shuffle(userInsults.concat(insults));
 	});
 
 	// State management
@@ -64,8 +74,7 @@
 
 	// Computed values for filtering and pagination
 	const currentInsultSet = $derived.by(() => {
-		const baseInsultSet = $settingsStore.allowProfanity ? profaneInsults : allInsults;
-		return filterInsultsByMaxWords(baseInsultSet, $settingsStore.maxInsultWords);
+		return filterInsultsByMaxWords(availableInsults, $settingsStore.maxInsultWords);
 	});
 
 	const filteredInsults = $derived(currentInsultSet.filter((insult: string) => {
@@ -81,7 +90,7 @@
 	));
 
 	$effect(() => {
-		if (searchQuery || $settingsStore.allowProfanity || showFavoritesOnly || $settingsStore.maxInsultWords) {
+		if (searchQuery || showFavoritesOnly || $settingsStore.maxInsultWords || $settingsStore.selectedPacks.length) {
 			currentPage = 1;
 		}
 	});
@@ -108,8 +117,7 @@
 	};
 
 	const shuffleInsults = () => {
-		allInsults = shuffle([...allInsults]);
-		profaneInsults = shuffle([...profaneInsults]);
+		availableInsults = shuffle([...availableInsults]);
 		currentPage = 1;
 	};
 

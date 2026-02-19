@@ -1,9 +1,11 @@
 import { get, writable } from 'svelte/store';
 import { onAuthStateChanged } from './firebase';
+import { insultPackList } from 'demotivator';
 
 export type UserSettings = {
 	allowProfanity: boolean;
 	maxInsultWords: number;
+	selectedPacks: string[];
 };
 
 type SettingDefinition<T> = {
@@ -14,6 +16,14 @@ type SettingDefinition<T> = {
 const maxInsultWordsMin = 0;
 const maxInsultWordsMax = 100;
 const maxInsultWordsDefault = 25;
+const fallbackPackKey = insultPackList.find((pack) => !pack.explicit)?.key ?? insultPackList[0]?.key ?? 'original';
+const availableInsultPacks = insultPackList.map((pack) => ({
+	key: pack.key,
+	title: pack.title,
+	explicit: pack.explicit
+}));
+const availablePackKeySet = new Set(availableInsultPacks.map((pack) => pack.key));
+const explicitPackKeySet = new Set(availableInsultPacks.filter((pack) => pack.explicit).map((pack) => pack.key));
 
 type UserSettingsDefinitionMap = {
 	[K in keyof UserSettings]: SettingDefinition<UserSettings[K]>;
@@ -36,17 +46,59 @@ const userSettingsDefinitionMap: UserSettingsDefinitionMap = {
 			}
 			return Math.max(maxInsultWordsMin, Math.min(maxInsultWordsMax, parsedValue));
 		}
+	},
+	selectedPacks: {
+		defaultValue: [fallbackPackKey],
+		sanitize: (value) => {
+			if (!Array.isArray(value)) {
+				return [fallbackPackKey];
+			}
+			const selectedPacks: string[] = [];
+			for (const packKey of value) {
+				if (typeof packKey !== 'string') {
+					continue;
+				}
+				if (!availablePackKeySet.has(packKey)) {
+					continue;
+				}
+				if (selectedPacks.includes(packKey)) {
+					continue;
+				}
+				selectedPacks.push(packKey);
+			}
+			if (selectedPacks.length === 0) {
+				return [fallbackPackKey];
+			}
+			return selectedPacks;
+		}
 	}
 };
 
 export type UserSettingKey = keyof UserSettings;
 const userSettingKeys = Object.keys(userSettingsDefinitionMap) as UserSettingKey[];
 
-const createDefaultSettings = (): UserSettings => {
-	const defaults = {} as UserSettings;
-	for (const key of userSettingKeys) {
-		defaults[key] = userSettingsDefinitionMap[key].defaultValue;
+const resolveEnabledPackKeys = (settings: Pick<UserSettings, 'allowProfanity' | 'selectedPacks'>): string[] => {
+	const allowedPacks = settings.selectedPacks.filter((packKey) => {
+		if (settings.allowProfanity) {
+			return true;
+		}
+		return !explicitPackKeySet.has(packKey);
+	});
+	if (allowedPacks.length > 0) {
+		return allowedPacks;
 	}
+	const nonExplicitFallback = availableInsultPacks.find((pack) => !pack.explicit)?.key;
+	if (nonExplicitFallback) {
+		return [nonExplicitFallback];
+	}
+	return [fallbackPackKey];
+};
+
+const createDefaultSettings = (): UserSettings => {
+	const defaults = Object.fromEntries(
+		userSettingKeys.map((key) => [key, userSettingsDefinitionMap[key].defaultValue])
+	) as UserSettings;
+	defaults.selectedPacks = resolveEnabledPackKeys(defaults);
 	return defaults;
 };
 
@@ -55,21 +107,10 @@ const defaultSettings: UserSettings = createDefaultSettings();
 const settingsStore = writable<UserSettings>({ ...defaultSettings });
 
 const sanitizeSettings = (settings: Partial<UserSettings> | null | undefined): UserSettings => {
-	const sanitizedSettings = {} as UserSettings;
-	for (const key of userSettingKeys) {
-		sanitizedSettings[key] = userSettingsDefinitionMap[key].sanitize(settings?.[key]);
-	}
-	return sanitizedSettings;
-};
-
-const sanitizePartialSettings = (settings: Partial<UserSettings>): Partial<UserSettings> => {
-	const sanitizedSettings: Partial<UserSettings> = {};
-	for (const key of userSettingKeys) {
-		if (!(key in settings)) {
-			continue;
-		}
-		sanitizedSettings[key] = userSettingsDefinitionMap[key].sanitize(settings[key]);
-	}
+	const sanitizedSettings = Object.fromEntries(
+		userSettingKeys.map((key) => [key, userSettingsDefinitionMap[key].sanitize(settings?.[key])])
+	) as UserSettings;
+	sanitizedSettings.selectedPacks = resolveEnabledPackKeys(sanitizedSettings);
 	return sanitizedSettings;
 };
 
@@ -122,7 +163,7 @@ const saveUserSettings = async (settings: Partial<UserSettings>): Promise<void> 
 			'code' in error &&
 			(error.code === 'not-found' || error.code === 'NOT_FOUND');
 		if (isNotFoundError) {
-			const sanitizedSettings = sanitizePartialSettings(settings);
+			const sanitizedSettings = sanitizeSettings(settings);
 			await setDoc(userRef, { settings: sanitizedSettings });
 		} else {
 			throw error;
@@ -131,14 +172,13 @@ const saveUserSettings = async (settings: Partial<UserSettings>): Promise<void> 
 };
 
 const setUserSettings = async (partialSettings: Partial<UserSettings>) => {
-	const sanitizedPartialSettings = sanitizePartialSettings(partialSettings);
 	const currentSettings = get(settingsStore);
-	const nextSettings = {
+	const nextSettings = sanitizeSettings({
 		...currentSettings,
-		...sanitizedPartialSettings
-	};
+		...partialSettings
+	});
 	settingsStore.set(nextSettings);
-	await saveUserSettings(sanitizedPartialSettings);
+	await saveUserSettings(nextSettings);
 };
 
 const setUserSetting = async <K extends UserSettingKey>(key: K, value: UserSettings[K]) => {
@@ -170,3 +210,4 @@ const initSettingsListener = () => {
 
 export { settingsStore, defaultSettings, initSettingsListener, setUserSettings, setUserSetting, exportSettingsJson };
 export { maxInsultWordsMin, maxInsultWordsMax };
+export { availableInsultPacks, resolveEnabledPackKeys };

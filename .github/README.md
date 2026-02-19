@@ -11,7 +11,7 @@ Also check out [(de)Motivator.js](https://github.com/PorkyProductions/deMotivato
 
 ## 🚀 Features
 
-- **Dynamic Insults**: Randomized insults from the `demotivator` npm package, with optional user-specific insults.
+- **Dynamic Insults**: Randomized insults from the `demotivator` npm package with extensible insult packs, plus optional user-specific insults.
 - **Multi-Platform**: 
   - Web app hosted on **Firebase Hosting**.
 - **Dark Mode**: Fully styled with **TailwindCSS** and **Bootstrap**, including dark mode support.

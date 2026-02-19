@@ -19,8 +19,7 @@
 				),
 				createArray(
 					{
-						original: true,
-						profane: false
+						packs: ['original']
 					}
 				)
 			)

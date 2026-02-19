@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-import { Insult } from './typings';
+import { type Insult, type InsultPack, type InsultPackMap } from './typings';
 
 /**
  * @remarks
@@ -572,3 +572,26 @@ export const profaneInsults: Insult[] = [
 	'You\'re like autocorrect—always fucking things up at the worst time.',
 	'You\'re a walking reminder that birth control isn\'t 100% effective.'
 ];
+
+/**
+ * All available insult packs keyed by pack ID.
+ */
+export const insultPacks: InsultPackMap = {
+	original: {
+		key: 'original',
+		title: 'Original',
+		explicit: false,
+		insults: insults
+	},
+	profane: {
+		key: 'profane',
+		title: 'Profane',
+		explicit: true,
+		insults: profaneInsults
+	}
+};
+
+/**
+ * All available insult packs as an array.
+ */
+export const insultPackList: InsultPack[] = Object.values(insultPacks);

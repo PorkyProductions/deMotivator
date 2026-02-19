@@ -8,7 +8,7 @@
 	import { fade, scale } from 'svelte/transition';
 	import { onMount, onDestroy } from 'svelte';
 	import Icon from './icon.svelte';
-	import { settingsStore } from '../utils/userSettings';
+	import { resolveEnabledPackKeys, settingsStore } from '../utils/userSettings';
 	import { filterInsultsByMaxWords } from '../utils/insultLength';
 
 /*
@@ -22,7 +22,6 @@ let result = $state('');
 let userResult = $state('');
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 let insultsShown = $state(0);
-const includeOriginal = $state(true);
 
 // Database optimization: cache and batch writes
 let cachedInsultCount = $state(0);
@@ -59,9 +58,9 @@ const randomize = async () => {
 	const { DeMotivator } = await import('demotivator');
 	const DMV = new DeMotivator();
 	const maxWordsLabel = $settingsStore.maxInsultWords <= 0 ? 'no word limit' : `${$settingsStore.maxInsultWords} words`;
+	const selectedPacks = resolveEnabledPackKeys($settingsStore);
 	const insults = DMV.createArray({
-		original: includeOriginal,
-		profane: $settingsStore.allowProfanity
+		packs: selectedPacks
 	});
 	const filteredInsults = filterInsultsByMaxWords(insults, $settingsStore.maxInsultWords);
 	const demotivatorAndUserInsults = filterInsultsByMaxWords(userInsults.concat(filteredInsults), $settingsStore.maxInsultWords);
@@ -119,8 +118,11 @@ let sliderValue = $state(sliderMax + sliderMin - 250);
 let MEGAMODEinterval: ReturnType<typeof setInterval> | null = null;
 
 const MEGAMODErandomize = async () => {
-	const { insults } = await import('demotivator/dist/insults');
+	const { DeMotivator } = await import('demotivator');
+	const dmv = new DeMotivator();
 	const maxWordsLabel = $settingsStore.maxInsultWords <= 0 ? 'no word limit' : `${$settingsStore.maxInsultWords} words`;
+	const selectedPacks = resolveEnabledPackKeys($settingsStore);
+	const insults = dmv.createArray({ packs: selectedPacks });
 	const filteredInsults = filterInsultsByMaxWords(insults, $settingsStore.maxInsultWords);
 	if (filteredInsults.length === 0) {
 		MEGAMODEresult = `No insults found with ${maxWordsLabel}.`;

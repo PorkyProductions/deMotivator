@@ -41,7 +41,7 @@
     "bootstrap": "^5.3.8",
     "bootstrap-icons": "^1.13.1",
     "canvas-confetti": "^1.9.4",
-    "demotivator": "^14.0.0",
+    "demotivator": "^15.0.0",
     "firebase": "^12.9.0",
     "firebase-tools": "^15.6.0",
     "lodash": "^4.17.23",

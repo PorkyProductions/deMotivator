@@ -8,10 +8,12 @@
 	import Title from '../../components/title.svelte';
 	import { bsTheme } from '../../utils/darkMode';
 	import {
+		availableInsultPacks,
 		exportSettingsJson,
 		initSettingsListener,
 		maxInsultWordsMax,
 		maxInsultWordsMin,
+		resolveEnabledPackKeys,
 		setUserSetting,
 		setUserSettings,
 		settingsStore,
@@ -43,6 +45,8 @@
 		step?: number;
 	};
 
+	type PackSettingConfig = (typeof availableInsultPacks)[number];
+
 	const toggleSettings: ToggleSettingConfig[] = [
 		{
 			key: 'allowProfanity',
@@ -68,6 +72,33 @@
 	];
 
 	const getSettingInputId = (settingKey: UserSettingKey) => `${settingKey}Setting`;
+	const getPackInputId = (packKey: string) => `${packKey}PackSetting`;
+
+	const isPackToggleDisabled = (pack: PackSettingConfig) => {
+		const enabledPackKeys = resolveEnabledPackKeys($settingsStore);
+		const isPackEnabled = enabledPackKeys.includes(pack.key);
+		if (pack.explicit && !$settingsStore.allowProfanity) {
+			return true;
+		}
+		if (!isPackEnabled) {
+			return false;
+		}
+		return enabledPackKeys.length <= 1;
+	};
+
+	const handlePackSettingChange = async (pack: PackSettingConfig, event: Event) => {
+		const target = event.target as HTMLInputElement;
+		const enabledPackKeys = resolveEnabledPackKeys($settingsStore);
+		const nextPackKeys = target.checked
+			? Array.from(new Set(enabledPackKeys.concat(pack.key)))
+			: enabledPackKeys.filter((enabledPackKey) => enabledPackKey !== pack.key);
+		if (nextPackKeys.length === 0) {
+			target.checked = true;
+			alert('At least one insult pack must remain enabled.');
+			return;
+		}
+		await setUserSetting('selectedPacks', nextPackKeys);
+	};
 
 	const handleToggleSettingChange = async (setting: ToggleSettingConfig, event: Event) => {
 		const target = event.target as HTMLInputElement;
@@ -158,6 +189,42 @@
 									</p>
 								</div>
 							{/each}
+						</div>
+
+						<div class="card border-0 shadow-sm mb-4">
+							<div class="card-body">
+								<h2 class="h5 mb-3">
+									<Icon name="collection-fill" /> Insult Packs
+								</h2>
+								<p class="text-muted small mt-2 mb-3">
+									Choose which packs to include in your insult pool.
+								</p>
+								<div class="d-flex flex-column gap-3">
+									{#each availableInsultPacks as pack (pack.key)}
+										<div class="form-check form-switch">
+											<input
+												class="form-check-input"
+												type="checkbox"
+												id={getPackInputId(pack.key)}
+												checked={resolveEnabledPackKeys($settingsStore).includes(pack.key)}
+												disabled={isPackToggleDisabled(pack)}
+												onchange={(event) => handlePackSettingChange(pack, event)}
+											/>
+											<label class="form-check-label" for={getPackInputId(pack.key)}>
+												{pack.title}
+												{#if pack.explicit}
+													<span class="badge text-bg-danger ms-2">Explicit</span>
+												{/if}
+											</label>
+											{#if pack.explicit && !$settingsStore.allowProfanity}
+												<p class="text-muted small mt-1 mb-0">
+													Enable profanity to use this pack.
+												</p>
+											{/if}
+										</div>
+									{/each}
+								</div>
+							</div>
 						</div>
 
 						<div class="card border-0 shadow-sm mb-4">
