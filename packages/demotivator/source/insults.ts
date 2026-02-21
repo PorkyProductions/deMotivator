@@ -479,7 +479,8 @@ export const insults: Insult[] = [
 	'You\'re the reason people invented caller ID.',
 	'You\'re like a screenshot nobody wanted to save.',
 	'You\'re so uninteresting, you\'d be rejected from a boilerplate template.',
-	'You\'re like a reply that should have stayed in drafts.'
+	'You\'re like a reply that should have stayed in drafts.',
+	'You taste about as good as a soggy sandwich left out in the rain.'
 ];
 
 /**
