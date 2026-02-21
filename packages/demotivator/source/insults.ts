@@ -576,7 +576,7 @@ export const profaneInsults: Insult[] = [
 /**
  * All available insult packs keyed by pack ID.
  */
-export const insultPacks: InsultPackMap = {
+export const insultPacks = {
 	original: {
 		key: 'original',
 		title: 'Original',
@@ -589,7 +589,7 @@ export const insultPacks: InsultPackMap = {
 		explicit: true,
 		insults: profaneInsults
 	}
-};
+} satisfies InsultPackMap;
 
 /**
  * All available insult packs as an array.

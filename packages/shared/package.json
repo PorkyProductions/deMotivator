@@ -1,0 +1,29 @@
+{
+	"name": "@demotivator/shared",
+	"version": "15.0.0",
+	"description": "Shared utility functions for the deMotivator monorepo.",
+	"type": "module",
+	"scripts": {
+		"lint": "eslint ./source/** --fix",
+		"build": "tsc -p tsconfig.json",
+		"typeCheck": "tsc -p tsconfig.json --noEmit"
+	},
+	"author": "PorkyProductions",
+	"license": "Apache-2.0",
+	"devDependencies": {
+		"@types/lodash": "^4.17.23",
+		"eslint": "^8.57.1",
+		"typescript": "^5.9.3"
+	},
+	"dependencies": {
+		"lodash": "^4.17.23"
+	},
+	"files": [
+		"./dist/**/*.js",
+		"./dist/**/*.js.map",
+		"./dist/**/*.d.ts",
+		"./dist/**/*.d.ts.map"
+	],
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts"
+}

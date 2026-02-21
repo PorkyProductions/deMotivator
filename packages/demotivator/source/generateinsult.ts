@@ -16,17 +16,27 @@
 */
 import { Insult } from './typings';
 import { insults } from './insults';
+import { createArray } from "./index";
+import { pickRandom } from '@demotivator/shared';
 
 /**
- * @returns a psuedorandom insult from the insult array.
+ * @returns a pseudorandom insult from the insult array.
  */
-export default (array: Insult[] = insults): Insult => array[Math.floor(Math.random() * array.length)];
+export default (array: Insult[] = insults): Insult => {
+	const result = pickRandom(array);
+	if (!result) throw new Error('No insults available');
+	return result;
+};
 
 /**
  * Get a specific insult from a point and array that you specify
  *
- * @param {Insult[]} [array=insults] The array to select from. Deault is original only
+ * @param {Insult[]} [array=insults] The array to select from. Default is original only
  * @param {number} position The position in the array to select. Starts indexing at 1, not 0.
  * @returns {Insult}
  */
-export const insultAt = (position: number, array: Insult[] = insults): Insult => array[position - 1];
+export const insultAt = (position: number, array: Insult[] = createArray({
+	packs: [
+		'original'
+	]
+})): Insult => array[position - 1];

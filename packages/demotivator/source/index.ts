@@ -21,6 +21,7 @@ import {
 	type __DeMotivator,
 	type Insult,
 	type CreateArrayConfig,
+	type InsultPackKey,
 	type InsultPack,
 	type InsultPackMap
 } from './typings';
@@ -39,13 +40,13 @@ export {
 };
 
 /**
- * createArray is a new function itroduced in version 12 that creates a custom insult array based on a configuration you provide.
+ * createArray is a new function introduced in version 12 that creates a custom insult array based on a configuration you provide.
  * @param {CreateArrayConfig} configuration an object with the `packs` field containing insult pack IDs.
  * @since 12.0.0
  * @see CreateArrayConfig
  * @returns {Insult[]} an array of insults
  */
-export const createArray = (configuration: CreateArrayConfig): Insult[] => {
+export const createArray = (configuration: CreateArrayConfig<InsultPackKey>): Insult[] => {
 	const selectedPackKeys = new Set(configuration.packs);
 	const selectedInsults: Insult[] = [];
 	for (const selectedPackKey of selectedPackKeys) {
@@ -65,7 +66,7 @@ export const createArray = (configuration: CreateArrayConfig): Insult[] => {
  * @export
  * @type {__DeMotivator}
  */
-export const deMotivator: __DeMotivator = {
+export const deMotivator: __DeMotivator<InsultPackKey> = {
 	insults: insults,
 	profaneInsults: profaneInsults,
 	insultPacks: insultPacks,
@@ -84,7 +85,7 @@ export default deMotivator;
  * @typedef {DeMotivator}
  * @implements {__DeMotivator}
  */
-export class DeMotivator implements __DeMotivator {
+export class DeMotivator implements __DeMotivator<InsultPackKey> {
 	/**
    * The entire insults array
    * @date 6/15/2023 - 11:39:04 AM
@@ -131,7 +132,7 @@ export class DeMotivator implements __DeMotivator {
    * @param {CreateArrayConfig} configuration
    * @returns {Insult[]}
    */
-	public createArray(configuration: CreateArrayConfig): Insult[] {
+	public createArray(configuration: CreateArrayConfig<InsultPackKey>): Insult[] {
 		return createArray(configuration);
 	}
 	/**

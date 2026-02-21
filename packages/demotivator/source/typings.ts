@@ -17,7 +17,7 @@
 
 /**
  * @type Insult
- * an alias for the 'string' type for easier readibilty
+ * an alias for the 'string' type for easier readabilty
  */
 export type Insult = string;
 
@@ -35,6 +35,7 @@ export interface InsultPack {
  * A map of insult packs by key.
  */
 export type InsultPackMap = Record<string, InsultPack>;
+export type InsultPackKey = keyof typeof import('./insults').insultPacks;
 
 /**
  * An typesafe interface for `deMotivator` and `DeMotivator`
@@ -43,12 +44,12 @@ export type InsultPackMap = Record<string, InsultPack>;
  * @interface __DeMotivator
  * @typedef {__DeMotivator}
  */
-export interface __DeMotivator {
+export interface __DeMotivator<TPackKey extends string = InsultPackKey> {
 	insults: Insult[];
 	profaneInsults: Insult[];
 	insultPacks: InsultPackMap;
 	insultPackList: InsultPack[];
-	createArray: (configuration: CreateArrayConfig) => Insult[];
+	createArray: (configuration: CreateArrayConfig<TPackKey>) => Insult[];
 	generateInsult: (array: Insult[]) => Insult;
 	insultAt: (position: number, array: Insult[]) => Insult;
 }
@@ -60,6 +61,6 @@ export interface __DeMotivator {
  * @typedef {CreateArrayConfig}
  * @see createArray
  */
-export interface CreateArrayConfig {
-	packs: string[],
+export interface CreateArrayConfig<TPackKey extends string = InsultPackKey> {
+	packs: TPackKey[],
 }

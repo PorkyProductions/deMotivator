@@ -50,5 +50,9 @@
   "maintainers": [
     "Ryan Mullin"
   ],
-  "types": "./dist/index.d.ts"
+  "types": "./dist/index.d.ts",
+  "dependencies": {
+    "@types/lodash": "^4.17.23",
+    "@demotivator/shared": "^15.0.0"
+  }
 }
