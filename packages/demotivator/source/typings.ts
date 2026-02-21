@@ -17,7 +17,7 @@
 
 /**
  * @type Insult
- * an alias for the 'string' type for easier readabilty
+ * an alias for the 'string' type for easier readability
  */
 export type Insult = string;
 
