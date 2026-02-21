@@ -45,6 +45,7 @@
     "firebase": "^12.9.0",
     "firebase-tools": "^15.6.0",
     "lodash": "^4.17.23",
-    "uadetect": "^7.0.0-alpha-2"
+    "uadetect": "^7.0.0-alpha-2",
+    "@demotivator/shared":  "^15.0.0"
   }
 }

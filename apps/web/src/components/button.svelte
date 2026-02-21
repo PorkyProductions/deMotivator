@@ -54,8 +54,8 @@ const flushPendingWrites = async () => {
 
 // Update randomize function to use checkbox states
 const randomize = async () => {
-	const { userInsults } = await import('../typescript/insults');
 	const { DeMotivator } = await import('demotivator');
+	const  { pickRandom } = await import('@demotivator/shared');
 	const DMV = new DeMotivator();
 	const maxWordsLabel = $settingsStore.maxInsultWords <= 0 ? 'no word limit' : `${$settingsStore.maxInsultWords} words`;
 	const selectedPacks = resolveEnabledPackKeys($settingsStore);
@@ -63,15 +63,13 @@ const randomize = async () => {
 		packs: selectedPacks
 	});
 	const filteredInsults = filterInsultsByMaxWords(insults, $settingsStore.maxInsultWords);
-	const demotivatorAndUserInsults = filterInsultsByMaxWords(userInsults.concat(filteredInsults), $settingsStore.maxInsultWords);
 	if (filteredInsults.length === 0) {
 		const noMatchingInsultsMessage = `No insults found with ${maxWordsLabel}.`;
 		result = noMatchingInsultsMessage;
 		userResult = noMatchingInsultsMessage;
 		return;
 	}
-	userResult = demotivatorAndUserInsults[Math.floor(Math.random() * demotivatorAndUserInsults.length)];
-	result = filteredInsults[Math.floor(Math.random() * filteredInsults.length)];
+	result = pickRandom(filteredInsults) || 'No insult found.';
 
 	// Increment local counters
 	insultsShown++;
