@@ -16,7 +16,7 @@
 */
 import { Insult } from './typings';
 import { insults } from './insults';
-import { createArray } from "./index";
+import { createArray } from './index';
 import { pickRandom } from '@demotivator/shared';
 
 /**
@@ -39,4 +39,10 @@ export const insultAt = (position: number, array: Insult[] = createArray({
 	packs: [
 		'original'
 	]
-})): Insult => array[position - 1];
+})): Insult => {
+	if (!Number.isInteger(position)) throw new TypeError('Position must be an integer');
+	if (position < 1 || position > array.length) throw new RangeError(`Position must be between 1 and ${array.length}`);
+	const result = array[position - 1];
+	if (!result) throw new Error('No insults available');
+	return result;
+};
