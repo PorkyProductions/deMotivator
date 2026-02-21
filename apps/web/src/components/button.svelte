@@ -29,6 +29,27 @@ let pendingWrites = $state(0);
 const batchThreshold = 10; // Write to DB every 10 presses
 const batchFlushTimeout = 10000; // Also flush every 10 seconds if there are pending writes
 
+const insultPackCache = new Map<string, string[]>();
+let deMotivatorModulePromise: Promise<typeof import('demotivator')> | null = null;
+
+const getInsultsForPacks = async (selectedPacks: string[]) => {
+	const cacheKey = [...selectedPacks].sort().join('|');
+	const cachedInsults = insultPackCache.get(cacheKey);
+	if (cachedInsults) {
+		return cachedInsults;
+	}
+	if (!deMotivatorModulePromise) {
+		deMotivatorModulePromise = import('demotivator');
+	}
+	const { DeMotivator } = await deMotivatorModulePromise;
+	const deMotivator = new DeMotivator();
+	const loadedInsults = deMotivator.createArray({
+		packs: selectedPacks
+	});
+	insultPackCache.set(cacheKey, loadedInsults);
+	return loadedInsults;
+};
+
 // Initialize insult count from database on mount
 const initializeInsultCount = async () => {
 	const { readInsults } = await import('../typescript/readInsults');
@@ -54,14 +75,10 @@ const flushPendingWrites = async () => {
 
 // Update randomize function to use checkbox states
 const randomize = async () => {
-	const { DeMotivator } = await import('demotivator');
-	const  { pickRandom } = await import('@demotivator/shared');
-	const DMV = new DeMotivator();
+	const { pickRandom } = await import('@demotivator/shared');
 	const maxWordsLabel = $settingsStore.maxInsultWords <= 0 ? 'no word limit' : `${$settingsStore.maxInsultWords} words`;
 	const selectedPacks = resolveEnabledPackKeys($settingsStore);
-	const insults = DMV.createArray({
-		packs: selectedPacks
-	});
+	const insults = await getInsultsForPacks(selectedPacks);
 	const filteredInsults = filterInsultsByMaxWords(insults, $settingsStore.maxInsultWords);
 	if (filteredInsults.length === 0) {
 		const noMatchingInsultsMessage = `No insults found with ${maxWordsLabel}.`;
@@ -116,11 +133,9 @@ let sliderValue = $state(sliderMax + sliderMin - 250);
 let MEGAMODEinterval: ReturnType<typeof setInterval> | null = null;
 
 const MEGAMODErandomize = async () => {
-	const { DeMotivator } = await import('demotivator');
-	const dmv = new DeMotivator();
 	const maxWordsLabel = $settingsStore.maxInsultWords <= 0 ? 'no word limit' : `${$settingsStore.maxInsultWords} words`;
 	const selectedPacks = resolveEnabledPackKeys($settingsStore);
-	const insults = dmv.createArray({ packs: selectedPacks });
+	const insults = await getInsultsForPacks(selectedPacks);
 	const filteredInsults = filterInsultsByMaxWords(insults, $settingsStore.maxInsultWords);
 	if (filteredInsults.length === 0) {
 		MEGAMODEresult = `No insults found with ${maxWordsLabel}.`;
