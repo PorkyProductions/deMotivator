@@ -67,18 +67,6 @@
       "cache": false,
       "persistent": true,
       "inputs": []
-    },
-    "test": {
-      "dependsOn": ["^test"],
-      "outputs": ["coverage/**"],
-      "cache": true,
-      "inputs": [
-        "src/**",
-        "source/**",
-        "test/**",
-        "*.config.{js,ts}"
-      ],
-      "outputLogs": "new-only"
     }
   }
 }
