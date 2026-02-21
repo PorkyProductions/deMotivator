@@ -20,6 +20,7 @@
       "cache": true,
       "inputs": [
         "src/**",
+        "source/**",
         "public/**",
         "*.html",
         "vite.config.ts",
@@ -34,6 +35,7 @@
       "cache": true,
       "inputs": [
         "src/**",
+        "source/**",
         "package.json"
       ],
       "outputLogs": "errors-only"
@@ -43,6 +45,7 @@
       "cache": true,
       "inputs": [
         "src/**/*.{js,ts,svelte}",
+        "source/**/*.{js,ts,svelte}",
         ".eslintrc.*",
         ".eslintignore"
       ],
@@ -54,11 +57,13 @@
       "cache": true,
       "inputs": [
         "src/**/*.{ts,tsx,svelte}",
+        "source/**/*.{ts,tsx,svelte}",
         "tsconfig.json"
       ],
       "outputLogs": "errors-only"
     },
     "dev": {
+      "dependsOn": ["^build"],
       "cache": false,
       "persistent": true,
       "inputs": []
@@ -69,6 +74,7 @@
       "cache": true,
       "inputs": [
         "src/**",
+        "source/**",
         "test/**",
         "*.config.{js,ts}"
       ],
