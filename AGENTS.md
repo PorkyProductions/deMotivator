@@ -1,49 +1,56 @@
-# Coding Agent Instructions
+# (de)Motivator Agent Instructions
 
 ## Project Context
-This is (de)Motivator — a satirical web app that shows short, cheeky one-liners. Built with Svelte 5 + TypeScript, bundled with Vite, and deployed to Firebase hosting. We value pragmatic solutions over dogmatic conventions. No bikeshedding allowed. We like giraffes and hedgehogs.
+(de)Motivator is a set of two distinct packages. The primary packages is a enormous set of insults, 
+hand curated and split into "packs" that are grouped by theme. This is open source and published to the npm registry
+as the `demotivator` package. The second of which is our (PorkyProductions) first party implementation of the package
+in a web app format with numerous features added on top of it.
+
+The app was started by request of Ryan Mullin (@hiteacheryouare) and initially created by Tristan Winata (@HedgehogDubz).
+Today, both packages are actively maintained by Ryan, Tristan, and the PorkyProductions community.
 
 ## Quick Overview
 
+### Repo-Wide:
+- **Language**: Multiple
+- **Build System**: Turborepo
+- **Linting**: ESLint (configured in `.eslintrc.json` at repo root)
+
+### Insult Package:
+-- **Language/frameworks**: TypeScript (published as `demotivator` on npm)
+
+### Web App:
 - **Language/frameworks**: Svelte 5 (with Runes enabled) + TypeScript
-- **Bundler**: Vite (config in `vite.config.ts`)
-- **Hosting**: Firebase (`firebase.json` + `npm run push`)
+- **Bundler**: Vite (config in `apps/web/vite.config.ts`)
+- **Hosting**: Firebase (`apps/web/firebase.json, firestore.rules, .firebaserc`, config)
 - **UI**: Tailwind + Bootstrap (some customized theme files)
 - **Insults/data**: provided by the `demotivator` npm package (dependency)
+- **Tools**: Lodash and PorkyProductions HAT
 
 ## Project Layout
 
-```
-/
-  index.html              # Main web entry (NOT in src/)
-  /src
-    bootstrapper.ts       # Mounts Svelte app to #app
-    App.svelte           # Top-level Svelte component
-    /components          # All Svelte components
-    /utils               # Helper functions and data
-    /styles              # Global .scss files only
-  /www                   # PWA assets (manifest, icons, service-worker.js)
-  /android               # Capacitor Android project
-  /ios                   # Capacitor iOS project
-  /out                   # Build output directory
-```
+This is a monorepo. When building, the main goal for this should be maximizing future growth and extensibility. Create
+solutions that don't rely on hardcoding and one-off implementations that only work for this project. The insult package
+espcially should be built with the mindset of being reusable and extensible for other projects. The web app should be built
+with the mindset of being easily maintainable and extensible for future features and changes.
+
+We host code-only packages in the `packages/` directory and full apps in the `apps/` directory. 
+
+When building/testing run the turbo scripts from the root, as they build the packages in the correct order.
+
+- **Insult package**: `packages/demotivator/`
+- **Shared utilities**: `packages/shared/` (for things that could be shared across multiple packages/apps in the future)
+- **Web app**: `apps/web/`
 
 ## Language and Framework Rules
 
 ### Svelte Components
-- Use Svelte 5 (with runes) as the primary framework
+- Use Svelte 5 (with runes) as the primary framework for the web app.
 - TypeScript for all helper functions and complex components
 - Use JavaScript (not TypeScript) for simple components that:
   - Don't use props
   - Are highly reusable
   - Don't need type safety
-
-### File Structure
-- Entry point: root `index.html` (not `src/index.html`)
-- `bootstrapper.ts` mounts the app
-- Components in `/src/components`
-- Utilities in `/src/utils`
-- Global styles in `/src/styles`
 
 ## Code Style Requirements
 
@@ -53,6 +60,8 @@ This is (de)Motivator — a satirical web app that shows short, cheeky one-liner
 - **Quotes**: Single quotes only `'like this'`
 - **Semicolons**: ALWAYS use semicolons;
 - **Line length**: No explicit limit, use common sense
+
+For discrepancies, always prefer the eslint config rules.
 
 ### Naming Conventions
 - **Everything**: camelCase
@@ -175,7 +184,6 @@ When errors occur:
 
 **Preferred Patterns:**
 - ✅ npm with local node_modules
-- ✅ uv for Python (project-scoped virtual environments)
 - ✅ Local package installation that you can `rm -rf` when things break
 
 **Rejected Patterns:**
@@ -202,61 +210,57 @@ Assumptions: Node 18+ and npm installed.
    npm install
    ```
 
-2. **Start dev server (Vite)**
+2. **Start monorepo dev (Turbo)**
    ```bash
    npm run dev
    ```
-   - Runs `vite serve` on http://localhost:5173
-   - Open root `index.html` in browser
+   - Runs `turbo run dev` from repo root.
+   - For web-only dev, run `npm run dev --workspace demotivator-web`.
 
-3. **Preview production build locally**
+3. **Build + preview the web app**
    ```bash
    npm run build
-   npm run preview
+   npm run preview --workspace demotivator-web
    ```
-   - `npm run build` runs `vite build` (outputs to `out/`)
-   - Note: `emptyOutDir: false` in config - builds don't auto-wipe `out/`
+   - Root `npm run build` runs Turbo builds across packages/apps.
+   - Web output lives in `apps/web/out/`.
 
-4. **Firebase deploy**
+4. **Deploy web app to Firebase**
    ```bash
-   npm run push
+   npm run push --workspace demotivator-web
    ```
    - Ensure logged in: `firebase login`
    - Select project: `firebase use`
 
-5. **Capacitor / Mobile**
-   ```bash
-   npm run capBuild
-   ```
-   - Syncs web assets to native projects
-   - Use Android Studio / Xcode for `android/` and `ios/` projects
-
 ## Helpful npm Scripts
 
-- `npm run dev` — start vite dev server
-- `npm run build` — build for production
-- `npm run preview` — preview production build locally
-- `npm run push` — `firebase deploy`
-- `npm run capBuild` — `cap sync`
-- `npm run lint` — eslint (auto-fix)
-- `npm run typeCheck` — TypeScript type check (noEmit)
-- `npm run supportedBrowsers` — regenerates `src/utils/supportedBrowsers.ts`
+- **Root (Turbo):**
+  - `npm run dev` — run all `dev` tasks via Turbo
+  - `npm run build` — run all `build` tasks via Turbo
+  - `npm run build:force` — force rebuild without cache
+  - `npm run lint` — run lint across workspaces
+  - `npm run typeCheck` — run type checks across workspaces
+  - `npm run clean` — run Turbo clean + remove root caches
+- **Web workspace (`demotivator-web`):**
+  - `npm run preview --workspace demotivator-web` — preview web production build
+  - `npm run push --workspace demotivator-web` — deploy web app to Firebase
+  - `npm run supportedBrowsers --workspace demotivator-web` — regenerate `apps/web/src/utils/supportedBrowsers.ts`
 
 ## Important Implementation Notes
 
-- **Entry point**: Root `index.html` (NOT `src/index.html`) loads `./src/bootstrapper.ts`
-- **Multi-page app**: `vite.config.ts` sets `appType: "mpa"` with multiple HTML inputs (index, login, signUp, share, list, credits, leaderboard, 404/500)
-- **Adding new pages**: Add them to `vite.config.ts` input array so they get built
-- **Build output**: `rollupOptions.output.dir` set to `out/`
-- **PWA assets**: `www/` directory (don't confuse with `out/`)
-- **Known issue**: Duplicate import of `easterEggs.ts` in `index.html` (harmless)
+- **Web entry points**: HTML files are in `apps/web/*.html` and load page entry files from `apps/web/src/`
+- **Main web page entry**: `apps/web/index.html` loads `./src/bootstrapper.ts`
+- **Multi-page app**: `apps/web/vite.config.ts` sets `appType: "mpa"` with inputs for index, login, signUp, list, settings, leaderboard, admin, 404, and 500
+- **Adding new pages**: Add the HTML file and include it in `apps/web/vite.config.ts` `rollupOptions.input`
+- **Build output**: web output dir is `apps/web/out/`
+- **PWA assets**: canonical source is repo-root `www/`, copied into `apps/web/out/` during web `postbuild`
 
 ## Git Commit Style
 
 ### Commit Title
 - Keep it terse and not overly descriptive
 - General idea of changes
-- Add emoji if it's funny and enhances comedic value 🦒
+- Add emoji if it's funny and enhances comedic value
 
 ### Commit Message Body
 - Be VERY detailed and longwinded
@@ -276,8 +280,8 @@ Example:
 So I was working on the navbar and noticed that when you clicked the hamburger menu on mobile, it wasn't closing properly when you navigated to a new page. This was happening because the state wasn't being reset properly in Svelte's reactive statements. I talked to @dependabot about updating our Svelte version but decided against it. This relates to PR #42 and fixes issue #38.
 
 Changed files:
-- /src/components/Navbar.svelte - Added proper cleanup with onDestroy
-- /src/utils/navbarHelpers.ts - Refactored the toggle logic to be more reusable
+- /apps/web/src/components/Navbar.svelte - Added proper cleanup with onDestroy
+- /apps/web/src/utils/navbarHelpers.ts - Refactored the toggle logic to be more reusable
 
 Also while I was in there I noticed the dark mode wasn't applying to the dropdown items so I added the appropriate Tailwind classes. Bootstrap was handling most of it but needed the extra dark: modifiers for the text color.
 
@@ -291,11 +295,11 @@ This should work with the deployment pipeline we set up in the GitHub Actions wo
    npm ci
    ```
 
-2. **Dev server**
+2. **Dev server (Turbo)**
    ```bash
    npm run dev
    ```
-   Visit http://localhost:5173 → confirm app mounts and button loads insults
+   Visit http://localhost:5173 → confirm web app mounts and button loads insults
 
 3. **Lint & typecheck**
    ```bash
@@ -306,23 +310,24 @@ This should work with the deployment pipeline we set up in the GitHub Actions wo
 4. **Production build + preview**
    ```bash
    npm run build
-   npm run preview
+   npm run preview --workspace demotivator-web
    ```
    Confirm built pages load and static assets (icons/manifest) are available
 
 5. **Deploy to Firebase** (if you have access)
    ```bash
-   npm run push
+   npm run push --workspace demotivator-web
    ```
 
 ## Where to Look for Things
 
-- **Svelte components**: `src/components/`
-- **Top-level app**: `src/App.svelte` and `src/bootstrapper.ts`
-- **Styles**: `src/styles/` and `tailwind.config.cjs`
-- **Vite config**: `vite.config.ts`
-- **Capacitor config**: `capacitor.config.ts`
-- **Firebase config**: `firebase.json`
+- **Web Svelte components**: `apps/web/src/components/`
+- **Top-level web app**: `apps/web/src/App.svelte` and `apps/web/src/bootstrapper.ts`
+- **Web styles**: `apps/web/src/styles/` and `apps/web/tailwind.config.cjs`
+- **Web Vite config**: `apps/web/vite.config.ts`
+- **Web Firebase config**: `apps/web/firebase.json`, `apps/web/firestore.rules`, `apps/web/.firebaserc`
+- **Package code**: `packages/demotivator/source/` and `packages/shared/source/`
+- **Monorepo task orchestration**: root `turbo.json`
 
 ## Data Fetching
 - Avoid complex data fetching libraries unless absolutely necessary
@@ -345,4 +350,4 @@ When in doubt:
 
 ---
 
-**Questions / notes for the repo owner**: Enjoy working on (de)Motivator — ping me (or the vibecoder) with any clarifying preferences and I'll adapt the instructions.
+Always ask claifying questions if needed
