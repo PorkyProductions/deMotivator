@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onDestroy } from 'svelte';
 	import hedgehog from '../img/HedgehogIcon.png';
 	import Title from './title.svelte';
 	import Icon from './icon.svelte';
@@ -9,6 +10,11 @@
 	import { adminAccessStore } from '../utils/adminAccess';
 
 	const year = new Date().getFullYear();
+	const initialHedgehogSpinDuration = 10;
+	const accelerationFactor = 0.92; // reduce duration by 100 - _% each interval
+	const accelerationInterval = 50co0; // every _ ms
+	let hedgehogSpinDuration = $state(initialHedgehogSpinDuration);
+	let hedgehogAccelerationTimer: ReturnType<typeof setInterval> | undefined;
 
 	// Logic: derived check for mobile/tablet to clean up the template
 	const isMobileView = deviceType === 'mobile' || (deviceType === 'tablet' && (OS === 'Android' || OS === 'iOS'));
@@ -19,6 +25,30 @@
 		$adminAccessStore.isAdmin === true &&
 		$adminAccessStore.loading === false
 	);
+
+	const startHedgehogAcceleration = () => {
+		if (hedgehogAccelerationTimer) {
+			clearInterval(hedgehogAccelerationTimer);
+		}
+
+		hedgehogSpinDuration = initialHedgehogSpinDuration;
+		hedgehogAccelerationTimer = setInterval(() => {
+			hedgehogSpinDuration *= accelerationFactor;
+		}, accelerationInterval);
+	};
+
+	const stopHedgehogAcceleration = () => {
+		if (hedgehogAccelerationTimer) {
+			clearInterval(hedgehogAccelerationTimer);
+			hedgehogAccelerationTimer = undefined;
+		}
+
+		hedgehogSpinDuration = initialHedgehogSpinDuration;
+	};
+
+	onDestroy(() => {
+		stopHedgehogAcceleration();
+	});
 </script>
 
 {#if isMobileView}
@@ -75,8 +105,8 @@
 			<div class="flex justify-between items-center">
 				<!-- Left section: Hedgehog + Title + Copyright -->
 				<div class="flex items-center gap-4">
-					<a href="https://porkyproductions.github.io" class="block group">
-						<img src={hedgehog} alt="Hedgehog" class="w-11 h-11 group-hover:animate-spin object-contain drop-shadow-lg transition-transform duration-300 group-hover:scale-110" />
+					<a href="https://porkyproductions.github.io" class="block group" on:mouseenter={startHedgehogAcceleration} on:mouseleave={stopHedgehogAcceleration}>
+						<img src={hedgehog} alt="Hedgehog" class="w-11 h-11 group-hover:animate-spin object-contain drop-shadow-lg transition-transform duration-300 group-hover:scale-110" style={`animation-duration: ${hedgehogSpinDuration}s;`} />
 					</a>
 					<div class="flex flex-col leading-tight" >
 						<div class="flex items-center gap-2" id="logoText">
