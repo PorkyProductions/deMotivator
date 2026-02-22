@@ -348,6 +348,13 @@ When in doubt:
 4. Don't overthink it
 5. Giraffes and hedgehogs are cool 🦒🦔
 
+
+## Misc Notes:
+The project used to be hosted on GitHub pages but we moved to Firebase for better backend support and more control over the hosting environment. 
+However, the old link might be in the wild somewhere, so we kept the page up with a redirect to the new version.
+That is what is in the docs/ directory, which is still published to GitHub pages but just redirects to the new Firebase-hosted version.
+
+
 ---
 
 Always ask claifying questions if needed
