@@ -12,7 +12,7 @@
 	const year = new Date().getFullYear();
 	const initialHedgehogSpinDuration = 10;
 	const accelerationFactor = 0.92; // reduce duration by 100 - _% each interval
-	const accelerationInterval = 50co0; // every _ ms
+	const accelerationInterval = 500; // every _ ms
 	let hedgehogSpinDuration = $state(initialHedgehogSpinDuration);
 	let hedgehogAccelerationTimer: ReturnType<typeof setInterval> | undefined;
 
