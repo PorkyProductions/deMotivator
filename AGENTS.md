@@ -355,6 +355,10 @@ However, the old link might be in the wild somewhere, so we kept the page up wit
 That is what is in the docs/ directory, which is still published to GitHub pages but just redirects to the new Firebase-hosted version.
 
 
+The original version of the app is in `www/dmv1.html` and is included "as-is" in every release. This is a legacy artifact
+and should be treated as a piece in a museum. It is not maintained and should **never**, in any circumstace whatsoever
+be modified or updated. If you want to make changes to the app, make them in the `apps/web/` version. The `www/dmv1.html` file is just there for historical purposes and should be left alone.
+
 ---
 
 Always ask claifying questions if needed
