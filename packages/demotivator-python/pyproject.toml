@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "demotivator"
+version = "15.0.0"
+description = "An extremely large collection of 300+ insults — Python port of the demotivator npm package."
+readme = "README.md"
+license = { text = "Apache-2.0" }
+authors = [
+    { name = "PorkyProductions" },
+]
+maintainers = [
+    { name = "Ryan Mullin" },
+]
+keywords = [
+    "dmv",
+    "demotivator",
+    "insult",
+    "insults",
+    "insult array",
+]
+classifiers = [
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+requires-python = ">=3.9"
+
+[project.urls]
+Homepage = "https://github.com/PorkyProductions/deMotivator"
+Repository = "https://github.com/PorkyProductions/deMotivator"
+Issues = "https://github.com/PorkyProductions/deMotivator/issues"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["demotivator*"]
