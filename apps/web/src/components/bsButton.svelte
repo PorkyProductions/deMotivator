@@ -1,5 +1,4 @@
 <script lang="ts">
-	import '../styles/scss/darkMode.scss';
 	import type { BSVarient } from '../typescript/types';
 	import Icon from './icon.svelte';
 	const { href, type, text, icon }: { href: string; type: BSVarient; text: string; icon: string } = $props();

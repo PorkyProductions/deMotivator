@@ -1,5 +1,4 @@
 <script lang="ts">
-	import '../styles/scss/darkMode.scss';
 	import type { BSVarient } from '../typescript/types';
 	const { type }: { type: BSVarient } = $props();
 	import { darkMode } from '../utils/darkMode';

@@ -1,3 +1,4 @@
+import './styles/globalStyles';
 import App from './App.svelte';
 import { mount } from 'svelte';
 

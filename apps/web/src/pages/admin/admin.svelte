@@ -1,6 +1,4 @@
 <script lang="ts">
-	import '../../styles/css/app.css';
-	import '../../styles/scss/colorScheme.scss';
 	import { onMount } from 'svelte';
 	import { fade, fly } from 'svelte/transition';
 	import Auth from '../login/auth.svelte';

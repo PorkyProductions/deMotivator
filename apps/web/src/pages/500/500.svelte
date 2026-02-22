@@ -1,7 +1,5 @@
 <script>
 	import Spinhog from '../../components/spinhog.svelte';
-	import '../../styles/css/app.css';
-	import '../../styles/scss/colorScheme.scss';
 	import Title from '../../components/title.svelte';
 	import Icon from '../../components/icon.svelte';
 	let countdown = 15;

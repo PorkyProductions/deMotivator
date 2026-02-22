@@ -1,5 +1,4 @@
 <script>
-	import '../styles/css/app.css';
 	import hedgehog from  '../img/HedgehogIcon.png';
 </script>
 

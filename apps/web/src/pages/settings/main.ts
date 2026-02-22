@@ -1,3 +1,5 @@
+import '../../styles/globalStyles';
+import '../../styles/scss/bootstrap.scss';
 import App from './settings.svelte';
 import { mount } from 'svelte';
 const docApp: HTMLElement | null = document.getElementById('app');

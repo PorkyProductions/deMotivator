@@ -1,6 +1,5 @@
 
 <script>
-	import '../styles/css/app.css';
 	import { name, PROD, version } from '../typescript/constants';
 </script>
 <a href="/" class="no-underline" id="link">

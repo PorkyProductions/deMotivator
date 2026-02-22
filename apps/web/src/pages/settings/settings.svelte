@@ -1,6 +1,4 @@
 <script lang="ts">
-	import '../../styles/css/app.css';
-	import '../../styles/scss/colorScheme.scss';
 	import { onMount } from 'svelte';
 	import Auth from '../login/auth.svelte';
 	import Footer from '../../components/footer.svelte';

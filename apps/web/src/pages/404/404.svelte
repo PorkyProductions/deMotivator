@@ -4,9 +4,6 @@
 	import { fade, fly, scale, blur } from 'svelte/transition';
 	import { bsTheme } from '../../utils/darkMode';
 	import confetti from 'canvas-confetti';
-	import '../../styles/css/app.css';
-	import '../../styles/scss/bootstrap.scss';
-	import '../../styles/scss/colorScheme.scss';
 
 	const lines = [
 		'Hello there... yes, hello...',
