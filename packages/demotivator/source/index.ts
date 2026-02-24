@@ -15,7 +15,14 @@
  * limitations under the License.
  */
 
-import { insults, profaneInsults, insultPacks, insultPackList } from './insults';
+import {
+	insults,
+	profaneInsults,
+	halloweenInsults,
+	insultPacks,
+	insultPackList
+} from './insults';
+
 import generateInsult, { insultAt } from './generateinsult';
 import {
 	type __DeMotivator,
@@ -29,6 +36,7 @@ import {
 export {
 	insults,
 	profaneInsults,
+	halloweenInsults,
 	insultPacks,
 	insultPackList,
 	generateInsult,
@@ -69,6 +77,7 @@ export const createArray = (configuration: CreateArrayConfig<InsultPackKey>): In
 export const deMotivator: __DeMotivator<InsultPackKey> = {
 	insults: insults,
 	profaneInsults: profaneInsults,
+	halloweenInsults: halloweenInsults,
 	insultPacks: insultPacks,
 	insultPackList: insultPackList,
 	createArray: createArray,
@@ -100,6 +109,11 @@ export class DeMotivator implements __DeMotivator<InsultPackKey> {
    * @type {Insult[]}
    */
 	profaneInsults: Insult[] = profaneInsults;
+	/**
+	 * All of the halloween insults
+	 * @date 2/23/2026 - 11:19:35 PM
+	 */
+	halloweenInsults: Insult[] = halloweenInsults;
 	/**
    * A map of all available insult packs by key.
    * @date 2/19/2026

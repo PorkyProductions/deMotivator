@@ -544,6 +544,10 @@ export const halloweenInsults: Insult[] = [
 	'You\'re the reason why people say "it\'s just a costume" when they see you',
 	'Even the most terrifying monsters are like, "No thanks, I don\'t want to be associated with that guy."',
 	'Is that belly a year round thing or did you just eat all the Halloween candy in one sitting?',
+	'People are counting down the days until you become a skeleton too',
+	'People must think you\'re a Halloween decoration that forgot to get put away after the season ended',
+	'You have the personality of a haunted house—creepy, empty, and full of cobwebs',
+	'Even the scariest clowns are like, "No thanks, I don\'t want to be associated with that guy."'
 ];
 
 /**
@@ -561,6 +565,12 @@ export const insultPacks = {
 		title: 'Profane',
 		explicit: true,
 		insults: profaneInsults
+	},
+	halloween: {
+		key: 'halloween',
+		title: 'Halloween 🎃',
+		explicit: false,
+		insults: halloweenInsults
 	}
 } satisfies InsultPackMap;
 

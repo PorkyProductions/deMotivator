@@ -47,6 +47,7 @@ export type InsultPackKey = keyof typeof import('./insults').insultPacks;
 export interface __DeMotivator<TPackKey extends string = InsultPackKey> {
 	insults: Insult[];
 	profaneInsults: Insult[];
+	halloweenInsults: Insult[];
 	insultPacks: InsultPackMap;
 	insultPackList: InsultPack[];
 	createArray: (configuration: CreateArrayConfig<TPackKey>) => Insult[];
