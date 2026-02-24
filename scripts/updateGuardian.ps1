@@ -1,5 +1,5 @@
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
-$guardianFile = Join-Path $scriptDir 'ProjectGuardian.kt'
+$guardianFile = (Resolve-Path (Join-Path $scriptDir '..' 'tools' 'ProjectGuardian.kt')).Path
 $packageJson = (Resolve-Path (Join-Path $scriptDir '..' 'package.json')).Path.Replace('\', '/')
 
 $version = node -p "require('$packageJson').version"

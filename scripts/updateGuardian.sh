@@ -2,7 +2,7 @@
 set -e
 
 SCRIPT_DIR="${0:A:h}"
-GUARDIAN_FILE="${SCRIPT_DIR}/ProjectGuardian.kt"
+GUARDIAN_FILE="${SCRIPT_DIR}/../tools/ProjectGuardian.kt"
 VERSION=$(node -p "require('${SCRIPT_DIR}/../package.json').version")
 BUILD_TIME=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 
