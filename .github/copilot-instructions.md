@@ -257,6 +257,8 @@ Assumptions: Node 18+ and npm installed.
 
 ## Git Commit Style
 
+Please commit your changes after every run or significant change. This helps keep track of what changes were made and allows for easier debugging if something breaks.
+
 ### Commit Title
 - Keep it terse and not overly descriptive
 - General idea of changes
