@@ -551,6 +551,46 @@ export const halloweenInsults: Insult[] = [
 ];
 
 /**
+ * An array of christmas-themed insults 🎄
+ * @type {Insult[]}
+ */
+export const christmasInsults: Insult[] = [
+	'You\'re the reason Santa checks his list twice.',
+	'Even the Grinch has more holiday spirit than you.',
+	'You\'re like a lump of coal in a stocking.',
+	'Your Christmas sweater is so ugly, it should be illegal.',
+	'You\'re the human equivalent of a fruitcake: dense, unwanted, and full of nuts.',
+	'Even Rudolph wouldn\'t want to guide your sleigh.',
+	'You\'re like a Christmas tree without lights.',
+	'Your holiday cheer is so fake, it could be sold at a discount store.',
+	'You\'re the reason why people say "it\'s the thought that counts" when they give you gifts.',
+	'Even the most festive elves would avoid working with you.',
+	'You\'re like a snowman in a heatwave.',
+	'Your Christmas spirit is so low, it could be measured in negative degrees.',
+	'You\'re the human equivalent of a tangled string of Christmas lights.',
+	'Your holiday cheer is so weak, it couldn\'t even power a single Christmas light.',
+	'You\'re the reason why people say "it\'s the thought that counts" when they see you at holiday parties.',
+	'Even the most jolly Santa would avoid taking photos with you.',
+	'You\'re like a Christmas cookie that got left out in the rain.',
+	'You\'re the human equivalent of a reindeer with no antlers.',
+	'You\'re like a Christmas tree that lost all its needles.',
+	'You\'re the reason why gift guides exist',
+	'Even the most festive carolers would avoid singing with you.',
+	'You\'re like a Christmas present that nobody wanted to unwrap.',
+	'You\'re like if Scrooge never had a change of heart.',
+	'You\'re like if the Grinch and Scrooge had a baby raised by Krampus.',
+	'Is there a "naughty list" for people like you, or do you just get a lifetime ban from Santa\'s workshop?',
+	'Is there a particular reason christmas lights go out when you walk into a room, or is it just a coincidence?',
+	'Were you raised by Krampus',
+	'You look like Krampus',
+	'Were you raised by the Grinch',
+	'You look like the Grinch',
+	'Were you raised by Scrooge',
+	'You\'re like if the Grinch never had a change of heart',
+	'You\'re the reason why they had to write a Christmas song about starving kids in Africa'
+];
+
+/**
  * All available insult packs keyed by pack ID.
  */
 export const insultPacks = {
@@ -571,6 +611,12 @@ export const insultPacks = {
 		title: 'Halloween 🎃',
 		explicit: false,
 		insults: halloweenInsults
+	},
+	christmas: {
+		key: 'christmas',
+		title: 'Christmas 🎄',
+		explicit: false,
+		insults: christmasInsults
 	}
 } satisfies InsultPackMap;
 

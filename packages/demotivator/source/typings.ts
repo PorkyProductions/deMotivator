@@ -48,6 +48,7 @@ export interface __DeMotivator<TPackKey extends string = InsultPackKey> {
 	insults: Insult[];
 	profaneInsults: Insult[];
 	halloweenInsults: Insult[];
+	christmasInsults: Insult[];
 	insultPacks: InsultPackMap;
 	insultPackList: InsultPack[];
 	createArray: (configuration: CreateArrayConfig<TPackKey>) => Insult[];
