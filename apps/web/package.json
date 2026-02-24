@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite serve",
-    "prebuild": "rm -rf out",
+    "updateGuardian": "node -e \"const{spawnSync}=require('child_process'),p=require('os').platform();const r=p==='win32'?spawnSync('pwsh',['-File','../../scripts/updateGuardian.ps1'],{stdio:'inherit',shell:true}):spawnSync('zsh',['../../scripts/updateGuardian.sh'],{stdio:'inherit'});if(r.status!==0)process.exit(r.status||1);\"",
+    "prebuild": "npm run updateGuardian && rm -rf out",
     "build": "vite build",
     "postbuild": "cp -r ../../www/* out/",
     "ssrBuild": "vite ssrBuild",
