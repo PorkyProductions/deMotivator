@@ -38,11 +38,10 @@ export type InsultPackMap = Record<string, InsultPack>;
 export type InsultPackKey = keyof typeof import('./insults').insultPacks;
 
 /**
- * An typesafe interface for `deMotivator` and `DeMotivator`
+ * A typesafe interface for `deMotivator` and `DeMotivator`
  *
  * @export
  * @interface __DeMotivator
- * @typedef {__DeMotivator}
  */
 export interface __DeMotivator<TPackKey extends string = InsultPackKey> {
 	insults: Insult[];
@@ -57,10 +56,9 @@ export interface __DeMotivator<TPackKey extends string = InsultPackKey> {
 }
 
 /**
- * A interface for the configuration options passed to `createArray`
+ * An interface for the configuration options passed to `createArray`
  * @export
  * @interface CreateArrayConfig
- * @typedef {CreateArrayConfig}
  * @see createArray
  */
 export interface CreateArrayConfig<TPackKey extends string = InsultPackKey> {

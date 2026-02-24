@@ -94,7 +94,6 @@ export default deMotivator;
  * @see deMotivator
  * @export
  * @class DeMotivator
- * @typedef {DeMotivator}
  * @implements {__DeMotivator}
  */
 export class DeMotivator implements __DeMotivator<InsultPackKey> {
@@ -106,14 +105,14 @@ export class DeMotivator implements __DeMotivator<InsultPackKey> {
    */
 	insults: Insult[] = insults;
 	/**
-   * All of the profane insults
+   * All the profane insults
    * @date 6/15/2023 - 11:39:04 AM
    *
    * @type {Insult[]}
    */
 	profaneInsults: Insult[] = profaneInsults;
 	/**
-	 * All of the halloween insults
+	 * All the Halloween insults
 	 * @date 2/23/2026 - 11:19:35 PM
 	 */
 	halloweenInsults: Insult[] = halloweenInsults;
