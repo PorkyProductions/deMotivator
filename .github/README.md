@@ -8,6 +8,17 @@ Also check out [(de)Motivator.js](https://github.com/PorkyProductions/deMotivato
 **Brought to you by your friends at [PorkyProductions](https://porkyproductions.github.io/)**
 ![PorkyProdutions Logo](https://avatars.githubusercontent.com/u/82683662?s=200&v=4)
 
+---
+
+![Svelte](https://img.shields.io/badge/Svelte-5-FF3E00?logo=svelte&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-7-646CFF?logo=vite&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4-06B6D4?logo=tailwindcss&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-5-7952B3?logo=bootstrap&logoColor=white)
+![Firebase](https://img.shields.io/badge/Firebase-Hosting%20%2B%20Firestore-FFCA28?logo=firebase&logoColor=black)
+![Turborepo](https://img.shields.io/badge/Turborepo-2-EF4444?logo=turborepo&logoColor=white)
+![npm](https://img.shields.io/badge/npm-workspaces-CB3837?logo=npm&logoColor=white)
+
 
 ## 🚀 Features
 
@@ -36,17 +47,45 @@ Also check out [(de)Motivator.js](https://github.com/PorkyProductions/deMotivato
 
 ## 📂 Project Structure
 
-This repository is a monorepo with the web app and local packages organized under apps/ and packages/.
+This repository is a **monorepo** managed with [npm workspaces](https://docs.npmjs.com/cli/using-npm/workspaces) and [Turborepo](https://turbo.build/). Apps live under `apps/` and reusable packages live under `packages/`. Turbo ensures packages are always built before the apps that depend on them, and caches outputs so repeated builds are near-instant.
 
-- apps/web/ — the main Svelte 5 + TypeScript web app; contains src/bootstrapper.ts, App.svelte, HTML entry pages (index.html, login.html, etc.), and its own vite.config.ts; this is where the site is built and served. Production output goes to apps/web/out/.
-- packages/demotivator/ — local npm package (published as `demotivator` on npm) providing insults and helper code (source/ → dist/), consumed by the web app.
-- packages/shared/ — shared utility functions used across packages and apps in the monorepo (@demotivator/shared).
-- www/ — PWA assets (manifest, icons, service-worker.js) and static files; copied into apps/web/out/ during postbuild.
-- docs/ — legacy GitHub Pages redirect to the new Firebase-hosted app.
+```
+/
+├── apps/
+│   └── web/                  # Svelte 5 + TypeScript web app (demotivator-web)
+│       ├── src/              # Application source (bootstrapper.ts, App.svelte, components/, utils/, styles/)
+│       ├── *.html            # HTML entry pages (index, login, signUp, list, settings, leaderboard, admin, 404, 500)
+│       ├── vite.config.ts    # Vite multi-page app config
+│       └── out/              # Production build output
+│
+├── packages/
+│   ├── demotivator/          # `demotivator` npm package — insult packs and generation helpers (source/ → dist/)
+│   └── shared/               # `@demotivator/shared` — utility functions shared across packages and apps
+│
+├── www/                      # PWA assets (manifest.json, icons, service-worker.js) — copied into apps/web/out/ at postbuild
+├── docs/                     # Legacy GitHub Pages redirect → demotivator.web.app
+├── turbo.json                # Turborepo task pipeline
+└── package.json              # Root workspace config (npm workspaces)
+```
 
-Top-level files: package.json, package-lock.json, turbo.json, LICENSE, and CI/config files; node_modules/ holds local dependencies.
+### 🔄 Turbo Build Pipeline
 
-See apps/web/src and packages/demotivator/source for the main application entry points and insult data.
+Turbo orchestrates tasks across the monorepo in dependency order with intelligent caching:
+
+| Task | Depends on | What it does |
+|---|---|---|
+| `lint` | upstream `lint` | Runs ESLint across each workspace, upstream first |
+| `prebuild` | `lint` | Runs workspace pre-build steps (e.g. `updateGuardian` in the web app) |
+| `build` | `lint`, `prebuild`, upstream `build` | Compiles packages (`dist/`) then the web app (`out/`) |
+| `typeCheck` | upstream `typeCheck` | Runs `tsc --noEmit` across all workspaces |
+| `dev` | upstream `build` | Starts the dev server after packages are compiled |
+
+Because `build` has `^build` as a dependency, running `npm run build` from the root will always compile `packages/shared` and `packages/demotivator` before `apps/web`. Turbo caches all outputs, so if source files haven't changed, tasks are skipped entirely.
+
+```
+packages/shared  ──build──┐
+packages/demotivator ─build──┤──► apps/web build
+```
 
 ---
 
