@@ -1,131 +1,197 @@
-# THE GREAT PORKYPRODUCTIONS COVENANT
+# (de)Motivator — Community Code of Conduct
 
-## Our Commitments
+**Project**: (de)Motivator
 
-Here at PorkyProductions, we strive to create a welcoming, and inclusive community over our shared love of code.
-We make projects that inspire people
-And our community inspires us.
+**Maintainers**: Ryan Mullin (Primary Maintainer), Tristan Winata
 
-## Our Standards
+**Organization**: PorkyProductions
 
-Examples of behavior that contributes to a positive environment for our
-community include:
+**Scope**: All project spaces, primarily GitHub repositories under PorkyProductions, including issues, pull requests, discussions, commits, documentation, and related communications.
 
-* Demonstrating empathy and kindness toward other people
-* Being respectful of differing opinions, viewpoints, and experiences
-* Giving and gracefully accepting constructive feedback
-* Accepting responsibility and apologizing to those affected by our mistakes,
-  and learning from the experience
-* Focusing on what is best not just for us as individuals, but for the
-  overall community
+## Purpose
 
-Examples of unacceptable behavior include:
+(de)Motivator exists to build and maintain:
+- The demotivator npm package
+- The first-party web implementation
+- Supporting infrastructure (leaderboards, accounts, admin tools, etc.)
 
-* The use of sexualized language or imagery, and sexual attention or
-  advances of any kind
-* Trolling, insulting or derogatory comments, and personal or political attacks
-* Public or private harassment
-* Publishing others' private information, such as a physical or email
-  address.
-* Other conduct which could reasonably be considered inappropriate in a
-  professional setting
-* Harassment or Discrimination of any form
+This project is merit-driven and output-oriented. The objective is high-quality code and maintainable systems — not social experimentation.
 
-## Enforcement Responsibilities
 
-Community leaders are responsible for clarifying and enforcing our standards of
-acceptable behavior and will take appropriate and fair corrective action in
-response to any behavior that they deem inappropriate, threatening, offensive,
-or harmful.
+## Scope of Application
 
-Community leaders have the right and responsibility to remove, edit, or reject
-comments, commits, code, wiki edits, issues, and other contributions that are
-not aligned to this Code of Conduct, and will communicate reasons for moderation
-decisions when appropriate.
+This Code of Conduct applies to:
+- GitHub Issues
+- Pull Requests
+- Commit Messages
+- Discussions
+- Documentation
+- Project-linked communication channels
+- Any public interaction representing (de)Motivator or PorkyProductions
 
-## PORKYPRODUCTIONS ALSO RESERVES THE RIGHT TO ENFORCE ANY OF THESE POLICIES BASED OFF OF OUR (porkyproductions) OWN JUDGEMENT
+Private behavior outside project spaces is outside scope unless it directly affects project operations.
 
-## Scope
 
-This Code of Conduct applies within all community spaces, and also applies when
-an individual is officially representing the community in public spaces.
-Examples of representing our community include using an official e-mail address,
-posting via an official social media account, or acting as an appointed
-representative at an online or offline event. 
-## It applies to all of our projects and code.
+##  Standards of Conduct
 
-## Enforcement
+### Expected Behavior
 
-Instances of abusive, harassing, or otherwise unacceptable behavior may be
-reported to the community leaders responsible for enforcement at
-rpmullin@comcast.net.
-All complaints will be reviewed and investigated.
+Contributors are expected to:
+- Provide technically sound contributions
+- Engage in criticism focused on code and architecture
+- Accept review feedback professionally
+- Keep discussions relevant to the project
+- Maintain clarity and efficiency in communication
+- Respect maintainer decisions
 
-All community leaders are obligated to respect the privacy and security of the
-reporter of any incident.
+Competence and contribution quality are valued above all else.
 
-## Enforcement Guidelines
 
-Community leaders will follow these Community Impact Guidelines in determining
-the consequences for any action they deem in violation of this Code of Conduct:
+### Contextual Profanity Clause
 
-### 1. Correction
+This project generates insults by design.
 
-**Community Impact**: Use of inappropriate language or other behavior deemed
-unprofessional or unwelcome in the community.
+Accordingly:
+- Profanity within the product (e.g., insult packs) is permitted.
+- Discussion of profanity in a technical context is permitted.
+- Strong language in code or content review is permitted when directly relevant.
 
-**Consequence**: A private, written warning from community leaders, providing
-clarity around the nature of the violation and an explanation of why the
-behavior was inappropriate. A public apology may be requested.
+However:
+- Personal attacks against contributors are not permitted.
+- Harassment disguised as “product realism” is not permitted.
+	•	Threats, doxxing, or targeted hostility are never permitted.
 
-### 2. Warning
+The product may be offensive. The collaboration environment is not.
 
-**Community Impact**: A violation through a single incident or series
-of actions.
 
-**Consequence**: A warning with consequences for continued behavior. No
-interaction with the people involved, including unsolicited interaction with
-those enforcing the Code of Conduct, for a specified period of time. This
-includes avoiding interactions in community spaces as well as external channels
-like social media. Violating these terms may lead to a temporary or
-permanent ban.
+## Prohibited Conduct
 
-### 3. Temporary Ban
+The following behaviors are prohibited:
+- Personal harassment or sustained hostility
+- Targeted abuse toward contributors
+- Spam or low-effort disruption
+- Repeated bad-faith arguments
+- Deliberate derailing of technical discussions
+- Intentional sabotage of code or infrastructure
+- Publishing private contributor information
+- Attempts to coerce maintainers
+- Excessive drama or social manipulation
 
-**Community Impact**: A serious violation of community standards, including
-sustained inappropriate behavior.
+Additionally:
 
-**Consequence**: A temporary ban from any sort of interaction or public
-communication with the community for a specified period of time. No public or
-private interaction with the people involved, including unsolicited interaction
-with those enforcing the Code of Conduct, is allowed during this period.
-Violating these terms may lead to a permanent ban.
+If you are easily offended by insult-based humor, this project may not be appropriate for you.
 
-### 4. Permanent Ban
 
-**Community Impact**: Demonstrating a pattern of violation of community
-standards, including sustained inappropriate behavior,  harassment of an
-individual, or aggression toward or disparagement of classes of individuals.
+## Political & Ideological Discussion
 
-**Consequence**: A permanent ban from any sort of public interaction within
-the community.
+Political discussion is permitted only if directly relevant to:
+- Platform policy compliance
+- Legal risk
+- Content moderation rules
+- Deployment constraints
 
-## IF THE INCIDENT IS DEEMED SERIOUS ENOUGH, THE PROPER LAW ENFORCEMENT AGENCIES MAY BE NOTIFIED
+Unrelated ideological debate will be removed.
 
-## Attribution
 
-This Code of Conduct is adapted from the [Contributor Covenant][homepage],
-version 2.0, available at
-https://www.contributor-covenant.org/version/2/0/code_of_conduct.html.
+## Meritocracy Statement
 
-Community Impact Guidelines were based off of [Mozilla's code of conduct
-enforcement ladder](https://github.com/mozilla/diversity).
+This project operates as a meritocracy.
+- Contributions are evaluated on quality, correctness, performance, security, maintainability, and usefulness.
+- No contributor is evaluated based on personal identity characteristics.
+- No quotas, preferences, or symbolic representation systems are used.
 
-[homepage]: https://www.contributor-covenant.org
+The best technical contribution wins.
 
-For answers to common questions about this code of conduct, see the FAQ at
-https://www.contributor-covenant.org/faq. Translations are available at
-https://www.contributor-covenant.org/translations.
 
-# Enjoy the code
-## - PorkyProductions
+## Governance & Enforcement
+
+### Authority
+
+Primary enforcement authority: Ryan Mullin
+
+Ryan reserves full discretion in:
+- Merging or rejecting contributions
+- Locking issues
+- Removing comments
+- Revoking repository access
+- Blocking users
+
+There is no voting system.
+
+### Enforcement Model
+
+Enforcement may include:
+1. Comment removal
+2. Warning (public or private)
+3. Temporary suspension from contribution
+4. Permanent ban
+5. Revocation of organizational permissions
+
+Some violations may bypass warnings entirely.
+
+### Zero-Tolerance Violations
+
+Immediate permanent removal may occur for:
+- Threats
+- Doxxing
+- Security exploitation attempts
+- Deliberate data destruction
+- Repeated harassment after warning
+- Bad-faith attempts to damage project reputation
+
+### Appeals
+
+Appeals may be submitted via:
+- GitHub direct message to Ryan
+- Email (if publicly listed in repository)
+
+Appeals are reviewed solely by Ryan.
+Decisions after appeal are final.
+
+## Contributor Expectations
+
+By submitting a contribution, you agree that:
+- Your contribution may be modified or rejected without explanation.
+- Maintainers may rewrite, refactor, or remove your code.
+- You do not gain governance rights through contribution.
+- The project may change direction at any time.
+
+## Administrative Tools & Abuse
+
+Because (de)Motivator includes:
+- Leaderboards
+- User accounts
+- Admin dashboards
+
+Any attempt to:
+- Exploit rankings
+- Manipulate data
+- Abuse admin privileges
+- Probe for vulnerabilities without disclosure
+
+will result in immediate removal and potential public disclosure of the attempt.
+
+Responsible disclosure is permitted and encouraged.
+
+## Reporting Violations
+
+To report misconduct:
+- Open a private issue marked confidential (if enabled), or
+- Contact Ryan directly
+
+Reports should include:
+- Links
+- Screenshots
+- Context
+
+Anonymous reports may not be actionable.
+
+## Final Authority Clause
+
+PorkyProductions and its maintainers reserve the right to:
+- Remove any content
+- Revoke contributor status
+- Restrict participation
+- Modify this Code of Conduct at any time
+
+Participation in this project constitutes acceptance of this Code.
