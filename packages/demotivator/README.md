@@ -26,7 +26,7 @@ An extensive JavaScript Library to integrate the power of (de)Motivator into you
 ## Use Cases
 - Casually throw shade at your users.
 - Need a random insult
-- Just been roasted, and you dont feel like visiting [(de)Motivator](https://porkyproductions.github.io/deMotivator)
+- Just been roasted, and you dont feel like visiting [(de)Motivator](https://demotivator.web.app)
 - You feel as if your userbase's ego is far too high
 
 ## Installation
@@ -121,7 +121,7 @@ button.addEventListener('click', () => {
 ```
 
 ## Update Schedule
-DMV.js will follow the same update schedule as [(de)Motivator](https://porkyproductions.github.io/deMotivator), with a release every 6-8 months.
+DMV.js will follow the same update schedule as [(de)Motivator](https://demotivator.web.app), with a release every 6-8 months.
 
 ## License
 

@@ -38,11 +38,11 @@ Also check out [(de)Motivator.js](https://github.com/PorkyProductions/deMotivato
 
 This repository is a monorepo with the web app and local packages organized under apps/ and packages/.
 
-- apps/web/ — the main Svelte 5 + TypeScript web app; contains src/bootstrapper.ts, App.svelte, HTML entry pages (index.html, login.html, etc.), and its own vite.config.ts; this is where the site is built and served.
-- packages/demotivator/ — local npm package providing insults and helper code (source/ → dist/), consumed by the web app.
-- www/ — PWA assets (manifest, icons, service-worker.js) and static files.
-- out/ — production build output directory.
-- docs/ — project documentation.
+- apps/web/ — the main Svelte 5 + TypeScript web app; contains src/bootstrapper.ts, App.svelte, HTML entry pages (index.html, login.html, etc.), and its own vite.config.ts; this is where the site is built and served. Production output goes to apps/web/out/.
+- packages/demotivator/ — local npm package (published as `demotivator` on npm) providing insults and helper code (source/ → dist/), consumed by the web app.
+- packages/shared/ — shared utility functions used across packages and apps in the monorepo (@demotivator/shared).
+- www/ — PWA assets (manifest, icons, service-worker.js) and static files; copied into apps/web/out/ during postbuild.
+- docs/ — legacy GitHub Pages redirect to the new Firebase-hosted app.
 
 Top-level files: package.json, package-lock.json, turbo.json, LICENSE, and CI/config files; node_modules/ holds local dependencies.
 
@@ -77,17 +77,12 @@ See apps/web/src and packages/demotivator/source for the main application entry 
 4. Preview the production build:
    ```bash
    npm run build
-   npm run preview
+   npm run preview --workspace demotivator-web
    ```
 
 5. Deploy to Firebase:
    ```bash
-   npm run push
-   ```
-
-6. Build for mobile:
-   ```bash
-   npm run capBuild
+   npm run push --workspace demotivator-web
    ```
 
 ---
@@ -101,7 +96,7 @@ See apps/web/src and packages/demotivator/source for the main application entry 
    ```
 2. Deploy the app:
    ```bash
-   npm run push
+   npm run push --workspace demotivator-web
    ```
 
 ---
@@ -149,7 +144,6 @@ This project is licensed under the **ISC License**. See the LICENSE file for det
   - Svelte
   - TailwindCSS
   - Bootstrap
-  - Capacitor
   - Firebase
   - `@porkyproductions/hat`
   - `demotivator`
