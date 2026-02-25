@@ -12,8 +12,7 @@ Also check out [(de)Motivator.js](https://github.com/PorkyProductions/deMotivato
 ## 🚀 Features
 
 - **Dynamic Insults**: Randomized insults from the `demotivator` npm package, with optional user-specific insults.
-- **Multi-Platform**: 
-  - Web app hosted on **Firebase Hosting**.
+- **Web App**: Hosted on **Firebase Hosting**.
 - **Dark Mode**: Fully styled with **TailwindCSS** and **Bootstrap**, including dark mode support.
 - **Leaderboard**: Track users who have seen the most insults.
 - **Shareable Content**: Share insults via email or social media.
@@ -27,10 +26,13 @@ Also check out [(de)Motivator.js](https://github.com/PorkyProductions/deMotivato
 - **Styling**: TailwindCSS + Bootstrap
 - **Bundler**: Vite
 - **Hosting**: Firebase Hosting
-- **Data**: Firebase Firestore
+- **Data**: Firebase Firestore + Firebase Analytics
 - **Utilities**: 
   - `@porkyproductions/hat` for randomization and utility functions.
   - `demotivator` npm package for insult generation.
+  - `canvas-confetti` for celebratory effects.
+  - `lodash` for general utility functions.
+  - `uadetect` for user-agent detection.
 
 ---
 
@@ -45,12 +47,12 @@ Also check out [(de)Motivator.js](https://github.com/PorkyProductions/deMotivato
 │   ├── components/         # Reusable Svelte components
 │   ├── pages/              # Page-specific Svelte components
 │   ├── typescript/         # Helper functions and logic
+│   ├── types/              # TypeScript type definitions
 │   ├── styles/             # Global SCSS styles
 │   └── utils/              # Utility functions
 ├── www/                    # PWA assets (manifest, icons, etc.)
-├── android/                # Capacitor Android project
-├── ios/                    # Capacitor iOS project
 ├── out/                    # Build output directory
+├── tools/                  # Miscellaneous dev tools
 └── docs/                   # Documentation and redirects
 ```
 
@@ -91,10 +93,17 @@ Also check out [(de)Motivator.js](https://github.com/PorkyProductions/deMotivato
    npm run push
    ```
 
-6. Build for mobile:
-   ```bash
-   npm run capBuild
-   ```
+### Helpful npm Scripts
+
+| Script | Description |
+|---|---|
+| `npm run dev` | Start Vite dev server |
+| `npm run build` | Build for production (outputs to `out/`) |
+| `npm run preview` | Preview production build locally |
+| `npm run push` | Deploy to Firebase Hosting |
+| `npm run lint` | Run ESLint with auto-fix |
+| `npm run typeCheck` | TypeScript type check (no emit) |
+| `npm run supportedBrowsers` | Regenerate `src/utils/supportedBrowsers.ts` |
 
 ---
 
@@ -155,10 +164,12 @@ This project is licensed under the **ISC License**. See the LICENSE file for det
   - Svelte
   - TailwindCSS
   - Bootstrap
-  - Capacitor
   - Firebase
   - `@porkyproductions/hat`
   - `demotivator`
+  - `canvas-confetti`
+  - `lodash`
+  - `uadetect`
 - **Special Thanks**: To all the users who keep coming back for more insults!
 
 ---
