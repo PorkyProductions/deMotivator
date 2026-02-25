@@ -59,7 +59,7 @@ Accordingly:
 However:
 - Personal attacks against contributors are not permitted.
 - Harassment disguised as “product realism” is not permitted.
-	•	Threats, doxxing, or targeted hostility are never permitted.
+- Threats, doxxing, or targeted hostility are never permitted.
 
 The product may be offensive. The collaboration environment is not.
 
