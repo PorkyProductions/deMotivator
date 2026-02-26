@@ -1,57 +1,57 @@
 {
-  "name": "demotivator",
-  "version": "15.0.0",
-  "description": "A extremely large array of 300+ insults so you can integrate the power of (de)Motivator into your webapp.",
-  "type": "module",
-  "scripts": {
-    "lint": "eslint ./source/** --fix",
-    "build": "tsc -p tsconfig.json",
-    "typeCheck": "tsc -p tsconfig.json --noEmit"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/PorkyProductions/deMotivator.js.git"
-  },
-  "keywords": [
-    "dmv",
-    "demotivator",
-    "dmv.js",
-    "demotivator.js",
-    "insult",
-    "insults",
-    "insult array",
-    "array"
-  ],
-  "author": "PorkyProductions",
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/PorkyProductions/deMotivator.js/issues"
-  },
-  "homepage": "https://github.com/PorkyProductions/deMotivator.js#readme",
-  "devDependencies": {
-    "eslint": "^8.57.1",
-    "eslint-plugin-import": "^2.32.0",
-    "eslint-plugin-n": "^17.24.0",
-    "eslint-plugin-promise": "^7.2.1",
-    "typescript": "^5.9.3"
-  },
-  "files": [
-    "./dist/**/*.js",
-    "./dist/**/*.js.map",
-    "./dist/**/*.d.ts",
-    "./dist/**/*.d.ts.map"
-  ],
-  "main": "./dist/index.js",
-  "displayName": "(de)Motivator.js",
-  "contributors": [
-    "Tristan Winata"
-  ],
-  "maintainers": [
-    "Ryan Mullin"
-  ],
-  "types": "./dist/index.d.ts",
-  "dependencies": {
-    "@demotivator/shared": "^15.0.0",
-    "@types/lodash": "^4.17.23"
-  }
+	"name": "demotivator",
+	"version": "14.0.0",
+	"description": "A extremely large array of 300+ insults so you can integrate the power of (de)Motivator into your webapp.",
+	"type": "module",
+	"scripts": {
+		"lint": "eslint ./source/** --fix",
+		"build": "tsc -p tsconfig.json",
+		"typeCheck": "tsc -p tsconfig.json --noEmit"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/PorkyProductions/deMotivator.js.git"
+	},
+	"keywords": [
+		"dmv",
+		"demotivator",
+		"dmv.js",
+		"demotivator.js",
+		"insult",
+		"insults",
+		"insult array",
+		"array"
+	],
+	"author": "PorkyProductions",
+	"license": "Apache-2.0",
+	"bugs": {
+		"url": "https://github.com/PorkyProductions/deMotivator.js/issues"
+	},
+	"homepage": "https://github.com/PorkyProductions/deMotivator.js#readme",
+	"devDependencies": {
+		"eslint": "^8.57.1",
+		"eslint-plugin-import": "^2.32.0",
+		"eslint-plugin-n": "^17.24.0",
+		"eslint-plugin-promise": "^7.2.1",
+		"typescript": "^5.9.3"
+	},
+	"files": [
+		"./dist/**/*.js",
+		"./dist/**/*.js.map",
+		"./dist/**/*.d.ts",
+		"./dist/**/*.d.ts.map"
+	],
+	"main": "./dist/index.js",
+	"displayName": "(de)Motivator.js",
+	"contributors": [
+		"Tristan Winata"
+	],
+	"maintainers": [
+		"Ryan Mullin"
+	],
+	"types": "./dist/index.d.ts",
+	"dependencies": {
+		"@demotivator/shared": "^14.0.0",
+		"@types/lodash": "^4.17.23"
+	}
 }
