@@ -186,6 +186,13 @@ When errors occur:
 - ✅ npm with local node_modules
 - ✅ Local package installation that you can `rm -rf` when things break
 
+**MANDATORY:**
+- Wherever possible, use lazy-loading of modules and dependencies. This involces using `await import()` statements to load modules only when they are needed, rather than at the top of the file. This helps to reduce the initial load time of the application and ensures that dependencies are only loaded when necessary.
+
+However, do not take this unilaterally. Some files must be eagerly loaded for the app to function properly, such as the main entry point and critical components.
+
+So, when building, think about which dependencies are truly critical for the initial load and which can be deferred until later. Use lazy-loading strategically to optimize performance without sacrificing functionality.
+
 **Rejected Patterns:**
 - ❌ CDN imports (looking at you, `<script src="https://cdn..."`)
 - ❌ URL-based package imports (Deno's import maps)
