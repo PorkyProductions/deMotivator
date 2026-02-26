@@ -204,11 +204,11 @@
 	}
 
 	const buttons: ShareProdiverButton[] = [
-		{ destination: 'copy', label: 'Copy', icon: 'clipboard', buttonClass: 'share-btn-copy' },
+		{ destination: 'copy', label: 'Copy', icon: 'clipboard', buttonClass: 'btn-primary' },
+		{ destination: 'email', label: 'Email', icon: 'envelope', buttonClass: 'btn-secondary' },
 		{ destination: 'x', label: 'Twitter / X', icon: 'twitter-x', buttonClass: 'share-btn-x' },
 		{ destination: 'facebook', label: 'Facebook', icon: 'facebook', buttonClass: 'share-btn-facebook' },
 		{ destination: 'reddit', label: 'Reddit', icon: 'reddit', buttonClass: 'share-btn-reddit' },
-		{ destination: 'email', label: 'Email', icon: 'envelope', buttonClass: 'share-btn-email' },
 		{ destination: 'other', label: 'Other...', icon: 'three-dots', buttonClass: 'share-btn-other' }
 	];
 
@@ -784,18 +784,6 @@
 		--dmv-ppio-btn-active-color: #ffffff;
 		--dmv-ppio-btn-active-bg: #cc3600;
 		--dmv-ppio-btn-active-border-color: #cc3600;
-	}
-
-	:global(.share-btn-email) {
-		--dmv-ppio-btn-color: #ffffff;
-		--dmv-ppio-btn-bg: #310D20;
-		--dmv-ppio-btn-border-color: #310D20;
-		--dmv-ppio-btn-hover-color: #ffffff;
-		--dmv-ppio-btn-hover-bg: #310D20;
-		--dmv-ppio-btn-hover-border-color: #310D20;
-		--dmv-ppio-btn-active-color: #ffffff;
-		--dmv-ppio-btn-active-bg: #310D20;
-		--dmv-ppio-btn-active-border-color: #310D20;
 	}
 
 	:global(.share-btn-other) {
