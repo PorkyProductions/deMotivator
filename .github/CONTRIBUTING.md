@@ -367,9 +367,3 @@ PorkyProductions and its maintainers reserve full discretion over:
 - Policy modification
 
 Participation in this repository constitutes acceptance of these guidelines.
-
-If desired, the next logical additions would be:
-- A formal RELEASE.md
-- Semantic Versioning policy
-- GitHub branch protection configuration template
-- Contributor License Agreement (CLA) section
