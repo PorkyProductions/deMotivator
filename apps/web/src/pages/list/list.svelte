@@ -16,7 +16,6 @@
 	import { filterInsultsByMaxWords } from '../../utils/insultLength';
 	import { submitInsultRequest } from '../../utils/insultRequests';
 	import { onAuthStateChanged } from '../../utils/firebase';
-	import { readUserFavoriteInsults, saveUserFavoriteInsults } from '../../utils/userFavoriteInsults';
 	let dmv;
 	let availableInsults = $state([]);
 
@@ -33,6 +32,7 @@
 		initDemotivator();
 		load();
 		const unsubscribe = onAuthStateChanged(async (user) => {
+			const { readUserFavoriteInsults } = await import('../../utils/userFavoriteInsults');
 			const userId = user?.id;
 			if (!userId) {
 				favoriteInsults = new Set();
@@ -214,6 +214,7 @@
 
 	const toggleFavorite = async (insult: string) => {
 		const nextFavoriteInsults = new Set(favoriteInsults);
+		const { saveUserFavoriteInsults } = await import('../../utils/userFavoriteInsults');
 		if (nextFavoriteInsults.has(insult)) {
 			nextFavoriteInsults.delete(insult);
 		} else {
