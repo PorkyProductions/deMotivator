@@ -200,15 +200,16 @@
 		destination: ShareDestination;
 		label: string;
 		icon: string;
-		style: string;
+		buttonClass: string;
 	}
 
 	const buttons: ShareProdiverButton[] = [
-		{ destination: 'x', label: 'Twitter/X', icon: 'twitter-x', style: 'outline-primary' },
-		{ destination: 'facebook', label: 'Facebook', icon: 'facebook', style: 'outline-primary' },
-		{ destination: 'reddit', label: 'Reddit', icon: 'reddit', style: 'outline-warning' },
-		{ destination: 'email', label: 'Email', icon: 'envelope', style: 'outline-secondary' },
-		{ destination: 'other', label: 'Other...', icon: 'three-dots', style: 'success' }
+		{ destination: 'copy', label: 'Copy', icon: 'clipboard', buttonClass: 'share-btn-copy' },
+		{ destination: 'x', label: 'Twitter / X', icon: 'twitter-x', buttonClass: 'share-btn-x' },
+		{ destination: 'facebook', label: 'Facebook', icon: 'facebook', buttonClass: 'share-btn-facebook' },
+		{ destination: 'reddit', label: 'Reddit', icon: 'reddit', buttonClass: 'share-btn-reddit' },
+		{ destination: 'email', label: 'Email', icon: 'envelope', buttonClass: 'share-btn-email' },
+		{ destination: 'other', label: 'Other...', icon: 'three-dots', buttonClass: 'share-btn-other' }
 	];
 
 	const toggleFavorite = async (insult: string) => {
@@ -485,7 +486,7 @@
 											{#each buttons as button}
 												<button
 													type="button"
-													class={`btn btn-${button.style}`}
+													class={`btn ${button.buttonClass}`}
 													onclick={() => shareInsult(button.destination)}
 												>
 													<Icon name={button.icon} /> {button.label}
@@ -735,5 +736,77 @@
 	/* Fixed positioning for copy alert */
 	:global(.z-3) {
 		z-index: 1050;
+	}
+
+	:global(.share-btn-copy) {
+		--dmv-ppio-btn-color: #ffffff;
+		--dmv-ppio-btn-bg: #6b7280;
+		--dmv-ppio-btn-border-color: #6b7280;
+		--dmv-ppio-btn-hover-color: #ffffff;
+		--dmv-ppio-btn-hover-bg: #4b5563;
+		--dmv-ppio-btn-hover-border-color: #4b5563;
+		--dmv-ppio-btn-active-color: #ffffff;
+		--dmv-ppio-btn-active-bg: #374151;
+		--dmv-ppio-btn-active-border-color: #374151;
+	}
+
+	:global(.share-btn-x) {
+		--dmv-ppio-btn-color: #ffffff;
+		--dmv-ppio-btn-bg: #000000;
+		--dmv-ppio-btn-border-color: #000000;
+		--dmv-ppio-btn-hover-color: #ffffff;
+		--dmv-ppio-btn-hover-bg: #1f1f1f;
+		--dmv-ppio-btn-hover-border-color: #1f1f1f;
+		--dmv-ppio-btn-active-color: #ffffff;
+		--dmv-ppio-btn-active-bg: #2f2f2f;
+		--dmv-ppio-btn-active-border-color: #2f2f2f;
+	}
+
+	:global(.share-btn-facebook) {
+		--dmv-ppio-btn-color: #ffffff;
+		--dmv-ppio-btn-bg: #0064e0;
+		--dmv-ppio-btn-border-color: #0064e0;
+		--dmv-ppio-btn-hover-color: #ffffff;
+		--dmv-ppio-btn-hover-bg: #0064e0;
+		--dmv-ppio-btn-hover-border-color: #0064e0;
+		--dmv-ppio-btn-active-color: #ffffff;
+		--dmv-ppio-btn-active-bg: #155ec2;
+		--dmv-ppio-btn-active-border-color: #155ec2;
+	}
+
+	:global(.share-btn-reddit) {
+		--dmv-ppio-btn-color: #ffffff;
+		--dmv-ppio-btn-bg: #ff4500;
+		--dmv-ppio-btn-border-color: #ff4500;
+		--dmv-ppio-btn-hover-color: #ffffff;
+		--dmv-ppio-btn-hover-bg: #e63d00;
+		--dmv-ppio-btn-hover-border-color: #e63d00;
+		--dmv-ppio-btn-active-color: #ffffff;
+		--dmv-ppio-btn-active-bg: #cc3600;
+		--dmv-ppio-btn-active-border-color: #cc3600;
+	}
+
+	:global(.share-btn-email) {
+		--dmv-ppio-btn-color: #ffffff;
+		--dmv-ppio-btn-bg: #310D20;
+		--dmv-ppio-btn-border-color: #310D20;
+		--dmv-ppio-btn-hover-color: #ffffff;
+		--dmv-ppio-btn-hover-bg: #310D20;
+		--dmv-ppio-btn-hover-border-color: #310D20;
+		--dmv-ppio-btn-active-color: #ffffff;
+		--dmv-ppio-btn-active-bg: #310D20;
+		--dmv-ppio-btn-active-border-color: #310D20;
+	}
+
+	:global(.share-btn-other) {
+		--dmv-ppio-btn-color: #ffffff;
+		--dmv-ppio-btn-bg: #14b8a6;
+		--dmv-ppio-btn-border-color: #14b8a6;
+		--dmv-ppio-btn-hover-color: #ffffff;
+		--dmv-ppio-btn-hover-bg: #0f9f90;
+		--dmv-ppio-btn-hover-border-color: #0f9f90;
+		--dmv-ppio-btn-active-color: #ffffff;
+		--dmv-ppio-btn-active-bg: #0d8a7c;
+		--dmv-ppio-btn-active-border-color: #0d8a7c;
 	}
 </style>
