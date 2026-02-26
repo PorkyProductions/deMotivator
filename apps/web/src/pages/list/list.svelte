@@ -15,6 +15,8 @@
 	import { initSettingsListener, resolveEnabledPackKeys, settingsStore } from '../../utils/userSettings';
 	import { filterInsultsByMaxWords } from '../../utils/insultLength';
 	import { submitInsultRequest } from '../../utils/insultRequests';
+	import { onAuthStateChanged } from '../../utils/firebase';
+	import { readUserFavoriteInsults, saveUserFavoriteInsults } from '../../utils/userFavoriteInsults';
 	let dmv;
 	let availableInsults = $state([]);
 
@@ -29,6 +31,24 @@
 	onMount(() => {
 		initSettingsListener();
 		initDemotivator();
+		load();
+		const unsubscribe = onAuthStateChanged(async (user) => {
+			const userId = user?.id;
+			if (!userId) {
+				favoriteInsults = new Set();
+				return;
+			}
+			try {
+				const loadedFavoriteInsults = await readUserFavoriteInsults(userId);
+				favoriteInsults = new Set(loadedFavoriteInsults);
+			} catch (error) {
+				console.error('Failed to load favorite insults', error);
+				favoriteInsults = new Set();
+			}
+		});
+		return () => {
+			unsubscribe();
+		};
 	});
 
 	$effect(() => {
@@ -61,14 +81,8 @@
 	// Loading
 	const duration = randomInRange(800, 1500);
 	const load = () => {
-		// Load favorites from localStorage
-		const saved = localStorage.getItem('favoriteInsults');
-		if (saved) {
-			favoriteInsults = new Set(JSON.parse(saved));
-		}
 		setTimeout(() => (ready = true), duration);
 	};
-	load();
 
 	// Computed values for filtering and pagination
 	const currentInsultSet = $derived.by(() => {
@@ -104,14 +118,19 @@
 		}
 	};
 
-	const toggleFavorite = (insult: string) => {
-		if (favoriteInsults.has(insult)) {
-			favoriteInsults.delete(insult);
+	const toggleFavorite = async (insult: string) => {
+		const nextFavoriteInsults = new Set(favoriteInsults);
+		if (nextFavoriteInsults.has(insult)) {
+			nextFavoriteInsults.delete(insult);
 		} else {
-			favoriteInsults.add(insult);
+			nextFavoriteInsults.add(insult);
 		}
-		favoriteInsults = new Set(favoriteInsults); // Trigger reactivity
-		localStorage.setItem('favoriteInsults', JSON.stringify(Array.from(favoriteInsults)));
+		favoriteInsults = nextFavoriteInsults;
+		try {
+			await saveUserFavoriteInsults(nextFavoriteInsults);
+		} catch (error) {
+			console.error('Failed to save favorite insults', error);
+		}
 	};
 
 	const shuffleInsults = () => {
