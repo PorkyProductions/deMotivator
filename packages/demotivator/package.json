@@ -1,6 +1,6 @@
 {
 	"name": "demotivator",
-	"version": "15.0.0",
+	"version": "14.0.0",
 	"description": "A extremely large array of 300+ insults so you can integrate the power of (de)Motivator into your webapp.",
 	"type": "module",
 	"scripts": {
@@ -51,7 +51,7 @@
 	],
 	"types": "./dist/index.d.ts",
 	"dependencies": {
-		"@demotivator/shared": "^15.0.0",
+		"@demotivator/shared": "^14.0.0",
 		"@types/lodash": "^4.17.23"
 	}
 }

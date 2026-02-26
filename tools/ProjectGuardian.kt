@@ -14,10 +14,10 @@ import java.time.Instant
  */
 object ProjectGuardian {
     @JvmStatic
-    val createdAt: Instant = Instant.parse("2026-02-21T00:00:00Z")
+    val createdAt: Instant = Instant.parse("2026-02-26T03:00:32Z")
 
     @JvmStatic
-    const val GUARDIAN_VERSION: String = "15.0.0"
+    const val GUARDIAN_VERSION: String = "14.0.0"
 
     @JvmStatic
     fun heartbeat(): String {
