@@ -71,6 +71,8 @@
 	let copySuccess = $state('');
 	let favoriteInsults = $state(new Set());
 	let showFavoritesOnly = $state(false);
+	let shareDialogOpen = $state(false);
+	let shareDialogInsult = $state('');
 
 	// Insult request state
 	let requestText = $state('');
@@ -115,6 +117,82 @@
 			setTimeout(() => (copySuccess = ''), 2000);
 		} catch (err) {
 			console.error('Failed to copy:', err);
+		}
+	};
+
+	type ShareDestination = 'copy' | 'x' | 'facebook' | 'reddit' | 'email' | 'other';
+
+	const openShareDialog = (insult: string) => {
+		shareDialogInsult = insult;
+		shareDialogOpen = true;
+	};
+
+	const closeShareDialog = () => {
+		shareDialogOpen = false;
+		shareDialogInsult = '';
+	};
+
+	const createSharePayload = (insult: string) => {
+		const shareUrl = typeof window === 'undefined' ? '/list.html' : window.location.href;
+		const insultQuote = `"${insult}"`;
+		const shareBody = `${insultQuote}\n\n${shareUrl}`;
+		return { shareUrl, insultQuote, shareBody };
+	};
+
+	const openShareWindow = (url: string) => {
+		if (typeof window === 'undefined') {
+			return;
+		}
+		window.open(url, '_blank', 'noopener,noreferrer');
+	};
+
+	const shareInsult = async (destination: ShareDestination) => {
+		if (!shareDialogInsult) {
+			return;
+		}
+		const { shareUrl, insultQuote, shareBody } = createSharePayload(shareDialogInsult);
+		try {
+			if (destination === 'copy') {
+				await copyToClipboard(shareBody);
+				closeShareDialog();
+				return;
+			}
+			if (destination === 'x') {
+				openShareWindow(`https://twitter.com/intent/tweet?text=${encodeURIComponent(insultQuote)}&url=${encodeURIComponent(shareUrl)}`);
+				closeShareDialog();
+				return;
+			}
+			if (destination === 'facebook') {
+				openShareWindow(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(insultQuote)}`);
+				closeShareDialog();
+				return;
+			}
+			if (destination === 'reddit') {
+				openShareWindow(`https://www.reddit.com/submit?url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent(insultQuote)}`);
+				closeShareDialog();
+				return;
+			}
+			if (destination === 'email') {
+				if (typeof window === 'undefined') {
+					return;
+				}
+				window.location.href = `mailto:?subject=${encodeURIComponent('(de)Motivator insult')}&body=${encodeURIComponent(shareBody)}`;
+				closeShareDialog();
+				return;
+			}
+			if (typeof navigator !== 'undefined' && navigator.share) {
+				await navigator.share({
+					title: '(de)Motivator insult',
+					text: insultQuote,
+					url: shareUrl
+				});
+				closeShareDialog();
+				return;
+			}
+			await copyToClipboard(shareBody);
+			closeShareDialog();
+		} catch (error) {
+			console.error('Failed to share insult', error);
 		}
 	};
 
@@ -375,6 +453,49 @@
 						</div>
 					{/if}
 
+					{#if shareDialogOpen}
+						<div class="modal fade show d-block" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="shareInsultDialogTitle">
+							<div class="modal-dialog modal-dialog-centered">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h2 class="modal-title fs-5" id="shareInsultDialogTitle">
+											<Icon name="share" /> Share insult
+										</h2>
+										<button type="button" class="btn-close" aria-label="Close" onclick={closeShareDialog}></button>
+									</div>
+									<div class="modal-body">
+										<p class="text-muted small mb-2">Choose where to share this insult:</p>
+										<p class="mb-3">"{shareDialogInsult}"</p>
+										<div class="d-grid gap-2">
+											<button type="button" class="btn btn-outline-primary" onclick={() => shareInsult('copy')}>
+												<Icon name="clipboard" /> Copy
+											</button>
+											<button type="button" class="btn btn-outline-dark" onclick={() => shareInsult('x')}>
+												<Icon name="twitter" /> X
+											</button>
+											<button type="button" class="btn btn-outline-primary" onclick={() => shareInsult('facebook')}>
+												<Icon name="facebook" /> Facebook
+											</button>
+											<button type="button" class="btn btn-outline-warning" onclick={() => shareInsult('reddit')}>
+												<Icon name="reddit" /> Reddit
+											</button>
+											<button type="button" class="btn btn-outline-secondary" onclick={() => shareInsult('email')}>
+												<Icon name="envelope" /> Email
+											</button>
+											<button type="button" class="btn btn-success" onclick={() => shareInsult('other')}>
+												<Icon name="three-dots" /> Other
+											</button>
+										</div>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" onclick={closeShareDialog}>Close</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-backdrop fade show"></div>
+					{/if}
+
 					<!-- Insults Display -->
 					{#if filteredInsults.length > 0}
 						{#if viewMode === 'cards'}
@@ -398,6 +519,13 @@
 														title="Copy"
 													>
 														<Icon name="clipboard" />
+													</button>
+													<button
+														class="btn btn-sm btn-outline-info"
+														onclick={() => openShareDialog(insult)}
+														title="Share"
+													>
+														<Icon name="share" />
 													</button>
 													<button
 														class={`btn btn-sm ${favoriteInsults.has(insult) ? 'btn-warning' : 'btn-outline-warning'}`}
@@ -431,6 +559,13 @@
 														title="Copy"
 													>
 														<Icon name="clipboard" />
+													</button>
+													<button
+														class="btn btn-sm btn-outline-info"
+														onclick={() => openShareDialog(insult)}
+														title="Share"
+													>
+														<Icon name="share" />
 													</button>
 													<button
 														class={`btn btn-sm ${favoriteInsults.has(insult) ? 'btn-warning' : 'btn-outline-warning'}`}
