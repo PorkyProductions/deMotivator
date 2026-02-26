@@ -196,6 +196,21 @@
 		}
 	};
 
+	interface ShareProdiverButton {
+		destination: ShareDestination;
+		label: string;
+		icon: string;
+		style: string;
+	}
+
+	const buttons: ShareProdiverButton[] = [
+		{ destination: 'x', label: 'Twitter/X', icon: 'twitter-x', style: 'outline-primary' },
+		{ destination: 'facebook', label: 'Facebook', icon: 'facebook', style: 'outline-primary' },
+		{ destination: 'reddit', label: 'Reddit', icon: 'reddit', style: 'outline-warning' },
+		{ destination: 'email', label: 'Email', icon: 'envelope', style: 'outline-secondary' },
+		{ destination: 'other', label: 'Other...', icon: 'three-dots', style: 'success' }
+	];
+
 	const toggleFavorite = async (insult: string) => {
 		const nextFavoriteInsults = new Set(favoriteInsults);
 		if (nextFavoriteInsults.has(insult)) {
@@ -467,24 +482,15 @@
 										<p class="text-muted small mb-2">Choose where to share this insult:</p>
 										<p class="mb-3">"{shareDialogInsult}"</p>
 										<div class="d-grid gap-2">
-											<button type="button" class="btn btn-outline-primary" onclick={() => shareInsult('copy')}>
-												<Icon name="clipboard" /> Copy
-											</button>
-											<button type="button" class="btn btn-outline-dark" onclick={() => shareInsult('x')}>
-												<Icon name="twitter" /> X
-											</button>
-											<button type="button" class="btn btn-outline-primary" onclick={() => shareInsult('facebook')}>
-												<Icon name="facebook" /> Facebook
-											</button>
-											<button type="button" class="btn btn-outline-warning" onclick={() => shareInsult('reddit')}>
-												<Icon name="reddit" /> Reddit
-											</button>
-											<button type="button" class="btn btn-outline-secondary" onclick={() => shareInsult('email')}>
-												<Icon name="envelope" /> Email
-											</button>
-											<button type="button" class="btn btn-success" onclick={() => shareInsult('other')}>
-												<Icon name="three-dots" /> Other
-											</button>
+											{#each buttons as button}
+												<button
+													type="button"
+													class={`btn btn-${button.style}`}
+													onclick={() => shareInsult(button.destination)}
+												>
+													<Icon name={button.icon} /> {button.label}
+												</button>
+											{/each}
 										</div>
 									</div>
 									<div class="modal-footer">
