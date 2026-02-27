@@ -53,48 +53,43 @@
 
 {#if isMobileView}
 	<footer class="dmv-footer fixed bottom-0 left-0 right-0 z-50 bg-linear-to-r from-primary-majorelle-blue via-indigo-600 to-primary-majorelle-blue dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 shadow-2xl border-t border-white/10 backdrop-blur-md">
-		<div class="container mx-auto px-4 py-3">
-			<div class="flex flex-col items-center gap-3">
-				<!-- Mobile Navigation Row -->
-				<nav class="flex items-center justify-center gap-4 flex-wrap">
+		<div class="px-4 py-2">
+			<div class="flex items-center justify-between">
+				<!-- Mobile Navigation: icon-only buttons -->
+				<nav class="flex items-center gap-1">
 					{#each navigation as link}
 						<a
 							href={link.href}
 							target={link.external ? '_blank' : undefined}
 							rel={link.external ? 'noopener noreferrer' : undefined}
-							class="flex items-center gap-1.5 text-white/80 hover:text-white transition-all duration-200 hover:scale-105 text-sm"
+							title={link.name}
+							class="flex flex-col items-center px-2 py-1 text-white/80 hover:text-white transition-all duration-200 hover:scale-110 text-xs gap-0.5"
 						>
 							<Icon name={link.icon} />
-							<span>{link.name}</span>
+							<span class="text-[10px] leading-none">{link.shortName}</span>
 						</a>
 					{/each}
 					{#if showAdminLink}
 						<a
 							href="/admin.html"
-							class="flex items-center gap-1.5 text-warning hover:text-white transition-all duration-200 hover:scale-105 text-sm"
+							title="Admin"
+							class="flex flex-col items-center px-2 py-1 text-warning hover:text-white transition-all duration-200 hover:scale-110 text-xs gap-0.5"
 						>
 							<Icon name="speedometer2" />
-							<span>Admin</span>
+							<span class="text-[10px] leading-none">Admin</span>
 						</a>
 					{/if}
 				</nav>
-				<!-- Mobile Account Button -->
-				<a
-					href="login.html"
-					class="btn btn-light"
-				>
+				<!-- Mobile Account Button: compact icon + label -->
+				<a href="login.html" class="btn btn-sm btn-light flex items-center gap-1 text-xs">
 					<Icon name="person-circle" />
-					<span>View Account</span>
+					<span>Account</span>
 				</a>
-				<!-- Copyright -->
-				<div class="text-xs text-white/60">
-					&copy; {year} {parentCompany}
-				</div>
 			</div>
 		</div>
 	</footer>
 
-	<div class="h-36"></div>
+	<div class="h-16"></div>
 
 {:else}
 	<footer
