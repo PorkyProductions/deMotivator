@@ -2,13 +2,17 @@
 	import { onDestroy } from 'svelte';
 	import hedgehogSrc from '../../img/HedgehogIcon.png';
     import { randomInRange } from '@porkyproductions/hat';
+    import { deviceType } from '../../utils/uaStub';
 
 	let canvas = $state<HTMLCanvasElement | undefined>(undefined);
 	let animId: number | undefined;
 
 	interface Hog { x: number; y: number; vx: number; vy: number; rot: number; rotV: number };
 
-	const hogCount = randomInRange(1, 55);
+	let hogCount = randomInRange(1, 55);
+	if (deviceType === 'mobile') {
+		hogCount = Math.floor(hogCount / 7);
+	}
 	const hogRadius = 110 - hogCount * 0.8;
 
 	const initCanvas = () => {
