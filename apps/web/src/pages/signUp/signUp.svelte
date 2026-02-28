@@ -9,6 +9,7 @@ import Auth from '../login/auth.svelte';
 import BsAlert from '../../components/bs-Alert.svelte';
 import BsLoader from '../../components/bsLoader.svelte';
 import Footer from '../../components/footer.svelte';
+import AuthBenefitsDialog from '../../components/authBenefitsDialog.svelte';
 
 // Import Misc Helpers
 import { bsTheme } from '../../utils/darkMode';
@@ -329,6 +330,13 @@ const signUpHandler = async (event) => {
 			<p class="text-secondary">
 				Already have an account? <a href="/login.html" class="fw-bold text-primary text-decoration-none">Sign in</a>
 			</p>
+			</div>
+			<div class="mt-3 text-center">
+				<AuthBenefitsDialog
+					modalId="signUpBenefitsDialog"
+					buttonClass="btn btn-outline-info"
+					buttonText="What do I get with PorkyProductionsID?"
+				/>
 			</div>
 		</div>
 		{/if}

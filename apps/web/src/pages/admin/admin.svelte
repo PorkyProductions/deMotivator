@@ -8,6 +8,7 @@
 	import BsSpinner from '../../components/bs-spinner.svelte';
 	import BsLoader from '../../components/bsLoader.svelte';
 	import { bsTheme } from '../../utils/darkMode';
+	import AuthBenefitsDialog from '../../components/authBenefitsDialog.svelte';
 	import { randomInRange } from '@porkyproductions/hat/randomInRange';
 	import { adminAccessStore, initAdminAccessListener } from '../../utils/adminAccess';
 	import {
@@ -195,6 +196,12 @@
 									<a href="/" class="btn btn-outline-primary btn-lg">
 										<Icon name="house-door-fill" /> Go Home
 									</a>
+								</div>
+								<div class="mt-4 d-flex justify-content-center">
+									<AuthBenefitsDialog
+										modalId="adminBenefitsDialog"
+										buttonClass="btn btn-outline-info"
+									/>
 								</div>
 							</div>
 						</div>

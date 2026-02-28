@@ -4,6 +4,7 @@
 	import Footer from '../../components/footer.svelte';
 	import Icon from '../../components/icon.svelte';
 	import Title from '../../components/title.svelte';
+	import AuthBenefitsDialog from '../../components/authBenefitsDialog.svelte';
 	import { bsTheme } from '../../utils/darkMode';
 	import {
 		availableInsultPacks,
@@ -306,6 +307,12 @@
 									<a href="/signUp.html" class="btn btn-outline-primary btn-lg">
 										<Icon name="person-plus" /> Create Account
 									</a>
+								</div>
+								<div class="mt-4 d-flex justify-content-center">
+									<AuthBenefitsDialog
+										modalId="settingsBenefitsDialog"
+										buttonClass="btn btn-outline-info"
+									/>
 								</div>
 							</div>
 						</div>

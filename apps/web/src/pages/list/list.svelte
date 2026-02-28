@@ -4,6 +4,7 @@
 	import BsSpinner from '../../components/bs-spinner.svelte';
 	import BsLoader from '../../components/bsLoader.svelte';
 	import Footer from '../../components/footer.svelte';
+	import AuthBenefitsDialog from '../../components/authBenefitsDialog.svelte';
 	import { randomInRange } from '@porkyproductions/hat/randomInRange';
 	import { fade, fly, scale } from 'svelte/transition';
 	import { flip } from 'svelte/animate';
@@ -694,6 +695,12 @@
 										<a href="/signUp.html" class="btn btn-outline-primary btn-lg">
 											<Icon name="person-plus" /> Create Account
 										</a>
+									</div>
+									<div class="mt-4 d-flex justify-content-center">
+										<AuthBenefitsDialog
+											modalId="listBenefitsDialog"
+											buttonClass="btn btn-outline-info"
+										/>
 									</div>
 								</div>
 							</div>

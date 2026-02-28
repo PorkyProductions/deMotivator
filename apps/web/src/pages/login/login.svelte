@@ -10,6 +10,7 @@ import BsLoader from '../../components/bsLoader.svelte';
 import LoginForm from '../../components/loginForm.svelte';
 import UserProfileCard from '../../components/userProfileCard.svelte';
 import Footer from '../../components/footer.svelte';
+import AuthBenefitsDialog from '../../components/authBenefitsDialog.svelte';
 
 // Import Misc Helpers
 import { bsTheme } from '../../utils/darkMode';
@@ -179,6 +180,13 @@ const deleteUserAccount = async () => {
 			onSubmit={(e) => loginHandler(e, loginWithEmailPassword)}
 			{loginWithGoogle}
 			/>
+			<div class="mt-4 text-center">
+				<AuthBenefitsDialog
+					modalId="loginBenefitsDialog"
+					buttonClass="btn btn-outline-info"
+					buttonText="What do I get with PorkyProductionsID?"
+				/>
+			</div>
 		</div>
 		{/if}
 		</div>
