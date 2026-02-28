@@ -60,6 +60,7 @@ When building/testing run the turbo scripts from the root, as they build the pac
 - **Quotes**: Single quotes only `'like this'`
 - **Semicolons**: ALWAYS use semicolons;
 - **Line length**: No explicit limit, use common sense
+- **Interfaces**: Always prefer interfaces over types for object shapes.
 
 For discrepancies, always prefer the eslint config rules.
 
