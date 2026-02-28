@@ -1,26 +1,9 @@
 <script lang="ts">
 	import { onDestroy } from 'svelte';
 	import hedgehogSrc from '../../img/HedgehogIcon.png';
-	import { bsTheme } from '../../utils/darkMode';
 
-	const correctPassword = 'PLACEHOLDER';
-
-	let password = $state('');
-	let unlocked = $state(false);
 	let canvas = $state<HTMLCanvasElement | undefined>(undefined);
 	let animId: number | undefined;
-
-	const submit = () => {
-		if (password === correctPassword) {
-			unlocked = true;
-		} else {
-			window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
-		}
-	};
-
-	const handleKey = (e: KeyboardEvent) => {
-		if (e.key === 'Enter') submit();
-	};
 
 	type Hog = { x: number; y: number; vx: number; vy: number; rot: number; rotV: number };
 
@@ -119,7 +102,7 @@
 	};
 
 	$effect(() => {
-		if (unlocked && canvas) {
+		if (canvas) {
 			initCanvas();
 			return () => {
 				if (animId !== undefined) cancelAnimationFrame(animId);
@@ -132,34 +115,11 @@
 	});
 </script>
 
-<div id="root" data-bs-theme={bsTheme}>
-	{#if !unlocked}
-		<div class="min-vh-100 d-flex align-items-center justify-content-center bg-body">
-			<div class="card border-0 shadow-lg" style="width: 360px;">
-				<div class="card-body p-5 text-center">
-					<div class="display-3 mb-3">🔒</div>
-					<h2 class="h4 fw-bold mb-1">Access Required</h2>
-					<p class="text-muted mb-4 small">Enter the password to continue.</p>
-					<input
-						type="password"
-						class="form-control mb-3 text-center"
-						placeholder="Password"
-						bind:value={password}
-						onkeydown={handleKey}
-						autocomplete="off"
-					/>
-					<button class="btn btn-primary w-100" onclick={submit}>
-						Continue
-					</button>
-				</div>
-			</div>
-		</div>
-	{:else}
-		<canvas
-			bind:this={canvas}
-			style="display: block; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;"
-		></canvas>
-	{/if}
+<div id="root">
+	<canvas
+		bind:this={canvas}
+		style="display: block; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;"
+	></canvas>
 </div>
 
 <style>
