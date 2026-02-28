@@ -100,7 +100,7 @@
 			<div class="flex justify-between items-center">
 				<!-- Left section: Hedgehog + Title + Copyright -->
 				<div class="flex items-center gap-4">
-					<a href="https://porkyproductions.github.io" class="block group" on:mouseenter={startHedgehogAcceleration} on:mouseleave={stopHedgehogAcceleration}>
+					<a href="https://porkyproductions.github.io" class="block group" onmouseenter={startHedgehogAcceleration} onmouseleave={stopHedgehogAcceleration}>
 						<img src={hedgehog} alt="Hedgehog" class="w-11 h-11 group-hover:animate-spin object-contain drop-shadow-lg transition-transform duration-300 group-hover:scale-110" style={`animation-duration: ${hedgehogSpinDuration}s;`} />
 					</a>
 					<div class="flex flex-col leading-tight" >
