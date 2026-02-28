@@ -54,6 +54,13 @@
 		}
 	};
 
+	// Bronze medal Easter egg click counter
+	let bronzeClicks = $state(0);
+	const handleBronzeClick = () => {
+		bronzeClicks++;
+		if (bronzeClicks >= 30) window.location.href = '/egg.html';
+	};
+
 	// Get medal icon based on position
 	const getMedalIcon = (position: number) => {
 		switch(position) {
@@ -230,7 +237,8 @@
 								<div class="col-md-4 order-md-3">
 									<div class="card border-0 shadow bg-info bg-opacity-10 h-100" transition:scale={{ delay: 600 }}>
 										<div class="card-body text-center py-4">
-											<div class="display-1 mb-3">🥉</div>
+											<!-- svelte-ignore a11y_click_events_have_key_events a11y_no_static_element_interactions -->
+											<div class="display-1 mb-3" onclick={handleBronzeClick} role="presentation" style="cursor: default; user-select: none;">🥉</div>
 											<h3 class="h5 fw-bold mb-1">3rd Place</h3>
 											<p class="text-muted small mb-2">
 												<code>{leaderboard[2].referrer}</code>
