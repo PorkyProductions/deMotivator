@@ -9,7 +9,7 @@
 	interface Hog { x: number; y: number; vx: number; vy: number; rot: number; rotV: number };
 
 	const hogCount = randomInRange(1, 55);
-	const hogRadius = (hogCount * 0.5) + 50;
+	const hogRadius = 110 - hogCount * 0.8;
 
 	const initCanvas = () => {
 		if (!canvas) return;
