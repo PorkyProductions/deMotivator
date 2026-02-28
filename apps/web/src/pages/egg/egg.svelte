@@ -1,14 +1,15 @@
 <script lang="ts">
 	import { onDestroy } from 'svelte';
 	import hedgehogSrc from '../../img/HedgehogIcon.png';
+    import { randomInRange } from '@porkyproductions/hat';
 
 	let canvas = $state<HTMLCanvasElement | undefined>(undefined);
 	let animId: number | undefined;
 
-	type Hog = { x: number; y: number; vx: number; vy: number; rot: number; rotV: number };
+	interface Hog { x: number; y: number; vx: number; vy: number; rot: number; rotV: number };
 
-	const hogCount = 35;
-	const hogRadius = 38;
+	const hogCount = randomInRange(1, 55);
+	const hogRadius = (hogCount * 0.5) + 50;
 
 	const initCanvas = () => {
 		if (!canvas) return;
@@ -21,10 +22,10 @@
 			hogs.push({
 				x: hogRadius + Math.random() * (canvas.width - hogRadius * 2),
 				y: hogRadius + Math.random() * (canvas.height - hogRadius * 2),
-				vx: (Math.random() - 0.5) * 6,
-				vy: (Math.random() - 0.5) * 6,
-				rot: Math.random() * Math.PI * 2,
-				rotV: (Math.random() < 0.5 ? 1 : -1) * (0.05 + Math.random() * 0.12)
+				vx: (Math.random() - 0.5) * 4,
+				vy: (Math.random() - 0.5) * 4,
+				rot: Math.random() * Math.PI,
+				rotV: (Math.random() < 0.5 ? 1 : -1) * (0.015 + Math.random() * 0.045)
 			});
 		}
 
@@ -41,12 +42,16 @@
 		const img = new Image();
 		img.src = hedgehogSrc;
 
-		const tick = () => {
+		const tick = async () => {
+			const darkMode = await import('../../utils/darkMode');
 			if (!canvas) return;
 			const ctx = canvas.getContext('2d');
 			if (!ctx) return;
 
-			ctx.fillStyle = '#0d0d1a';
+			ctx.fillStyle = '#FFFFFF';
+			if (darkMode) {
+				ctx.fillStyle = '#000000';
+			}
 			ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 			for (let i = 0; i < hogs.length; i++) {
@@ -108,6 +113,7 @@
 				if (animId !== undefined) cancelAnimationFrame(animId);
 			};
 		}
+		else return;
 	});
 
 	onDestroy(() => {
