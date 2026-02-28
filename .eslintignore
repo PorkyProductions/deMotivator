@@ -4,3 +4,7 @@ node_modules/*
 .turbo/*
 *.min.js
 *.bundle.js
+*.config.js
+*.config.ts
+*.config.mjs
+*.config.cjs

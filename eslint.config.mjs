@@ -27,6 +27,10 @@ export default defineConfig([globalIgnores([
     ".turbo/*",
     "**/*.min.js",
     "**/*.bundle.js",
+    "**/*.config.js",
+    "**/*.config.ts",
+    "**/*.config.mjs",
+    "**/*.config.cjs",
 ]), {
     extends: compat.extends("eslint:recommended", "plugin:@typescript-eslint/recommended"),
 
