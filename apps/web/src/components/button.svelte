@@ -99,6 +99,12 @@ const randomize = async () => {
 			await flushPendingWrites();
 		}
 	}
+	try {
+		const { updateDailyInsultStreak } = await import('../utils/insultStreak');
+		await updateDailyInsultStreak();
+	} catch (error) {
+		console.error('Failed to update insult streak', error);
+	}
 };
 
 const writeInsultToClipboard = async () => {

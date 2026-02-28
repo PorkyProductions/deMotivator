@@ -36,6 +36,7 @@ const loadingDuration = randomInRange(800, 2000);
 
 let error = $state(null);
 let insultsSeenDB = $state('...');
+let insultStreakDB = $state('...');
 let keepMeLoggedIn = $state(false);
 
 const load = async () => {
@@ -45,9 +46,14 @@ const load = async () => {
 };
 load();
 
-const refreshInsultsSeen = async () => {
-	const { readInsults } = await import('../../typescript/readInsults');
-	insultsSeenDB = await readInsults();
+const refreshProfileStats = async () => {
+	const [{ readInsults }, { readInsultStreak }] = await Promise.all([
+		import('../../typescript/readInsults'),
+		import('../../utils/insultStreak')
+	]);
+	const [insultsSeen, insultStreak] = await Promise.all([readInsults(), readInsultStreak()]);
+	insultsSeenDB = insultsSeen;
+	insultStreakDB = insultStreak;
 };
 
 const loginHandler = async (event, loginAction) => {
@@ -81,7 +87,7 @@ const loginHandler = async (event, loginAction) => {
 		}
 
 		// Load profile data after successful login
-		await refreshInsultsSeen();
+		await refreshProfileStats();
 
 		setTimeout(() => (ready = true), 1000);
 	} catch (err) {
@@ -156,7 +162,8 @@ const deleteUserAccount = async () => {
 			<UserProfileCard
 			{user}
 			{insultsSeenDB}
-			onRefreshInsultsSeen={refreshInsultsSeen}
+			{insultStreakDB}
+			onRefreshInsultsSeen={refreshProfileStats}
 			onLogout={logout}
 			onDeleteAccount={deleteUserAccount}
 			/>

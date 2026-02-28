@@ -4,12 +4,14 @@
 	import { darkMode } from '../utils/darkMode';
 	import { launchConfetti } from '../utils/loginHandlers';
 	import { onMount } from 'svelte';
+    import Icon from './icon.svelte';
 
 	const LOADING_PLACEHOLDER = '...';
 
 	const {
 		user,
 		insultsSeenDB,
+		insultStreakDB,
 		onRefreshInsultsSeen,
 		onLogout,
 		onDeleteAccount
@@ -17,7 +19,7 @@
 
 	// Load profile data on mount
 	onMount(() => {
-		if (insultsSeenDB === LOADING_PLACEHOLDER) {
+		if (insultsSeenDB === LOADING_PLACEHOLDER || insultStreakDB === LOADING_PLACEHOLDER) {
 			onRefreshInsultsSeen();
 		}
 	});
@@ -40,15 +42,21 @@
 		<p class="card-text text-muted font-monospace mb-4">{user.email}</p>
 
 		<div class="row g-3 mb-4">
-			<div class="col-6">
+			<div class="col-md-4 col-6">
 				<div class="p-3 bg-body-tertiary rounded-3">
-					<small class="text-uppercase text-secondary fw-bold d-block">Insults Seen</small>
+					<small class="text-uppercase text-secondary fw-bold d-block"> <Icon name="chat-quote" /> Insults Seen</small>
 					<span class="fs-4 fw-bold">{insultsSeenDB ?? 0}</span>
 				</div>
 			</div>
-			<div class="col-6">
+			<div class="col-md-4 col-6">
 				<div class="p-3 bg-body-tertiary rounded-3">
-					<small class="text-uppercase text-secondary fw-bold d-block">User ID</small>
+					<small class="text-uppercase fw-bold d-block text-theme-orange"> <Icon name="fire"/>  Current Streak</small>
+					<span class="fs-4 fw-bold text-theme-orange">{insultStreakDB ?? 0}</span>
+				</div>
+			</div>
+			<div class="col-md-4 col-12">
+				<div class="p-3 bg-body-tertiary rounded-3">
+					<small class="text-uppercase text-secondary fw-bold d-block"> <Icon name="braces"/>  User ID</small>
 					<span class="font-monospace text-truncate d-block" title={user.id}>{user.id}</span>
 				</div>
 			</div>
