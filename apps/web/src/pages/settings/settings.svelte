@@ -227,17 +227,30 @@
 								<p class="text-muted small mt-2 mb-3">
 									Choose which packs to include in your insult pool.
 								</p>
-								<div class="form-check form-switch mb-3">
-									<input
-										class="form-check-input"
-										type="checkbox"
-										id="packWeightModeSetting"
-										checked={$settingsStore.usePackWeights}
-										onchange={handlePackWeightModeChange}
-									/>
-									<label class="form-check-label" for="packWeightModeSetting">
-										Use percentage-based pack weighting (advanced)
-									</label>
+								<div class="border rounded p-2 bg-body-tertiary mb-3">
+									<div class="d-flex align-items-center justify-content-between gap-2">
+										<div>
+											<p class="small fw-semibold mb-1">
+												<Icon name="sliders" /> Advanced randomizer setting
+											</p>
+											<p class="text-muted small mb-0">
+												Use percentage-based pack weighting for random insults.
+											</p>
+										</div>
+										<div class="form-check mb-0">
+											<input
+												class="form-check-input"
+												type="checkbox"
+												id="packWeightModeSetting"
+												aria-label="Enable advanced percentage-based pack weighting"
+												checked={$settingsStore.usePackWeights}
+												onchange={handlePackWeightModeChange}
+											/>
+											<label class="form-check-label small text-muted" for="packWeightModeSetting">
+												Enable
+											</label>
+										</div>
+									</div>
 								</div>
 								{#if $settingsStore.usePackWeights}
 									<p class="text-muted small mt-2 mb-3">
