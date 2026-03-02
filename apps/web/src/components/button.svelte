@@ -8,7 +8,7 @@
 	import { fade, scale } from 'svelte/transition';
 	import { onMount, onDestroy } from 'svelte';
 	import Icon from './icon.svelte';
-	import { resolveEnabledPackKeys, settingsStore } from '../utils/userSettings';
+	import { resolveEnabledPackKeys, resolveWeightedPackEntries, settingsStore } from '../utils/userSettings';
 	import { filterInsultsByMaxWords } from '../utils/insultLength';
 
 /*
@@ -50,6 +50,53 @@ const getInsultsForPacks = async (selectedPacks: string[]) => {
 	return loadedInsults;
 };
 
+const pickWeightedEntry = <T extends { weight: number }>(entries: T[]): T | undefined => {
+	const totalWeight = entries.reduce((sum, entry) => sum + Math.max(0, entry.weight), 0);
+	if (totalWeight <= 0) {
+		return undefined;
+	}
+	let remainingWeight = Math.random() * totalWeight;
+	for (const entry of entries) {
+		remainingWeight -= Math.max(0, entry.weight);
+		if (remainingWeight < 0) {
+			return entry;
+		}
+	}
+	return entries[entries.length - 1];
+};
+
+const getRandomInsultFromCurrentSettings = async (): Promise<string | null> => {
+	if (!$settingsStore.enablePackWeighting) {
+		const selectedPacks = resolveEnabledPackKeys($settingsStore);
+		const insults = await getInsultsForPacks(selectedPacks);
+		const filteredInsults = filterInsultsByMaxWords(insults, $settingsStore.maxInsultWords);
+		if (filteredInsults.length === 0) {
+			return null;
+		}
+		const randomIndex = Math.floor(Math.random() * filteredInsults.length);
+		return filteredInsults[randomIndex] ?? null;
+	}
+	const weightedPackEntries = resolveWeightedPackEntries($settingsStore).filter((entry) => entry.weight > 0);
+	const weightedPackPools = await Promise.all(weightedPackEntries.map(async (entry) => {
+		const packInsults = await getInsultsForPacks([entry.key]);
+		return {
+			key: entry.key,
+			weight: entry.weight,
+			insults: filterInsultsByMaxWords(packInsults, $settingsStore.maxInsultWords)
+		};
+	}));
+	const availableWeightedPackPools = weightedPackPools.filter((pool) => pool.insults.length > 0);
+	if (availableWeightedPackPools.length === 0) {
+		return null;
+	}
+	const selectedPool = pickWeightedEntry(availableWeightedPackPools);
+	if (!selectedPool || selectedPool.insults.length === 0) {
+		return null;
+	}
+	const randomIndex = Math.floor(Math.random() * selectedPool.insults.length);
+	return selectedPool.insults[randomIndex] ?? null;
+};
+
 // Initialize insult count from database on mount
 const initializeInsultCount = async () => {
 	const { readInsults } = await import('../typescript/readInsults');
@@ -75,18 +122,15 @@ const flushPendingWrites = async () => {
 
 // Update randomize function to use checkbox states
 const randomize = async () => {
-	const { pickRandom } = await import('@demotivator/shared');
 	const maxWordsLabel = $settingsStore.maxInsultWords <= 0 ? 'no word limit' : `${$settingsStore.maxInsultWords} words`;
-	const selectedPacks = resolveEnabledPackKeys($settingsStore);
-	const insults = await getInsultsForPacks(selectedPacks);
-	const filteredInsults = filterInsultsByMaxWords(insults, $settingsStore.maxInsultWords);
-	if (filteredInsults.length === 0) {
+	const selectedInsult = await getRandomInsultFromCurrentSettings();
+	if (!selectedInsult) {
 		const noMatchingInsultsMessage = `No insults found with ${maxWordsLabel}.`;
 		result = noMatchingInsultsMessage;
 		userResult = noMatchingInsultsMessage;
 		return;
 	}
-	result = pickRandom(filteredInsults) || 'No insult found.';
+	result = selectedInsult;
 
 	// Increment local counters
 	insultsShown++;
@@ -140,14 +184,12 @@ let MEGAMODEinterval: ReturnType<typeof setInterval> | null = null;
 
 const MEGAMODErandomize = async () => {
 	const maxWordsLabel = $settingsStore.maxInsultWords <= 0 ? 'no word limit' : `${$settingsStore.maxInsultWords} words`;
-	const selectedPacks = resolveEnabledPackKeys($settingsStore);
-	const insults = await getInsultsForPacks(selectedPacks);
-	const filteredInsults = filterInsultsByMaxWords(insults, $settingsStore.maxInsultWords);
-	if (filteredInsults.length === 0) {
+	const selectedInsult = await getRandomInsultFromCurrentSettings();
+	if (!selectedInsult) {
 		MEGAMODEresult = `No insults found with ${maxWordsLabel}.`;
 		return;
 	}
-	MEGAMODEresult = filteredInsults[Math.floor(Math.random() * filteredInsults.length)];
+	MEGAMODEresult = selectedInsult;
 	MEGAMODEinsults++;
 };
 

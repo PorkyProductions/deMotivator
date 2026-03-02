@@ -6,6 +6,8 @@ export type UserSettings = {
 	allowProfanity: boolean;
 	maxInsultWords: number;
 	selectedPacks: string[];
+	enablePackWeighting: boolean;
+	packWeights: Record<string, number>;
 };
 
 type SettingDefinition<T> = {
@@ -16,14 +18,110 @@ type SettingDefinition<T> = {
 const maxInsultWordsMin = 0;
 const maxInsultWordsMax = 100;
 const maxInsultWordsDefault = 25;
+const packWeightMin = 0;
+const packWeightMax = 100;
+const packWeightTotal = 100;
 const fallbackPackKey = insultPackList.find((pack) => !pack.explicit)?.key ?? insultPackList[0]?.key ?? 'original';
 const availableInsultPacks = insultPackList.map((pack) => ({
 	key: pack.key,
 	title: pack.title,
 	explicit: pack.explicit
 }));
+const availablePackKeys = availableInsultPacks.map((pack) => pack.key);
 const availablePackKeySet = new Set(availableInsultPacks.map((pack) => pack.key));
 const explicitPackKeySet = new Set(availableInsultPacks.filter((pack) => pack.explicit).map((pack) => pack.key));
+
+type PackWeights = Record<string, number>;
+
+const createEmptyPackWeights = (): PackWeights => Object.fromEntries(
+	availablePackKeys.map((packKey) => [packKey, 0])
+) as PackWeights;
+
+const distributeWeightEvenly = (packKeys: string[], fallbackKey: string): PackWeights => {
+	const normalizedPackKeys = Array.from(new Set(packKeys.filter((packKey) => availablePackKeySet.has(packKey))));
+	const nextPackWeights = createEmptyPackWeights();
+	if (normalizedPackKeys.length === 0) {
+		nextPackWeights[fallbackKey] = packWeightTotal;
+		return nextPackWeights;
+	}
+	const baseWeight = Math.floor(packWeightTotal / normalizedPackKeys.length);
+	let remainder = packWeightTotal - (baseWeight * normalizedPackKeys.length);
+	for (const packKey of normalizedPackKeys) {
+		const extraWeight = remainder > 0 ? 1 : 0;
+		nextPackWeights[packKey] = baseWeight + extraWeight;
+		remainder -= extraWeight;
+	}
+	return nextPackWeights;
+};
+
+const normalizePackWeights = (
+	packWeights: PackWeights,
+	packKeys: string[],
+	fallbackKey: string
+): PackWeights => {
+	const normalizedPackKeys = Array.from(new Set(packKeys.filter((packKey) => availablePackKeySet.has(packKey))));
+	if (normalizedPackKeys.length === 0) {
+		return distributeWeightEvenly([fallbackKey], fallbackKey);
+	}
+	const clampedPackWeights = normalizedPackKeys.map((packKey) => ({
+		packKey,
+		weight: Math.max(
+			packWeightMin,
+			Math.min(
+				packWeightMax,
+				Math.floor(Number(packWeights[packKey] ?? 0))
+			)
+		)
+	}));
+	const totalWeight = clampedPackWeights.reduce((sum, weightedPack) => sum + weightedPack.weight, 0);
+	if (totalWeight <= 0) {
+		return distributeWeightEvenly([fallbackKey], fallbackKey);
+	}
+	const nextPackWeights = createEmptyPackWeights();
+	const weightedWithFractions = clampedPackWeights.map((weightedPack) => {
+		const scaledWeight = (weightedPack.weight / totalWeight) * packWeightTotal;
+		const flooredWeight = Math.floor(scaledWeight);
+		return {
+			packKey: weightedPack.packKey,
+			weight: flooredWeight,
+			fraction: scaledWeight - flooredWeight
+		};
+	});
+	let assignedWeight = weightedWithFractions.reduce((sum, weightedPack) => sum + weightedPack.weight, 0);
+	const sortedRemainders = [...weightedWithFractions].sort((a, b) => {
+		if (a.fraction === b.fraction) {
+			return a.packKey.localeCompare(b.packKey);
+		}
+		return b.fraction - a.fraction;
+	});
+	let index = 0;
+	while (assignedWeight < packWeightTotal && sortedRemainders.length > 0) {
+		const weightedPack = sortedRemainders[index % sortedRemainders.length];
+		weightedPack.weight += 1;
+		assignedWeight += 1;
+		index += 1;
+	}
+	for (const weightedPack of weightedWithFractions) {
+		nextPackWeights[weightedPack.packKey] = weightedPack.weight;
+	}
+	return nextPackWeights;
+};
+
+const parsePackWeights = (value: unknown): PackWeights => {
+	const parsedPackWeights = createEmptyPackWeights();
+	if (!value || typeof value !== 'object' || Array.isArray(value)) {
+		return distributeWeightEvenly([fallbackPackKey], fallbackPackKey);
+	}
+	const valueRecord = value as Record<string, unknown>;
+	for (const packKey of availablePackKeys) {
+		const parsedWeight = Math.floor(Number(valueRecord[packKey]));
+		if (!Number.isFinite(parsedWeight)) {
+			continue;
+		}
+		parsedPackWeights[packKey] = Math.max(packWeightMin, Math.min(packWeightMax, parsedWeight));
+	}
+	return normalizePackWeights(parsedPackWeights, availablePackKeys, fallbackPackKey);
+};
 
 type UserSettingsDefinitionMap = {
 	[K in keyof UserSettings]: SettingDefinition<UserSettings[K]>;
@@ -71,6 +169,14 @@ const userSettingsDefinitionMap: UserSettingsDefinitionMap = {
 			}
 			return selectedPacks;
 		}
+	},
+	enablePackWeighting: {
+		defaultValue: false,
+		sanitize: (value) => Boolean(value)
+	},
+	packWeights: {
+		defaultValue: distributeWeightEvenly([fallbackPackKey], fallbackPackKey),
+		sanitize: (value) => parsePackWeights(value)
 	}
 };
 
@@ -94,11 +200,29 @@ const resolveEnabledPackKeys = (settings: Pick<UserSettings, 'allowProfanity' | 
 	return [fallbackPackKey];
 };
 
+const resolveWeightedPackEntries = (
+	settings: Pick<UserSettings, 'allowProfanity' | 'packWeights'>
+): { key: string; weight: number }[] => {
+	const allowedPackKeys = availableInsultPacks
+		.filter((pack) => settings.allowProfanity || !pack.explicit)
+		.map((pack) => pack.key);
+	const nonExplicitFallbackPackKey = availableInsultPacks.find((pack) => !pack.explicit)?.key;
+	const weightedFallbackPackKey = settings.allowProfanity
+		? fallbackPackKey
+		: (nonExplicitFallbackPackKey ?? fallbackPackKey);
+	const normalizedPackWeights = normalizePackWeights(settings.packWeights, allowedPackKeys, weightedFallbackPackKey);
+	return allowedPackKeys.map((packKey) => ({
+		key: packKey,
+		weight: normalizedPackWeights[packKey] ?? 0
+	}));
+};
+
 const createDefaultSettings = (): UserSettings => {
 	const defaults = Object.fromEntries(
 		userSettingKeys.map((key) => [key, userSettingsDefinitionMap[key].defaultValue])
 	) as UserSettings;
 	defaults.selectedPacks = resolveEnabledPackKeys(defaults);
+	defaults.packWeights = distributeWeightEvenly(defaults.selectedPacks, fallbackPackKey);
 	return defaults;
 };
 
@@ -111,6 +235,7 @@ const sanitizeSettings = (settings: Partial<UserSettings> | null | undefined): U
 		userSettingKeys.map((key) => [key, userSettingsDefinitionMap[key].sanitize(settings?.[key])])
 	) as UserSettings;
 	sanitizedSettings.selectedPacks = resolveEnabledPackKeys(sanitizedSettings);
+	sanitizedSettings.packWeights = normalizePackWeights(sanitizedSettings.packWeights, availablePackKeys, fallbackPackKey);
 	return sanitizedSettings;
 };
 
@@ -210,4 +335,4 @@ const initSettingsListener = () => {
 
 export { settingsStore, defaultSettings, initSettingsListener, setUserSettings, setUserSetting, exportSettingsJson };
 export { maxInsultWordsMin, maxInsultWordsMax };
-export { availableInsultPacks, resolveEnabledPackKeys };
+export { availableInsultPacks, resolveEnabledPackKeys, resolveWeightedPackEntries };
