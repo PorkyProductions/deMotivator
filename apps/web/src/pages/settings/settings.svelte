@@ -13,6 +13,7 @@
 		maxInsultWordsMax,
 		maxInsultWordsMin,
 		resolveEnabledPackKeys,
+		resolveEnabledPackWeights,
 		setUserSetting,
 		setUserSettings,
 		settingsStore,
@@ -72,6 +73,7 @@
 
 	const getSettingInputId = (settingKey: UserSettingKey) => `${settingKey}Setting`;
 	const getPackInputId = (packKey: string) => `${packKey}PackSetting`;
+	const getPackWeightInputId = (packKey: string) => `${packKey}PackWeightSetting`;
 
 	const isPackToggleDisabled = (pack: PackSettingConfig) => {
 		const enabledPackKeys = resolveEnabledPackKeys($settingsStore);
@@ -97,6 +99,33 @@
 			return;
 		}
 		await setUserSetting('selectedPacks', nextPackKeys);
+	};
+
+	const handlePackWeightModeChange = async (event: Event) => {
+		const target = event.target as HTMLInputElement;
+		await setUserSetting('usePackWeights', target.checked);
+	};
+
+	const handlePackWeightChange = async (pack: PackSettingConfig, event: Event) => {
+		const enabledPackKeys = resolveEnabledPackKeys($settingsStore);
+		if (!enabledPackKeys.includes(pack.key)) {
+			return;
+		}
+		const target = event.target as HTMLInputElement;
+		const parsedValue = Number.parseInt(target.value, 10);
+		const fallbackValue = resolveEnabledPackWeights($settingsStore)[pack.key] ?? 0;
+		const clampedValue = clampSettingNumber(Number.isFinite(parsedValue) ? parsedValue : fallbackValue, 0, 100);
+		target.value = clampedValue.toString();
+		await setUserSettings({
+			packWeights: {
+				...$settingsStore.packWeights,
+				[pack.key]: clampedValue
+			}
+		});
+	};
+
+	const getCurrentPackWeightTotal = () => {
+		return Object.values(resolveEnabledPackWeights($settingsStore)).reduce((total, weight) => total + weight, 0);
 	};
 
 	const handleToggleSettingChange = async (setting: ToggleSettingConfig, event: Event) => {
@@ -198,6 +227,23 @@
 								<p class="text-muted small mt-2 mb-3">
 									Choose which packs to include in your insult pool.
 								</p>
+								<div class="form-check form-switch mb-3">
+									<input
+										class="form-check-input"
+										type="checkbox"
+										id="packWeightModeSetting"
+										checked={$settingsStore.usePackWeights}
+										onchange={handlePackWeightModeChange}
+									/>
+									<label class="form-check-label" for="packWeightModeSetting">
+										Use percentage-based pack weighting (advanced)
+									</label>
+								</div>
+								{#if $settingsStore.usePackWeights}
+									<p class="text-muted small mt-2 mb-3">
+										Pack weights are normalized to total 100%. Current normalized total: {getCurrentPackWeightTotal()}%.
+									</p>
+								{/if}
 								<div class="d-flex flex-column gap-3">
 									{#each availableInsultPacks as pack (pack.key)}
 										<div class="form-check form-switch">
@@ -219,6 +265,33 @@
 												<p class="text-muted small mt-1 mb-0">
 													Enable profanity to use this pack.
 												</p>
+											{/if}
+											{#if $settingsStore.usePackWeights}
+												<div class="d-flex flex-column flex-md-row gap-2 align-items-md-center mt-2 ms-4">
+													<label class="form-label mb-0" for={getPackWeightInputId(pack.key)}>Weight %</label>
+													<input
+														class="form-range grow"
+														type="range"
+														id={getPackWeightInputId(pack.key)}
+														min="0"
+														max="100"
+														step="1"
+														value={resolveEnabledPackWeights($settingsStore)[pack.key] ?? 0}
+														disabled={!resolveEnabledPackKeys($settingsStore).includes(pack.key)}
+														onchange={(event) => handlePackWeightChange(pack, event)}
+													/>
+													<input
+														class="form-control"
+														type="number"
+														min="0"
+														max="100"
+														step="1"
+														value={resolveEnabledPackWeights($settingsStore)[pack.key] ?? 0}
+														disabled={!resolveEnabledPackKeys($settingsStore).includes(pack.key)}
+														onchange={(event) => handlePackWeightChange(pack, event)}
+														style="max-width: 7rem;"
+													/>
+												</div>
 											{/if}
 										</div>
 									{/each}

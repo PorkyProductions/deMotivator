@@ -6,7 +6,13 @@ export type UserSettings = {
 	allowProfanity: boolean;
 	maxInsultWords: number;
 	selectedPacks: string[];
+	usePackWeights: boolean;
+	packWeights: UserPackWeights;
 };
+
+export interface UserPackWeights {
+	[packKey: string]: number;
+}
 
 type SettingDefinition<T> = {
 	defaultValue: T;
@@ -71,6 +77,30 @@ const userSettingsDefinitionMap: UserSettingsDefinitionMap = {
 			}
 			return selectedPacks;
 		}
+	},
+	usePackWeights: {
+		defaultValue: false,
+		sanitize: (value) => Boolean(value)
+	},
+	packWeights: {
+		defaultValue: {},
+		sanitize: (value) => {
+			if (!value || typeof value !== 'object') {
+				return {};
+			}
+			const sanitizedWeights: UserPackWeights = {};
+			for (const [packKey, packWeight] of Object.entries(value)) {
+				if (!availablePackKeySet.has(packKey)) {
+					continue;
+				}
+				const parsedWeight = Math.floor(Number(packWeight));
+				if (!Number.isFinite(parsedWeight) || parsedWeight < 0) {
+					continue;
+				}
+				sanitizedWeights[packKey] = parsedWeight;
+			}
+			return sanitizedWeights;
+		}
 	}
 };
 
@@ -94,11 +124,76 @@ const resolveEnabledPackKeys = (settings: Pick<UserSettings, 'allowProfanity' | 
 	return [fallbackPackKey];
 };
 
+const allocatePackWeightPercentages = (weights: number[]): number[] => {
+	if (weights.length === 0) {
+		return [];
+	}
+	const totalWeight = weights.reduce((sum, weight) => sum + weight, 0);
+	const scaledWeights =
+		totalWeight > 0 ? weights.map((weight) => (weight / totalWeight) * 100) : weights.map(() => 100 / weights.length);
+	const allocatedWeights = scaledWeights.map((weight) => Math.floor(weight));
+	const remainders = scaledWeights.map((weight, index) => ({
+		index,
+		remainder: weight - allocatedWeights[index]
+	}));
+	const remainingWeight = 100 - allocatedWeights.reduce((sum, weight) => sum + weight, 0);
+	remainders.sort((a, b) => b.remainder - a.remainder);
+	for (let index = 0; index < remainingWeight; index++) {
+		allocatedWeights[remainders[index % remainders.length].index] += 1;
+	}
+	return allocatedWeights;
+};
+
+const resolveEnabledPackWeights = (
+	settings: Pick<UserSettings, 'allowProfanity' | 'selectedPacks' | 'packWeights'>
+): UserPackWeights => {
+	const enabledPackKeys = resolveEnabledPackKeys(settings);
+	const rawEnabledWeights = enabledPackKeys.map((packKey) => {
+		const parsedWeight = Number(settings.packWeights?.[packKey]);
+		if (!Number.isFinite(parsedWeight) || parsedWeight < 0) {
+			return 0;
+		}
+		return parsedWeight;
+	});
+	const normalizedWeights = allocatePackWeightPercentages(rawEnabledWeights);
+	const resolvedWeights: UserPackWeights = {};
+	enabledPackKeys.forEach((packKey, index) => {
+		resolvedWeights[packKey] = normalizedWeights[index] ?? 0;
+	});
+	return resolvedWeights;
+};
+
+const resolveWeightedPackKeys = (
+	settings: Pick<UserSettings, 'allowProfanity' | 'selectedPacks' | 'packWeights'>
+): string[] => {
+	const enabledPackWeights = resolveEnabledPackWeights(settings);
+	const weightedPackKeys: string[] = [];
+	for (const [packKey, packWeight] of Object.entries(enabledPackWeights)) {
+		for (let index = 0; index < packWeight; index++) {
+			weightedPackKeys.push(packKey);
+		}
+	}
+	if (weightedPackKeys.length > 0) {
+		return weightedPackKeys;
+	}
+	return resolveEnabledPackKeys(settings);
+};
+
+const resolveRandomPackKeys = (
+	settings: Pick<UserSettings, 'allowProfanity' | 'selectedPacks' | 'usePackWeights' | 'packWeights'>
+): string[] => {
+	if (!settings.usePackWeights) {
+		return resolveEnabledPackKeys(settings);
+	}
+	return resolveWeightedPackKeys(settings);
+};
+
 const createDefaultSettings = (): UserSettings => {
 	const defaults = Object.fromEntries(
 		userSettingKeys.map((key) => [key, userSettingsDefinitionMap[key].defaultValue])
 	) as UserSettings;
 	defaults.selectedPacks = resolveEnabledPackKeys(defaults);
+	defaults.packWeights = resolveEnabledPackWeights(defaults);
 	return defaults;
 };
 
@@ -111,6 +206,7 @@ const sanitizeSettings = (settings: Partial<UserSettings> | null | undefined): U
 		userSettingKeys.map((key) => [key, userSettingsDefinitionMap[key].sanitize(settings?.[key])])
 	) as UserSettings;
 	sanitizedSettings.selectedPacks = resolveEnabledPackKeys(sanitizedSettings);
+	sanitizedSettings.packWeights = resolveEnabledPackWeights(sanitizedSettings);
 	return sanitizedSettings;
 };
 
@@ -210,4 +306,4 @@ const initSettingsListener = () => {
 
 export { settingsStore, defaultSettings, initSettingsListener, setUserSettings, setUserSetting, exportSettingsJson };
 export { maxInsultWordsMin, maxInsultWordsMax };
-export { availableInsultPacks, resolveEnabledPackKeys };
+export { availableInsultPacks, resolveEnabledPackKeys, resolveEnabledPackWeights, resolveRandomPackKeys };

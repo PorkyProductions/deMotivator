@@ -8,7 +8,7 @@
 	import { fade, scale } from 'svelte/transition';
 	import { onMount, onDestroy } from 'svelte';
 	import Icon from './icon.svelte';
-	import { resolveEnabledPackKeys, settingsStore } from '../utils/userSettings';
+	import { resolveRandomPackKeys, settingsStore } from '../utils/userSettings';
 	import { filterInsultsByMaxWords } from '../utils/insultLength';
 
 /*
@@ -77,7 +77,7 @@ const flushPendingWrites = async () => {
 const randomize = async () => {
 	const { pickRandom } = await import('@demotivator/shared');
 	const maxWordsLabel = $settingsStore.maxInsultWords <= 0 ? 'no word limit' : `${$settingsStore.maxInsultWords} words`;
-	const selectedPacks = resolveEnabledPackKeys($settingsStore);
+	const selectedPacks = resolveRandomPackKeys($settingsStore);
 	const insults = await getInsultsForPacks(selectedPacks);
 	const filteredInsults = filterInsultsByMaxWords(insults, $settingsStore.maxInsultWords);
 	if (filteredInsults.length === 0) {
@@ -140,7 +140,7 @@ let MEGAMODEinterval: ReturnType<typeof setInterval> | null = null;
 
 const MEGAMODErandomize = async () => {
 	const maxWordsLabel = $settingsStore.maxInsultWords <= 0 ? 'no word limit' : `${$settingsStore.maxInsultWords} words`;
-	const selectedPacks = resolveEnabledPackKeys($settingsStore);
+	const selectedPacks = resolveRandomPackKeys($settingsStore);
 	const insults = await getInsultsForPacks(selectedPacks);
 	const filteredInsults = filterInsultsByMaxWords(insults, $settingsStore.maxInsultWords);
 	if (filteredInsults.length === 0) {
