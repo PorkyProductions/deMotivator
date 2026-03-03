@@ -75,12 +75,6 @@ const loginHandler = async (event, loginAction) => {
 			particleCount: randomInRange(50, 100),
 			origin: { y: 0.6 }
 		});
-
-		// eslint-disable-next-line no-undef
-		if (typeof hapticsImpactMedium !== 'undefined') await hapticsImpactMedium();
-		// eslint-disable-next-line no-undef
-		if (typeof hapticsVibrate !== 'undefined') await hapticsVibrate();
-
 		if (keepMeLoggedIn) {
 			window.localStorage.setItem('keepMeLoggedIn', 'true');
 		} else {
