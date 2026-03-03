@@ -57,7 +57,7 @@
 			<div class="col-md-4 col-12">
 				<div class="p-3 bg-body-tertiary rounded-3">
 					<small class="text-uppercase text-secondary fw-bold d-block"> <Icon name="braces"/>  User ID</small>
-					<span class="font-monospace text-truncate d-block" title={user.id}>{user.id}</span>
+					<span class="font-monospace text-break d-block" title={user.id}>{user.id}</span>
 				</div>
 			</div>
 		</div>

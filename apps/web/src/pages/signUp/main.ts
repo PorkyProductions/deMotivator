@@ -1,5 +1,6 @@
 import '../../styles/globalStyles';
 import '../../styles/scss/bootstrap.scss';
+import '../../styles/scss/login.scss';
 import App from './signUp.svelte';
 import { mount } from 'svelte';
 const docApp: HTMLElement | null = document.getElementById('app');
