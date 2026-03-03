@@ -141,225 +141,420 @@ const signUpHandler = async (event) => {
 };
 </script>
 
-<div id="root" data-bs-theme={bsTheme} class="min-h-screen w-full">
-<Auth useRedirect={signupSuccess} let:loggedIn>
-	{#if !ready}
-	<div transition:fade={{ duration: 300 }} class="fixed inset-0 z-50 flex flex-col items-center justify-center backdrop-blur-sm">
-		<div class="mb-4">
-		<BsSpinner type={signupSuccess ? 'success' : error ? 'danger' : 'primary'} />
-		</div>
-		<BsLoader type={signupSuccess ? 'success' : error ? 'danger' : 'primary'} loadingTime={loadingDuration} />
+<div id="root" data-bs-theme="dark" class="signup-root">
+	<!-- Animated mesh gradient backdrop -->
+	<div class="mesh-backdrop" aria-hidden="true">
+		<div class="mesh-blob mesh-blob--a"></div>
+		<div class="mesh-blob mesh-blob--b"></div>
+		<div class="mesh-blob mesh-blob--c"></div>
 	</div>
-	{/if}
 
-	<div class="flex min-h-screen w-full overflow-hidden">
-	<div class="w-full lg:w-1/2 flex flex-col justify-center p-4 sm:p-5 lg:p-12 relative z-10">
-		<div class="mb-5 text-center lg:text-start">
-		<a href="/" class="text-decoration-none">
-			<span class="display-6 fw-bold text-body">
-			PorkyProductions<span class="text-secondary">ID</span>
-			</span>
-		</a>
-		</div>
-
-		{#if error}
-		<div transition:fly={{ y: -20 }} class="mb-4">
-			<BsAlert
-			icon="exclamation-diamond-fill"
-			type="danger"
-			text={error.message ?? 'An unknown error occurred.'}
-			/>
+	<Auth useRedirect={signupSuccess} let:loggedIn>
+		{#if !ready}
+		<div transition:fade={{ duration: 300 }} class="fixed inset-0 z-50 flex flex-col items-center justify-center signup-loader-overlay">
+			<div class="mb-4">
+				<BsSpinner type={signupSuccess ? 'success' : error ? 'danger' : 'primary'} />
+			</div>
+			<BsLoader type={signupSuccess ? 'success' : error ? 'danger' : 'primary'} loadingTime={loadingDuration} />
 		</div>
 		{/if}
 
-		{#if !dismissedBanner && !loggedIn}
-		<div transition:fade class="mb-4">
-			<BsAlert
-			icon="info-circle"
-			type="info"
-			text={`By using ${name} with an account, you consent to our and Google's cookies.`}
-			actionLink="https://policies.google.com/privacy"
-			actionText="Learn More"
-			onclick={() => { dismissedBanner = true; window.localStorage.setItem('dismissedBanner', 'true'); }}
-			/>
-		</div>
-		{/if}
+		<main class="signup-stage">
+			<div class="signup-card">
+				<!-- Brand panel -->
+				<div class="signup-brand">
+					<a href="/" class="signup-brand__wordmark">
+						PorkyProductions<span class="signup-brand__accent">ID</span>
+					</a>
+					<img src={hedgehog} alt="PorkyProductions hedgehog mascot" class="signup-brand__hog" draggable="false" />
+					<p class="signup-brand__tagline">Join the demotivation zone. It's free.</p>
+				</div>
 
-		{#if signupSuccess}
-		<div transition:fly={{ y: -20 }} class="mb-4">
-			<BsAlert
-			icon="check-circle-fill"
-			type="success"
-			text="Account successfully created! Please check your email for verification."
-			actionLink="/login.html"
-			actionText="Sign In"
-			/>
-		</div>
-		{/if}
-
-		{#if loggedIn}
-		<div in:fade={{ duration: 300, delay: 150 }} class="card shadow-lg border-0 rounded-4 overflow-hidden">
-			<div class="card-body p-5 text-center">
-			<h2 class="card-title fw-bold mb-3">You're Already Logged In!</h2>
-			<p class="text-secondary mb-4">You already have an active session.</p>
-			<a href="/login.html" class="btn btn-primary btn-lg w-100 rounded-3">
-				<i class="bi bi-person-circle me-2"></i> View Your Account
-			</a>
-			</div>
-		</div>
-		{:else}
-		<div in:fade={{ duration: 300, delay: 150 }} class="mx-auto w-100" style="max-width: 480px;">
-			<div class="mb-5">
-			<h1 class="fw-bold mb-2">Create your account</h1>
-			</div>
-
-			<form onsubmit={signUpHandler} class="d-flex flex-column gap-3">
-			<div class="row g-3">
-				<div class="col-12">
-				<label class="form-label fw-semibold" for="email">Email Address</label>
-				<input
-					class={`form-control form-control-lg ${getValidationClass(emailBoxContent, emailInvalid)}`}
-					id="email"
-					type="email"
-					placeholder="you@example.com"
-					bind:value={emailBoxContent}
-					onchange={onChangeSignupText}
-					oninput={onChangeSignupText}
-					required
-				/>
-				{#if emailInvalid && emailBoxContent}
-					<div class="invalid-feedback">
-					Please enter a valid email address.
+				<!-- Form panel -->
+				<div class="signup-form-panel">
+					{#if error}
+					<div transition:fly={{ y: -20 }} class="mb-4">
+						<BsAlert
+							icon="exclamation-diamond-fill"
+							type="danger"
+							text={error.message ?? 'An unknown error occurred.'}
+						/>
 					</div>
-				{/if}
-				</div>
+					{/if}
 
-				<div class="col-12">
-				<label class="form-label fw-semibold" for="displayName">Display Name</label>
-				<input
-					class="form-control form-control-lg"
-					id="displayName"
-					type="text"
-					placeholder={randomName}
-					bind:value={displayNameText}
-				/>
-				</div>
-
-				<div class="col-12">
-				<label class="form-label fw-semibold" for="password">Password</label>
-				<input
-					class={`form-control form-control-lg ${getValidationClass(pwText, pwInvalid)}`}
-					id="password"
-					type="password"
-					placeholder="••••••••••••"
-					bind:value={pwText}
-					onchange={onChangeSignupText}
-					oninput={onChangeSignupText}
-					required
-				/>
-				{#if pwInvalid && pwText}
-					<div class="invalid-feedback">
-					Password must be at least 8 characters with 1 uppercase, 1 number, and 1 special character (@$!%*#?&).
+					{#if !dismissedBanner && !loggedIn}
+					<div transition:fade class="mb-4">
+						<BsAlert
+							icon="info-circle"
+							type="info"
+							text={`By using ${name} with an account, you consent to our and Google's cookies.`}
+							actionLink="https://policies.google.com/privacy"
+							actionText="Learn More"
+							onclick={() => { dismissedBanner = true; window.localStorage.setItem('dismissedBanner', 'true'); }}
+						/>
 					</div>
-				{/if}
-				{#if !pwInvalid && pwText}
-					<div class="valid-feedback">
-					Strong password (not stronger than your ego)
+					{/if}
+
+					{#if signupSuccess}
+					<div transition:fly={{ y: -20 }} class="mb-4">
+						<BsAlert
+							icon="check-circle-fill"
+							type="success"
+							text="Account successfully created! Please check your email for verification."
+							actionLink="/login.html"
+							actionText="Sign In"
+						/>
 					</div>
-				{/if}
-				</div>
+					{/if}
 
-				<div class="col-12">
-				<label class="form-label fw-semibold" for="confirmPassword">Confirm Password</label>
-				<input
-					class={`form-control form-control-lg ${getValidationClass(confirmPwText, confirmPwInvalid)}`}
-					id="confirmPassword"
-					type="password"
-					placeholder="••••••••••••"
-					bind:value={confirmPwText}
-					onchange={onChangeSignupText}
-					oninput={onChangeSignupText}
-					required
-				/>
-				{#if confirmPwInvalid && confirmPwText}
-					<div class="invalid-feedback">
-					Passwords do not match.
+					{#if loggedIn}
+					<div in:fade={{ duration: 300, delay: 150 }} class="card shadow-lg border-0 rounded-4 overflow-hidden">
+						<div class="card-body p-5 text-center">
+							<h2 class="card-title fw-bold mb-3">You're Already Logged In!</h2>
+							<p class="text-secondary mb-4">You already have an active session.</p>
+							<a href="/login.html" class="btn btn-primary btn-lg w-100 rounded-3">
+								<i class="bi bi-person-circle me-2"></i> View Your Account
+							</a>
+						</div>
 					</div>
-				{/if}
+					{:else}
+					<div in:fade={{ duration: 300, delay: 150 }}>
+						<div class="mb-4">
+							<h1 class="fw-bold mb-1 signup-form-heading">Create your account</h1>
+							<p class="mb-0 signup-form-subheading">Fill in your details to get started.</p>
+						</div>
+
+						<form onsubmit={signUpHandler} class="d-flex flex-column gap-3">
+							<div class="row g-3">
+								<div class="col-12 col-sm-6">
+									<label class="form-label fw-semibold" for="email">Email Address</label>
+									<input
+										class={`form-control form-control-lg ${getValidationClass(emailBoxContent, emailInvalid)}`}
+										id="email"
+										type="email"
+										placeholder="you@example.com"
+										bind:value={emailBoxContent}
+										onchange={onChangeSignupText}
+										oninput={onChangeSignupText}
+										required
+									/>
+									{#if emailInvalid && emailBoxContent}
+										<div class="invalid-feedback">
+											Please enter a valid email address.
+										</div>
+									{/if}
+								</div>
+
+								<div class="col-12 col-sm-6">
+									<label class="form-label fw-semibold" for="displayName">Display Name</label>
+									<input
+										class="form-control form-control-lg"
+										id="displayName"
+										type="text"
+										placeholder={randomName}
+										bind:value={displayNameText}
+									/>
+								</div>
+
+								<div class="col-12 col-sm-6">
+									<label class="form-label fw-semibold" for="password">Password</label>
+									<input
+										class={`form-control form-control-lg ${getValidationClass(pwText, pwInvalid)}`}
+										id="password"
+										type="password"
+										placeholder="••••••••••••"
+										bind:value={pwText}
+										onchange={onChangeSignupText}
+										oninput={onChangeSignupText}
+										required
+									/>
+									{#if pwInvalid && pwText}
+										<div class="invalid-feedback">
+											Password must be at least 8 characters with 1 uppercase, 1 number, and 1 special character (@$!%*#?&).
+										</div>
+									{/if}
+									{#if !pwInvalid && pwText}
+										<div class="valid-feedback">
+											Strong password (not stronger than your ego)
+										</div>
+									{/if}
+								</div>
+
+								<div class="col-12 col-sm-6">
+									<label class="form-label fw-semibold" for="confirmPassword">Confirm Password</label>
+									<input
+										class={`form-control form-control-lg ${getValidationClass(confirmPwText, confirmPwInvalid)}`}
+										id="confirmPassword"
+										type="password"
+										placeholder="••••••••••••"
+										bind:value={confirmPwText}
+										onchange={onChangeSignupText}
+										oninput={onChangeSignupText}
+										required
+									/>
+									{#if confirmPwInvalid && confirmPwText}
+										<div class="invalid-feedback">
+											Passwords do not match.
+										</div>
+									{/if}
+								</div>
+
+								<div class="col-12">
+									<label class="form-label fw-semibold" for="photoURL">Profile Photo URL <span class="fw-normal signup-optional-label">(optional)</span></label>
+									<input
+										class="form-control form-control-lg"
+										id="photoURL"
+										type="url"
+										placeholder="https://example.com/photo.jpg"
+										bind:value={photoURLText}
+									/>
+								</div>
+							</div>
+
+							<div class="form-check my-2">
+								<input
+									class="form-check-input"
+									type="checkbox"
+									id="agreeTerms"
+									bind:checked={agreedToTerms}
+									required
+								>
+								<label class="form-check-label text-secondary" for="agreeTerms">
+									I agree to the <a href="#" class="text-primary">Terms and Conditions</a> and
+									<a href="https://policies.google.com/privacy" class="text-primary">Privacy Policy</a>
+								</label>
+							</div>
+
+							<div class="d-grid gap-3">
+								<button
+									type="submit"
+									class="btn btn-primary btn-lg shadow-sm"
+									disabled={!agreedToTerms}
+								>
+									Create Account <Icon name="person-plus" />
+								</button>
+							</div>
+						</form>
+
+						<div class="mt-4 text-center">
+							<p class="text-secondary mb-2">
+								Already have an account? <a href="/login.html" class="fw-bold text-primary text-decoration-none">Sign in</a>
+							</p>
+							<AuthBenefitsDialog
+								modalId="signUpBenefitsDialog"
+								buttonClass="btn btn-outline-secondary btn-sm"
+								buttonText="What do I get with PorkyProductionsID?"
+							/>
+						</div>
+					</div>
+					{/if}
 				</div>
-
-				<div class="col-12">
-				<label class="form-label fw-semibold" for="photoURL">Profile Photo URL</label>
-				<input
-					class="form-control form-control-lg"
-					id="photoURL"
-					type="url"
-					placeholder="https://example.com/photo.jpg"
-					bind:value={photoURLText}
-				/>
-				<div class="form-text">Optional - provide a URL to your profile picture</div>
-				</div>
 			</div>
-
-			<div class="form-check my-3">
-				<input
-				class="form-check-input"
-				type="checkbox"
-				id="agreeTerms"
-				bind:checked={agreedToTerms}
-				required
-				>
-				<label class="form-check-label text-secondary" for="agreeTerms">
-				I agree to the <a href="#" class="text-primary">Terms and Conditions</a> and
-				<a href="https://policies.google.com/privacy" class="text-primary">Privacy Policy</a>
-				</label>
-			</div>
-
-			<div class="d-grid gap-3 mt-3">
-				<button
-				type="submit"
-				class="btn btn-primary btn-lg shadow-sm"
-				disabled={!agreedToTerms}
-				>
-				Create Account <Icon name="person-plus" />
-				</button>
-			</div>
-			</form>
-
-			<div class="mt-5 text-center">
-			<p class="text-secondary">
-				Already have an account? <a href="/login.html" class="fw-bold text-primary text-decoration-none">Sign in</a>
-			</p>
-			</div>
-			<div class="mt-3 text-center">
-				<AuthBenefitsDialog
-					modalId="signUpBenefitsDialog"
-					buttonClass="btn btn-outline-info"
-					buttonText="What do I get with PorkyProductionsID?"
-				/>
-			</div>
-		</div>
-		{/if}
-	</div>
-
-	<div class="hidden lg:block lg:w-1/2 relative dark:bg-black">
-		<img
-		class="absolute inset-0 w-full h-full object-cover opacity-90"
-		src={hedgehog}
-		alt="a hand drawn hedgehog"
-		draggable="false"
-		/>
-		<div class="absolute inset-0"></div>
-	</div>
-	</div>
-	<Footer />
-
-</Auth>
+		</main>
+		<Footer />
+	</Auth>
 </div>
 
 <style>
-:global(body), :global(html) {
-	height: 100%;
-	margin: 0;
-}
+	:global(body), :global(html) {
+		height: 100%;
+		margin: 0;
+	}
+
+	.signup-root {
+		min-height: 100vh;
+		position: relative;
+		background: #06060f;
+		display: flex;
+		flex-direction: column;
+		overflow: hidden;
+	}
+
+	.mesh-backdrop {
+		position: fixed;
+		inset: 0;
+		pointer-events: none;
+		z-index: 0;
+		overflow: hidden;
+	}
+
+	.mesh-blob {
+		position: absolute;
+		border-radius: 50%;
+		filter: blur(90px);
+		will-change: transform;
+	}
+
+	.mesh-blob--a {
+		width: 60vw;
+		height: 60vw;
+		background: radial-gradient(circle at center, rgba(139, 92, 246, 0.45) 0%, transparent 70%);
+		top: -20%;
+		right: -15%;
+		animation: driftA 24s ease-in-out infinite;
+	}
+
+	.mesh-blob--b {
+		width: 50vw;
+		height: 50vw;
+		background: radial-gradient(circle at center, rgba(99, 102, 241, 0.4) 0%, transparent 70%);
+		bottom: -15%;
+		left: -10%;
+		animation: driftB 28s ease-in-out infinite;
+	}
+
+	.mesh-blob--c {
+		width: 45vw;
+		height: 45vw;
+		background: radial-gradient(circle at center, rgba(79, 70, 229, 0.3) 0%, transparent 70%);
+		top: 35%;
+		left: 30%;
+		animation: driftC 32s ease-in-out infinite;
+	}
+
+	@keyframes driftA {
+		0%, 100% { transform: translate(0, 0) scale(1); }
+		33% { transform: translate(-8%, 12%) scale(1.08); }
+		66% { transform: translate(5%, 7%) scale(0.94); }
+	}
+
+	@keyframes driftB {
+		0%, 100% { transform: translate(0, 0) scale(1); }
+		33% { transform: translate(10%, -9%) scale(1.06); }
+		66% { transform: translate(-7%, -13%) scale(0.91); }
+	}
+
+	@keyframes driftC {
+		0%, 100% { transform: translate(0, 0) scale(1); }
+		50% { transform: translate(16%, 11%) scale(1.12); }
+	}
+
+	.signup-stage {
+		position: relative;
+		z-index: 1;
+		flex: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 2rem 1rem 5rem;
+	}
+
+	.signup-card {
+		display: flex;
+		width: 100%;
+		max-width: 960px;
+		border-radius: 20px;
+		overflow: hidden;
+		background: rgba(12, 12, 30, 0.72);
+		border: 1px solid rgba(255, 255, 255, 0.07);
+		backdrop-filter: blur(28px);
+		-webkit-backdrop-filter: blur(28px);
+		box-shadow:
+			0 0 0 1px rgba(139, 92, 246, 0.12),
+			0 40px 80px rgba(0, 0, 0, 0.7),
+			inset 0 1px 0 rgba(255, 255, 255, 0.05);
+	}
+
+	.signup-brand {
+		flex: 0 0 32%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 1.25rem;
+		padding: 3rem 2rem;
+		background: rgba(139, 92, 246, 0.07);
+		border-right: 1px solid rgba(255, 255, 255, 0.05);
+		text-align: center;
+	}
+
+	.signup-brand__wordmark {
+		text-decoration: none;
+		color: rgba(255, 255, 255, 0.92);
+		font-size: 1.4rem;
+		font-weight: 800;
+		letter-spacing: -0.04em;
+		line-height: 1.15;
+	}
+
+	.signup-brand__wordmark:hover {
+		color: #fff;
+	}
+
+	.signup-brand__accent {
+		color: #a78bfa;
+	}
+
+	.signup-brand__hog {
+		width: 120px;
+		height: 120px;
+		object-fit: contain;
+		filter: drop-shadow(0 0 30px rgba(167, 139, 250, 0.55));
+		animation: hogFloat 5s ease-in-out infinite;
+	}
+
+	@keyframes hogFloat {
+		0%, 100% { transform: translateY(0); }
+		50% { transform: translateY(-10px); }
+	}
+
+	.signup-brand__tagline {
+		color: rgba(255, 255, 255, 0.4);
+		font-size: 0.82rem;
+		margin: 0;
+		max-width: 175px;
+		line-height: 1.6;
+	}
+
+	.signup-form-panel {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		padding: 2.5rem 2.5rem;
+		overflow-y: auto;
+	}
+
+	@media (max-width: 750px) {
+		.signup-card {
+			flex-direction: column;
+			max-width: 480px;
+		}
+
+		.signup-brand {
+			flex: unset;
+			padding: 2rem 1.5rem;
+			border-right: none;
+			border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+		}
+
+		.signup-brand__hog {
+			width: 80px;
+			height: 80px;
+		}
+
+		.signup-form-panel {
+			padding: 2rem 1.5rem;
+		}
+	}
+
+	.signup-form-heading {
+		color: rgba(255, 255, 255, 0.92);
+		letter-spacing: -0.03em;
+	}
+
+	.signup-form-subheading {
+		color: rgba(255, 255, 255, 0.45);
+		font-size: 0.88rem;
+	}
+
+	.signup-optional-label {
+		color: rgba(255, 255, 255, 0.35);
+		font-size: 0.8em;
+	}
+
+	.signup-loader-overlay {
+		background: rgba(6, 6, 15, 0.7);
+		backdrop-filter: blur(8px);
+	}
 </style>
