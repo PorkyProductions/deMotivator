@@ -17,6 +17,7 @@
 	import { filterInsultsByMaxWords } from '../../utils/insultLength';
 	import { submitInsultRequest } from '../../utils/insultRequests';
 	import { onAuthStateChanged } from '../../utils/firebase';
+	import { achievementUnlockers } from '../../utils/achievements';
 	let dmv;
 	let availableInsults = $state([]);
 
@@ -137,6 +138,7 @@
 		const shareUrl = typeof window === 'undefined' ? '/list.html' : window.location.href;
 		const insultQuote = `"${insult}"`;
 		const shareBody = `${insultQuote}\n\n${shareUrl}`;
+		achievementUnlockers.shareTheHate();
 		return { shareUrl, insultQuote, shareBody };
 	};
 
