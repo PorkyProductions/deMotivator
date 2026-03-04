@@ -1,16 +1,14 @@
 <script lang="ts">
 	import { leaderboard } from '../typescript/readInsults';
 	import { getListOfAllUsersWhoHaveSeenInsults as getList } from '../typescript/readInsults';
-	import { randomInRange } from '@porkyproductions/hat/randomInRange';
 	import { fade, fly, scale } from 'svelte/transition';
 	import { parentCompany } from '../typescript/constants';
 	import { bsTheme } from '../utils/darkMode';
 	import type { BsModalProps } from '../typescript/types';
 
 	import Title from './title.svelte';
-	import BsLoader from './bsLoader.svelte';
 	import Icon from './icon.svelte';
-	import BsSpinner from './bs-spinner.svelte';
+	import Spinhog from './spinhog.svelte';
 	import BsModal from './bs-modal.svelte';
 	import BsAlert from './bs-Alert.svelte';
 
@@ -31,14 +29,17 @@
 	// State management
 	let ready = $state(false);
 	let loading = $state(false);
-	let error = $state(null);
+	let error = $state();
 	let lastUpdated = $state(new Date());
-	const duration = randomInRange(800, 2000);
-	let initialLoadComplete = $state(false);
-
-	const load = async (d: number = duration) => {
-		await new Promise((resolve) => setTimeout(resolve, d));
-		ready = true;
+	const loadInitialLeaderboard = async () => {
+		try {
+			await getList();
+			lastUpdated = new Date();
+		} catch (err) {
+			error = err;
+		} finally {
+			ready = true;
+		}
 	};
 
 	const refreshLeaderboard = async () => {
@@ -76,29 +77,18 @@
 		return num.toLocaleString();
 	};
 
-	load();
-
-	// Load leaderboard data on mount (only once)
-	$effect(() => {
-		if (!initialLoadComplete) {
-			getList();
-			initialLoadComplete = true;
-		}
-	});
+	loadInitialLeaderboard();
 </script>
 
 <div id="root" data-bs-theme={bsTheme} class="min-h-screen bg-body">
 	{#if !ready}
 		<!-- Loading State -->
-		<div transition:fade={{ duration: 300 }} class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-body backdrop-blur-sm">
-			<div class="mb-4">
-				<BsSpinner type="primary" />
-			</div>
-			<BsLoader type="primary" loadingTime={duration} />
+		<div transition:fade={{ duration: 300 }} class="backdrop-blur-sm">
+			<Spinhog />
 		</div>
 	{:else}
 		<!-- Hero Section -->
-		<div class="bg-gradient-to-br from-primary-subtle to-body-tertiary py-5 px-4 mb-5" transition:fade>
+		<div class="bg-linear-to-br from-primary-subtle to-body-tertiary py-5 px-4 mb-5" transition:fade>
 			<div class="container">
 				<div class="row align-items-center">
 					<div class="col-12 text-center">

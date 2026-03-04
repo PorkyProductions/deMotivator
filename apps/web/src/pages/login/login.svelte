@@ -3,14 +3,13 @@
 import hedgehog from '../../img/HedgehogIcon.png';
 
 // Import components
-import BsSpinner from '../../components/bs-spinner.svelte';
 import Auth from './auth.svelte';
 import BsAlert from '../../components/bs-Alert.svelte';
-import BsLoader from '../../components/bsLoader.svelte';
 import LoginForm from '../../components/loginForm.svelte';
 import UserProfileCard from '../../components/userProfileCard.svelte';
 import Footer from '../../components/footer.svelte';
 import AuthBenefitsDialog from '../../components/authBenefitsDialog.svelte';
+import Spinhog from '../../components/spinhog.svelte';
 
 // Import Misc Helpers
 import { bsTheme } from '../../utils/darkMode';
@@ -33,7 +32,6 @@ let dismissedBanner = $state(window.localStorage.getItem('dismissedBanner') === 
 
 // Loading Logic
 let ready = $state(false);
-const loadingDuration = randomInRange(800, 2000);
 
 let error = $state(null);
 let insultsSeenDB = $state('...');
@@ -43,7 +41,6 @@ let keepMeLoggedIn = $state(false);
 
 const load = async () => {
 	window.localStorage.getItem('keepMeLoggedIn');
-	await new Promise((resolve) => setTimeout(resolve, loadingDuration));
 	ready = true;
 };
 load();
@@ -117,10 +114,7 @@ const deleteUserAccount = async () => {
 >
 	{#if !ready}
 	<div transition:fade={{ duration: 300 }} class="fixed inset-0 z-50 flex flex-col items-center justify-center backdrop-blur-sm">
-		<div class="mb-4">
-		<BsSpinner type={loggedIn ? 'success' : 'primary'} />
-		</div>
-		<BsLoader type={loggedIn ? 'success' : 'primary'} loadingTime={loadingDuration} />
+		<Spinhog />
 	</div>
 	{/if}
 

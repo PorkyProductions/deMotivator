@@ -4,10 +4,8 @@ import { fade, fly } from 'svelte/transition';
 import Auth from '../login/auth.svelte';
 import Footer from '../../components/footer.svelte';
 import Icon from '../../components/icon.svelte';
-import BsSpinner from '../../components/bs-spinner.svelte';
-import BsLoader from '../../components/bsLoader.svelte';
+import Spinhog from '../../components/spinhog.svelte';
 import { bsTheme } from '../../utils/darkMode';
-import { randomInRange } from '@porkyproductions/hat/randomInRange';
 import { adminAccessStore, initAdminAccessListener } from '../../utils/adminAccess';
 import {
 	listInsultRequests,
@@ -28,8 +26,6 @@ import ApprovedRequestsTable from './components/approvedRequestsTable.svelte';
 import RejectedRequestsTable from './components/rejectedRequestsTable.svelte';
 import RecentRequestsTable from './components/recentRequestsTable.svelte';
 
-const loadingDuration = randomInRange(800, 1500);
-let ready = $state(false);
 let loading = $state(false);
 let error = $state<string | null>(null);
 
@@ -50,11 +46,6 @@ let recentRequests = $state<InsultRequest[]>([]);
 let activeTab = $state<'pending' | 'approved' | 'rejected' | 'recent'>('pending');
 let approvingIds = $state<Set<string>>(new Set());
 let rejectingIds = $state<Set<string>>(new Set());
-
-const load = async () => {
-	await new Promise((resolve) => setTimeout(resolve, loadingDuration));
-	ready = true;
-};
 
 const loadStats = async () => {
 	try {
@@ -163,11 +154,10 @@ const formatDate = (date: Date) => {
 
 onMount(() => {
 	initAdminAccessListener();
-	load();
 });
 
 $effect(() => {
-	if ($adminAccessStore.isAdmin && ready) {
+	if ($adminAccessStore.isAdmin) {
 		loadRequests();
 	}
 });
@@ -175,12 +165,9 @@ $effect(() => {
 
 <div id="root" data-bs-theme={bsTheme} class="min-h-screen bg-body">
 <Auth let:loggedIn>
-{#if !ready || $adminAccessStore.loading}
+{#if $adminAccessStore.loading}
 <div transition:fade={{ duration: 300 }} class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-body backdrop-blur-sm">
-<div class="mb-4">
-<BsSpinner type="primary" />
-</div>
-<BsLoader type="primary" loadingTime={loadingDuration} />
+<Spinhog />
 </div>
 {:else if !loggedIn || !$adminAccessStore.isAuthenticated}
 <NotAuthenticatedView />

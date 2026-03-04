@@ -18,7 +18,6 @@
 		type ShareDestination
 	} from './utils/shareHelpers';
 	import './styles/shareButtonStyles.css';
-	import { randomInRange } from '@porkyproductions/hat/randomInRange';
 	import Auth from '../login/auth.svelte';
 	import { bsTheme } from '../../utils/darkMode';
 	import { userInsults } from '../../typescript/insults';
@@ -41,9 +40,13 @@
 	};
 
 	onMount(() => {
+		let mounted = true;
 		initSettingsListener();
-		initDemotivator();
-		load();
+		initDemotivator().finally(() => {
+			if (mounted) {
+				ready = true;
+			}
+		});
 		const unsubscribe = onAuthStateChanged(async (user) => {
 			const { readUserFavoriteInsults } = await import('../../utils/userFavoriteInsults');
 			const userId = user?.id;
@@ -60,6 +63,7 @@
 			}
 		});
 		return () => {
+			mounted = false;
 			unsubscribe();
 		};
 	});
@@ -94,11 +98,6 @@
 	let requestError = $state('');
 
 	// Loading
-	const duration = randomInRange(800, 1500);
-	const load = () => {
-		setTimeout(() => (ready = true), duration);
-	};
-
 	// Computed values for filtering and pagination
 	const currentInsultSet = $derived.by(() => {
 		return filterInsultsByMaxWords(availableInsults, $settingsStore.maxInsultWords);
@@ -274,7 +273,7 @@
 <div id="root" data-bs-theme={bsTheme} class="min-h-screen bg-body">
 	<Auth let:loggedIn>
 		{#if !ready}
-			<LoadingOverlay {duration} />
+			<LoadingOverlay />
 		{:else}
 			<ListHero />
 

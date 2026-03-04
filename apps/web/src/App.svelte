@@ -3,7 +3,6 @@
 	import Footer from './components/footer.svelte';
 	import Title from './components/title.svelte';
 	import Loader from './components/loader.svelte';
-	import { randomInRange } from '@porkyproductions/hat/randomInRange';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import { analytics } from './utils/firebase';
@@ -15,16 +14,10 @@
 
 	let ready = $state(false);
 
-	const load = async () => {
-		const duration = randomInRange(1, 4000);
-		await new Promise((resolve) => setTimeout(resolve, duration));
-		ready = true;
-	};
-	load();
-
 	onMount(() => {
 		initSettingsListener();
 		initAdminAccessListener();
+		ready = true;
 	});
 
 	// FROM BEYOND THIS POINT IS FIREBASE LOGIC

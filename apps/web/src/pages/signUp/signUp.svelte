@@ -3,17 +3,15 @@
 import hedgehog from '../../img/HedgehogIcon.png';
 
 // Import components
-import BsSpinner from '../../components/bs-spinner.svelte';
 import Icon from '../../components/icon.svelte';
 import Auth from '../login/auth.svelte';
 import BsAlert from '../../components/bs-Alert.svelte';
-import BsLoader from '../../components/bsLoader.svelte';
 import Footer from '../../components/footer.svelte';
 import AuthBenefitsDialog from '../../components/authBenefitsDialog.svelte';
+import Spinhog from '../../components/spinhog.svelte';
 
 // Import Misc Helpers
 import { bsTheme } from '../../utils/darkMode';
-import { randomInRange } from '@porkyproductions/hat/randomInRange';
 import { randomInArray } from '@porkyproductions/hat/randomInArray';
 import { deviceType } from '../../utils/uaStub';
 import { fade, fly } from 'svelte/transition';
@@ -52,12 +50,10 @@ let signupSuccess = $state(false);
 
 // Loading Logic
 let ready = $state(false);
-const loadingDuration = randomInRange(800, 2000);
 
 let error = $state(null);
 
 const load = async () => {
-	await new Promise((resolve) => setTimeout(resolve, loadingDuration));
 	ready = true;
 };
 load();
@@ -145,10 +141,7 @@ const signUpHandler = async (event) => {
 <Auth useRedirect={signupSuccess} let:loggedIn>
 	{#if !ready}
 	<div transition:fade={{ duration: 300 }} class="fixed inset-0 z-50 flex flex-col items-center justify-center backdrop-blur-sm">
-		<div class="mb-4">
-		<BsSpinner type={signupSuccess ? 'success' : error ? 'danger' : 'primary'} />
-		</div>
-		<BsLoader type={signupSuccess ? 'success' : error ? 'danger' : 'primary'} loadingTime={loadingDuration} />
+		<Spinhog />
 	</div>
 	{/if}
 
