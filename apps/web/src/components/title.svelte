@@ -1,7 +1,7 @@
 
 <script>
 	import { name, PROD, version } from '../typescript/constants';
-	let appname = $state(name);
+	const appname = $state(name);
 </script>
 <a href="/" class="no-underline" id="link">
 	<h1 class="font-primary text-center font-semibold" id="text">
