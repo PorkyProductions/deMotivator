@@ -1,13 +1,17 @@
 <script lang="ts">
-	import Title from '../../components/title.svelte';
 	import Icon from '../../components/icon.svelte';
 	import BsSpinner from '../../components/bs-spinner.svelte';
 	import BsLoader from '../../components/bsLoader.svelte';
 	import Footer from '../../components/footer.svelte';
 	import AuthBenefitsDialog from '../../components/authBenefitsDialog.svelte';
+	import InsultRequestSection from './components/insultRequestSection.svelte';
+	import InsultsDisplay from './components/insultsDisplay.svelte';
+	import ListControls from './components/listControls.svelte';
+	import ListHero from './components/listHero.svelte';
+	import ListStatsBar from './components/listStatsBar.svelte';
+	import ShareInsultDialog from './components/shareInsultDialog.svelte';
 	import { randomInRange } from '@porkyproductions/hat/randomInRange';
 	import { fade, fly, scale } from 'svelte/transition';
-	import { flip } from 'svelte/animate';
 	import Auth from '../login/auth.svelte';
 	import { bsTheme } from '../../utils/darkMode';
 	import { userInsults } from '../../typescript/insults';
@@ -68,7 +72,7 @@
 	let searchQuery = $state('');
 	let currentPage = $state(1);
 	const itemsPerPage = $state(20);
-	let viewMode = $state('cards'); // "cards" or "list"
+	let viewMode = $state<'cards' | 'list'>('cards');
 	let ready = $state(false);
 	let copySuccess = $state('');
 	let favoriteInsults = $state(new Set());
@@ -236,6 +240,27 @@
 		currentPage = 1;
 	};
 
+	const clearFilters = () => {
+		searchQuery = '';
+		showFavoritesOnly = false;
+	};
+
+	const setRequestText = (value: string) => {
+		requestText = value;
+	};
+
+	const setSearchQuery = (value: string) => {
+		searchQuery = value;
+	};
+
+	const setShowFavoritesOnly = (value: boolean) => {
+		showFavoritesOnly = value;
+	};
+
+	const setViewMode = (value: 'cards' | 'list') => {
+		viewMode = value;
+	};
+
 	const submitRequest = async () => {
 		if (!requestText.trim()) return;
 
@@ -294,175 +319,37 @@
 				<BsLoader type="primary" loadingTime={duration} />
 			</div>
 		{:else}
-			<!-- Hero Section -->
-			<div class="bg-linear-to-br from-danger-subtle to-body-tertiary py-5 px-4 mb-5" transition:fade>
-				<div class="container">
-					<div class="text-center">
-						<a href="/" class="text-decoration-none">
-							<span class="display-6 fw-bold text-body">
-								<Title />
-							</span>
-						</a>
-						<h1 class="display-4 fw-bold mt-3 mb-2">
-							<Icon name="chat-quote-fill" /> All Insults
-						</h1>
-					</div>
-				</div>
-			</div>
+			<ListHero />
 
 			{#if loggedIn}
 				<!-- Main Content -->
 				<div class="container pb-5">
-					<!-- Stats Bar -->
-					<div class="row g-3 mb-4" transition:fly={{ y: 20, delay: 200 }}>
-						<div class="col-md-3 col-6">
-							<div class="card border-0 shadow-sm">
-								<div class="card-body text-center py-3">
-									<div class="text-primary small mb-1">Total</div>
-									<div class="h4 mb-0 fw-bold">{currentInsultSet.length}</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-3 col-6">
-							<div class="card border-0 shadow-sm">
-								<div class="card-body text-center py-3">
-									<div class="text-success small mb-1">Filtered</div>
-									<div class="h4 mb-0 fw-bold">{filteredInsults.length}</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-3 col-6">
-							<div class="card border-0 shadow-sm">
-								<div class="card-body text-center py-3">
-									<div class="text-warning small mb-1">Favorites</div>
-									<div class="h4 mb-0 fw-bold">{favoriteInsults.size}</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-3 col-6">
-							<div class="card border-0 shadow-sm">
-								<div class="card-body text-center py-3">
-									<div class="text-info small mb-1">Page</div>
-									<div class="h4 mb-0 fw-bold">{currentPage}/{totalPages || 1}</div>
-								</div>
-							</div>
-						</div>
-					</div>
+					<ListStatsBar
+						totalCount={currentInsultSet.length}
+						filteredCount={filteredInsults.length}
+						favoriteCount={favoriteInsults.size}
+						{currentPage}
+						{totalPages}
+					/>
 
-					<!-- Insult Request Form -->
-					<div class="card border-0 shadow-sm mb-4" transition:fly={{ y: 20, delay: 250 }}>
-						<div class="card-body">
-							<h2 class="h6 mb-3 fw-bold">
-								<Icon name="chat-left-text" /> Request a New Insult
-							</h2>
-							<p class="text-muted small mb-3">
-								Have an idea for a demotivating insult? Submit it for review!
-							</p>
-							<div class="row g-2">
-								<div class="col-lg-8">
-									<input
-										type="text"
-										class="form-control"
-										placeholder="Your demotivating insult idea..."
-										bind:value={requestText}
-										disabled={requestSubmitting}
-										maxlength="500"
-									/>
-								</div>
-								<div class="col-lg-4">
-									<button
-										class="btn btn-primary w-100"
-										onclick={submitRequest}
-										disabled={requestSubmitting || !requestText.trim()}
-									>
-										{#if requestSubmitting}
-											<span class="spinner-border spinner-border-sm me-2" role="status"></span>
-											Submitting...
-										{:else}
-											<Icon name="send" /> Submit Request
-										{/if}
-									</button>
-								</div>
-							</div>
-							{#if requestSuccess}
-								<div transition:fly={{ y: -10 }} class="alert alert-success mt-3 mb-0">
-									<Icon name="check-circle-fill" /> {requestSuccess}
-								</div>
-							{/if}
-							{#if requestError}
-								<div transition:fly={{ y: -10 }} class="alert alert-danger mt-3 mb-0">
-									<Icon name="exclamation-triangle-fill" /> {requestError}
-								</div>
-							{/if}
-						</div>
-					</div>
+					<InsultRequestSection
+						{requestText}
+						{requestSubmitting}
+						{requestSuccess}
+						{requestError}
+						onRequestTextChange={setRequestText}
+						onSubmitRequest={submitRequest}
+					/>
 
-					<!-- Controls -->
-					<div class="card border-0 shadow-sm mb-4" transition:fly={{ y: 20, delay: 300 }}>
-						<div class="card-body">
-							<div class="row g-3">
-								<!-- Search -->
-								<div class="col-lg-4">
-									<div class="input-group">
-										<span class="input-group-text">
-											<Icon name="search" />
-										</span>
-										<input
-											type="text"
-											class="form-control"
-											placeholder="Search insults..."
-											bind:value={searchQuery}
-										/>
-										{#if searchQuery}
-											<button
-												class="btn btn-outline-secondary"
-												onclick={() => searchQuery = ''}
-											>
-												<Icon name="x-lg" />
-											</button>
-										{/if}
-									</div>
-								</div>
-
-								<!-- Filters -->
-								<div class="col-lg-4">
-									<div class="btn-group w-100" role="group">
-										<input
-											type="checkbox"
-											class="btn-check"
-											id="favCheck"
-											bind:checked={showFavoritesOnly}
-										/>
-										<label class="btn btn-outline-warning" for="favCheck">
-											<Icon name="star-fill" /> Favorites
-										</label>
-									</div>
-								</div>
-
-								<!-- Actions -->
-								<div class="col-lg-4">
-									<div class="btn-group w-100" role="group">
-										<button
-											class="btn btn-outline-primary"
-											onclick={shuffleInsults}
-										>
-											<Icon name="shuffle" /> Shuffle
-										</button>
-										<button
-											class="btn btn-outline-secondary"
-											onclick={() => viewMode = viewMode === 'cards' ? 'list' : 'cards'}
-										>
-											{#if viewMode === 'cards'}
-												<Icon name="list-ul" /> List
-											{:else}
-												<Icon name="grid-3x3-gap" /> Cards
-											{/if}
-										</button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+					<ListControls
+						{searchQuery}
+						{showFavoritesOnly}
+						{viewMode}
+						onShuffleInsults={shuffleInsults}
+						onSearchQueryChange={setSearchQuery}
+						onShowFavoritesOnlyChange={setShowFavoritesOnly}
+						onViewModeChange={setViewMode}
+					/>
 
 					<!-- Copy Success Alert -->
 					{#if copySuccess}
@@ -474,206 +361,28 @@
 					{/if}
 
 					{#if shareDialogOpen}
-						<div class="modal fade show d-block" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="shareInsultDialogTitle">
-							<div class="modal-dialog modal-dialog-centered">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h2 class="modal-title fs-5" id="shareInsultDialogTitle">
-											<Icon name="share" /> Share insult
-										</h2>
-										<button type="button" class="btn-close" aria-label="Close" onclick={closeShareDialog}></button>
-									</div>
-									<div class="modal-body">
-										<p class="text-muted small mb-2">Choose where to share this insult:</p>
-										<p class="mb-3">"{shareDialogInsult}"</p>
-										<div class="d-grid gap-2">
-											{#each buttons as button}
-												<button
-													type="button"
-													class={`btn ${button.buttonClass}`}
-													onclick={() => shareInsult(button.destination)}
-												>
-													<Icon name={button.icon} /> {button.label}
-												</button>
-											{/each}
-										</div>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary" onclick={closeShareDialog}>Close</button>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="modal-backdrop fade show"></div>
+						<ShareInsultDialog
+							{shareDialogInsult}
+							{buttons}
+							onCloseDialog={closeShareDialog}
+							onShareInsult={shareInsult}
+						/>
 					{/if}
 
-					<!-- Insults Display -->
-					{#if filteredInsults.length > 0}
-						{#if viewMode === 'cards'}
-							<!-- Card View -->
-							<div class="row g-4 mb-4">
-								{#each paginatedInsults as insult, i (insult)}
-									<div
-										class="col-lg-6"
-										transition:scale={{ delay: i * 50 }}
-										animate:flip={{ duration: 300 }}
-									>
-										<div class="card h-100 border-0 shadow-sm hover-shadow-lg transition-shadow">
-											<div class="card-body d-flex flex-column">
-												<p class="card-text fs-5 grow mb-3">
-													"{insult}"
-												</p>
-												<div class="d-flex gap-2 justify-content-end">
-													<button
-														class="btn btn-sm btn-outline-primary"
-														onclick={() => copyToClipboard(insult)}
-														title="Copy"
-													>
-														<Icon name="clipboard" />
-													</button>
-													<button
-														class="btn btn-sm btn-outline-info"
-														onclick={() => openShareDialog(insult)}
-														title="Share"
-													>
-														<Icon name="share" />
-													</button>
-													<button
-														class={`btn btn-sm ${favoriteInsults.has(insult) ? 'btn-warning' : 'btn-outline-warning'}`}
-														onclick={() => toggleFavorite(insult)}
-														title="Favorite"
-													>
-														<Icon name={favoriteInsults.has(insult) ? 'star-fill' : 'star'} />
-													</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								{/each}
-							</div>
-						{:else}
-							<!-- List View -->
-							<div class="card border-0 shadow-sm mb-4">
-								<ul class="list-group list-group-flush">
-									{#each paginatedInsults as insult, i (insult)}
-										<li
-											class="list-group-item py-3 hover-bg-light"
-											transition:fade={{ delay: i * 30 }}
-											animate:flip={{ duration: 300 }}
-										>
-											<div class="d-flex justify-content-between align-items-center">
-												<span class="fs-5 me-3">"{insult}"</span>
-												<div class="d-flex gap-2">
-													<button
-														class="btn btn-sm btn-outline-primary"
-														onclick={() => copyToClipboard(insult)}
-														title="Copy"
-													>
-														<Icon name="clipboard" />
-													</button>
-													<button
-														class="btn btn-sm btn-outline-info"
-														onclick={() => openShareDialog(insult)}
-														title="Share"
-													>
-														<Icon name="share" />
-													</button>
-													<button
-														class={`btn btn-sm ${favoriteInsults.has(insult) ? 'btn-warning' : 'btn-outline-warning'}`}
-														onclick={() => toggleFavorite(insult)}
-														title="Favorite"
-													>
-														<Icon name={favoriteInsults.has(insult) ? 'star-fill' : 'star'} />
-													</button>
-												</div>
-											</div>
-										</li>
-									{/each}
-								</ul>
-							</div>
-						{/if}
-
-						<!-- Pagination -->
-						{#if totalPages > 1}
-							<nav aria-label="Insults pagination">
-								<ul class="pagination pagination-lg justify-content-center">
-									<li class={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
-										<button
-											class="page-link"
-											onclick={() => goToPage(currentPage - 1)}
-											disabled={currentPage === 1}
-										>
-											<Icon name="chevron-left" />
-										</button>
-									</li>
-
-									{#if currentPage > 3}
-										<li class="page-item">
-											<button class="page-link" onclick={() => goToPage(1)}>1</button>
-										</li>
-										{#if currentPage > 4}
-											<li class="page-item disabled">
-												<span class="page-link">...</span>
-											</li>
-										{/if}
-									{/if}
-
-									{#each getPaginationRange() as page}
-										<li class={`page-item ${currentPage === page ? 'active' : ''}`}>
-											<button
-												class="page-link"
-												onclick={() => goToPage(page)}
-											>
-												{page}
-											</button>
-										</li>
-									{/each}
-
-									{#if currentPage < totalPages - 2}
-										{#if currentPage < totalPages - 3}
-											<li class="page-item disabled">
-												<span class="page-link">...</span>
-											</li>
-										{/if}
-										<li class="page-item">
-											<button class="page-link" onclick={() => goToPage(totalPages)}>
-												{totalPages}
-											</button>
-										</li>
-									{/if}
-
-									<li class={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
-										<button
-											class="page-link"
-											onclick={() => goToPage(currentPage + 1)}
-											disabled={currentPage === totalPages}
-										>
-											<Icon name="chevron-right" />
-										</button>
-									</li>
-								</ul>
-							</nav>
-						{/if}
-					{:else}
-						<!-- Empty State -->
-						<div class="card border-0 shadow-sm">
-							<div class="card-body text-center py-5">
-								<div class="text-muted mb-3 text-4xl">
-									<Icon name="search-heart"/>
-								</div>
-								<h3 class="h4">No Results Found</h3>
-								<p class="text-muted mb-4">
-									Try adjusting your filters or search terms
-								</p>
-								<button
-									class="btn btn-primary"
-									onclick={() => { searchQuery = ''; showFavoritesOnly = false; }}
-								>
-									<Icon name="arrow-clockwise" /> Clear Filters
-								</button>
-							</div>
-						</div>
-					{/if}
+					<InsultsDisplay
+						{filteredInsults}
+						{paginatedInsults}
+						{viewMode}
+						{favoriteInsults}
+						{currentPage}
+						{totalPages}
+						{getPaginationRange}
+						{goToPage}
+						onCopyToClipboard={copyToClipboard}
+						onOpenShareDialog={openShareDialog}
+						onToggleFavorite={toggleFavorite}
+						onClearFilters={clearFilters}
+					/>
 				</div>
 			{:else}
 				<!-- Not Logged In State -->
