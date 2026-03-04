@@ -1,10 +1,11 @@
 
 <script>
 	import { name, PROD, version } from '../typescript/constants';
+	let appname = $state(name);
 </script>
 <a href="/" class="no-underline" id="link">
 	<h1 class="font-primary text-center font-semibold" id="text">
-		{name} {PROD ? '' : `(v${version})`}
+		{appname} {PROD ? '' : `(v${version})`}
 	</h1>
 </a>
 
