@@ -9,32 +9,21 @@ export const readInsults = async (): Promise<number> => {
 	const db = getFirestore(app);
 	const auth = getAuth(app);
 
-	return new Promise((resolve, reject) => {
-		const fetchData = async () => {
-			try {
-				const user = auth.currentUser;
-				if (user) {
-					const usersRef = doc(db, 'users', user.uid);
-					const usersSnap = await getDoc(usersRef);
-					if (usersSnap.exists()) {
-						const data: InsultDBQueryResponse = usersSnap.data();
-						if (typeof data.insultsSeen === 'number') {
-							resolve(data.insultsSeen);
-						} else {
-							resolve(0);
-						}
-					} else {
-						resolve(0);
-					}
-				} else {
-					resolve(0);
-				}
-			} catch (err) {
-				reject(err);
-			}
-		};
-		fetchData();
-	});
+	await auth.authStateReady();
+
+	const user = auth.currentUser;
+	if (!user) {
+		return 0;
+	}
+
+	const usersRef = doc(db, 'users', user.uid);
+	const usersSnap = await getDoc(usersRef);
+	if (!usersSnap.exists()) {
+		return 0;
+	}
+
+	const data: InsultDBQueryResponse = usersSnap.data();
+	return typeof data.insultsSeen === 'number' ? data.insultsSeen : 0;
 };
 export let leaderboard: GlobInsultDBQueryResponse[] = [];
 
