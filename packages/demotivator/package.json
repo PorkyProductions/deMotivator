@@ -52,6 +52,6 @@
 	"types": "./dist/index.d.ts",
 	"dependencies": {
 		"@demotivator/shared": "^14.0.0",
-		"@types/lodash": "^4.17.23"
+		"@types/lodash": "^4.17.24"
 	}
 }
