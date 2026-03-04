@@ -43,7 +43,9 @@
 		<div transition:fade>
 			<div class="dark:bg-theme-black dark:text-white" id="app">
 				{#if window.location.hostname === 'localhost' || window.location.hostname === 'demotivator-dev.web.app'}
-					<HomeScreenDevWarningBanner />
+					<div class="p-4">
+						<HomeScreenDevWarningBanner />
+					</div>
 				{/if}
 				<div class="text-md lg:text-4xl p-4">
 					<Title />

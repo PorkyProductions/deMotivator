@@ -5,7 +5,7 @@
 	const warnBannerProps : { type: BSVarient; icon: string; text: string; actionLink: string; actionText: string; } = {
 		type: 'warning',
 		icon: 'cone-striped',
-		text: 'Heads Up! This is a development beta site. Some things might not work properly, or may otherwise be broken',
+		text: 'This is a development beta site. Some things might not work properly, or may otherwise be broken',
 		actionLink: 'https://demotivator.web.app',
 		actionText: 'Go to the normal (de)Motivator'
 
