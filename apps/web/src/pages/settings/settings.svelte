@@ -5,6 +5,11 @@
 	import Icon from '../../components/icon.svelte';
 	import Title from '../../components/title.svelte';
 	import AuthBenefitsDialog from '../../components/authBenefitsDialog.svelte';
+	import SectionHeader from './components/sectionHeader.svelte';
+	import ContentSettingsCard from './components/contentSettingsCard.svelte';
+	import PackSettingsCard from './components/packSettingsCard.svelte';
+	import SettingsDataCard from './components/settingsDataCard.svelte';
+	import type { NumericSettingConfig, PackSettingConfig, ToggleSettingConfig } from './components/settingsTypes';
 	import { bsTheme } from '../../utils/darkMode';
 	import {
 		availableInsultPacks,
@@ -17,35 +22,8 @@
 		setUserSetting,
 		setUserSettings,
 		settingsStore,
-		type UserSettings,
 		type UserSettingKey
 	} from '../../utils/userSettings';
-
-	type ToggleSettingConfig = {
-		key: UserSettingKey;
-		title: string;
-		icon: string;
-		label: string;
-		description: string;
-		enableWarningMessage?: string;
-	};
-
-	type NumericSettingKey = {
-		[K in UserSettingKey]: UserSettings[K] extends number ? K : never;
-	}[UserSettingKey];
-
-	type NumericSettingConfig = {
-		key: NumericSettingKey;
-		title: string;
-		icon: string;
-		label: string;
-		description: string;
-		min: number;
-		max: number;
-		step?: number;
-	};
-
-	type PackSettingConfig = (typeof availableInsultPacks)[number];
 
 	const toggleSettings: ToggleSettingConfig[] = [
 		{
@@ -217,228 +195,47 @@
 			<div class="container pb-5">
 				<div class="row justify-content-center">
 					<div class="col-lg-8">
-						<div class="mb-2">
-							<h2 class="h4 mb-1">
-								<Icon name="sliders2" /> Content Settings
-							</h2>
-							<p class="text-muted small mb-3">
-								Control filtering and content behavior across the app.
-							</p>
-						</div>
-						<div class="card border-0 shadow-sm mb-4">
-							<div class="card-body">
-								{#each toggleSettings as setting (setting.key)}
-									<div>
-										<h2 class="h5 mb-3">
-											<Icon name={setting.icon} /> {setting.title}
-										</h2>
-										<div class="form-check form-switch">
-											<input
-												class="form-check-input"
-												type="checkbox"
-												id={getSettingInputId(setting.key)}
-												checked={$settingsStore[setting.key]}
-												onchange={(event) => handleToggleSettingChange(setting, event)}
-											/>
-											<label class="form-check-label" for={getSettingInputId(setting.key)}>
-												{setting.label}
-											</label>
-										</div>
-										<p class="text-muted small mt-2 mb-0">
-											{setting.description}
-										</p>
-									</div>
-								{/each}
-								<hr class="my-4" />
-								{#each numericSettings as setting (setting.key)}
-									<div>
-										<h2 class="h5 mb-3">
-											<Icon name={setting.icon} /> {setting.title}
-										</h2>
-										<label class="form-label" for={getSettingInputId(setting.key)}>
-											{setting.label}
-										</label>
-										<div class="d-flex flex-column flex-md-row gap-3 align-items-md-center">
-											<input
-												class="form-range grow"
-												type="range"
-												id={getSettingInputId(setting.key)}
-												min={setting.min}
-												max={setting.max}
-												step={setting.step ?? 1}
-												value={$settingsStore[setting.key]}
-												onchange={(event) => handleNumberSettingChange(setting, event)}
-											/>
-											<input
-												class="form-control"
-												type="number"
-												min={setting.min}
-												max={setting.max}
-												step={setting.step ?? 1}
-												value={$settingsStore[setting.key]}
-												onchange={(event) => handleNumberSettingChange(setting, event)}
-												style="max-width: 7rem;"
-											/>
-										</div>
-										<p class="text-muted small mt-2 mb-0">
-											{setting.description}
-										</p>
-									</div>
-								{/each}
-							</div>
-						</div>
+						<SectionHeader
+							icon="sliders2"
+							title="Content Settings"
+							description="Control filtering and content behavior across the app."
+						/>
+						<ContentSettingsCard
+							toggleSettings={toggleSettings}
+							numericSettings={numericSettings}
+							settings={$settingsStore}
+							getSettingInputId={getSettingInputId}
+							onToggleSettingChange={handleToggleSettingChange}
+							onNumberSettingChange={handleNumberSettingChange}
+						/>
 
-						<div class="mb-2">
-							<h2 class="h4 mb-1">
-								<Icon name="shuffle" /> Insult Pool Settings
-							</h2>
-							<p class="text-muted small mb-3">
-								Control which packs are used and how random weighting is applied.
-							</p>
-						</div>
-						<div class="card border-0 shadow-sm mb-4">
-							<div class="card-body">
-								<h2 class="h5 mb-3">
-									<Icon name="collection-fill" /> Insult Packs
-								</h2>
-								{#if !$settingsStore.enablePackWeighting}
-									<p class="text-muted small mt-2 mb-3">
-										Choose which packs to include in your insult pool.
-									</p>
-									<div class="d-flex flex-column gap-3">
-										{#each availableInsultPacks as pack (pack.key)}
-											<div class="form-check form-switch">
-												<input
-													class="form-check-input"
-													type="checkbox"
-													id={getPackInputId(pack.key)}
-													checked={resolveEnabledPackKeys($settingsStore).includes(pack.key)}
-													disabled={isPackToggleDisabled(pack)}
-													onchange={(event) => handlePackSettingChange(pack, event)}
-												/>
-												<label class="form-check-label" for={getPackInputId(pack.key)}>
-													{pack.title}
-													{#if pack.explicit}
-														<span class="badge text-bg-danger ms-2">Explicit</span>
-													{/if}
-												</label>
-												{#if pack.explicit && !$settingsStore.allowProfanity}
-													<p class="text-muted small mt-1 mb-0">
-														Enable profanity to use this pack.
-													</p>
-												{/if}
-											</div>
-										{/each}
-									</div>
-								{:else}
-									<p class="text-muted small mt-2 mb-3">
-										Set how much weighting each pack gets in random insult generation.
-									</p>
-									<div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
-										<p class="text-muted small mt-0 mb-0">
-											Effective weighting total: {getResolvedPackWeightTotal()}%
-										</p>
-										<button class="btn btn-outline-secondary btn-sm" onclick={resetPackWeightings}>
-											<Icon name="arrow-counterclockwise" /> Reset weightings
-										</button>
-									</div>
-									<div class="d-flex flex-column gap-3">
-										{#each availableInsultPacks as pack (pack.key)}
-											<div class="border rounded p-3">
-												<div class="d-flex justify-content-between align-items-center gap-2 mb-2">
-													<label class="form-label mb-0" for={getPackWeightInputId(pack.key)}>
-														{pack.title}
-														{#if pack.explicit}
-															<span class="badge text-bg-danger ms-2">Explicit</span>
-														{/if}
-													</label>
-													<span class="badge text-bg-primary">
-														{getResolvedPackWeight(pack.key)}%
-													</span>
-												</div>
-												<div class="d-flex flex-column flex-md-row gap-3 align-items-md-center">
-													<input
-														class="form-range grow"
-														type="range"
-														id={getPackWeightInputId(pack.key)}
-														min="0"
-														max="100"
-														step="1"
-														value={$settingsStore.packWeights[pack.key] ?? 0}
-														disabled={pack.explicit && !$settingsStore.allowProfanity}
-														onchange={(event) => handlePackWeightSettingChange(pack, event)}
-													/>
-													<input
-														class="form-control"
-														type="number"
-														min="0"
-														max="100"
-														step="1"
-														value={$settingsStore.packWeights[pack.key] ?? 0}
-														disabled={pack.explicit && !$settingsStore.allowProfanity}
-														onchange={(event) => handlePackWeightSettingChange(pack, event)}
-														style="max-width: 7rem;"
-													/>
-												</div>
-												{#if pack.explicit && !$settingsStore.allowProfanity}
-													<p class="text-muted small mt-2 mb-0">
-														Enable profanity to include this explicit pack in weighting.
-													</p>
-												{/if}
-											</div>
-										{/each}
-									</div>
-								{/if}
-								<hr class="my-4" />
-								<h2 class="h5 mb-3">
-									<Icon name="sliders" /> Advanced Pack Weighting
-								</h2>
-								<div class="form-check form-switch">
-									<input
-										class="form-check-input"
-										type="checkbox"
-										id={getSettingInputId('enablePackWeighting')}
-										checked={$settingsStore.enablePackWeighting}
-										onchange={handlePackWeightingToggleChange}
-									/>
-									<label class="form-check-label" for={getSettingInputId('enablePackWeighting')}>
-										Enable percentage-based pack weighting
-									</label>
-								</div>
-								<p class="text-muted small mt-2 mb-0">
-									When disabled, the app uses the standard selected packs behavior.
-								</p>
-							</div>
-						</div>
+						<SectionHeader
+							icon="shuffle"
+							title="Insult Pool Settings"
+							description="Control which packs are used and how random weighting is applied."
+						/>
+						<PackSettingsCard
+							availableInsultPacks={availableInsultPacks}
+							settings={$settingsStore}
+							getSettingInputId={getSettingInputId}
+							getPackInputId={getPackInputId}
+							getPackWeightInputId={getPackWeightInputId}
+							isPackEnabled={(packKey) => resolveEnabledPackKeys($settingsStore).includes(packKey)}
+							isPackToggleDisabled={isPackToggleDisabled}
+							onPackSettingChange={handlePackSettingChange}
+							onPackWeightSettingChange={handlePackWeightSettingChange}
+							onPackWeightingToggleChange={handlePackWeightingToggleChange}
+							resetPackWeightings={resetPackWeightings}
+							getResolvedPackWeight={getResolvedPackWeight}
+							getResolvedPackWeightTotal={getResolvedPackWeightTotal}
+						/>
 
-						<div class="mb-2">
-							<h2 class="h4 mb-1">
-								<Icon name="person-circle" /> Profile Settings Data
-							</h2>
-							<p class="text-muted small mb-3">
-								Save your current settings or export them as a JSON file.
-							</p>
-						</div>
-						<div class="card border-0 shadow-sm">
-							<div class="card-body d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
-								<div>
-									<h2 class="h5 mb-1">
-										<Icon name="floppy-fill" /> Save or export settings
-									</h2>
-									<p class="text-muted small mb-0">
-										Save to your account or download as JSON.
-									</p>
-								</div>
-								<div class="d-flex flex-wrap gap-2">
-									<button class="btn btn-primary" onclick={saveSettings}>
-										<Icon name="floppy-fill" /> Save
-									</button>
-									<button class="btn btn-outline-primary" onclick={downloadSettings}>
-										<Icon name="download" /> Export JSON
-									</button>
-								</div>
-							</div>
-						</div>
+						<SectionHeader
+							icon="person-circle"
+							title="Profile Settings Data"
+							description="Save your current settings or export them as a JSON file."
+						/>
+						<SettingsDataCard onSaveSettings={saveSettings} onDownloadSettings={downloadSettings} />
 					</div>
 				</div>
 			</div>

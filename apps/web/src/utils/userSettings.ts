@@ -1,5 +1,6 @@
 import { get, writable } from 'svelte/store';
 import { onAuthStateChanged } from './firebase';
+import { getFirebaseApp } from './firebase/firebaseApp';
 import { insultPackList } from 'demotivator';
 
 export type UserSettings = {
@@ -237,12 +238,6 @@ const sanitizeSettings = (settings: Partial<UserSettings> | null | undefined): U
 	sanitizedSettings.selectedPacks = resolveEnabledPackKeys(sanitizedSettings);
 	sanitizedSettings.packWeights = normalizePackWeights(sanitizedSettings.packWeights, availablePackKeys, fallbackPackKey);
 	return sanitizedSettings;
-};
-
-const getFirebaseApp = async () => {
-	const { getApps, getApp, initializeApp } = await import('firebase/app');
-	const { firebaseConfig } = await import('../typescript/insults');
-	return getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
 };
 
 const readUserSettings = async (userId: string): Promise<UserSettings> => {

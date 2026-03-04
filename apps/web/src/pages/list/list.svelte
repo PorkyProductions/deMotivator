@@ -1,17 +1,24 @@
 <script lang="ts">
-	import Icon from '../../components/icon.svelte';
-	import BsSpinner from '../../components/bs-spinner.svelte';
-	import BsLoader from '../../components/bsLoader.svelte';
 	import Footer from '../../components/footer.svelte';
-	import AuthBenefitsDialog from '../../components/authBenefitsDialog.svelte';
+	import LoadingOverlay from './components/loadingOverlay.svelte';
+	import CopySuccessAlert from './components/copySuccessAlert.svelte';
+	import AuthRequiredCard from './components/authRequiredCard.svelte';
 	import InsultRequestSection from './components/insultRequestSection.svelte';
 	import InsultsDisplay from './components/insultsDisplay.svelte';
 	import ListControls from './components/listControls.svelte';
 	import ListHero from './components/listHero.svelte';
 	import ListStatsBar from './components/listStatsBar.svelte';
 	import ShareInsultDialog from './components/shareInsultDialog.svelte';
+	import {
+		createSharePayload,
+		getShareDestinationUrl,
+		openShareEmail,
+		openShareWindow,
+		shareButtons,
+		type ShareDestination
+	} from './utils/shareHelpers';
+	import './styles/shareButtonStyles.css';
 	import { randomInRange } from '@porkyproductions/hat/randomInRange';
-	import { fade, fly, scale } from 'svelte/transition';
 	import Auth from '../login/auth.svelte';
 	import { bsTheme } from '../../utils/darkMode';
 	import { userInsults } from '../../typescript/insults';
@@ -126,8 +133,6 @@
 		}
 	};
 
-	type ShareDestination = 'copy' | 'x' | 'facebook' | 'reddit' | 'email' | 'other';
-
 	const openShareDialog = (insult: string) => {
 		shareDialogInsult = insult;
 		shareDialogOpen = true;
@@ -138,52 +143,26 @@
 		shareDialogInsult = '';
 	};
 
-	const createSharePayload = (insult: string) => {
-		const shareUrl = typeof window === 'undefined' ? '/list.html' : window.location.href;
-		const insultQuote = `"${insult}"`;
-		const shareBody = `${insultQuote}\n\n${shareUrl}`;
-		achievementUnlockers.shareTheHate();
-		return { shareUrl, insultQuote, shareBody };
-	};
-
-	const openShareWindow = (url: string) => {
-		if (typeof window === 'undefined') {
-			return;
-		}
-		window.open(url, '_blank', 'noopener,noreferrer');
-	};
-
 	const shareInsult = async (destination: ShareDestination) => {
 		if (!shareDialogInsult) {
 			return;
 		}
-		const { shareUrl, insultQuote, shareBody } = createSharePayload(shareDialogInsult);
+		const sharePayload = createSharePayload(shareDialogInsult);
+		const { shareUrl, insultQuote, shareBody } = sharePayload;
+		achievementUnlockers.shareTheHate();
 		try {
 			if (destination === 'copy') {
 				await copyToClipboard(shareBody);
 				closeShareDialog();
 				return;
 			}
-			if (destination === 'x') {
-				openShareWindow(`https://twitter.com/intent/tweet?text=${encodeURIComponent(insultQuote)}&url=${encodeURIComponent(shareUrl)}`);
-				closeShareDialog();
-				return;
-			}
-			if (destination === 'facebook') {
-				openShareWindow(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(insultQuote)}`);
-				closeShareDialog();
-				return;
-			}
-			if (destination === 'reddit') {
-				openShareWindow(`https://www.reddit.com/submit?url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent(insultQuote)}`);
+			if (destination === 'x' || destination === 'facebook' || destination === 'reddit') {
+				openShareWindow(getShareDestinationUrl(destination, sharePayload));
 				closeShareDialog();
 				return;
 			}
 			if (destination === 'email') {
-				if (typeof window === 'undefined') {
-					return;
-				}
-				window.location.href = `mailto:?subject=${encodeURIComponent('(de)Motivator insult')}&body=${encodeURIComponent(shareBody)}`;
+				openShareEmail(shareBody);
 				closeShareDialog();
 				return;
 			}
@@ -202,22 +181,6 @@
 			console.error('Failed to share insult', error);
 		}
 	};
-
-	interface ShareProdiverButton {
-		destination: ShareDestination;
-		label: string;
-		icon: string;
-		buttonClass: string;
-	}
-
-	const buttons: ShareProdiverButton[] = [
-		{ destination: 'copy', label: 'Copy', icon: 'clipboard', buttonClass: 'btn-primary' },
-		{ destination: 'email', label: 'Email', icon: 'envelope', buttonClass: 'btn-secondary' },
-		{ destination: 'x', label: 'Twitter / X', icon: 'twitter-x', buttonClass: 'share-btn-x' },
-		{ destination: 'facebook', label: 'Facebook', icon: 'facebook', buttonClass: 'share-btn-facebook' },
-		{ destination: 'reddit', label: 'Reddit', icon: 'reddit', buttonClass: 'share-btn-reddit' },
-		{ destination: 'other', label: 'Other...', icon: 'three-dots', buttonClass: 'share-btn-other' }
-	];
 
 	const toggleFavorite = async (insult: string) => {
 		const nextFavoriteInsults = new Set(favoriteInsults);
@@ -311,13 +274,7 @@
 <div id="root" data-bs-theme={bsTheme} class="min-h-screen bg-body">
 	<Auth let:loggedIn>
 		{#if !ready}
-			<!-- Loading State -->
-			<div transition:fade={{ duration: 300 }} class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-body backdrop-blur-sm">
-				<div class="mb-4">
-					<BsSpinner type="primary" />
-				</div>
-				<BsLoader type="primary" loadingTime={duration} />
-			</div>
+			<LoadingOverlay {duration} />
 		{:else}
 			<ListHero />
 
@@ -351,19 +308,14 @@
 						onViewModeChange={setViewMode}
 					/>
 
-					<!-- Copy Success Alert -->
 					{#if copySuccess}
-						<div transition:fly={{ y: -20 }} class="position-fixed top-0 start-50 translate-middle-x mt-3 z-3">
-							<div class="alert alert-success shadow-lg" role="alert">
-								<Icon name="check-circle-fill" /> Copied to clipboard!
-							</div>
-						</div>
+						<CopySuccessAlert />
 					{/if}
 
 					{#if shareDialogOpen}
 						<ShareInsultDialog
 							{shareDialogInsult}
-							{buttons}
+							buttons={shareButtons}
 							onCloseDialog={closeShareDialog}
 							onShareInsult={shareInsult}
 						/>
@@ -385,39 +337,7 @@
 					/>
 				</div>
 			{:else}
-				<!-- Not Logged In State -->
-				<div class="container">
-					<div class="row justify-content-center">
-						<div class="col-lg-6">
-							<div class="card border-0 shadow-lg" transition:scale>
-								<div class="card-body text-center py-5">
-									<div class="text-danger mb-4 text-4xl">
-										<Icon name="lock-fill"/>
-									</div>
-									<h2 class="card-title fw-bold mb-3">Authentication Required</h2>
-									<p class="card-text text-muted mb-4">
-										You must be logged in to view the complete insult collection.
-										Create an account or sign in to access all features.
-									</p>
-									<div class="d-flex gap-3 justify-content-center">
-										<a href="/login.html" class="btn btn-primary btn-lg shadow-sm">
-											<Icon name="box-arrow-in-right" /> Sign In
-										</a>
-										<a href="/signUp.html" class="btn btn-outline-primary btn-lg">
-											<Icon name="person-plus" /> Create Account
-										</a>
-									</div>
-									<div class="mt-4 d-flex justify-content-center">
-										<AuthBenefitsDialog
-											modalId="listBenefitsDialog"
-											buttonClass="btn btn-outline-info"
-										/>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+				<AuthRequiredCard />
 			{/if}
 
 			<!-- Footer Navigation -->
@@ -455,65 +375,5 @@
 	/* Fixed positioning for copy alert */
 	:global(.z-3) {
 		z-index: 1050;
-	}
-
-	:global(.share-btn-copy) {
-		--dmv-ppio-btn-color: #ffffff;
-		--dmv-ppio-btn-bg: #6b7280;
-		--dmv-ppio-btn-border-color: #6b7280;
-		--dmv-ppio-btn-hover-color: #ffffff;
-		--dmv-ppio-btn-hover-bg: #4b5563;
-		--dmv-ppio-btn-hover-border-color: #4b5563;
-		--dmv-ppio-btn-active-color: #ffffff;
-		--dmv-ppio-btn-active-bg: #374151;
-		--dmv-ppio-btn-active-border-color: #374151;
-	}
-
-	:global(.share-btn-x) {
-		--dmv-ppio-btn-color: #ffffff;
-		--dmv-ppio-btn-bg: #000000;
-		--dmv-ppio-btn-border-color: #000000;
-		--dmv-ppio-btn-hover-color: #ffffff;
-		--dmv-ppio-btn-hover-bg: #1f1f1f;
-		--dmv-ppio-btn-hover-border-color: #1f1f1f;
-		--dmv-ppio-btn-active-color: #ffffff;
-		--dmv-ppio-btn-active-bg: #2f2f2f;
-		--dmv-ppio-btn-active-border-color: #2f2f2f;
-	}
-
-	:global(.share-btn-facebook) {
-		--dmv-ppio-btn-color: #ffffff;
-		--dmv-ppio-btn-bg: #0064e0;
-		--dmv-ppio-btn-border-color: #0064e0;
-		--dmv-ppio-btn-hover-color: #ffffff;
-		--dmv-ppio-btn-hover-bg: #0064e0;
-		--dmv-ppio-btn-hover-border-color: #0064e0;
-		--dmv-ppio-btn-active-color: #ffffff;
-		--dmv-ppio-btn-active-bg: #155ec2;
-		--dmv-ppio-btn-active-border-color: #155ec2;
-	}
-
-	:global(.share-btn-reddit) {
-		--dmv-ppio-btn-color: #ffffff;
-		--dmv-ppio-btn-bg: #ff4500;
-		--dmv-ppio-btn-border-color: #ff4500;
-		--dmv-ppio-btn-hover-color: #ffffff;
-		--dmv-ppio-btn-hover-bg: #e63d00;
-		--dmv-ppio-btn-hover-border-color: #e63d00;
-		--dmv-ppio-btn-active-color: #ffffff;
-		--dmv-ppio-btn-active-bg: #cc3600;
-		--dmv-ppio-btn-active-border-color: #cc3600;
-	}
-
-	:global(.share-btn-other) {
-		--dmv-ppio-btn-color: #ffffff;
-		--dmv-ppio-btn-bg: #14b8a6;
-		--dmv-ppio-btn-border-color: #14b8a6;
-		--dmv-ppio-btn-hover-color: #ffffff;
-		--dmv-ppio-btn-hover-bg: #0f9f90;
-		--dmv-ppio-btn-hover-border-color: #0f9f90;
-		--dmv-ppio-btn-active-color: #ffffff;
-		--dmv-ppio-btn-active-bg: #0d8a7c;
-		--dmv-ppio-btn-active-border-color: #0d8a7c;
 	}
 </style>

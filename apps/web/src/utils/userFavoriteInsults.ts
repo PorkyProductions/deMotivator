@@ -1,3 +1,5 @@
+import { getFirebaseApp } from './firebase/firebaseApp';
+
 const sanitizeFavoriteInsults = (value: unknown): string[] => {
 	if (!Array.isArray(value)) {
 		return [];
@@ -13,12 +15,6 @@ const sanitizeFavoriteInsults = (value: unknown): string[] => {
 		sanitizedFavoriteInsults.push(item);
 	}
 	return sanitizedFavoriteInsults;
-};
-
-const getFirebaseApp = async () => {
-	const { getApps, getApp, initializeApp } = await import('firebase/app');
-	const { firebaseConfig } = await import('../typescript/insults');
-	return getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
 };
 
 const readUserFavoriteInsults = async (userId: string): Promise<string[]> => {

@@ -1,14 +1,6 @@
 <script lang="ts">
-import Icon from '../../../components/icon.svelte';
-
-	interface ShareProviderButton {
-		destination: ShareDestination;
-		label: string;
-		icon: string;
-		buttonClass: string;
-	}
-
-	type ShareDestination = 'copy' | 'x' | 'facebook' | 'reddit' | 'email' | 'other';
+	import Icon from '../../../components/icon.svelte';
+	import type { ShareDestination, ShareProviderButton } from '../utils/shareHelpers';
 
 	interface Props {
 		shareDialogInsult: string;

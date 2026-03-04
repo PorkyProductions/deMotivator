@@ -1,3 +1,5 @@
+import { getFirebaseApp } from './firebase/firebaseApp';
+
 export type InsultRequestStatus = 'pending' | 'approved' | 'rejected';
 
 export interface InsultRequest {
@@ -11,12 +13,6 @@ export interface InsultRequest {
 	reviewedAt?: Date;
 	reviewedByUid?: string;
 }
-
-const getFirebaseApp = async () => {
-	const { getApps, getApp, initializeApp } = await import('firebase/app');
-	const { firebaseConfig } = await import('../typescript/insults');
-	return getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
-};
 
 export const submitInsultRequest = async (text: string): Promise<void> => {
 	const { getFirestore, collection, addDoc, serverTimestamp } = await import('firebase/firestore');

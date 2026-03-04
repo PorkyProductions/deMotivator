@@ -1,9 +1,9 @@
 # (de)Motivator Agent Instructions
 
 ## Project Context
-(de)Motivator is a set of two distinct packages. The primary packages is a enormous set of insults, 
+(de)Motivator is a set of two distinct packages. The primary package is an enormous set of insults,
 hand curated and split into "packs" that are grouped by theme. This is open source and published to the npm registry
-as the `demotivator` package. The second of which is our (PorkyProductions) first party implementation of the package
+as the `demotivator` package. The second is our (PorkyProductions) first-party implementation of the package
 in a web app format with numerous features added on top of it.
 
 The app was started by request of Ryan Mullin (@hiteacheryouare) and initially created by Tristan Winata (@HedgehogDubz).
@@ -17,7 +17,7 @@ Today, both packages are actively maintained by Ryan, Tristan, and the PorkyProd
 - **Linting**: ESLint (configured in `.eslintrc.json` at repo root)
 
 ### Insult Package:
--- **Language/frameworks**: TypeScript (published as `demotivator` on npm)
+- **Language/frameworks**: TypeScript (published as `demotivator` on npm)
 
 ### Web App:
 - **Language/frameworks**: Svelte 5 (with Runes enabled) + TypeScript
@@ -31,7 +31,7 @@ Today, both packages are actively maintained by Ryan, Tristan, and the PorkyProd
 
 This is a monorepo. When building, the main goal for this should be maximizing future growth and extensibility. Create
 solutions that don't rely on hardcoding and one-off implementations that only work for this project. The insult package
-espcially should be built with the mindset of being reusable and extensible for other projects. The web app should be built
+especially should be built with the mindset of being reusable and extensible for other projects. The web app should be built
 with the mindset of being easily maintainable and extensible for future features and changes.
 
 We host code-only packages in the `packages/` directory and full apps in the `apps/` directory. 
@@ -188,7 +188,7 @@ When errors occur:
 - ✅ Local package installation that you can `rm -rf` when things break
 
 **MANDATORY:**
-- Wherever possible, use lazy-loading of modules and dependencies. This involces using `await import()` statements to load modules only when they are needed, rather than at the top of the file. This helps to reduce the initial load time of the application and ensures that dependencies are only loaded when necessary.
+- Wherever possible, use lazy-loading of modules and dependencies. This involves using `await import()` statements to load modules only when they are needed, rather than at the top of the file. This helps to reduce the initial load time of the application and ensures that dependencies are only loaded when necessary.
 
 However, do not take this unilaterally. Some files must be eagerly loaded for the app to function properly, such as the main entry point and critical components.
 
@@ -366,9 +366,9 @@ That is what is in the docs/ directory, which is still published to GitHub pages
 
 
 The original version of the app is in `www/dmv1.html` and is included "as-is" in every release. This is a legacy artifact
-and should be treated as a piece in a museum. It is not maintained and should **never**, in any circumstace whatsoever
+and should be treated as a piece in a museum. It is not maintained and should **never**, in any circumstance whatsoever
 be modified or updated. If you want to make changes to the app, make them in the `apps/web/` version. The `www/dmv1.html` file is just there for historical purposes and should be left alone.
 
 ---
 
-Always ask claifying questions if needed
+Always ask clarifying questions if needed

@@ -1,3 +1,5 @@
+import { getFirebaseApp } from './firebase/firebaseApp';
+
 interface InsultStreakData {
 	insultStreak: number;
 	lastInsultSeenDate: string | null;
@@ -6,12 +8,6 @@ interface InsultStreakData {
 const defaultInsultStreakData: InsultStreakData = {
 	insultStreak: 0,
 	lastInsultSeenDate: null
-};
-
-const getFirebaseApp = async () => {
-	const { getApps, getApp, initializeApp } = await import('firebase/app');
-	const { firebaseConfig } = await import('../typescript/insults');
-	return getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
 };
 
 const toLocalDayKey = (date: Date): string => {
