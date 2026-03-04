@@ -6,7 +6,6 @@ import hedgehog from '../../img/HedgehogIcon.png';
 import Auth from './auth.svelte';
 import BsAlert from '../../components/bs-Alert.svelte';
 import LoginForm from '../../components/loginForm.svelte';
-import UserProfileCard from '../../components/userProfileCard.svelte';
 import Footer from '../../components/footer.svelte';
 import AuthBenefitsDialog from '../../components/authBenefitsDialog.svelte';
 import Spinhog from '../../components/spinhog.svelte';
@@ -20,8 +19,7 @@ import { name } from '../../typescript/constants';
 import confetti from 'canvas-confetti';
 
 // Firebase Logic
-import { auth } from '../../utils/firebase';
-import { deleteUser as firebaseDeleteUser } from 'firebase/auth';
+import { onAuthStateChanged } from '../../utils/firebase';
 
 // UI State
 let emailBoxContent = $state('');
@@ -34,9 +32,6 @@ let dismissedBanner = $state(window.localStorage.getItem('dismissedBanner') === 
 let ready = $state(false);
 
 let error = $state(null);
-let insultsSeenDB = $state('...');
-let insultStreakDB = $state('...');
-let achievementsDB = $state('...');
 let keepMeLoggedIn = $state(false);
 
 const load = async () => {
@@ -45,19 +40,15 @@ const load = async () => {
 };
 load();
 
-const refreshProfileStats = async () => {
-	const [{ readInsults }, { readInsultStreak }, { syncMilestoneAchievements, readAchievementCards }] = await Promise.all([
-		import('../../typescript/readInsults'),
-		import('../../utils/insultStreak'),
-		import('../../utils/achievements')
-	]);
-	const [insultsSeen, insultStreak] = await Promise.all([readInsults(), readInsultStreak()]);
-	await syncMilestoneAchievements(insultsSeen);
-	const achievementCards = await readAchievementCards();
-	insultsSeenDB = insultsSeen;
-	insultStreakDB = insultStreak;
-	achievementsDB = achievementCards;
+const routeToAccount = () => {
+	window.location.href = '/account.html';
 };
+
+onAuthStateChanged((user) => {
+	if (user) {
+		routeToAccount();
+	}
+});
 
 const loginHandler = async (event, loginAction) => {
 	event.preventDefault();
@@ -83,22 +74,13 @@ const loginHandler = async (event, loginAction) => {
 			window.localStorage.setItem('keepMeLoggedIn', 'false');
 		}
 
-		// Load profile data after successful login
-		await refreshProfileStats();
-
-		setTimeout(() => (ready = true), 1000);
+		setTimeout(() => {
+			ready = true;
+			routeToAccount();
+		}, 1000);
 	} catch (err) {
 		error = err;
 		ready = true;
-	}
-};
-
-const deleteUserAccount = async () => {
-	const user = auth.currentUser;
-	try {
-		await firebaseDeleteUser(user);
-	} catch (err) {
-		error = err;
 	}
 };
 </script>
@@ -106,11 +88,9 @@ const deleteUserAccount = async () => {
 <div id="root" data-bs-theme={bsTheme} class="min-h-screen w-full">
 <Auth
 	useRedirect={false}
-	let:user
 	let:loggedIn
 	let:loginWithGoogle
 	let:loginWithEmailPassword
-	let:logout
 >
 	{#if !ready}
 	<div transition:fade={{ duration: 300 }} class="fixed inset-0 z-50 flex flex-col items-center justify-center backdrop-blur-sm">
@@ -158,15 +138,9 @@ const deleteUserAccount = async () => {
 
 						{#if loggedIn}
 							<div in:fade={{ duration: 300, delay: 150 }}>
-								<UserProfileCard
-									{user}
-									{insultsSeenDB}
-									{insultStreakDB}
-									{achievementsDB}
-									onRefreshInsultsSeen={refreshProfileStats}
-									onLogout={logout}
-									onDeleteAccount={deleteUserAccount}
-								/>
+								<p class="text-body-secondary mb-0 text-center">
+									Redirecting to your account...
+								</p>
 							</div>
 						{:else}
 							<div in:fade={{ duration: 300, delay: 150 }}>

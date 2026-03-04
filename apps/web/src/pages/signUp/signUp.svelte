@@ -200,7 +200,7 @@ const signUpHandler = async (event) => {
 								<div class="card-body p-5 text-center">
 									<h2 class="card-title fw-bold mb-3">You're Already Logged In!</h2>
 									<p class="text-secondary mb-4">You already have an active session.</p>
-									<a href="/login.html" class="btn btn-primary btn-lg w-100 rounded-3">
+									<a href="/account.html" class="btn btn-primary btn-lg w-100 rounded-3">
 										<i class="bi bi-person-circle me-2"></i> View Your Account
 									</a>
 								</div>

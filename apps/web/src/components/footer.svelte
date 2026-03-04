@@ -81,7 +81,7 @@
 					{/if}
 				</nav>
 				<!-- Mobile Account Button: compact icon + label -->
-				<a href="login.html" class="btn btn-sm btn-light flex items-center gap-1 text-xs">
+				<a href="/account.html" class="btn btn-sm btn-light flex items-center gap-1 text-xs">
 					<Icon name="person-circle" />
 					<span>Account</span>
 				</a>

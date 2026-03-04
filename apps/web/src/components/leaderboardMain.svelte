@@ -21,7 +21,7 @@
 		body: `A ${parentCompany}ID is a unique identifier for your account. When you create an account, PorkyProductions generates a unique series of characters tied to your profile. You can find your UserID on the account page.`,
 		closeButtonText: 'Got it',
 		closeButtonType: 'secondary',
-		confirmButtonAction: () => window.location.href = '/login.html',
+		confirmButtonAction: () => window.location.href = '/account.html',
 		confirmButtonText: 'View My Account',
 		confirmButtonType: 'info'
 	};
@@ -116,7 +116,7 @@
 								{/if}
 							</button>
 							<BsModal {...modalProps} />
-							<a href="/login.html" class="btn btn-outline-primary btn-lg">
+							<a href="/account.html" class="btn btn-outline-primary btn-lg">
 								<Icon name="person-circle" /> My Account
 							</a>
 						</div>

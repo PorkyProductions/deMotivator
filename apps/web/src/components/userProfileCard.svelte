@@ -1,10 +1,8 @@
 <script>
-	import BsButton from './bsButton.svelte';
 	import BsModal from './bs-modal.svelte';
-	import { darkMode } from '../utils/darkMode';
 	import { launchConfetti } from '../utils/loginHandlers';
 	import { onMount } from 'svelte';
-    import Icon from './icon.svelte';
+	import Icon from './icon.svelte';
 
 	const LOADING_PLACEHOLDER = '...';
 
@@ -14,7 +12,6 @@
 		insultStreakDB,
 		achievementsDB,
 		onRefreshInsultsSeen,
-		onLogout,
 		onDeleteAccount
 	} = $props();
 
@@ -94,19 +91,9 @@
 			<i class="bi bi-heart-fill me-2"></i> Launch Confetti
 		</button>
 
-		<div class="d-flex gap-2 justify-content-center mb-4">
-			<BsButton href="/list.html" type="secondary" text="All Insults" icon="binoculars" />
-			<div onclick={onRefreshInsultsSeen} onkeypress={onRefreshInsultsSeen} role="button" tabindex="0">
-				<BsButton href="#" type={darkMode ? 'dark' : 'light'} text="Refresh Stats" icon="arrow-clockwise" />
-			</div>
-		</div>
-
 		<hr class="my-4 text-secondary">
 
-		<div class="d-flex justify-content-between align-items-center">
-			<button onclick={onLogout} class="btn btn-link text-decoration-none text-secondary fw-semibold p-0">
-				<i class="bi bi-box-arrow-left me-1"></i> Sign Out
-			</button>
+		<div class="d-flex justify-content-end align-items-center">
 			<BsModal
 				preButtonText="Delete Account"
 				preButtonType="danger"

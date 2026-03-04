@@ -10,7 +10,7 @@
 		<a href="/" class="btn btn-outline-secondary">
 			<Icon name="house" /> Home
 		</a>
-		<a href="/login.html" class="btn btn-outline-secondary">
+		<a href="/account.html" class="btn btn-outline-secondary">
 			<Icon name="person" /> Account
 		</a>
 		<a href="/leaderboard.html" class="btn btn-outline-secondary">

@@ -19,7 +19,7 @@ You do not have administrator privileges to access this page.
 <a href="/" class="btn btn-primary btn-lg shadow-sm">
 <Icon name="house-door-fill" /> Go Home
 </a>
-<a href="/login.html" class="btn btn-outline-primary btn-lg">
+<a href="/account.html" class="btn btn-outline-primary btn-lg">
 <Icon name="person-circle" /> My Account
 </a>
 </div>

@@ -11,7 +11,7 @@ let:loggedIn
 
 <div class="drop-shadow-md">
 	{#if loggedIn}
-	<a href="/login.html" class={!darkMode ? 'btn btn-light text-black' : 'btn btn-dark'}>
+	<a href="/account.html" class={!darkMode ? 'btn btn-light text-black' : 'btn btn-dark'}>
 			<span><p class=""><Icon name="person-gear" />View Account</p></span>
 	</a>
 	{:else if loggedIn === false}
