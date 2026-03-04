@@ -19,6 +19,7 @@
 	const benefits = [
 		'Syncing between devices with shared account data.',
 		'Insult streak tracking.',
+		'Achievements for insult milestones',
 		'Access to the leaderboard.',
 		'The ability to view all insults and favorite them.',
 		'The ability to send insult requests.',
