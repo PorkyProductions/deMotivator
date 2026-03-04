@@ -137,6 +137,10 @@ const randomize = async () => {
 	if (!MEGAMODE) {
 		cachedInsultCount++;
 		pendingWrites++;
+		const { isInsultMilestoneCount, syncMilestoneAchievements } = await import('../utils/achievements');
+		if (isInsultMilestoneCount(cachedInsultCount)) {
+			await syncMilestoneAchievements(cachedInsultCount);
+		}
 
 		// Batch write to database every N presses
 		if (pendingWrites >= batchThreshold) {

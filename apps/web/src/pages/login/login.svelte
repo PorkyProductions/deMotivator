@@ -38,6 +38,7 @@ const loadingDuration = randomInRange(800, 2000);
 let error = $state(null);
 let insultsSeenDB = $state('...');
 let insultStreakDB = $state('...');
+let achievementsDB = $state('...');
 let keepMeLoggedIn = $state(false);
 
 const load = async () => {
@@ -48,13 +49,17 @@ const load = async () => {
 load();
 
 const refreshProfileStats = async () => {
-	const [{ readInsults }, { readInsultStreak }] = await Promise.all([
+	const [{ readInsults }, { readInsultStreak }, { syncMilestoneAchievements, readAchievementCards }] = await Promise.all([
 		import('../../typescript/readInsults'),
-		import('../../utils/insultStreak')
+		import('../../utils/insultStreak'),
+		import('../../utils/achievements')
 	]);
 	const [insultsSeen, insultStreak] = await Promise.all([readInsults(), readInsultStreak()]);
+	await syncMilestoneAchievements(insultsSeen);
+	const achievementCards = await readAchievementCards();
 	insultsSeenDB = insultsSeen;
 	insultStreakDB = insultStreak;
+	achievementsDB = achievementCards;
 };
 
 const loginHandler = async (event, loginAction) => {
@@ -163,6 +168,7 @@ const deleteUserAccount = async () => {
 									{user}
 									{insultsSeenDB}
 									{insultStreakDB}
+									{achievementsDB}
 									onRefreshInsultsSeen={refreshProfileStats}
 									onLogout={logout}
 									onDeleteAccount={deleteUserAccount}

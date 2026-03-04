@@ -3,6 +3,7 @@
 	import hedgehogSrc from '../../img/HedgehogIcon.png';
     import { randomInRange } from '@porkyproductions/hat';
     import { deviceType } from '../../utils/uaStub';
+	import { achievementUnlockers } from '../../utils/achievements';
 
 	let canvas = $state<HTMLCanvasElement | undefined>(undefined);
 	let animId: number | undefined;
@@ -14,6 +15,8 @@
 		hogCount = Math.floor(hogCount / 7);
 	}
 	const hogRadius = 110 - hogCount * 0.8;
+
+	achievementUnlockers.hedgehogEggFound();
 
 	const initCanvas = () => {
 		if (!canvas) return;

@@ -12,6 +12,7 @@
 		user,
 		insultsSeenDB,
 		insultStreakDB,
+		achievementsDB,
 		onRefreshInsultsSeen,
 		onLogout,
 		onDeleteAccount
@@ -19,7 +20,11 @@
 
 	// Load profile data on mount
 	onMount(() => {
-		if (insultsSeenDB === LOADING_PLACEHOLDER || insultStreakDB === LOADING_PLACEHOLDER) {
+		if (
+			insultsSeenDB === LOADING_PLACEHOLDER
+			|| insultStreakDB === LOADING_PLACEHOLDER
+			|| achievementsDB === LOADING_PLACEHOLDER
+		) {
 			onRefreshInsultsSeen();
 		}
 	});
@@ -61,6 +66,29 @@
 				</div>
 			</div>
 		</div>
+
+		<details class="mb-4 text-start p-3 rounded-3 border border-secondary-subtle bg-body" open>
+			<summary class="h5 fw-bold mb-3 cursor-pointer">
+				<Icon name="award-fill" /> Acheivements
+			</summary>
+			{#if Array.isArray(achievementsDB)}
+				<div class="d-flex flex-column gap-2">
+					{#each achievementsDB as achievement (achievement.id)}
+						<div class={`p-3 rounded-3 border ${achievement.earned ? 'bg-body-tertiary border-primary-subtle' : 'bg-body-secondary border-secondary-subtle opacity-50'}`}>
+							<div class="d-flex justify-content-between align-items-center mb-1">
+								<div class="fw-semibold">{achievement.emoji} {achievement.title}</div>
+								{#if !achievement.earned}
+									<span class="badge text-bg-secondary">Locked</span>
+								{/if}
+							</div>
+							<p class="text-muted small mb-0">{achievement.description}</p>
+						</div>
+					{/each}
+				</div>
+			{:else}
+				<p class="text-muted mb-0">Loading acheivements...</p>
+			{/if}
+		</details>
 
 		<button class="btn btn-primary btn-lg w-100 rounded-3 mb-3" onclick={launchConfetti}>
 			<i class="bi bi-heart-fill me-2"></i> Launch Confetti
