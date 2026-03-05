@@ -31,7 +31,8 @@ const auth = getAuth(app);
 const names = [
 	'Yamilet Martin', 'Patrick Tormey', 'Ronald Martin', 'Mohammad Kadel',
 	'Jes Tabbert', 'Stephen White', 'Reuben White', 'Cecelia Rainey',
-	'Anthony Irwin', 'Andrew Lopez', 'Brian Ohrt', 'Etha Jackowski'
+	'Anthony Irwin', 'Andrew Lopez', 'Brian Ohrt', 'Etha Jackowski',
+	'Porky the Hedgehog', 'Tristan Winata', 'Ryan Mullin'
 ];
 const randomName = randomInArray(names);
 
@@ -118,7 +119,24 @@ const signUpHandler = async (event) => {
 		confetti({
 			angle: randomInRange(55, 125),
 			spread: randomInRange(50, 70),
-			particleCount: randomInRange(50, 100),
+			particleCount: randomInRange(50, 10000),
+			colors: [
+				'#4f46e5',
+				'#F75C03',
+				'#DABFFF',
+				'#ef4444',
+				'#f97316',
+				'#fbbf24',
+				'#84cc16',
+				'#22c55e',
+				'#14b8a6',
+				'#06b6d4',
+				'#0ea5e9',
+				'#3b82f6',
+				'#6366f1',
+				'#a855f7',
+				'#ec4899'
+			],
 			origin: { y: 0.6 }
 		});
 

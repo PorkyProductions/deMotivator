@@ -12,10 +12,27 @@ export const launchConfetti = () => {
 			angle: randomInRange(50, 90),
 			spread: randomInRange(25, 100),
 			particleCount: randomInRange(20, 50),
-			origin: { y: 0.6 }
+			origin: { y: 0.6 },
+			colors: [
+				'#4f46e5',
+				'#F75C03',
+				'#DABFFF',
+				'#ef4444',
+				'#f97316',
+				'#fbbf24',
+				'#84cc16',
+				'#22c55e',
+				'#14b8a6',
+				'#06b6d4',
+				'#0ea5e9',
+				'#3b82f6',
+				'#6366f1',
+				'#a855f7',
+				'#ec4899'
+			],
 		});
 		i--;
-	}, 500);
+	}, 100);
 };
 
 // Login handler
@@ -43,8 +60,6 @@ export const createLoginHandler = (
 		await loginAction(email, password);
 
 		confetti({
-			angle: randomInRange(55, 125),
-			spread: randomInRange(50, 70),
 			particleCount: randomInRange(50, 100),
 			origin: { y: 0.6 }
 		});
