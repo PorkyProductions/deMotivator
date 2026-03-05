@@ -25,16 +25,19 @@
 			onRefreshInsultsSeen();
 		}
 	});
+
+	const firstInitial = $derived(user?.name?.charAt(0)?.toUpperCase() ?? '');
+	const lastInitial = $derived(user?.name?.split(' ').slice(-1)[0]?.charAt(0)?.toUpperCase() ?? '');
 </script>
 
 <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
 	<div class="card-body p-5 text-center">
 		<div class="mb-4 position-relative d-inline-block">
 			<img
-				src={user.picture || `https://api.dicebear.com/7.x/identicon/svg?seed=${user.id}`}
+				src={user.picture || `https://avatar.vercel.sh/${user.id}.svg?text=${firstInitial}${lastInitial}`}
 				alt="User Profile"
 				class="rounded-circle shadow-sm border-3 border-white"
-				style="width: 120px; height: 120px; object-fit: cover;"
+				style="width: 120px; height: 120px;"
 				draggable="false"
 			/>
 		</div>
