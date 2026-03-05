@@ -18,7 +18,7 @@ type SettingDefinition<T> = {
 
 const maxInsultWordsMin = 0;
 const maxInsultWordsMax = 100;
-const maxInsultWordsDefault = 25;
+const maxInsultWordsDefault = 0;
 const packWeightMin = 0;
 const packWeightMax = 100;
 const packWeightTotal = 100;
