@@ -29,7 +29,7 @@ export const launchConfetti = () => {
 				'#6366f1',
 				'#a855f7',
 				'#ec4899'
-			],
+			]
 		});
 		i--;
 	}, 100);
