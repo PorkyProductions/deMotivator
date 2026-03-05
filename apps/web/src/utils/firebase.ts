@@ -13,7 +13,7 @@ const analytics = getAnalytics(app);
 const auth = getAuth(app);
 
 // Export instances
-import type { IdTokenResult, User as FirebaseUser } from 'firebase/auth';
+import type { User as FirebaseUser } from 'firebase/auth';
 
 export { app, analytics, auth };
 
@@ -25,12 +25,12 @@ export interface AppUser {
 	picture: string;
 }
 
-// User mapper function - converts Firebase claims to our user format
-export const userMapper = (claims: IdTokenResult['claims']): AppUser => ({
-	id: claims.user_id as string,
-	name: claims.name as string,
-	email: claims.email as string,
-	picture: claims.picture as string
+// User mapper function - converts Firebase user to our user format
+export const userMapper = (fireUser: FirebaseUser): AppUser => ({
+	id: fireUser.uid,
+	name: fireUser.displayName ?? fireUser.email ?? '',
+	email: fireUser.email ?? '',
+	picture: fireUser.photoURL ?? ''
 });
 
 // Auth helper functions
@@ -55,10 +55,9 @@ export const logout = () => auth.signOut();
 
 // Setup auth state change listener
 export const onAuthStateChanged = (callback: (user: AppUser | null) => void) => {
-	return auth.onAuthStateChanged(async (fireUser: FirebaseUser | null) => {
+	return auth.onAuthStateChanged((fireUser: FirebaseUser | null) => {
 		if (fireUser) {
-			const token = await fireUser.getIdTokenResult();
-			callback(userMapper(token.claims));
+			callback(userMapper(fireUser));
 		} else {
 			callback(null);
 		}

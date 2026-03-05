@@ -19,13 +19,8 @@ import confetti from 'canvas-confetti';
 import { name } from '../../typescript/constants';
 
 // Firebase Logic
-import { initializeApp } from 'firebase/app';
-import { firebaseConfig } from '../../typescript/insults';
-import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from 'firebase/auth';
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+import { createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from 'firebase/auth';
+import { auth } from '../../utils/firebase';
 
 // Sample names for placeholder
 const names = [
@@ -54,7 +49,7 @@ let ready = $state(false);
 
 let error = $state(null);
 
-const load = async () => {
+const load = () => {
 	ready = true;
 };
 load();
@@ -108,10 +103,13 @@ const signUpHandler = async (event) => {
 		// Send verification email
 		await sendEmailVerification(user);
 
+		const sanitizedDisplayName = displayNameText.trim();
+		const sanitizedPhotoURL = photoURLText.trim();
+
 		// Update profile with display name and photo
 		await updateProfile(user, {
-			displayName: displayNameText || randomName,
-			photoURL: photoURLText || null
+			displayName: sanitizedDisplayName || randomName,
+			photoURL: sanitizedPhotoURL || null
 		});
 
 		// Success celebration
