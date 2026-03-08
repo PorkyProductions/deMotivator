@@ -8,6 +8,7 @@
 	import Title from '../../components/title.svelte';
 	import UserProfileCard from '../../components/userProfileCard.svelte';
 	import { bsTheme } from '../../utils/darkMode';
+	import { getAvatarApiUrl } from '../../utils/avatarApi';
 	import { auth } from '../../utils/firebase';
 	import { deleteUser as firebaseDeleteUser } from 'firebase/auth';
 
@@ -88,6 +89,11 @@
 								<div class="col-12 col-xxl-8">
 									<UserProfileCard
 										{user}
+										avatarUrl={getAvatarApiUrl({
+											userId: user?.id,
+											displayName: user?.name,
+											photoUrl: user?.picture
+										})}
 										{insultsSeenDB}
 										{insultStreakDB}
 										{achievementsDB}

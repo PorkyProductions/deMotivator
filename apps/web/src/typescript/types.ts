@@ -29,6 +29,9 @@ export interface InsultDBQueryResponse extends DocumentData {
 }
 export interface GlobInsultDBQueryResponse extends DocumentData, InsultDBQueryResponse {
 	referrer?: string,
+	displayName?: string,
+	photoUrl?: string,
+	isCurrentUser?: bool,
 }
 
 export interface BsModalProps {

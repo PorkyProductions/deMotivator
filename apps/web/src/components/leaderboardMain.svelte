@@ -4,6 +4,7 @@
 	import { fade, fly, scale } from 'svelte/transition';
 	import { parentCompany } from '../typescript/constants';
 	import { bsTheme } from '../utils/darkMode';
+	import { getAvatarApiUrl } from '../utils/avatarApi';
 	import type { BsModalProps } from '../typescript/types';
 
 	import Title from './title.svelte';
@@ -77,6 +78,39 @@
 		return num.toLocaleString();
 	};
 
+	const getLeaderboardAvatarUrl = (referrer?: string) => {
+		const matchedEntry = leaderboard.find((entry) => entry.referrer === referrer);
+		const profileId = referrer ?? 'guest-user';
+		return getAvatarApiUrl({
+			userId: profileId,
+			displayName: matchedEntry?.displayName ?? profileId,
+			photoUrl: matchedEntry?.photoUrl
+		});
+	};
+
+	const getDisplayName = (position: number) => {
+		return leaderboard[position]?.displayName || leaderboard[position]?.referrer || 'Unknown User';
+	};
+
+	const getCurrentUserRank = () => {
+		const index = leaderboard.findIndex((entry) => entry.isCurrentUser);
+		return index >= 0 ? index + 1 : null;
+	};
+
+	const getLeaderboardRowId = (referrer?: string) => `leaderboard-row-${encodeURIComponent(referrer ?? '')}`;
+
+	const jumpToCurrentUser = () => {
+		const currentUserEntry = leaderboard.find((entry) => entry.isCurrentUser);
+		if (!currentUserEntry?.referrer) {
+			return;
+		}
+		const tableRow = document.getElementById(getLeaderboardRowId(currentUserEntry.referrer));
+		tableRow?.scrollIntoView({
+			behavior: 'smooth',
+			block: 'center'
+		});
+	};
+
 	loadInitialLeaderboard();
 </script>
 
@@ -119,6 +153,11 @@
 							<a href="/account.html" class="btn btn-outline-primary btn-lg">
 								<Icon name="person-circle" /> My Account
 							</a>
+							{#if getCurrentUserRank()}
+								<button onclick={jumpToCurrentUser} class="btn btn-outline-success btn-lg">
+									<Icon name="crosshair2" /> Jump to Me (#{getCurrentUserRank()})
+								</button>
+							{/if}
 						</div>
 
 						{#if lastUpdated}
@@ -199,8 +238,16 @@
 										<div class="card-body text-center py-4">
 											<div class="display-1 mb-3">🥈</div>
 											<h3 class="h5 fw-bold mb-1">2nd Place</h3>
+											<div class="flex content-center justify-center">
+												<img
+													src={getLeaderboardAvatarUrl(leaderboard[1].referrer)}
+													alt="2nd place avatar"
+													class="rounded-circle shadow-sm border border-secondary-subtle mb-3"
+													style="width: 56px; height: 56px;"
+												/>
+											</div>
 											<p class="text-muted small mb-2">
-												<code>{leaderboard[1].referrer}</code>
+												<code>{getDisplayName(1)}</code>
 											</p>
 											<p class="display-6 fw-bold text-primary-majorelle-blue dark:text-primary-majorelle-blue">{formatNumber(leaderboard[1].data)}</p>
 											<p class="text-muted small mb-0">insults seen</p>
@@ -214,8 +261,16 @@
 										<div class="card-body text-center py-5">
 											<div class="display-1 mb-3">🥇</div>
 											<h3 class="h4 fw-bold mb-1">Champion</h3>
+											<div class="flex content-center justify-center">
+												<img
+													src={getLeaderboardAvatarUrl(leaderboard[0].referrer)}
+													alt="1st place avatar"
+													class="rounded-circle shadow-sm border border-warning-subtle mb-3"
+													style="width: 64px; height: 64px;"
+												/>
+											</div>
 											<p class="text-muted small mb-2">
-												<code>{leaderboard[0].referrer}</code>
+												<code>{getDisplayName(0)}</code>
 											</p>
 											<p class="display-5 fw-bold text-primary-majorelle-blue dark:text-primary-majorelle-blue">{formatNumber(leaderboard[0].data)}</p>
 											<p class="text-muted small mb-0">insults seen</p>
@@ -230,8 +285,16 @@
 											<!-- svelte-ignore a11y_click_events_have_key_events a11y_no_static_element_interactions -->
 											<div class="display-1 mb-3" onclick={handleBronzeClick} role="presentation" style="cursor: default; user-select: none;">🥉</div>
 											<h3 class="h5 fw-bold mb-1">3rd Place</h3>
+											<div class="flex content-center justify-center">
+												<img
+													src={getLeaderboardAvatarUrl(leaderboard[2].referrer)}
+													alt="3rd place avatar"
+													class="rounded-circle shadow-sm border border-info-subtle mb-3"
+													style="width: 56px; height: 56px;"
+												/>
+											</div>
 											<p class="text-muted small mb-2">
-												<code>{leaderboard[2].referrer}</code>
+												<code>{getDisplayName(2)}</code>
 											</p>
 											<p class="display-6 fw-bold text-primary-majorelle-blue dark:text-primary-majorelle-blue">{formatNumber(leaderboard[2].data)}</p>
 											<p class="text-muted small mb-0">insults seen</p>
@@ -263,7 +326,11 @@
 								</thead>
 								<tbody>
 									{#each leaderboard as entry, index}
-										<tr transition:fade={{ delay: index * 50 }}>
+										<tr
+											id={getLeaderboardRowId(entry.referrer)}
+											transition:fade={{ delay: index * 50 }}
+											class:bg-success-subtle={entry.isCurrentUser}
+										>
 											<td class="text-center fw-bold">
 												{#if getMedalIcon(index + 1)}
 													<span class="fs-4">{getMedalIcon(index + 1)}</span>
@@ -274,14 +341,19 @@
 											<td>
 												<div class="d-flex align-items-center">
 													<img
-														src={`https://api.dicebear.com/7.x/identicon/svg?seed=${entry.referrer}`}
+														src={getLeaderboardAvatarUrl(entry.referrer)}
 														alt="User Avatar"
 														class="rounded-circle me-3"
 														style="width: 32px; height: 32px;"
 													/>
-													<code class="text-truncate" style="max-width: 300px;">
-														{entry.referrer}
-													</code>
+													<div class="d-flex align-items-center gap-2">
+														<code class="text-truncate" style="max-width: 300px;">
+															{entry.displayName ?? entry.referrer}
+														</code>
+														{#if entry.isCurrentUser}
+															<span class="badge bg-success">You</span>
+														{/if}
+													</div>
 												</div>
 											</td>
 											<td class="text-end">
