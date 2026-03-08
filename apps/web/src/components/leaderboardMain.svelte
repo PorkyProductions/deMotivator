@@ -81,6 +81,13 @@
 	const getLeaderboardAvatarUrl = (referrer?: string) => {
 		const matchedEntry = leaderboard.find((entry) => entry.referrer === referrer);
 		const profileId = referrer ?? 'guest-user';
+		if (!matchedEntry?.isCurrentUser) {
+			return getAvatarApiUrl({
+				userId: profileId,
+				displayName: profileId,
+				photoUrl: ''
+			});
+		}
 		return getAvatarApiUrl({
 			userId: profileId,
 			displayName: matchedEntry?.displayName ?? profileId,
@@ -89,7 +96,13 @@
 	};
 
 	const getDisplayName = (position: number) => {
-		return leaderboard[position]?.displayName || leaderboard[position]?.referrer || 'Unknown User';
+		const entry = leaderboard[position];
+		if (!entry) {
+			return 'Unknown User';
+		}
+		return entry.isCurrentUser
+			? entry.displayName || entry.referrer || 'Unknown User'
+			: entry.referrer || 'Unknown User';
 	};
 
 	const getCurrentUserRank = () => {
@@ -348,7 +361,7 @@
 													/>
 													<div class="d-flex align-items-center gap-2">
 														<code class="text-truncate" style="max-width: 300px;">
-															{entry.displayName ?? entry.referrer}
+															{entry.isCurrentUser ? (entry.displayName ?? entry.referrer) : entry.referrer}
 														</code>
 														{#if entry.isCurrentUser}
 															<span class="badge bg-success">You</span>

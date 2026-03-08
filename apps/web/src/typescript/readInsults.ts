@@ -30,7 +30,7 @@ export const readInsults = async (): Promise<number> => {
 export let leaderboard: GlobInsultDBQueryResponse[] = [];
 
 export const getListOfAllUsersWhoHaveSeenInsults = async (): Promise<QuerySnapshot<DocumentData>> => {
-	const { getFirestore, getDocs, collection, where, query, documentId  } = await import('firebase/firestore');
+	const { getFirestore, getDocs, collection, where, query } = await import('firebase/firestore');
 	const { getAuth } = await import('firebase/auth');
 	const { getFirebaseApp } = await import('../utils/firebase/firebaseApp');
 	const app = await getFirebaseApp();
@@ -39,70 +39,36 @@ export const getListOfAllUsersWhoHaveSeenInsults = async (): Promise<QuerySnapsh
 	await auth.authStateReady();
 	const currentUserId = auth.currentUser?.uid ?? null;
 	const currentUserDisplayName = auth.currentUser?.displayName ?? auth.currentUser?.email ?? '';
+	const currentUserPhotoUrl = auth.currentUser?.photoURL ?? '';
 	const leaderboardCollectionRef = collection(db, 'leaderboardEntries');
 	const querySnapshot = await getDocs(query(leaderboardCollectionRef, where('insultsSeen', '>', 0)));
-	const nextLeaderboard: GlobInsultDBQueryResponse[] = [];
-	querySnapshot.forEach((doc) => nextLeaderboard.push({
-		referrer: doc.id,
-		data: doc.data().insultsSeen
-	}));
-
-	const leaderboardReferrers = nextLeaderboard
-		.map((entry) => entry.referrer)
-		.filter((referrer): referrer is string => typeof referrer === 'string' && referrer.length > 0);
-	const userCollectionRef = collection(db, 'users');
-	const userRecordsById = new Map<string, DocumentData>();
-	const maxIdsPerUsersQuery = 10;
-
-	for (let index = 0; index < leaderboardReferrers.length; index += maxIdsPerUsersQuery) {
-		const referrerChunk = leaderboardReferrers.slice(index, index + maxIdsPerUsersQuery);
-		if (referrerChunk.length === 0) {
-			continue;
-		}
-		const usersSnapshot = await getDocs(
-			query(userCollectionRef, where(documentId(), 'in', referrerChunk))
-		);
-		usersSnapshot.forEach((userDoc) => {
-			userRecordsById.set(userDoc.id, userDoc.data());
+	const entriesByReferrer = new Map<string, GlobInsultDBQueryResponse>();
+	querySnapshot.forEach((entryDoc) => {
+		entriesByReferrer.set(entryDoc.id, {
+			referrer: entryDoc.id,
+			data: entryDoc.data().insultsSeen
 		});
-	}
+	});
 
+	const nextLeaderboard = Array.from(entriesByReferrer.values());
 	const hydratedLeaderboard = nextLeaderboard.map((entry) => {
 		const referrer = entry.referrer ?? '';
-		const userData = userRecordsById.get(referrer);
-		const userEmailLocalPart =
-			typeof userData?.email === 'string'
-				? userData.email.split('@')[0]?.replace(/[._-]+/g, ' ').trim()
-				: '';
-		const fallbackDisplayName = (
-			(currentUserId !== null && referrer === currentUserId && currentUserDisplayName.trim())
-			|| userEmailLocalPart
-			|| referrer
-		);
-		const displayName =
-			(typeof userData?.displayName === 'string' && userData.displayName.trim())
-				|| (typeof userData?.name === 'string' && userData.name.trim())
-				|| fallbackDisplayName;
-		const photoUrl =
-			(typeof userData?.photoURL === 'string' && userData.photoURL.trim())
-				|| (typeof userData?.photoUrl === 'string' && userData.photoUrl.trim())
-				|| '';
+		const isCurrentUser = currentUserId !== null && referrer === currentUserId;
+		const displayName = isCurrentUser
+			? currentUserDisplayName.trim() || referrer
+			: referrer;
+		const photoUrl = isCurrentUser
+			? currentUserPhotoUrl.trim()
+			: '';
 		return {
 			...entry,
 			displayName: displayName,
 			photoUrl: photoUrl,
-			isCurrentUser: currentUserId !== null && referrer === currentUserId
+			isCurrentUser: isCurrentUser
 		};
 	});
 
-	const dedupedLeaderboardByReferrer = new Map<string, GlobInsultDBQueryResponse>();
-	for (const entry of hydratedLeaderboard) {
-		if (entry.referrer) {
-			dedupedLeaderboardByReferrer.set(entry.referrer, entry);
-		}
-	}
-
-	leaderboard = Array.from(dedupedLeaderboardByReferrer.values());
+	leaderboard = hydratedLeaderboard;
 	leaderboard.sort((a, b) => Number(a.data ?? 0) - Number(b.data ?? 0));
 	leaderboard = leaderboard.reverse();
 	console.log('SCOREBOARD: ', leaderboard);
