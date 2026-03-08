@@ -30,14 +30,16 @@ export type AchievementId =
 | 'insults100000'
 | 'insults1000000'
 | 'hedgehogEggFound'
-| 'shareTheHate';
+| 'shareTheHate'
+| 'topThree'
+| 'firstPlace';
 
 export interface AchievementDefinition {
 	id: AchievementId;
 	title: string;
 	description: string;
 	emoji: string;
-	kind: 'insultsSeen' | 'hedgehogEgg' | 'sharing';
+	kind: 'insultsSeen' | 'hedgehogEgg' | 'sharing' | 'leaderboardRank';
 	requiredInsultsSeen?: number;
 }
 
@@ -104,6 +106,20 @@ const achievementDefinitions: AchievementDefinition[] = [
 		description: 'Share an insult on social media.',
 		emoji: '📢',
 		kind: 'sharing'
+	},
+	{
+		id: 'topThree',
+		title: 'Top Three Terror',
+		description: 'Reach the top 3 on the leaderboard.',
+		emoji: '🏆',
+		kind: 'leaderboardRank'
+	},
+	{
+		id: 'firstPlace',
+		title: 'Supreme Leader of (de)Motivation',
+		description: 'Claim 1st place on the leaderboard.',
+		emoji: '👑',
+		kind: 'leaderboardRank'
 	}
 ];
 
@@ -137,18 +153,23 @@ const normalizeUnlockMap = (value: unknown): Partial<Record<AchievementId, strin
 	return normalizedUnlockMap;
 };
 
-const getFirebaseApp = async () => {
-	const { getApps, getApp, initializeApp } = await import('firebase/app');
-	const { firebaseConfig } = await import('../typescript/insults');
-	return getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
+const getAchievementAuthState = async () => {
+	const [{ getAuth }, { getFirebaseApp }] = await Promise.all([
+		import('firebase/auth'),
+		import('./firebase/firebaseApp')
+	]);
+	const app = await getFirebaseApp();
+	const auth = getAuth(app);
+	await auth.authStateReady();
+	return {
+		app,
+		user: auth.currentUser
+	};
 };
 
 const unlockAchievementsById = async (achievementIds: AchievementId[]): Promise<AchievementId[]> => {
 	const { getFirestore, doc, getDoc, setDoc } = await import('firebase/firestore');
-	const { getAuth } = await import('firebase/auth');
-	const app = await getFirebaseApp();
-	const auth = getAuth(app);
-	const user = auth.currentUser;
+	const { app, user } = await getAchievementAuthState();
 	if (!user) {
 		console.warn('unlockAchievementsById: No authenticated user, skipping database write');
 		return [];
@@ -209,7 +230,9 @@ export const achievementUnlockers: Record<AchievementId, () => Promise<Achieveme
 	insults100000: createAchievementUnlocker('insults100000'),
 	insults1000000: createAchievementUnlocker('insults1000000'),
 	hedgehogEggFound: createAchievementUnlocker('hedgehogEggFound'),
-	shareTheHate: createAchievementUnlocker('shareTheHate')
+	shareTheHate: createAchievementUnlocker('shareTheHate'),
+	topThree: createAchievementUnlocker('topThree'),
+	firstPlace: createAchievementUnlocker('firstPlace')
 };
 
 export const getAchievementDefinitions = (): AchievementDefinition[] => achievementDefinitions;
@@ -230,14 +253,25 @@ export const syncMilestoneAchievements = (insultsSeen: number): Promise<Achievem
 	return unlockAchievementsById(unlockedAchievementIds);
 };
 
+export const syncLeaderboardRankAchievements = (rank: number | null): Promise<AchievementId[]> => {
+	if (typeof rank !== 'number' || !Number.isFinite(rank) || rank < 1) {
+		return Promise.resolve([]);
+	}
+	const unlockedAchievementIds: AchievementId[] = [];
+	if (rank <= 3) {
+		unlockedAchievementIds.push('topThree');
+	}
+	if (rank === 1) {
+		unlockedAchievementIds.push('firstPlace');
+	}
+	return unlockAchievementsById(unlockedAchievementIds);
+};
+
 export const unlockHedgehogAchievement = (): Promise<AchievementId[]> => achievementUnlockers.hedgehogEggFound();
 
 export const readEarnedAchievements = async (): Promise<EarnedAchievement[]> => {
 	const { getFirestore, doc, getDoc } = await import('firebase/firestore');
-	const { getAuth } = await import('firebase/auth');
-	const app = await getFirebaseApp();
-	const auth = getAuth(app);
-	const user = auth.currentUser;
+	const { app, user } = await getAchievementAuthState();
 	if (!user) {
 		return [];
 	}

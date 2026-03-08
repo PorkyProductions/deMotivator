@@ -18,18 +18,30 @@
 	let achievementsDB = $state('...');
 
 	const refreshProfileStats = async () => {
-		const [{ readInsults }, { readInsultStreak }, { syncMilestoneAchievements, readAchievementCards }] = await Promise.all([
-			import('../../typescript/readInsults'),
-			import('../../utils/insultStreak'),
-			import('../../utils/achievements')
-		]);
-		const [insultsSeen, insultStreak] = await Promise.all([readInsults(), readInsultStreak()]);
-		await syncMilestoneAchievements(insultsSeen);
-		const achievementCards = await readAchievementCards();
-		insultsSeenDB = insultsSeen;
-		insultStreakDB = insultStreak;
-		achievementsDB = achievementCards;
-		errorMessage = null;
+		try {
+			const [
+				{ readInsults, getListOfAllUsersWhoHaveSeenInsults, leaderboard },
+				{ readInsultStreak },
+				{ syncMilestoneAchievements, syncLeaderboardRankAchievements, readAchievementCards }
+			] = await Promise.all([
+				import('../../typescript/readInsults'),
+				import('../../utils/insultStreak'),
+				import('../../utils/achievements')
+			]);
+			const [insultsSeen, insultStreak] = await Promise.all([readInsults(), readInsultStreak()]);
+			await getListOfAllUsersWhoHaveSeenInsults();
+			const currentUserRankIndex = leaderboard.findIndex((entry) => entry.isCurrentUser);
+			const currentUserRank = currentUserRankIndex >= 0 ? currentUserRankIndex + 1 : null;
+			await syncMilestoneAchievements(insultsSeen);
+			await syncLeaderboardRankAchievements(currentUserRank);
+			const achievementCards = await readAchievementCards();
+			insultsSeenDB = insultsSeen;
+			insultStreakDB = insultStreak;
+			achievementsDB = achievementCards;
+			errorMessage = null;
+		} catch (error) {
+			errorMessage = error instanceof Error ? error.message : 'Failed to refresh profile data.';
+		}
 	};
 
 	const deleteUserAccount = async () => {
