@@ -2,30 +2,13 @@
 	import { leaderboard } from '../typescript/readInsults';
 	import { getListOfAllUsersWhoHaveSeenInsults as getList } from '../typescript/readInsults';
 	import { fade, fly, scale } from 'svelte/transition';
-	import { parentCompany } from '../typescript/constants';
 	import { bsTheme } from '../utils/darkMode';
 	import { getAvatarApiUrl } from '../utils/avatarApi';
-	import type { BsModalProps } from '../typescript/types';
 
 	import Title from './title.svelte';
 	import Icon from './icon.svelte';
 	import Spinhog from './spinhog.svelte';
-	import BsModal from './bs-modal.svelte';
 	import BsAlert from './bs-Alert.svelte';
-
-	const modalProps: BsModalProps = {
-		icon: 'patch-question',
-		preButtonIcon: 'patch-question',
-		preButtonText: `What is a ${parentCompany}ID?`,
-		preButtonType: 'info',
-		title: `About ${parentCompany}IDs`,
-		body: `A ${parentCompany}ID is a unique identifier for your account. When you create an account, PorkyProductions generates a unique series of characters tied to your profile. You can find your UserID on the account page.`,
-		closeButtonText: 'Got it',
-		closeButtonType: 'secondary',
-		confirmButtonAction: () => window.location.href = '/account.html',
-		confirmButtonText: 'View My Account',
-		confirmButtonType: 'info'
-	};
 
 	// State management
 	let ready = $state(false);
@@ -162,7 +145,6 @@
 									<Icon name="arrow-clockwise" /> Refresh
 								{/if}
 							</button>
-							<BsModal {...modalProps} />
 							<a href="/account.html" class="btn btn-outline-primary btn-lg">
 								<Icon name="person-circle" /> My Account
 							</a>
