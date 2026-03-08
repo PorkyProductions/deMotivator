@@ -3,6 +3,7 @@
 	import { launchConfetti } from '../utils/loginHandlers';
 	import { onMount } from 'svelte';
 	import Icon from './icon.svelte';
+    import BsSpinner from './bs-spinner.svelte';
 
 	const LOADING_PLACEHOLDER = '...';
 
@@ -65,12 +66,11 @@
 				</div>
 			</div>
 		</div>
-
+	{#if Array.isArray(achievementsDB)}
 		<details class="mb-4 text-start p-3 rounded-3 border border-secondary-subtle bg-body" open>
 			<summary class="h5 fw-bold mb-3 cursor-pointer">
 				<Icon name="award-fill" /> Acheivements
 			</summary>
-			{#if Array.isArray(achievementsDB)}
 				<div class="d-flex flex-column gap-2">
 					{#each achievementsDB as achievement (achievement.id)}
 						<div class={`p-3 rounded-3 border ${achievement.earned ? 'bg-body-tertiary border-primary-subtle' : 'bg-body-secondary border-secondary-subtle opacity-50'}`}>
@@ -84,10 +84,12 @@
 						</div>
 					{/each}
 				</div>
-			{:else}
-				<p class="text-muted mb-0">Loading acheivements...</p>
-			{/if}
-		</details>
+			</details>
+		{:else}
+			<div class="pt-10">
+				<BsSpinner type="primary" />
+			</div>
+		{/if}
 
 		<button class="btn btn-primary btn-lg w-100 rounded-3 mb-3" onclick={launchConfetti}>
 			<i class="bi bi-heart-fill me-2"></i> Launch Confetti
