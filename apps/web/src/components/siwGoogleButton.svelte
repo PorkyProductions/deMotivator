@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Auth from '../pages/login/auth.svelte';
 	import { darkMode } from '../utils/darkMode';
-	import Icon from './icon.svelte';
+	import { Icon } from '@demotivator/ui-components';
 	import '../styles/scss/buttonsBootstrap.scss';
 </script>
 

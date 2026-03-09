@@ -1,5 +1,5 @@
 <script lang="ts">
-import Icon from '../../../components/icon.svelte';
+import { Icon } from '@demotivator/ui-components';
 import Title from '../../../components/title.svelte';
 
 interface Props {

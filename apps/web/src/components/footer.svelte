@@ -2,7 +2,7 @@
 	import { onDestroy } from 'svelte';
 	import hedgehog from '../img/HedgehogIcon.png';
 	import Title from './title.svelte';
-	import Icon from './icon.svelte';
+	import { Icon } from '@demotivator/ui-components';
 	import { OS, deviceType } from '../utils/uaStub';
 	import SiwGoogleButton from './siwGoogleButton.svelte';
 	import { parentCompany } from '../typescript/constants';

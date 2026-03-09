@@ -3,9 +3,9 @@
 import hedgehog from '../../img/HedgehogIcon.png';
 
 // Import components
-import Icon from '../../components/icon.svelte';
+import { Icon } from '@demotivator/ui-components';
 import Auth from '../login/auth.svelte';
-import BsAlert from '../../components/bs-Alert.svelte';
+import { BsAlert } from '@demotivator/ui-components';
 import Footer from '../../components/footer.svelte';
 import AuthBenefitsDialog from '../../components/authBenefitsDialog.svelte';
 import Spinhog from '../../components/spinhog.svelte';

@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import Auth from '../login/auth.svelte';
 	import Footer from '../../components/footer.svelte';
-	import Icon from '../../components/icon.svelte';
+	import { Icon } from '@demotivator/ui-components';
 	import Title from '../../components/title.svelte';
 	import AuthBenefitsDialog from '../../components/authBenefitsDialog.svelte';
 	import SectionHeader from './components/sectionHeader.svelte';

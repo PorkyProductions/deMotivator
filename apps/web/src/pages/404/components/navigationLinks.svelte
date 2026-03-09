@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Icon from '../../../components/icon.svelte';
+	import { Icon } from '@demotivator/ui-components';
 	import { fade } from 'svelte/transition';
 </script>
 

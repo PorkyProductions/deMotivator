@@ -1,0 +1,35 @@
+{
+	"name": "@demotivator/ui-components",
+	"version": "14.0.0",
+	"description": "Shared Svelte UI components for the deMotivator monorepo.",
+	"type": "module",
+	"scripts": {
+		"lint": "eslint \"./source/**/*.{js,ts,svelte}\" --fix --max-warnings=-1 || true",
+		"build": "rm -rf dist && mkdir -p dist && cp -r source/. dist/",
+		"typeCheck": "tsc -p tsconfig.json --noEmit"
+	},
+	"author": "PorkyProductions",
+	"license": "Apache-2.0",
+	"peerDependencies": {
+		"bootstrap": "^5.3.8",
+		"svelte": "^5.53.7"
+	},
+	"devDependencies": {
+		"eslint": "^10.0.2",
+		"typescript": "^5.9.3"
+	},
+	"files": [
+		"./source/**/*",
+		"./dist/**/*"
+	],
+	"main": "./source/index.js",
+	"types": "./source/index.d.ts",
+	"svelte": "./source/index.js",
+	"exports": {
+		".": {
+			"types": "./source/index.d.ts",
+			"svelte": "./source/index.js",
+			"default": "./source/index.js"
+		}
+	}
+}

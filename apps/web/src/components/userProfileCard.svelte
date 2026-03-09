@@ -1,9 +1,9 @@
 <script>
-	import BsModal from './bs-modal.svelte';
+	import { BsModal } from '@demotivator/ui-components';
 	import { launchConfetti } from '../utils/loginHandlers';
 	import { onMount } from 'svelte';
-	import Icon from './icon.svelte';
-	import BsSpinner from './bs-spinner.svelte';
+	import { Icon } from '@demotivator/ui-components';
+	import { BsSpinner } from '@demotivator/ui-components';
 	import ShareSheetDialog from './shareSheetDialog.svelte';
 	import {
 		createSharePayload,

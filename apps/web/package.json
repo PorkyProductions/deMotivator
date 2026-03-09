@@ -38,6 +38,7 @@
 	},
 	"dependencies": {
 		"@demotivator/shared": "^14.0.0",
+		"@demotivator/ui-components": "^14.0.0",
 		"@porkyproductions/hat": "^1.5.0",
 		"bootstrap": "^5.3.8",
 		"bootstrap-icons": "^1.13.1",

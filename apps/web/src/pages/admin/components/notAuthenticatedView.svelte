@@ -1,6 +1,6 @@
 <script lang="ts">
 import { fly } from 'svelte/transition';
-import Icon from '../../../components/icon.svelte';
+import { Icon } from '@demotivator/ui-components';
 import AuthBenefitsDialog from '../../../components/authBenefitsDialog.svelte';
 </script>
 

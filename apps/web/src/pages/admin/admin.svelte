@@ -3,7 +3,7 @@ import { onMount } from 'svelte';
 import { fade, fly } from 'svelte/transition';
 import Auth from '../login/auth.svelte';
 import Footer from '../../components/footer.svelte';
-import Icon from '../../components/icon.svelte';
+import { Icon } from '@demotivator/ui-components';
 import Spinhog from '../../components/spinhog.svelte';
 import { bsTheme } from '../../utils/darkMode';
 import { adminAccessStore, initAdminAccessListener } from '../../utils/adminAccess';

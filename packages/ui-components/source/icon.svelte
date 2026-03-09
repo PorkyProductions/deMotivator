@@ -1,5 +1,6 @@
 <script lang="ts">
-	const { name }: { name: string } = $props();
+	import type { IconProps } from './types';
+	const { name }: IconProps = $props();
 </script>
 
 <i class="bi bi-{name}"></i>&nbsp;
