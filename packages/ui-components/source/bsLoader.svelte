@@ -7,17 +7,17 @@
 
 	let value = $state(0);
 	let timeUntil100Percent = $state(0);
-	let loadingPercentCalc: number | undefined;
+	let loadingInterval: number | undefined;
 
 	onMount(() => {
 		value = 0;
 		timeUntil100Percent = 10000 / loadingTime;
-		loadingPercentCalc = setInterval(() => {
+		loadingInterval = setInterval(() => {
 			value += timeUntil100Percent;
 		}, 100);
 	});
 
-	onDestroy(() => clearInterval(loadingPercentCalc));
+	onDestroy(() => clearInterval(loadingInterval));
 </script>
 
 <div

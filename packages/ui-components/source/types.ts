@@ -1,7 +1,9 @@
-export type BSVarient = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark';
+export type BSVariant = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark';
+// Deprecated compatibility alias for existing callers using the historical misspelling.
+export type BSVarient = BSVariant;
 
 export interface BsAlertProps {
-	type: BSVarient;
+	type: BSVariant;
 	icon: string;
 	text: string;
 	actionLink: string;
@@ -9,38 +11,39 @@ export interface BsAlertProps {
 }
 
 export interface BsBadgeProps {
-	type: BSVarient;
+	type: BSVariant;
 	text: string;
 }
 
 export interface BsButtonProps {
 	href: string;
-	type: BSVarient;
+	type: BSVariant;
 	text: string;
 	icon: string;
 }
 
 export interface BsLoaderProps {
-	type: BSVarient;
+	type: BSVariant;
 	loadingTime: number;
 }
 
 export interface BsModalProps {
-	preButtonType: BSVarient;
+	preButtonType: BSVariant;
 	preButtonText: string;
 	preButtonIcon: string;
 	icon: string;
 	title: string;
 	body: string;
-	confirmButtonType: BSVarient;
+	confirmButtonType: BSVariant;
 	confirmButtonText: string;
 	confirmButtonAction: () => void;
-	closeButtonType: BSVarient;
+	closeButtonType: BSVariant;
 	closeButtonText: string;
 }
 
 export interface BsSpinnerProps {
-	type: BSVarient;
+	type: BSVariant;
+	darkMode?: boolean;
 }
 
 export interface IconProps {

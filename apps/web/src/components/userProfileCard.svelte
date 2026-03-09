@@ -1,6 +1,7 @@
 <script>
 	import { BsModal } from '@demotivator/ui-components';
 	import { launchConfetti } from '../utils/loginHandlers';
+	import { darkMode } from '../utils/darkMode';
 	import { onMount } from 'svelte';
 	import { Icon } from '@demotivator/ui-components';
 	import { BsSpinner } from '@demotivator/ui-components';
@@ -179,7 +180,7 @@
 			</details>
 		{:else}
 			<div class="pt-10">
-				<BsSpinner type="primary" />
+				<BsSpinner type="primary" darkMode={darkMode} />
 			</div>
 		{/if}
 		{#if achievementShareDialogOpen}

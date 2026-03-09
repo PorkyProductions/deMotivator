@@ -1,8 +1,8 @@
 <script lang="ts">
 	import '../styles/scss/alertsBootstrap.scss';
 	import { BsAlert } from '@demotivator/ui-components';
-	import type { BSVarient } from '../typescript/types';
-	const warnBannerProps : { type: BSVarient; icon: string; text: string; actionLink: string; actionText: string; } = {
+	import type { BsAlertProps } from '@demotivator/ui-components';
+	const warningBannerProps: BsAlertProps = {
 		type: 'warning',
 		icon: 'cone-striped',
 		text: 'This is a development beta site. Some things might not work properly, or may otherwise be broken',
@@ -11,4 +11,4 @@
 
 	};
 </script>
-<BsAlert {...warnBannerProps}  />
+<BsAlert {...warningBannerProps} />
