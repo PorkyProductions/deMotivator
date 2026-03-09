@@ -107,19 +107,33 @@ packages/demotivator ─build──┤──► apps/web build
    npm install
    ```
 
-3. Start the development server:
+
+3. Add environment variables for the web app in `apps/web/.env`:
+   ```bash
+   VITE_FB_API_KEY=
+   VITE_FB_AUTH_DOMAIN=
+   VITE_FB_PROJECT_ID=
+   VITE_FB_STORAGE_BUCKET=
+   VITE_FB_MESSAGING_SENDER_ID=
+   VITE_FB_APP_ID=
+   VITE_FB_MEASUREMENT_ID=
+   ```
+   - Use your Firebase project values.
+   - Firebase-backed features require these variables to be set.
+
+4. Start the development server:
    ```bash
    npm run dev
    ```
    - Open your browser at [http://localhost:5173](http://localhost:5173).
 
-4. Preview the production build:
+5. Preview the production build:
    ```bash
    npm run build
    npm run preview --workspace demotivator-web
    ```
 
-5. Deploy to Firebase:
+6. Deploy to Firebase:
    ```bash
    npm run push --workspace demotivator-web
    ```
