@@ -1,6 +1,6 @@
 <script lang="ts">
 import { fade } from 'svelte/transition';
-import { Icon } from '@demotivator/ui-components';
+import { Icon } from '@demotivator/ui';
 import type { InsultRequest } from '../../../utils/insultRequests';
 
 interface Props {

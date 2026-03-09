@@ -1,7 +1,7 @@
 <script lang="ts">
 	import '../styles/scss/alertsBootstrap.scss';
-	import { BsAlert } from '@demotivator/ui-components';
-	import type { BsAlertProps } from '@demotivator/ui-components';
+	import { BsAlert } from '@demotivator/ui';
+	import type { BsAlertProps } from '@demotivator/ui';
 	const warningBannerProps: BsAlertProps = {
 		type: 'warning',
 		icon: 'cone-striped',

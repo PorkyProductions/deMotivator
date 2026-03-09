@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Icon } from '@demotivator/ui-components';
+import { Icon } from '@demotivator/ui';
 
 interface Props {
 activeTab: 'pending' | 'approved' | 'rejected' | 'recent';

@@ -6,9 +6,9 @@
 	import { getAvatarApiUrl } from '../utils/avatarApi';
 
 	import Title from './title.svelte';
-	import { Icon } from '@demotivator/ui-components';
+	import { Icon } from '@demotivator/ui';
 	import Spinhog from './spinhog.svelte';
-	import { BsAlert } from '@demotivator/ui-components';
+	import { BsAlert } from '@demotivator/ui';
 
 	// State management
 	let ready = $state(false);

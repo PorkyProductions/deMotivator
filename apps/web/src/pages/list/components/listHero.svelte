@@ -1,5 +1,5 @@
 <script>
-import { Icon } from '@demotivator/ui-components';
+import { Icon } from '@demotivator/ui';
 import Title from '../../../components/title.svelte';
 import { fade } from 'svelte/transition';
 </script>

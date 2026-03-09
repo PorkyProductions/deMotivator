@@ -1,10 +1,10 @@
 <script>
-	import { BsModal } from '@demotivator/ui-components';
+	import { BsModal } from '@demotivator/ui';
 	import { launchConfetti } from '../utils/loginHandlers';
 	import { darkMode } from '../utils/darkMode';
 	import { onMount } from 'svelte';
-	import { Icon } from '@demotivator/ui-components';
-	import { BsSpinner } from '@demotivator/ui-components';
+	import { Icon } from '@demotivator/ui';
+	import { BsSpinner } from '@demotivator/ui';
 	import ShareSheetDialog from './shareSheetDialog.svelte';
 	import {
 		createSharePayload,

@@ -4,7 +4,7 @@
 	import Auth from '../login/auth.svelte';
 	import AuthBenefitsDialog from '../../components/authBenefitsDialog.svelte';
 	import Footer from '../../components/footer.svelte';
-	import { Icon } from '@demotivator/ui-components';
+	import { Icon } from '@demotivator/ui';
 	import Title from '../../components/title.svelte';
 	import UserProfileCard from '../../components/userProfileCard.svelte';
 	import { bsTheme } from '../../utils/darkMode';

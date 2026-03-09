@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Icon } from '@demotivator/ui-components';
+import { Icon } from '@demotivator/ui';
 import { flip } from 'svelte/animate';
 import { fade, scale } from 'svelte/transition';
 

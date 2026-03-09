@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Icon } from '@demotivator/ui-components';
+import { Icon } from '@demotivator/ui';
 import { fly } from 'svelte/transition';
 
 	interface Props {

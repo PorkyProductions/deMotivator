@@ -1,7 +1,7 @@
 <script>
 	import { isEmailValid, isPwValid } from '../utils/regEx';
 	import { getValidationClass } from '../utils/loginValidation';
-	import { Icon } from '@demotivator/ui-components';
+	import { Icon } from '@demotivator/ui';
 
 	let {
 		emailBoxContent = $bindable(''),

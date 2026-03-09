@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Icon } from '@demotivator/ui-components';
+	import { Icon } from '@demotivator/ui';
 	import type { UserSettingKey, UserSettings } from '../../../utils/userSettings';
 	import type { NumericSettingConfig, ToggleSettingConfig } from './settingsTypes';
 

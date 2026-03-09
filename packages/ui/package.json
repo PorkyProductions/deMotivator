@@ -1,5 +1,5 @@
 {
-	"name": "@demotivator/ui-components",
+	"name": "@demotivator/ui",
 	"version": "14.0.0",
 	"description": "Shared Svelte UI components for the deMotivator monorepo.",
 	"type": "module",

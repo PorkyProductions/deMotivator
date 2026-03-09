@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Icon } from '@demotivator/ui-components';
+import { Icon } from '@demotivator/ui';
 import AuthBenefitsDialog from '../../../components/authBenefitsDialog.svelte';
 import { scale } from 'svelte/transition';
 </script>

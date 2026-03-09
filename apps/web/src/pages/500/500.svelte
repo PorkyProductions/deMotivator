@@ -1,7 +1,7 @@
 <script>
 	import Spinhog from '../../components/spinhog.svelte';
 	import Title from '../../components/title.svelte';
-	import { Icon } from '@demotivator/ui-components';
+	import { Icon } from '@demotivator/ui';
 	let countdown = 15;
 	const countdownTimer = setInterval(() => {
 		countdown--;

@@ -1,3 +1,4 @@
+import { resolve } from 'node:path';
 import { svelte } from "@sveltejs/vite-plugin-svelte";
 import { visualizer } from "rollup-plugin-visualizer";
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte'
@@ -19,6 +20,13 @@ const config: UserConfig = {
   base: "/",
   css: {
     devSourcemap: true,
+  },
+  resolve: {
+    alias: {
+      'demotivator': resolve(__dirname, '../../packages/demotivator/source/index.ts'),
+      '@demotivator/shared': resolve(__dirname, '../../packages/shared/source/index.ts'),
+      '@demotivator/ui': resolve(__dirname, '../../packages/ui/source/index.js')
+    }
   },
   build: {
     target: "es2022",

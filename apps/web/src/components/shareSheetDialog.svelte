@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Icon } from '@demotivator/ui-components';
+	import { Icon } from '@demotivator/ui';
 	import type { ShareDestination, ShareProviderButton } from '../utils/shareSheet';
 
 	interface Props {

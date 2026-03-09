@@ -1,4 +1,5 @@
 export type BSVariant = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark';
+/** @deprecated Use BSVariant instead. */
 // Deprecated compatibility alias for existing callers using the historical misspelling.
 export type BSVarient = BSVariant;
 
