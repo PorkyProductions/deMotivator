@@ -8,16 +8,15 @@
 	import ListControls from './components/listControls.svelte';
 	import ListHero from './components/listHero.svelte';
 	import ListStatsBar from './components/listStatsBar.svelte';
-	import ShareInsultDialog from './components/shareInsultDialog.svelte';
+	import ShareSheetDialog from '../../components/shareSheetDialog.svelte';
 	import {
 		createSharePayload,
+		defaultShareButtons,
 		getShareDestinationUrl,
 		openShareEmail,
 		openShareWindow,
-		shareButtons,
 		type ShareDestination
-	} from './utils/shareHelpers';
-	import './styles/shareButtonStyles.css';
+	} from '../../utils/shareSheet';
 	import Auth from '../login/auth.svelte';
 	import { bsTheme } from '../../utils/darkMode';
 	import { userInsults } from '../../typescript/insults';
@@ -146,8 +145,11 @@
 		if (!shareDialogInsult) {
 			return;
 		}
-		const sharePayload = createSharePayload(shareDialogInsult);
-		const { shareUrl, insultQuote, shareBody } = sharePayload;
+		const sharePayload = createSharePayload({
+			shareText: `"${shareDialogInsult}"`,
+			shareTitle: '(de)Motivator insult'
+		});
+		const { shareUrl, shareText, shareBody } = sharePayload;
 		achievementUnlockers.shareTheHate();
 		try {
 			if (destination === 'copy') {
@@ -161,14 +163,14 @@
 				return;
 			}
 			if (destination === 'email') {
-				openShareEmail(shareBody);
+				openShareEmail(sharePayload);
 				closeShareDialog();
 				return;
 			}
 			if (typeof navigator !== 'undefined' && navigator.share) {
 				await navigator.share({
 					title: '(de)Motivator insult',
-					text: insultQuote,
+					text: shareText,
 					url: shareUrl
 				});
 				closeShareDialog();
@@ -312,11 +314,13 @@
 					{/if}
 
 					{#if shareDialogOpen}
-						<ShareInsultDialog
-							{shareDialogInsult}
-							buttons={shareButtons}
+						<ShareSheetDialog
+							dialogTitle="Share insult"
+							dialogDescription="Choose where to share this insult:"
+							previewText={`"${shareDialogInsult}"`}
+							buttons={defaultShareButtons}
 							onCloseDialog={closeShareDialog}
-							onShareInsult={shareInsult}
+							onShare={shareInsult}
 						/>
 					{/if}
 
