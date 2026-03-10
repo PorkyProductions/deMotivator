@@ -1,5 +1,6 @@
 ---
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import buttonImage from '../../../web/src/img/dmv-logo.png';
 
 interface LandingLink {
 	kicker: string;
@@ -34,7 +35,7 @@ const landingLinks: LandingLink[] = [
 ];
 
 const designPrinciples = [
-	'Use Bootstrap structural components and Tailwind utility classes for a predictable UI rhythm.',
+	'Use Tailwind utilities to keep layout and spacing consistent with the web app visual rhythm.',
 	'Maintain a shared visual language across package docs and web app surfaces.',
 	'Prioritize maintainable implementation details over one-off styling patterns.'
 ];
@@ -44,76 +45,84 @@ const designPrinciples = [
 	frontmatter={{
 		title: '(de)Motivator Developer Docs',
 		description: 'Technical documentation for the demotivator ecosystem.',
-		template: 'splash',
-		hero: {
-			title: '(de)Motivator documentation',
-			tagline:
-				'Reference and implementation guidance for the package, web application, and release process.',
-			actions: [
-				{
-					text: 'Open package docs',
-					link: '/docs/package/',
-					variant: 'primary',
-					icon: 'document'
-				},
-				{
-					text: 'Open web app docs',
-					link: '/docs/web-app/',
-					variant: 'secondary',
-					icon: 'laptop'
-				}
-			]
-		}
+		template: 'splash'
 	}}
 >
-	<section class="container py-4 md:py-6">
-		<div class="docs-landing-shell p-4 p-md-5 shadow-sm">
+	<section class="mx-auto w-full max-w-6xl px-4 py-4 md:py-8">
+		<div class="docs-landing-shell grid items-center gap-6 p-6 shadow-sm md:grid-cols-[1.3fr_1fr] md:p-10">
+			<div class="flex flex-col gap-4">
+				<p class="docs-landing-kicker mb-0">Overview</p>
+				<h1 class="m-0 text-3xl font-semibold leading-tight text-[color:var(--sl-color-white)] md:text-5xl">
+					(de)Motivator documentation
+				</h1>
+				<p class="docs-landing-lead m-0 text-sm text-[color:var(--sl-color-gray-2)] md:text-base">
+					Reference and implementation guidance for the package, web application, and release process.
+				</p>
+				<div class="mt-1 flex flex-wrap gap-3">
+					<a class="docs-landing-button" href="/docs/package/">
+						<span>Open package docs</span>
+						<span aria-hidden="true">→</span>
+					</a>
+					<a class="docs-landing-button docs-landing-button-subtle" href="/docs/web-app/">
+						<span>Open web app docs</span>
+						<span aria-hidden="true">→</span>
+					</a>
+				</div>
+			</div>
+			<div class="flex items-center justify-center">
+				<img
+					src={buttonImage.src}
+					alt="The (de)Motivator red button image"
+					class="h-auto w-44 max-w-full drop-shadow-[0_22px_45px_rgba(79,70,229,0.35)] md:w-56"
+				/>
+			</div>
+		</div>
+	</section>
+
+	<section class="mx-auto w-full max-w-6xl px-4 pb-4 md:pb-8">
+		<div class="docs-landing-shell p-4 md:p-6">
 			<p class="docs-landing-kicker mb-2">Overview</p>
-			<h2 class="h3 mb-3 fw-semibold">Core documentation surfaces</h2>
-			<p class="docs-landing-lead mb-0 text-muted">
+			<h2 class="m-0 text-2xl font-semibold text-[color:var(--sl-color-text)]">Core documentation surfaces</h2>
+			<p class="docs-landing-lead mt-3 mb-0 text-sm text-[color:var(--sl-color-gray-2)] md:text-base">
 				This site documents the reusable package, web application implementation details, and release
 				operations in one place so contributors can move between systems without context switching.
 			</p>
 		</div>
 	</section>
 
-	<section class="container pb-4 md:pb-6">
-		<div class="row g-4">
+	<section class="mx-auto w-full max-w-6xl px-4 pb-6 md:pb-10">
+		<div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
 			{
 				landingLinks.map((item) => (
-					<div class="col-12 col-md-6 col-xl-4">
-						<article class="docs-landing-card card h-100 border-0 rounded-4 shadow-sm hover:shadow-md transition-shadow">
-							<div class="card-body d-flex flex-column p-4 gap-3">
-								<p class="docs-landing-kicker mb-0">{item.kicker}</p>
-								<h3 class="h5 mb-0 fw-semibold">{item.title}</h3>
-								<p class="text-muted mb-0 flex-grow-1">{item.description}</p>
-								<a class="btn btn-outline-primary d-inline-flex align-items-center gap-2 w-fit" href={item.href}>
-									<span>{item.cta}</span>
-									<i class="bi bi-arrow-right" aria-hidden="true"></i>
-								</a>
-							</div>
-						</article>
-					</div>
+					<article class="docs-landing-card flex h-full flex-col gap-3 rounded-3xl p-5 shadow-sm transition-shadow hover:shadow-md">
+						<p class="docs-landing-kicker mb-0">{item.kicker}</p>
+						<h3 class="m-0 text-xl font-semibold text-[color:var(--sl-color-text)]">{item.title}</h3>
+						<p class="m-0 flex-grow text-sm text-[color:var(--sl-color-gray-2)]">{item.description}</p>
+						<a class="docs-landing-button docs-landing-button-subtle mt-2 w-fit" href={item.href}>
+							<span>{item.cta}</span>
+							<span aria-hidden="true">→</span>
+						</a>
+					</article>
 				))
 			}
 		</div>
 	</section>
 
-	<section class="container pb-6">
-		<div class="docs-landing-shell p-4 p-md-5 shadow-sm">
-			<div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-3">
-				<h2 class="h4 mb-0 fw-semibold">Implementation principles</h2>
-				<a class="btn btn-primary d-inline-flex align-items-center gap-2" href="/docs/release-notes/">
+	<section class="mx-auto w-full max-w-6xl px-4 pb-6">
+		<div class="docs-landing-shell p-5 shadow-sm md:p-8">
+			<div class="mb-4 flex flex-wrap items-center justify-between gap-3">
+				<h2 class="m-0 text-2xl font-semibold text-[color:var(--sl-color-text)]">Implementation principles</h2>
+				<a class="docs-landing-button" href="/docs/release-notes/">
 					<span>View release timeline</span>
-					<i class="bi bi-clock-history" aria-hidden="true"></i>
+					<span aria-hidden="true">↗</span>
 				</a>
 			</div>
-			<ul class="list-group list-group-flush rounded-3 overflow-hidden">
+			<ul class="m-0 flex list-none flex-col gap-2 p-0">
 				{
 					designPrinciples.map((principle) => (
-						<li class="list-group-item bg-transparent py-3 px-2 px-md-3 text-body">
-							<div class="d-flex gap-2">
-								<i class="bi bi-check2-circle text-primary mt-1" aria-hidden="true"></i>
+						<li class="docs-landing-item rounded-2xl px-4 py-3 text-sm text-[color:var(--sl-color-text)]">
+							<div class="flex gap-2">
+								<span class="mt-[0.1rem] text-[color:var(--dmv-brand-orange)]" aria-hidden="true">●</span>
 								<span>{principle}</span>
 							</div>
 						</li>
