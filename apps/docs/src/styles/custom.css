@@ -1,0 +1,42 @@
+:root {
+	--sl-font: 'Raleway', 'Segoe UI', sans-serif;
+	--sl-text-body: 1.03rem;
+	--sl-line-height: 1.8;
+}
+
+:root[data-theme='light'] {
+	--sl-color-accent-low: #e0e7ff;
+	--sl-color-accent: #4f46e5;
+	--sl-color-accent-high: #312e81;
+	--sl-color-bg: #ffffff;
+	--sl-color-bg-nav: #f8f9ff;
+	--sl-color-bg-sidebar: #f8f9ff;
+}
+
+:root[data-theme='dark'] {
+	--sl-color-accent-low: #312e81;
+	--sl-color-accent: #8f88ff;
+	--sl-color-accent-high: #d8d5ff;
+	--sl-color-bg: #0a0a0a;
+	--sl-color-bg-nav: #12121b;
+	--sl-color-bg-sidebar: #12121b;
+	--sl-color-text: #ececf7;
+}
+
+.site-title {
+	letter-spacing: 0.02em;
+}
+
+.sl-markdown-content :is(p, li) {
+	color: var(--sl-color-white);
+}
+
+.sl-markdown-content a {
+	text-decoration-thickness: 0.12em;
+	text-underline-offset: 0.18em;
+}
+
+.sl-markdown-content code {
+	border: 1px solid var(--sl-color-hairline-light);
+	border-radius: 0.35rem;
+}

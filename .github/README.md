@@ -52,11 +52,14 @@ This repository is a **monorepo** managed with [npm workspaces](https://docs.npm
 ```
 /
 ├── apps/
-│   └── web/                  # Svelte 5 + TypeScript web app (demotivator-web)
-│       ├── src/              # Application source (bootstrapper.ts, App.svelte, components/, utils/, styles/)
-│       ├── *.html            # HTML entry pages (index, login, signUp, list, settings, leaderboard, admin, 404, 500)
-│       ├── vite.config.ts    # Vite multi-page app config
-│       └── out/              # Production build output
+│   ├── web/                  # Svelte 5 + TypeScript web app (demotivator-web)
+│   │   ├── src/              # Application source (bootstrapper.ts, App.svelte, components/, utils/, styles/)
+│   │   ├── *.html            # HTML entry pages (index, login, signUp, list, settings, leaderboard, admin, 404, 500)
+│   │   ├── vite.config.ts    # Vite multi-page app config
+│   │   └── out/              # Production build output (includes /docs on deploy flow)
+│   └── docs/                 # Astro + Starlight docs app (demotivator-docs)
+│       ├── src/content/docs/ # Markdown docs content
+│       └── dist/             # Static docs build output
 │
 ├── packages/
 │   ├── demotivator/          # `demotivator` npm package — insult packs and generation helpers (source/ → dist/)
@@ -76,15 +79,16 @@ Turbo orchestrates tasks across the monorepo in dependency order with intelligen
 |---|---|---|
 | `lint` | upstream `lint` | Runs ESLint across each workspace, upstream first |
 | `prebuild` | `lint` | Runs workspace pre-build steps (e.g. `updateGuardian` in the web app) |
-| `build` | `lint`, `prebuild`, upstream `build` | Compiles packages (`dist/`) then the web app (`out/`) |
+| `build` | `lint`, `prebuild`, upstream `build` | Compiles package/app outputs (`dist/`, `out/`) across workspaces |
 | `typeCheck` | upstream `typeCheck` | Runs `tsc --noEmit` across all workspaces |
 | `dev` | upstream `build` | Starts the dev server after packages are compiled |
 
-Because `build` has `^build` as a dependency, running `npm run build` from the root will always compile `packages/shared` and `packages/demotivator` before `apps/web`. Turbo caches all outputs, so if source files haven't changed, tasks are skipped entirely.
+Because `build` has `^build` as a dependency, running `npm run build` from the root compiles upstream workspace dependencies first and then app workspaces. Turbo caches all outputs, so if source files haven't changed, tasks are skipped entirely.
 
 ```
 packages/shared  ──build──┐
-packages/demotivator ─build──┤──► apps/web build
+packages/demotivator ─build──┼──► apps/web build
+apps/docs ──────────build──┘
 ```
 
 ---
@@ -125,13 +129,15 @@ packages/demotivator ─build──┤──► apps/web build
    ```bash
    npm run dev
    ```
-   - Open your browser at [http://localhost:5173](http://localhost:5173).
+    - Open your browser at [http://localhost:5173](http://localhost:5173).
+    - For docs-only dev: `npm run dev --workspace demotivator-docs`
 
 5. Preview the production build:
    ```bash
    npm run build
    npm run preview --workspace demotivator-web
    ```
+   Docs are published under `/docs` in the web app build output.
 
 6. Deploy to Firebase:
    ```bash
@@ -207,6 +213,7 @@ This project is licensed under the **ISC License**. See the LICENSE file for det
 ## 🌐 Links
 
 - **Live App**: [https://demotivator.web.app](https://demotivator.web.app)
+- **Live Docs**: [https://demotivator.web.app/docs](https://demotivator.web.app/docs)
 - **Dev Mode** [https://demotivator-dev.web.app](https://demotivator-dev.web.app)
 - **GitHub Repo**: [https://github.com/PorkyProductions/deMotivator](https://github.com/PorkyProductions/deMotivator)
 
