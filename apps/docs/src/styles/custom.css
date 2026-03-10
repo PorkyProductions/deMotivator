@@ -86,7 +86,7 @@
 	font-size: 0.92rem;
 	font-weight: 600;
 	color: #ffffff;
-	background: linear-gradient(95deg, var(--dmv-brand-primary), var(--dmv-brand-orange));
+	background: var(--dmv-brand-primary);
 	border: 1px solid color-mix(in srgb, var(--dmv-brand-primary), #ffffff 35%);
 	text-decoration: none;
 	transition: transform 140ms ease, filter 140ms ease;
@@ -98,8 +98,9 @@
 }
 
 .docs-landing-button-subtle {
-	background: color-mix(in srgb, var(--dmv-brand-primary), var(--sl-color-bg) 72%);
-	border-color: color-mix(in srgb, var(--dmv-brand-mauve), var(--dmv-brand-primary) 35%);
+	background: white;
+	color: var(--dmv-surface-dark)	;
+	border-color: var(--dmv-brand-primary);
 }
 
 :root[data-theme='dark'] .docs-landing-shell {
@@ -120,4 +121,5 @@
 :root[data-theme='dark'] .docs-landing-button-subtle {
 	background: color-mix(in srgb, var(--dmv-brand-primary), #0a0a0a 60%);
 	border-color: color-mix(in srgb, var(--dmv-brand-mauve), #0a0a0a 35%);
+	color: white;
 }

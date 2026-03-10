@@ -12,38 +12,32 @@ interface LandingLink {
 
 const landingLinks: LandingLink[] = [
 	{
-		kicker: 'Package',
-		title: 'demotivator npm package',
-		description: 'API scope, data model expectations, and integration details for package consumers.',
-		href: '/docs/package/',
-		cta: 'Read package docs'
+		kicker: 'Getting started',
+		title: 'Getting started overview',
+		description: 'Start with installation, architecture overview, and repository surface mapping.',
+		href: '/docs/introduction/',
+		cta: 'Open getting started'
+	},
+	{
+		kicker: 'Packages',
+		title: 'Packages overview',
+		description: 'Reference docs for demotivator, @demotivator/shared, and @demotivator/ui.',
+		href: '/docs/demotivator/',
+		cta: 'Open package docs'
 	},
 	{
 		kicker: 'Application',
-		title: 'Web app architecture',
+		title: 'Web app overview',
 		description: 'Implementation notes for the Svelte multi-page application, styling stack, and Firebase deployment.',
-		href: '/docs/web-app/',
+		href: '/docs/web-app/web-overview/',
 		cta: 'Read web app docs'
-	},
-	{
-		kicker: 'Operations',
-		title: 'Release notes',
-		description: 'Chronological record of releases, docs updates, and deployment-related changes.',
-		href: '/docs/release-notes/',
-		cta: 'Read release notes'
 	}
-];
-
-const designPrinciples = [
-	'Use Tailwind utilities to keep layout and spacing consistent with the web app visual rhythm.',
-	'Maintain a shared visual language across package docs and web app surfaces.',
-	'Prioritize maintainable implementation details over one-off styling patterns.'
 ];
 ---
 
 <StarlightPage
 	frontmatter={{
-		title: '(de)Motivator Developer Docs',
+		title: '',
 		description: 'Technical documentation for the demotivator ecosystem.',
 		template: 'splash'
 	}}
@@ -59,12 +53,12 @@ const designPrinciples = [
 					Reference and implementation guidance for the package, web application, and release process.
 				</p>
 				<div class="mt-1 flex flex-wrap gap-3">
-					<a class="docs-landing-button" href="/docs/package/">
-						<span>Open package docs</span>
+					<a class="docs-landing-button" href="/docs/introduction/">
+						<span>Open getting started</span>
 						<span aria-hidden="true">→</span>
 					</a>
-					<a class="docs-landing-button docs-landing-button-subtle" href="/docs/web-app/">
-						<span>Open web app docs</span>
+					<a class="docs-landing-button docs-landing-button-subtle" href="/docs/demotivator/">
+						<span>Open package docs</span>
 						<span aria-hidden="true">→</span>
 					</a>
 				</div>
@@ -105,30 +99,6 @@ const designPrinciples = [
 					</article>
 				))
 			}
-		</div>
-	</section>
-
-	<section class="mx-auto w-full max-w-6xl px-4 pb-6">
-		<div class="docs-landing-shell p-5 shadow-sm md:p-8">
-			<div class="mb-4 flex flex-wrap items-center justify-between gap-3">
-				<h2 class="m-0 text-2xl font-semibold text-[color:var(--sl-color-text)]">Implementation principles</h2>
-				<a class="docs-landing-button" href="/docs/release-notes/">
-					<span>View release timeline</span>
-					<span aria-hidden="true">↗</span>
-				</a>
-			</div>
-			<ul class="m-0 flex list-none flex-col gap-2 p-0">
-				{
-					designPrinciples.map((principle) => (
-						<li class="docs-landing-item rounded-2xl px-4 py-3 text-sm text-[color:var(--sl-color-text)]">
-							<div class="flex gap-2">
-								<span class="mt-[0.1rem] text-[color:var(--dmv-brand-orange)]" aria-hidden="true">●</span>
-								<span>{principle}</span>
-							</div>
-						</li>
-					))
-				}
-			</ul>
 		</div>
 	</section>
 </StarlightPage>
