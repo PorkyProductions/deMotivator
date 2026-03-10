@@ -1,7 +1,16 @@
+@import 'tailwindcss';
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
 :root {
 	--sl-font: 'Raleway', 'Segoe UI', sans-serif;
 	--sl-text-body: 1.03rem;
 	--sl-line-height: 1.8;
+	--dmv-brand-primary: #4f46e5;
+	--dmv-brand-primary-soft: #e0e7ff;
+	--dmv-brand-border: #c7d2fe;
+	--dmv-surface-light: #f8f9ff;
+	--dmv-surface-dark: #12121b;
 }
 
 :root[data-theme='light'] {
@@ -39,4 +48,36 @@
 .sl-markdown-content code {
 	border: 1px solid var(--sl-color-hairline-light);
 	border-radius: 0.35rem;
+}
+
+.docs-landing-shell {
+	background: linear-gradient(140deg, var(--dmv-brand-primary-soft), transparent 40%), var(--sl-color-bg);
+	border: 1px solid var(--dmv-brand-border);
+	border-radius: 1.5rem;
+}
+
+.docs-landing-lead {
+	max-width: 70ch;
+}
+
+.docs-landing-card {
+	background: color-mix(in srgb, var(--sl-color-bg), white 4%);
+	border: 1px solid color-mix(in srgb, var(--dmv-brand-border), var(--sl-color-bg) 35%);
+}
+
+.docs-landing-kicker {
+	font-size: 0.8rem;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: color-mix(in srgb, var(--dmv-brand-primary), #ffffff 20%);
+}
+
+:root[data-theme='dark'] .docs-landing-shell {
+	background: linear-gradient(140deg, color-mix(in srgb, var(--dmv-brand-primary), #0a0a0a 78%), transparent 45%), var(--dmv-surface-dark);
+	border-color: color-mix(in srgb, var(--dmv-brand-primary), #0a0a0a 55%);
+}
+
+:root[data-theme='dark'] .docs-landing-card {
+	background: color-mix(in srgb, var(--dmv-surface-dark), #ffffff 4%);
+	border-color: color-mix(in srgb, var(--dmv-brand-primary), #0a0a0a 55%);
 }

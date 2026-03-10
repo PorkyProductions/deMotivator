@@ -1,0 +1,125 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+
+interface LandingLink {
+	kicker: string;
+	title: string;
+	description: string;
+	href: string;
+	cta: string;
+}
+
+const landingLinks: LandingLink[] = [
+	{
+		kicker: 'Package',
+		title: 'demotivator npm package',
+		description: 'API scope, data model expectations, and integration details for package consumers.',
+		href: '/docs/package/',
+		cta: 'Read package docs'
+	},
+	{
+		kicker: 'Application',
+		title: 'Web app architecture',
+		description: 'Implementation notes for the Svelte multi-page application, styling stack, and Firebase deployment.',
+		href: '/docs/web-app/',
+		cta: 'Read web app docs'
+	},
+	{
+		kicker: 'Operations',
+		title: 'Release notes',
+		description: 'Chronological record of releases, docs updates, and deployment-related changes.',
+		href: '/docs/release-notes/',
+		cta: 'Read release notes'
+	}
+];
+
+const designPrinciples = [
+	'Use Bootstrap structural components and Tailwind utility classes for a predictable UI rhythm.',
+	'Maintain a shared visual language across package docs and web app surfaces.',
+	'Prioritize maintainable implementation details over one-off styling patterns.'
+];
+---
+
+<StarlightPage
+	frontmatter={{
+		title: '(de)Motivator Developer Docs',
+		description: 'Technical documentation for the demotivator ecosystem.',
+		template: 'splash',
+		hero: {
+			title: '(de)Motivator documentation',
+			tagline:
+				'Reference and implementation guidance for the package, web application, and release process.',
+			actions: [
+				{
+					text: 'Open package docs',
+					link: '/docs/package/',
+					variant: 'primary',
+					icon: 'document'
+				},
+				{
+					text: 'Open web app docs',
+					link: '/docs/web-app/',
+					variant: 'secondary',
+					icon: 'laptop'
+				}
+			]
+		}
+	}}
+>
+	<section class="container py-4 md:py-6">
+		<div class="docs-landing-shell p-4 p-md-5 shadow-sm">
+			<p class="docs-landing-kicker mb-2">Overview</p>
+			<h2 class="h3 mb-3 fw-semibold">Core documentation surfaces</h2>
+			<p class="docs-landing-lead mb-0 text-muted">
+				This site documents the reusable package, web application implementation details, and release
+				operations in one place so contributors can move between systems without context switching.
+			</p>
+		</div>
+	</section>
+
+	<section class="container pb-4 md:pb-6">
+		<div class="row g-4">
+			{
+				landingLinks.map((item) => (
+					<div class="col-12 col-md-6 col-xl-4">
+						<article class="docs-landing-card card h-100 border-0 rounded-4 shadow-sm hover:shadow-md transition-shadow">
+							<div class="card-body d-flex flex-column p-4 gap-3">
+								<p class="docs-landing-kicker mb-0">{item.kicker}</p>
+								<h3 class="h5 mb-0 fw-semibold">{item.title}</h3>
+								<p class="text-muted mb-0 flex-grow-1">{item.description}</p>
+								<a class="btn btn-outline-primary d-inline-flex align-items-center gap-2 w-fit" href={item.href}>
+									<span>{item.cta}</span>
+									<i class="bi bi-arrow-right" aria-hidden="true"></i>
+								</a>
+							</div>
+						</article>
+					</div>
+				))
+			}
+		</div>
+	</section>
+
+	<section class="container pb-6">
+		<div class="docs-landing-shell p-4 p-md-5 shadow-sm">
+			<div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-3">
+				<h2 class="h4 mb-0 fw-semibold">Implementation principles</h2>
+				<a class="btn btn-primary d-inline-flex align-items-center gap-2" href="/docs/release-notes/">
+					<span>View release timeline</span>
+					<i class="bi bi-clock-history" aria-hidden="true"></i>
+				</a>
+			</div>
+			<ul class="list-group list-group-flush rounded-3 overflow-hidden">
+				{
+					designPrinciples.map((principle) => (
+						<li class="list-group-item bg-transparent py-3 px-2 px-md-3 text-body">
+							<div class="d-flex gap-2">
+								<i class="bi bi-check2-circle text-primary mt-1" aria-hidden="true"></i>
+								<span>{principle}</span>
+							</div>
+						</li>
+					))
+				}
+			</ul>
+		</div>
+	</section>
+</StarlightPage>
