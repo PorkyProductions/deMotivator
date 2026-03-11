@@ -14,7 +14,7 @@ import java.time.Instant
  */
 object ProjectGuardian {
     @JvmStatic
-    val createdAt: Instant = Instant.parse("2026-03-11T13:15:31Z")
+    val createdAt: Instant = Instant.parse("2026-03-11T17:16:02Z")
 
     @JvmStatic
     const val GUARDIAN_VERSION: String = "14.0.0"
