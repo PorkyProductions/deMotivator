@@ -17,13 +17,13 @@
 import { Insult } from './typings';
 import { insults } from './insults';
 import { createArray } from './index';
-import { pickRandom } from '@demotivator/shared';
+import s from 'lodash/sample';
 
 /**
  * @returns a pseudorandom insult from the insult array.
  */
 export default (array: Insult[] = insults): Insult => {
-	const result = pickRandom(array);
+	const result = s(array);
 	if (!result) throw new Error('No insults available');
 	return result;
 };
