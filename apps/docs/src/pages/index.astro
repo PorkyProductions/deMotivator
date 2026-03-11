@@ -1,0 +1,104 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import buttonImage from '../../../web/src/img/dmv-logo.png';
+
+interface LandingLink {
+	kicker: string;
+	title: string;
+	description: string;
+	href: string;
+	cta: string;
+}
+
+const landingLinks: LandingLink[] = [
+	{
+		kicker: 'Getting started',
+		title: 'Getting started overview',
+		description: 'Start with installation, architecture overview, and repository surface mapping.',
+		href: '/docs/introduction/',
+		cta: 'Open getting started'
+	},
+	{
+		kicker: 'Packages',
+		title: 'Packages overview',
+		description: 'Reference docs for demotivator, @demotivator/shared, and @demotivator/ui.',
+		href: '/docs/demotivator/',
+		cta: 'Open package docs'
+	},
+	{
+		kicker: 'Application',
+		title: 'Web app overview',
+		description: 'Implementation notes for the Svelte multi-page application, styling stack, and Firebase deployment.',
+		href: '/docs/web-app/web-overview/',
+		cta: 'Read web app docs'
+	}
+];
+---
+
+<StarlightPage
+	frontmatter={{
+		title: '',
+		description: 'Technical documentation for the demotivator ecosystem.',
+		template: 'splash'
+	}}
+>
+	<section class="mx-auto w-full max-w-6xl px-4 py-4 md:py-8">
+		<div class="docs-landing-shell grid items-center gap-6 p-6 shadow-sm md:grid-cols-[1.3fr_1fr] md:p-10">
+			<div class="flex flex-col gap-4">
+				<p class="docs-landing-kicker mb-0">Overview</p>
+				<h1 class="m-0 text-3xl font-semibold leading-tight text-[color:var(--sl-color-white)] md:text-5xl">
+					(de)Motivator documentation
+				</h1>
+				<p class="docs-landing-lead m-0 text-sm text-[color:var(--sl-color-gray-2)] md:text-base">
+					Reference and implementation guidance for the package, web application, and release process.
+				</p>
+				<div class="mt-1 flex flex-wrap gap-3">
+					<a class="docs-landing-button" href="/docs/introduction/">
+						<span>Open getting started</span>
+						<span aria-hidden="true">→</span>
+					</a>
+					<a class="docs-landing-button docs-landing-button-subtle" href="/docs/demotivator/">
+						<span>Open package docs</span>
+						<span aria-hidden="true">→</span>
+					</a>
+				</div>
+			</div>
+			<div class="flex items-center justify-center">
+				<img
+					src={buttonImage.src}
+					alt="The (de)Motivator red button image"
+					class="h-auto w-44 max-w-full drop-shadow-[0_22px_45px_rgba(79,70,229,0.35)] md:w-56"
+				/>
+			</div>
+		</div>
+	</section>
+
+	<section class="mx-auto w-full max-w-6xl px-4 pb-4 md:pb-8">
+		<div class="docs-landing-shell p-4 md:p-6">
+			<p class="docs-landing-kicker mb-2">Overview</p>
+			<h2 class="m-0 text-2xl font-semibold text-[color:var(--sl-color-text)]">Core documentation surfaces</h2>
+			<p class="docs-landing-lead mt-3 mb-0 text-sm text-[color:var(--sl-color-gray-2)] md:text-base">
+				This site documents the reusable package, web application implementation details, and release
+				operations in one place so contributors can move between systems without context switching.
+			</p>
+		</div>
+	</section>
+
+	<section class="mx-auto w-full max-w-6xl px-4 pb-6 md:pb-10">
+		<div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+			{
+				landingLinks.map((item) => (
+					<article class="docs-landing-card flex h-full flex-col gap-3 rounded-3xl p-5 shadow-sm transition-shadow hover:shadow-md">
+						<p class="docs-landing-kicker mb-0">{item.kicker}</p>
+						<h3 class="m-0 text-xl font-semibold text-[color:var(--sl-color-text)]">{item.title}</h3>
+						<p class="m-0 flex-grow text-sm text-[color:var(--sl-color-gray-2)]">{item.description}</p>
+						<a class="docs-landing-button docs-landing-button-subtle mt-2 w-fit" href={item.href}>
+							<span>{item.cta}</span>
+							<span aria-hidden="true">→</span>
+						</a>
+					</article>
+				))
+			}
+		</div>
+	</section>
+</StarlightPage>

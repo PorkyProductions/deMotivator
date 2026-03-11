@@ -1,0 +1,125 @@
+@import 'tailwindcss';
+
+:root {
+	--sl-font: 'Raleway', 'Segoe UI', sans-serif;
+	--sl-text-body: 1.03rem;
+	--sl-line-height: 1.8;
+	--dmv-brand-primary: #4f46e5;
+	--dmv-brand-orange: #F75C03;
+	--dmv-brand-mauve: #DABFFF;
+	--dmv-brand-primary-soft: #e0e7ff;
+	--dmv-brand-border: #c7d2fe;
+	--dmv-surface-light: #f8f9ff;
+	--dmv-surface-dark: #12121b;
+}
+
+:root[data-theme='light'] {
+	--sl-color-accent-low: #e0e7ff;
+	--sl-color-accent: #4f46e5;
+	--sl-color-accent-high: #312e81;
+	--sl-color-bg: #ffffff;
+	--sl-color-bg-nav: #f8f9ff;
+	--sl-color-bg-sidebar: #f8f9ff;
+}
+
+:root[data-theme='dark'] {
+	--sl-color-accent-low: #312e81;
+	--sl-color-accent: #8f88ff;
+	--sl-color-accent-high: #d8d5ff;
+	--sl-color-bg: #0a0a0a;
+	--sl-color-bg-nav: #12121b;
+	--sl-color-bg-sidebar: #12121b;
+	--sl-color-text: #ececf7;
+}
+
+.site-title {
+	letter-spacing: 0.02em;
+}
+
+.sl-markdown-content :is(p, li) {
+	color: var(--sl-color-white);
+}
+
+.sl-markdown-content a {
+	text-decoration-thickness: 0.12em;
+	text-underline-offset: 0.18em;
+}
+
+.sl-markdown-content code {
+	border: 1px solid var(--sl-color-hairline-light);
+	border-radius: 0.35rem;
+}
+
+.docs-landing-shell {
+	background: linear-gradient(130deg, color-mix(in srgb, var(--dmv-brand-primary-soft), var(--dmv-brand-mauve) 35%), transparent 40%), var(--sl-color-bg);
+	border: 1px solid var(--dmv-brand-border);
+	border-radius: 1.5rem;
+}
+
+.docs-landing-lead {
+	max-width: 70ch;
+}
+
+.docs-landing-card {
+	background: color-mix(in srgb, var(--sl-color-bg), white 4%);
+	border: 1px solid color-mix(in srgb, var(--dmv-brand-border), var(--sl-color-bg) 35%);
+}
+
+.docs-landing-item {
+	background: color-mix(in srgb, var(--dmv-brand-primary-soft), var(--sl-color-bg) 60%);
+	border: 1px solid color-mix(in srgb, var(--dmv-brand-primary), #ffffff 70%);
+}
+
+.docs-landing-kicker {
+	font-size: 0.8rem;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: color-mix(in srgb, var(--dmv-brand-orange), #ffffff 15%);
+}
+
+.docs-landing-button {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	border-radius: 9999px;
+	padding: 0.65rem 1rem;
+	font-size: 0.92rem;
+	font-weight: 600;
+	color: #ffffff;
+	background: var(--dmv-brand-primary);
+	border: 1px solid color-mix(in srgb, var(--dmv-brand-primary), #ffffff 35%);
+	text-decoration: none;
+	transition: transform 140ms ease, filter 140ms ease;
+}
+
+.docs-landing-button:hover {
+	transform: translateY(-1px);
+	filter: saturate(1.08);
+}
+
+.docs-landing-button-subtle {
+	background: white;
+	color: var(--dmv-surface-dark)	;
+	border-color: var(--dmv-brand-primary);
+}
+
+:root[data-theme='dark'] .docs-landing-shell {
+	background: linear-gradient(135deg, color-mix(in srgb, var(--dmv-brand-primary), #0a0a0a 68%), color-mix(in srgb, var(--dmv-brand-orange), #0a0a0a 88%)), var(--dmv-surface-dark);
+	border-color: color-mix(in srgb, var(--dmv-brand-primary), #0a0a0a 55%);
+}
+
+:root[data-theme='dark'] .docs-landing-card {
+	background: color-mix(in srgb, var(--dmv-surface-dark), #ffffff 4%);
+	border-color: color-mix(in srgb, var(--dmv-brand-primary), #0a0a0a 55%);
+}
+
+:root[data-theme='dark'] .docs-landing-item {
+	background: color-mix(in srgb, var(--dmv-brand-primary), #0a0a0a 74%);
+	border-color: color-mix(in srgb, var(--dmv-brand-mauve), #0a0a0a 45%);
+}
+
+:root[data-theme='dark'] .docs-landing-button-subtle {
+	background: color-mix(in srgb, var(--dmv-brand-primary), #0a0a0a 60%);
+	border-color: color-mix(in srgb, var(--dmv-brand-mauve), #0a0a0a 35%);
+	color: white;
+}

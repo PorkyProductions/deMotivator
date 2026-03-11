@@ -8,14 +8,15 @@
 		"updateGuardian": "node -e \"const{spawnSync}=require('child_process'),p=require('os').platform();const r=p==='win32'?spawnSync('pwsh',['-File','../../scripts/updateGuardian.ps1'],{stdio:'inherit',shell:true}):spawnSync('zsh',['../../scripts/updateGuardian.sh'],{stdio:'inherit'});if(r.status!==0)process.exit(r.status||1);\"",
 		"prebuild": "npm run updateGuardian && rm -rf out",
 		"build": "vite build",
-		"postbuild": "cp -r ../../www/* out/",
+		"postbuild": "cp -r ../../www/* out/ && if [ -d ../docs/dist ]; then rm -rf out/docs && mkdir -p out/docs && cp -r ../docs/dist/* out/docs/; fi",
 		"ssrBuild": "vite ssrBuild",
 		"lint": "eslint \"./src/**/*.{js,ts,svelte}\" --fix --max-warnings=-1 || true",
 		"buildTS": "tsc --project tsconfig.json",
 		"typeCheck": "tsc --project tsconfig.json --noEmit",
 		"supportedBrowsers": "(echo export default && browserslist-useragent-regexp --allowHigherVersions) > src/utils/supportedBrowsers.ts",
 		"preview": "vite preview",
-		"push": "npx firebase-tools deploy"
+		"pushPrepareDocs": "npm --prefix ../docs run build && rm -rf out/docs && mkdir -p out/docs && cp -r ../docs/dist/* out/docs/",
+		"push": "npm run pushPrepareDocs && npx firebase-tools deploy"
 	},
 	"devDependencies": {
 		"@sveltejs/vite-plugin-svelte": "^6.2.4",
