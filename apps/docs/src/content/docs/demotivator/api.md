@@ -8,7 +8,7 @@ description: 'Every exported function, object, and class in the demotivator pack
 Everything documented here is exported from the package root:
 
 ```typescript
-import { generateInsult, insultAt, createArray, deMotivator, DeMotivator } from 'demotivator';
+import { generateInsult, insultAt, searchInsults, createArray, deMotivator, DeMotivator, type InsultSearchResult } from 'demotivator';
 ```
 
 ## Functions
@@ -89,6 +89,69 @@ console.log(pool.length); // Sum of insults across those three packs
 
 ---
 
+### `searchInsults(term, array?)`
+
+Searches the provided insult array and returns the single most relevant match for `term`. Relevance is ranked by the following priority:
+
+| Priority | Condition |
+| -------- | --------- |
+| 1 (highest) | The insult exactly equals the term (case-insensitive). |
+| 2 | The insult starts with the term. |
+| 3 | The term appears as a complete word inside the insult. |
+| 4 | The term appears anywhere as a substring. |
+
+When multiple insults share the same highest score, the first one encountered is returned.
+
+| Parameter | Type | Default | Description |
+| --------- | ---- | ------- | ----------- |
+| `term` | `string` | — | The search string to match against each insult. |
+| `array` | `Insult[]` | `createArray({ packs: ['original'] })` | The pool of insults to search. |
+| `withPosition` | `boolean` | `false` | When `true`, returns an `InsultSearchResult` instead of a plain string. |
+
+**Returns:** `Insult` when `withPosition` is `false` (default), or `InsultSearchResult` when `true`.
+
+`InsultSearchResult` has two fields:
+
+| Field | Type | Description |
+| ----- | ---- | ----------- |
+| `insult` | `Insult` | The most relevant insult found. |
+| `position` | `number` | 1-based index of the insult in the array — pass it directly to `insultAt`. |
+
+**Throws:**
+
+- `Error` if the array is empty.
+- `Error` if no insult matches the term.
+
+```typescript
+import { searchInsults } from 'demotivator';
+
+// Default — returns a plain string
+const insult = searchInsults('stupid');
+
+// withPosition: true — returns { insult, position }
+const { insult, position } = searchInsults('stupid', undefined, true);
+```
+
+The `position` value is 1-based, matching `insultAt`, so you can round-trip directly:
+
+```typescript
+import { searchInsults, insultAt } from 'demotivator';
+
+const { position } = searchInsults('stupid', undefined, true);
+const same = insultAt(position); // retrieves the exact same insult
+```
+
+You can search across multiple packs by passing a custom array built with `createArray`:
+
+```typescript
+import { searchInsults, createArray } from 'demotivator';
+
+const pool = createArray({ packs: ['original', 'halloween'] });
+const result = searchInsults('ghost', pool);
+```
+
+---
+
 ## `deMotivator` Object
 
 The default export. A plain object that bundles every piece of the API into a single namespace. Implements the `__DeMotivator` interface.
@@ -115,6 +178,7 @@ import deMotivator from 'demotivator';
 | `createArray` | `(config: CreateArrayConfig) => Insult[]` | Merge packs into a single array. |
 | `generateInsult` | `(array: Insult[]) => Insult` | Pick a random insult. |
 | `insultAt` | `(position: number, array: Insult[]) => Insult` | Get insult at a 1-based index. |
+| `searchInsults` | `(term: string, array?: Insult[], withPosition?: boolean) => Insult \| InsultSearchResult` | Find the most relevant insult for a search term. |
 
 ```typescript
 const pool = deMotivator.createArray({ packs: ['original', 'halloween'] });
@@ -172,6 +236,17 @@ Returns the insult at a 1-based position. If `array` is omitted, defaults to the
 ```typescript
 const tenth = dm.insultAt(10);                // 10th insult in 'original'
 const third = dm.insultAt(3, dm.profaneInsults); // 3rd profane insult
+```
+
+#### `searchInsults(term, array?, withPosition?)`
+
+Returns the most relevant insult matching `term`. If `array` is omitted, defaults to the original pack. Pass `withPosition: true` to get an `InsultSearchResult` instead of a plain string.
+
+```typescript
+const insult = dm.searchInsults('dumb');                              // plain string
+const { insult, position } = dm.searchInsults('dumb', undefined, true); // with position
+
+const spooky = dm.searchInsults('ghost', dm.halloweenInsults);        // Halloween pack
 ```
 
 ---

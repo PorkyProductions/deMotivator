@@ -38,6 +38,28 @@ export type InsultPackMap = Record<string, InsultPack>;
 export type InsultPackKey = keyof typeof import('./insults').insultPacks;
 
 /**
+ * The object returned by `searchInsults` when called with `withPosition: true`.
+ * The `position` field is 1-based to match the index convention used by `insultAt`.
+ *
+ * @export
+ */
+export interface InsultSearchResult {
+	/** The most relevant insult found. */
+	insult: Insult;
+	/** 1-based position of the insult in the searched array. Pass directly to `insultAt`. */
+	position: number;
+}
+
+/**
+ * Overloaded call signatures for `searchInsults`.
+ * @internal
+ */
+export interface SearchInsultsFunction {
+	(term: string, array?: Insult[], withPosition?: false): Insult;
+	(term: string, array: Insult[] | undefined, withPosition: true): InsultSearchResult;
+}
+
+/**
  * A typesafe interface for `deMotivator` and `DeMotivator`
  *
  * @export
@@ -53,6 +75,7 @@ export interface __DeMotivator<TPackKey extends string = InsultPackKey> {
 	createArray: (configuration: CreateArrayConfig<TPackKey>) => Insult[];
 	generateInsult: (array: Insult[]) => Insult;
 	insultAt: (position: number, array: Insult[]) => Insult;
+	searchInsults: SearchInsultsFunction;
 }
 
 /**

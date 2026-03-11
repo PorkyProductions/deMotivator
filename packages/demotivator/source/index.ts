@@ -24,14 +24,15 @@ import {
 	insultPackList
 } from './insults';
 
-import generateInsult, { insultAt } from './generateinsult';
+import generateInsult, { insultAt, searchInsults } from './generateinsult';
 import {
 	type __DeMotivator,
 	type Insult,
 	type CreateArrayConfig,
 	type InsultPackKey,
 	type InsultPack,
-	type InsultPackMap
+	type InsultPackMap,
+	type InsultSearchResult
 } from './typings';
 
 export {
@@ -43,9 +44,11 @@ export {
 	insultPackList,
 	generateInsult,
 	insultAt,
+	searchInsults,
 	type Insult,
 	type InsultPack,
 	type InsultPackMap,
+	type InsultSearchResult,
 	type CreateArrayConfig
 };
 
@@ -85,7 +88,8 @@ export const deMotivator: __DeMotivator<InsultPackKey> = {
 	insultPackList: insultPackList,
 	createArray: createArray,
 	generateInsult: generateInsult,
-	insultAt: insultAt
+	insultAt: insultAt,
+	searchInsults: searchInsults
 };
 export default deMotivator;
 
@@ -178,5 +182,25 @@ export class DeMotivator implements __DeMotivator<InsultPackKey> {
    */
 	public insultAt(position: number,array: Insult[] = this.__createBasicArray()): Insult {
 		return insultAt(position, array);
+	}
+	/**
+   * Searches for the most relevant insult matching a search term.
+   * @public
+   * @param {string} term The search string to match against each insult.
+   * @param {Insult[]} [array] The pool of insults to search. Defaults to the original pack.
+   * @param {false} [withPosition] Return just the insult string (default).
+   * @returns {Insult}
+   */
+	public searchInsults(term: string, array?: Insult[], withPosition?: false): Insult;
+	/**
+   * @public
+   * @param {string} term The search string to match against each insult.
+   * @param {Insult[] | undefined} array The pool of insults to search. Pass `undefined` to use the default.
+   * @param {true} withPosition Return an `InsultSearchResult` with the insult and its 1-based position.
+   * @returns {InsultSearchResult}
+   */
+	public searchInsults(term: string, array: Insult[] | undefined, withPosition: true): InsultSearchResult;
+	public searchInsults(term: string, array: Insult[] = this.__createBasicArray(), withPosition: boolean = false): Insult | InsultSearchResult {
+		return searchInsults(term, array, withPosition as false);
 	}
 }
