@@ -16,7 +16,7 @@
 		"turbo:prune": "turbo prune --scope=@apps/web"
 	},
 	"devDependencies": {
-		"@eslint/eslintrc": "^3.3.4",
+		"@eslint/eslintrc": "^3.3.5",
 		"@eslint/js": "^10.0.1",
 		"@typescript-eslint/eslint-plugin": "^8.56.1",
 		"@typescript-eslint/parser": "^8.56.1",
