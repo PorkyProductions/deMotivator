@@ -26,5 +26,8 @@
 		"svelte-eslint-parser": "^1.6.0",
 		"turbo": "^2.8.17"
 	},
-	"packageManager": "npm@11.8.0"
+	"packageManager": "npm@11.8.0",
+	"dependencies": {
+		"@astrojs/starlight": "^0.38.1"
+	}
 }
