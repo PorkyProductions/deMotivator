@@ -2,6 +2,7 @@
 	import { isEmailValid, isPwValid } from '../utils/regEx';
 	import { getValidationClass } from '../utils/loginValidation';
 	import { Icon } from '@demotivator/ui';
+	import ForgotPasswordDialog from './forgotPasswordDialog.svelte';
 
 	let {
 		emailBoxContent = $bindable(''),
@@ -48,7 +49,10 @@
 		</div>
 
 		<div>
-			<label class="form-label fw-semibold" for="password">Password</label>
+			<div class="d-flex justify-content-between align-items-center mb-1">
+				<label class="form-label fw-semibold mb-0" for="password">Password</label>
+				<ForgotPasswordDialog modalId="forgotPasswordModal" linkClass="text-primary text-decoration-none small fw-semibold" />
+			</div>
 			<div class="input-group has-validation">
 				<input
 					class={`form-control form-control-lg ${getValidationClass(pwText, pwInvalid)}`}
