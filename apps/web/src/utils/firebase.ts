@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics';
-import { getAuth, signInWithEmailAndPassword, signInWithPopup, signInWithRedirect, signInAnonymously, GoogleAuthProvider } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, signInWithPopup, signInWithRedirect, signInAnonymously, GoogleAuthProvider, sendPasswordResetEmail as firebaseSendPasswordResetEmail } from 'firebase/auth';
 import { firebaseConfig } from '../typescript/insults';
 
 // Initialize Firebase app
@@ -52,6 +52,10 @@ export const signInAnonymous = () => {
 };
 
 export const logout = () => auth.signOut();
+
+export const sendPasswordResetEmail = (email: string) => {
+	return firebaseSendPasswordResetEmail(auth, email);
+};
 
 // Setup auth state change listener
 export const onAuthStateChanged = (callback: (user: AppUser | null) => void) => {

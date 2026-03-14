@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Icon } from '@demotivator/ui';
+	import { portal } from '../utils/portal';
 
 	const {
 		modalId,
@@ -39,7 +40,7 @@
 	<Icon name={buttonIcon} /> {buttonText}
 </button>
 
-<div class="modal fade" id={modalId} tabindex="-1" aria-labelledby={`${modalId}Label`} aria-hidden="true">
+<div class="modal fade" use:portal id={modalId} tabindex="-1" aria-labelledby={`${modalId}Label`} aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
 			<div class="modal-header">
