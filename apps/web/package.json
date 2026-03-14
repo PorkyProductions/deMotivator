@@ -16,7 +16,7 @@
 		"supportedBrowsers": "(echo export default && browserslist-useragent-regexp --allowHigherVersions) > src/utils/supportedBrowsers.ts",
 		"preview": "vite preview",
 		"pushPrepareDocs": "npm --prefix ../docs run build && rm -rf out/docs && mkdir -p out/docs && cp -r ../docs/dist/* out/docs/",
-		"push": "npm run pushPrepareDocs && npx firebase-tools deploy"
+		"push": "npx firebase-tools deploy"
 	},
 	"devDependencies": {
 		"@sveltejs/vite-plugin-svelte": "^7.0.0",
