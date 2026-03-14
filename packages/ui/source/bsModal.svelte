@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Icon from './icon.svelte';
 	import type { BsModalProps } from './types';
+	import { portal } from './portal';
 
 	const load = async () => {
 		await import('bootstrap/js/dist/modal');
@@ -25,7 +26,7 @@
 	<Icon name={preButtonIcon} />{preButtonText}
 </button>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" use:portal>
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
