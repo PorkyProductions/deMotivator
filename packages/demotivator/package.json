@@ -10,7 +10,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/PorkyProductions/deMotivator.js.git"
+		"url": "git+https://github.com/PorkyProductions/deMotivator.git"
 	},
 	"keywords": [
 		"dmv",
@@ -25,9 +25,9 @@
 	"author": "PorkyProductions",
 	"license": "Apache-2.0",
 	"bugs": {
-		"url": "https://github.com/PorkyProductions/deMotivator.js/issues"
+		"url": "https://github.com/PorkyProductions/deMotivator/issues"
 	},
-	"homepage": "https://github.com/PorkyProductions/deMotivator.js#readme",
+	"homepage": "https://demotivator.web.app",
 	"devDependencies": {
 		"eslint": "^10.0.3",
 		"eslint-plugin-import": "^2.32.0",
