@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Icon } from '@demotivator/ui';
+	import { portal } from '../utils/portal';
 
 	const {
 		modalId,
@@ -79,7 +80,7 @@
 	Forgot password?
 </button>
 
-<div class="modal fade" id={modalId} tabindex="-1" aria-labelledby={`${modalId}Label`} aria-hidden="true">
+<div class="modal fade" use:portal id={modalId} tabindex="-1" aria-labelledby={`${modalId}Label`} aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -127,7 +128,7 @@
 
 						<div>
 							<label class="form-label fw-semibold" for={`${modalId}-captcha`}>
-								Human check: What is {captcha.n1} + {captcha.n2}?
+								Prove you're not a robot: What is {captcha.n1} + {captcha.n2}?
 							</label>
 							<input
 								id={`${modalId}-captcha`}
@@ -139,7 +140,6 @@
 								min="1"
 								max="99"
 							/>
-							<div class="form-text text-secondary">Answer the math question to confirm you're not a robot.</div>
 						</div>
 					</div>
 
