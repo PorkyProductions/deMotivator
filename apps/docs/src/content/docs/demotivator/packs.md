@@ -13,6 +13,7 @@ Insults in the `demotivator` package are organized into **packs** — themed col
 | `profane` | Profane | Yes | Contains strong language and mature content. |
 | `halloween` | Halloween 🎃 | No | Seasonal insults themed around Halloween. |
 | `christmas` | Christmas 🎄 | No | Seasonal insults themed around Christmas. |
+| `valentines` | Valentine's Day 💝 | No | Seasonal insults themed around Valentine's Day. |
 
 ## Data Structures
 
@@ -23,7 +24,7 @@ The package exposes pack data in several forms so you can choose the access patt
 Each pack's insult array is exported directly as a named constant:
 
 ```typescript
-import { insults, profaneInsults, halloweenInsults, christmasInsults } from 'demotivator';
+import { insults, profaneInsults, halloweenInsults, christmasInsults, valentinesInsults } from 'demotivator';
 ```
 
 These give you direct access to the raw `Insult[]` arrays for each pack. This is useful when you know exactly which pack you want and don't need the pack metadata.

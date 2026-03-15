@@ -591,6 +591,39 @@ export const christmasInsults: Insult[] = [
 ];
 
 /**
+ * Insults themed around Valentine's Day.
+ * @type {Insult[]}
+ */
+export const valentinesInsults: Insult[] = [
+	"You're the reason people swear off dating.",
+	'Even Cupid gave up on you.',
+	"Your love life is like a Valentine's card nobody signed.",
+	"You're the 'no chocolates left' box on February 15th.",
+	'The only heart you break is the candy kind, and even those reject you.',
+	'Roses are red, violets are blue, nobody wants a valentine from you.',
+	"You're like a wilted bouquet — sad, droopy, and only good for the trash.",
+	'Even the conversation hearts ran out of anything nice to say about you.',
+	'You have the romantic appeal of a restraining order.',
+	'Cupid took one look at you and put his bow away.',
+	"You're why people spend Valentine's Day alone by choice.",
+	'Your idea of romance is a coupon for 10% off at a gas station.',
+	'You have the charm of a Valentine that simply says "whatever."',
+	'Even hallmark refused to make a card for someone like you.',
+	"You're the reason they invented the term 'situationship.'",
+	'Your love language is disappointment.',
+	"If love were a game show, you'd be eliminated in the first round.",
+	"You're the blind date everyone warns their friends about.",
+	'The only thing lonelier than you on Valentine\'s Day is an empty chocolate box.',
+	'Love is blind, but even it can see you coming and run.',
+	'You\'re the embodiment of a lonely Valentine\'s Day dinner for one.',
+	'Your romantic prospects are as bleak as a Valentine\'s Day without chocolate.',
+	'You\'re the reason people say "it\'s not you, it\'s me" on dates.',
+	'Even the most hopeless romantics would avoid falling for you.',
+	'Your love life is like a rom-com without the romance or comedy.',
+	'You\'re the reason they had to write a song about being single on Valentine\'s Day.'
+];
+
+/**
  * All available insult packs keyed by pack ID.
  */
 export const insultPacks = {
@@ -617,6 +650,12 @@ export const insultPacks = {
 		title: 'Christmas 🎄',
 		explicit: false,
 		insults: christmasInsults
+	},
+	valentines: {
+		key: 'valentines',
+		title: "Valentine's Day 💝",
+		explicit: false,
+		insults: valentinesInsults
 	}
 } satisfies InsultPackMap;
 

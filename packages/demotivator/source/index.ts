@@ -20,6 +20,7 @@ import {
 	profaneInsults,
 	halloweenInsults,
 	christmasInsults,
+	valentinesInsults,
 	insultPacks,
 	insultPackList
 } from './insults';
@@ -40,6 +41,7 @@ export {
 	profaneInsults,
 	halloweenInsults,
 	christmasInsults,
+	valentinesInsults,
 	insultPacks,
 	insultPackList,
 	generateInsult,
@@ -84,6 +86,7 @@ export const deMotivator: __DeMotivator<InsultPackKey> = {
 	profaneInsults: profaneInsults,
 	halloweenInsults: halloweenInsults,
 	christmasInsults: christmasInsults,
+	valentinesInsults: valentinesInsults,
 	insultPacks: insultPacks,
 	insultPackList: insultPackList,
 	createArray: createArray,
@@ -125,6 +128,11 @@ export class DeMotivator implements __DeMotivator<InsultPackKey> {
 	 * @date 2/23/2026 - 11:41:23 PM
 	 */
 	christmasInsults: Insult[] = christmasInsults;
+	/**
+	 * All the Valentine's Day insults
+	 * @date 3/14/2026
+	 */
+	valentinesInsults: Insult[] = valentinesInsults;
 	/**
    * A map of all available insult packs by key.
    * @date 2/19/2026
