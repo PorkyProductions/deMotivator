@@ -624,6 +624,41 @@ export const valentinesInsults: Insult[] = [
 ];
 
 /**
+ * Insults themed around St. Patrick's Day.
+ * @type {Insult[]}
+ */
+export const stPatricksInsults: Insult[] = [
+	"You're the reason the luck of the Irish runs out.",
+	'Even a four-leaf clover wilts in your presence.',
+	"You're so unlucky, leprechauns hide their gold from you specifically.",
+	'The only pot at the end of your rainbow is empty.',
+	"You're what happens when luck takes a personal day.",
+	'Even the shamrocks turn brown when you walk by.',
+	"You're not the luck of the Irish — you're the curse of the Irish.",
+	'Finding a four-leaf clover would still be a worse day than not finding one with you around.',
+	"You're so dull, even the green beer refuses to make you interesting.",
+	'St. Patrick drove the snakes out of Ireland, but he would have left them if he met you first.',
+	"You're the reason people stopped believing in luck.",
+	'The only thing you bring to the parade is disappointment.',
+	"You're about as charming as a wet Irish morning with no coffee.",
+	"If luck were currency, you'd be in debt on St. Patrick's Day.",
+	"You're the pot of nothing at the end of a very long rainbow.",
+	"Leprechauns work hard for their gold — you're the reason they have to hide it.",
+	"Even the Blarney Stone wouldn't give you the gift of the gab.",
+	"You're about as magical as a parking ticket on St. Patrick's Day.",
+	"Ireland has its problems, but at least they can blame the weather — what's your excuse?",
+	"You're the reason shamrocks are considered a symbol of misfortune.",
+	'Not even a horseshoe, a rabbit\'s foot, and a four-leaf clover could save a day with you.',
+	"You're like green beer — only interesting in concept, deeply regrettable in practice.",
+	"The only Irish you've got is the goodbye, and you can't even do that gracefully.",
+	"You're so unlucky that a rainbow ends specifically to avoid your neighborhood.",
+	"Even the leprechauns filed a restraining order against you.",
+	"You bring the 'ill' to 'uilleann pipes.'",
+	"You're the St. Patrick's Day parade route nobody wants to be on.",
+	"May the road rise up to meet you — because it's tired of you stomping on it."
+];
+
+/**
  * All available insult packs keyed by pack ID.
  */
 export const insultPacks = {
@@ -656,6 +691,12 @@ export const insultPacks = {
 		title: "Valentine's Day 💝",
 		explicit: false,
 		insults: valentinesInsults
+	},
+	stPatricks: {
+		key: 'stPatricks',
+		title: "St. Patrick's Day ☘️",
+		explicit: false,
+		insults: stPatricksInsults
 	}
 } satisfies InsultPackMap;
 

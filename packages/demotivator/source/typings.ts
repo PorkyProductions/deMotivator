@@ -71,6 +71,7 @@ export interface __DeMotivator<TPackKey extends string = InsultPackKey> {
 	halloweenInsults: Insult[];
 	christmasInsults: Insult[];
 	valentinesInsults: Insult[];
+	stPatricksInsults: Insult[];
 	insultPacks: InsultPackMap;
 	insultPackList: InsultPack[];
 	createArray: (configuration: CreateArrayConfig<TPackKey>) => Insult[];
