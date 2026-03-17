@@ -652,7 +652,7 @@ export const stPatricksInsults: Insult[] = [
 	"You're like green beer — only interesting in concept, deeply regrettable in practice.",
 	"The only Irish you've got is the goodbye, and you can't even do that gracefully.",
 	"You're so unlucky that a rainbow ends specifically to avoid your neighborhood.",
-	"Even the leprechauns filed a restraining order against you.",
+	'Even the leprechauns filed a restraining order against you.',
 	"You bring the 'ill' to 'uilleann pipes.'",
 	"You're the St. Patrick's Day parade route nobody wants to be on.",
 	"May the road rise up to meet you — because it's tired of you stomping on it."
