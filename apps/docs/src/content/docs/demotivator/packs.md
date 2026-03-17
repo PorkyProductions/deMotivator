@@ -95,3 +95,76 @@ To add a new pack to the package:
 6. Update the `__DeMotivator` interface in `typings.ts` to include the new property.
 
 Because `InsultPackKey` is derived from the keys of the `insultPacks` object at compile time, TypeScript will automatically include your new key in the union type — no manual type updates needed for the key itself.
+
+## Custom Packs
+
+If you want to supply your own insults without modifying the package source, use **custom packs**. A custom pack is any object that satisfies the `InsultPack` interface — you define it in your own code and pass it directly to `createArray` via the `customPacks` option.
+
+Custom packs are **not registered globally**. They apply only to the single `createArray` call where they are passed, keeping the built-in registry immutable and side-effect free.
+
+### Defining a Custom Pack
+
+Use `defineCustomPack` to get TypeScript inference and IDE autocomplete when building your pack object:
+
+```typescript
+import { defineCustomPack } from 'demotivator';
+
+const myPack = defineCustomPack({
+	key: 'byoi',
+	title: 'My Custom Pack',
+	explicit: false,
+	insults: [
+		'You tried.',
+		'Almost counts in horseshoes.',
+		'Points for effort, I suppose.',
+	],
+});
+```
+
+`defineCustomPack` is an identity function — it returns its argument unchanged. Its only purpose is to give TypeScript the correct type so that missing fields or mistyped values are caught at compile time.
+
+### Passing Custom Packs to `createArray`
+
+Once defined, pass your pack(s) to `createArray` via the `customPacks` field:
+
+```typescript
+import { defineCustomPack, createArray, generateInsult } from 'demotivator';
+
+const myPack = defineCustomPack({
+	key: 'byoi',
+	title: 'My Custom Pack',
+	explicit: false,
+	insults: ['You tried.', 'Almost counts in horseshoes.'],
+});
+
+const pool = createArray({ packs: [], customPacks: [myPack] });
+const insult = generateInsult(pool);
+```
+
+### Mixing Custom and Built-in Packs
+
+Custom packs can be combined with built-in ones in the same call:
+
+```typescript
+const pool = createArray({
+	packs: ['original', 'halloween'],
+	customPacks: [myPack],
+});
+```
+
+`createArray` processes built-in packs first, then appends each custom pack's insults in order. Duplicate custom pack keys are deduplicated — if you pass the same `key` more than once, only the first occurrence is used.
+
+### Filtering Explicit Content in Custom Packs
+
+The `explicit` flag on your custom pack is purely metadata — `createArray` does not filter by it automatically. If you want to exclude explicit custom packs, filter before passing:
+
+```typescript
+import { insultPackList, createArray } from 'demotivator';
+
+const myPacks = [safePack, explicitPack]; // your custom packs
+
+const pool = createArray({
+	packs: insultPackList.filter((p) => !p.explicit).map((p) => p.key),
+	customPacks: myPacks.filter((p) => !p.explicit),
+});
+```

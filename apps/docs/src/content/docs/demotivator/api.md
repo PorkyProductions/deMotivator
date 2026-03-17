@@ -74,11 +74,12 @@ Builds a flat `Insult[]` by merging one or more packs together. Introduced in ve
 
 | Parameter | Type | Description |
 | --------- | ---- | ----------- |
-| `configuration` | `CreateArrayConfig<InsultPackKey>` | Object with a `packs` array of pack keys to include. |
+| `configuration.packs` | `InsultPackKey[]` | Built-in pack keys to include. |
+| `configuration.customPacks` | `InsultPack[]` (optional) | User-supplied packs to append after built-in packs. |
 
 **Returns:** `Insult[]`
 
-The function deduplicates pack keys internally (via `Set`), looks each one up in the `insultPacks` registry, and concatenates their insult arrays into one. Unrecognized keys are silently skipped.
+The function deduplicates built-in pack keys internally (via `Set`), looks each one up in the `insultPacks` registry, and concatenates their insult arrays. Unrecognized keys are silently skipped. If `customPacks` is provided, each pack's insults are appended in order; duplicate `key` values among custom packs are also deduplicated.
 
 ```typescript
 import { createArray } from 'demotivator';
@@ -86,6 +87,43 @@ import { createArray } from 'demotivator';
 const pool = createArray({ packs: ['original', 'profane', 'christmas'] });
 console.log(pool.length); // Sum of insults across those three packs
 ```
+
+Pass `customPacks` to inject your own insults alongside built-in ones:
+
+```typescript
+import { createArray, defineCustomPack, generateInsult } from 'demotivator';
+
+const myPack = defineCustomPack({ key: 'byoi', title: 'My Pack', explicit: false, insults: ['You tried.'] });
+const pool = createArray({ packs: ['original'], customPacks: [myPack] });
+const insult = generateInsult(pool);
+```
+
+---
+
+### `defineCustomPack(pack)`
+
+An identity-function helper for defining a custom insult pack with full TypeScript inference and IDE autocomplete.
+
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| `pack` | `InsultPack` | The custom pack object to define. |
+
+**Returns:** `InsultPack` (the same object passed in, unchanged)
+
+`defineCustomPack` has zero runtime overhead — it returns its argument as-is. Its sole purpose is to give TypeScript the correct type at the call site so that missing fields or mistyped values are caught at compile time.
+
+```typescript
+import { defineCustomPack } from 'demotivator';
+
+const myPack = defineCustomPack({
+	key: 'byoi',
+	title: 'My Custom Pack',
+	explicit: false,
+	insults: ['You tried.', 'Almost counts in horseshoes.'],
+});
+```
+
+Pass the result to `createArray` via the `customPacks` field. See the [Custom Packs](/demotivator/packs#custom-packs) guide for full usage details.
 
 ---
 
@@ -176,6 +214,7 @@ import deMotivator from 'demotivator';
 | Method | Signature | Description |
 | ------ | --------- | ----------- |
 | `createArray` | `(config: CreateArrayConfig) => Insult[]` | Merge packs into a single array. |
+| `defineCustomPack` | `(pack: InsultPack) => InsultPack` | Type-safe helper for defining a custom pack. |
 | `generateInsult` | `(array: Insult[]) => Insult` | Pick a random insult. |
 | `insultAt` | `(position: number, array: Insult[]) => Insult` | Get insult at a 1-based index. |
 | `searchInsults` | `(term: string, array?: Insult[], withPosition?: boolean) => Insult \| InsultSearchResult` | Find the most relevant insult for a search term. |

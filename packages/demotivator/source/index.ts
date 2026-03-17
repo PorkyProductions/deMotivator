@@ -73,8 +73,25 @@ export const createArray = (configuration: CreateArrayConfig<InsultPackKey>): In
 		}
 		selectedInsults.push(...selectedPack.insults);
 	}
+	if (configuration.customPacks) {
+		const seenKeys = new Set<string>();
+		for (const cp of configuration.customPacks) {
+			if (!seenKeys.has(cp.key)) {
+				seenKeys.add(cp.key);
+				selectedInsults.push(...cp.insults);
+			}
+		}
+	}
 	return selectedInsults;
 };
+
+/**
+ * An identity-function helper for defining a custom insult pack with full TypeScript inference.
+ * @param pack The custom pack object to define.
+ * @returns The same pack object, typed as `InsultPack`.
+ * @since 13.0.0
+ */
+export const defineCustomPack = (pack: InsultPack): InsultPack => pack;
 
 /**
  * The main deMotivator object.
@@ -93,6 +110,7 @@ export const deMotivator: __DeMotivator<InsultPackKey> = {
 	insultPacks: insultPacks,
 	insultPackList: insultPackList,
 	createArray: createArray,
+	defineCustomPack: defineCustomPack,
 	generateInsult: generateInsult,
 	insultAt: insultAt,
 	searchInsults: searchInsults
@@ -175,6 +193,15 @@ export class DeMotivator implements __DeMotivator<InsultPackKey> {
    */
 	public createArray(configuration: CreateArrayConfig<InsultPackKey>): Insult[] {
 		return createArray(configuration);
+	}
+	/**
+   * Returns its argument typed as `InsultPack`. An identity helper for TypeScript inference.
+   * @public
+   * @param {InsultPack} pack
+   * @returns {InsultPack}
+   */
+	public defineCustomPack(pack: InsultPack): InsultPack {
+		return defineCustomPack(pack);
 	}
 	/**
    * Grabs a random insult from the insults array.

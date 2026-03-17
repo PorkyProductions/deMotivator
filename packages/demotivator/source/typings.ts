@@ -75,6 +75,7 @@ export interface __DeMotivator<TPackKey extends string = InsultPackKey> {
 	insultPacks: InsultPackMap;
 	insultPackList: InsultPack[];
 	createArray: (configuration: CreateArrayConfig<TPackKey>) => Insult[];
+	defineCustomPack: (pack: InsultPack) => InsultPack;
 	generateInsult: (array: Insult[]) => Insult;
 	insultAt: (position: number, array: Insult[]) => Insult;
 	searchInsults: SearchInsultsFunction;
@@ -88,4 +89,5 @@ export interface __DeMotivator<TPackKey extends string = InsultPackKey> {
  */
 export interface CreateArrayConfig<TPackKey extends string = InsultPackKey> {
 	packs: TPackKey[],
+	customPacks?: InsultPack[];
 }

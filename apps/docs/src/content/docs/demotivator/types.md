@@ -62,20 +62,28 @@ This type is derived directly from the `insultPacks` object at compile time, so 
 ```typescript
 interface CreateArrayConfig<TPackKey extends string = InsultPackKey> {
 	packs: TPackKey[];
+	customPacks?: InsultPack[];
 }
 ```
 
-The configuration object accepted by `createArray`. It has one field:
+The configuration object accepted by `createArray`. It has two fields:
 
-- **`packs`** — An array of pack keys to include. The generic parameter `TPackKey` defaults to `InsultPackKey`, which means you get autocomplete and compile-time validation of pack names out of the box.
+- **`packs`** — An array of built-in pack keys to include. The generic parameter `TPackKey` defaults to `InsultPackKey`, which means you get autocomplete and compile-time validation of pack names out of the box.
+- **`customPacks`** *(optional)* — An array of user-supplied `InsultPack` objects. Their insults are appended after those from `packs`. Duplicate `key` values within `customPacks` are deduplicated — only the first occurrence of each key is used.
 
 ### Example
 
 ```typescript
-// TypeScript will error if you pass an invalid pack key
+import { defineCustomPack, createArray, type CreateArrayConfig } from 'demotivator';
+
+// TypeScript will error if you pass an invalid built-in pack key
 const config: CreateArrayConfig = {
-	packs: ['original', 'halloween']
+	packs: ['original', 'halloween'],
 };
+
+// Extend with your own insults via customPacks
+const myPack = defineCustomPack({ key: 'byoi', title: 'My Pack', explicit: false, insults: ['You tried.'] });
+const poolWithCustom = createArray({ packs: ['original'], customPacks: [myPack] });
 ```
 
 ## `__DeMotivator<TPackKey>`
