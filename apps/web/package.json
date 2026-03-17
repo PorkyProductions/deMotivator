@@ -30,7 +30,7 @@
 		"rollup-plugin-visualizer": "^7.0.1",
 		"sass": "^1.98.0",
 		"serve": "^14.2.6",
-		"svelte": "^5.53.11",
+		"svelte": "^5.53.13",
 		"svelte-preprocess": "^6.0.3",
 		"tailwindcss": "^4.2.1",
 		"terser": "^5.46.0",
