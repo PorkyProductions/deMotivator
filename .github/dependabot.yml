@@ -10,9 +10,9 @@ updates:
       timezone: "America/New_York"
     open-pull-requests-limit: 10
     
-    # Auto-merge patch updates only for production
-    allow:
-      - dependency-type: "all"
+  # Auto-merge patch updates only for production
+  allow:
+    - dependency-type: "direct"
     
     # Commit message configuration
     commit-message:
