@@ -55,6 +55,7 @@ updates:
         update-types: ["version-update:semver-major"]
       - dependency-name: "lodash"
         update-types: ["version-update:semver-major"]
+      - dependency-type: "indirect"
     
     # Versioning requirements
     versioning-strategy: "increase"
