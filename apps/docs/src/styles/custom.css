@@ -1,5 +1,21 @@
 @import 'tailwindcss';
 
+@font-face {
+	font-family: 'Raleway';
+	font-style: normal;
+	font-weight: 100 900;
+	font-display: swap;
+	src: url('/docs/fonts/Raleway.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Raleway';
+	font-style: italic;
+	font-weight: 100 900;
+	font-display: swap;
+	src: url('/docs/fonts/Raleway-Italic.ttf') format('truetype');
+}
+
 :root {
 	--sl-font: 'Raleway', 'Segoe UI', sans-serif;
 	--sl-text-body: 1.03rem;

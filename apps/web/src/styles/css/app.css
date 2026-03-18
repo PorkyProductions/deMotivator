@@ -2,6 +2,22 @@
 @import 'tailwindcss';
 @import 'bootstrap-icons/font/bootstrap-icons.css';
 
+@font-face {
+	font-family: 'Raleway';
+	font-style: normal;
+	font-weight: 100 900;
+	font-display: swap;
+	src: url('../../fonts/Raleway.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Raleway';
+	font-style: italic;
+	font-weight: 100 900;
+	font-display: swap;
+	src: url('../../fonts/Raleway-Italic.ttf') format('truetype');
+}
+
 /* Ensure Raleway is applied globally as a fallback in case other stylesheets load before Tailwind */
 @layer base {
 	:root {
