@@ -22,7 +22,7 @@
 			const [
 				{ readInsults, getListOfAllUsersWhoHaveSeenInsults, leaderboard },
 				{ readInsultStreak },
-				{ syncMilestoneAchievements, syncLeaderboardRankAchievements, readAchievementCards }
+				{ syncMilestoneAchievements, syncStreakMilestoneAchievements, syncLeaderboardRankAchievements, readAchievementCards }
 			] = await Promise.all([
 				import('../../typescript/readInsults'),
 				import('../../utils/insultStreak'),
@@ -33,6 +33,7 @@
 			const currentUserRankIndex = leaderboard.findIndex((entry) => entry.isCurrentUser);
 			const currentUserRank = currentUserRankIndex >= 0 ? currentUserRankIndex + 1 : null;
 			await syncMilestoneAchievements(insultsSeen);
+			await syncStreakMilestoneAchievements(insultStreak);
 			await syncLeaderboardRankAchievements(currentUserRank);
 			const achievementCards = await readAchievementCards();
 			insultsSeenDB = insultsSeen;

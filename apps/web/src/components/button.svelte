@@ -50,7 +50,10 @@ const randomize = async () => {
 	if (!MEGAMODE) {
 		cachedInsultCount++;
 		pendingWrites++;
-		const { isInsultMilestoneCount, syncMilestoneAchievements } = await import('../utils/achievements');
+		const {
+			isInsultMilestoneCount,
+			syncMilestoneAchievements
+		} = await import('../utils/achievements');
 		if (isInsultMilestoneCount(cachedInsultCount)) {
 			await syncMilestoneAchievements(cachedInsultCount);
 		}
@@ -60,7 +63,11 @@ const randomize = async () => {
 	}
 	try {
 		const { updateDailyInsultStreak } = await import('../utils/insultStreak');
-		await updateDailyInsultStreak();
+		const streakCount = await updateDailyInsultStreak();
+		const { isStreakMilestoneCount, syncStreakMilestoneAchievements } = await import('../utils/achievements');
+		if (isStreakMilestoneCount(streakCount)) {
+			await syncStreakMilestoneAchievements(streakCount);
+		}
 	} catch (error) {
 		console.error('Failed to update insult streak', error);
 	}

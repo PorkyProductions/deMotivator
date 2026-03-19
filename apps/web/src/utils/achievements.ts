@@ -29,6 +29,10 @@ export type AchievementId =
 | 'insults10000'
 | 'insults100000'
 | 'insults1000000'
+| 'streak7'
+| 'streak30'
+| 'streak100'
+| 'streak365'
 | 'hedgehogEggFound'
 | 'shareTheHate'
 | 'topThree'
@@ -39,8 +43,9 @@ export interface AchievementDefinition {
 	title: string;
 	description: string;
 	emoji: string;
-	kind: 'insultsSeen' | 'hedgehogEgg' | 'sharing' | 'leaderboardRank';
+	kind: 'insultsSeen' | 'insultStreak' | 'hedgehogEgg' | 'sharing' | 'leaderboardRank';
 	requiredInsultsSeen?: number;
+	requiredInsultStreak?: number;
 }
 
 export interface EarnedAchievement extends AchievementDefinition {
@@ -94,6 +99,38 @@ const achievementDefinitions: AchievementDefinition[] = [
 		requiredInsultsSeen: 1000000
 	},
 	{
+		id: 'streak7',
+		title: 'Week of Spite',
+		description: 'Keep a 7-day insult streak.',
+		emoji: '📆',
+		kind: 'insultStreak',
+		requiredInsultStreak: 7
+	},
+	{
+		id: 'streak30',
+		title: 'Monthly Menace',
+		description: 'Keep a 30-day insult streak.',
+		emoji: '🗓️',
+		kind: 'insultStreak',
+		requiredInsultStreak: 30
+	},
+	{
+		id: 'streak100',
+		title: 'Centurion of Cynicism',
+		description: 'Keep a 100-day insult streak.',
+		emoji: '💥',
+		kind: 'insultStreak',
+		requiredInsultStreak: 100
+	},
+	{
+		id: 'streak365',
+		title: 'Yearlong Yikes',
+		description: 'Keep a 365-day insult streak.',
+		emoji: '🕰️',
+		kind: 'insultStreak',
+		requiredInsultStreak: 365
+	},
+	{
 		id: 'hedgehogEggFound',
 		title: 'Hog Hunter',
 		description: 'Find the hidden hedgehog easter egg.',
@@ -132,6 +169,12 @@ const insultMilestoneCounts = new Set(
 	achievementDefinitions
 		.filter((achievementDefinition) => achievementDefinition.kind === 'insultsSeen')
 		.map((achievementDefinition) => Number(achievementDefinition.requiredInsultsSeen ?? 0))
+);
+
+const streakMilestoneCounts = new Set(
+	achievementDefinitions
+		.filter((achievementDefinition) => achievementDefinition.kind === 'insultStreak')
+		.map((achievementDefinition) => Number(achievementDefinition.requiredInsultStreak ?? 0))
 );
 
 const normalizeUnlockMap = (value: unknown): Partial<Record<AchievementId, string>> => {
@@ -229,6 +272,10 @@ export const achievementUnlockers: Record<AchievementId, () => Promise<Achieveme
 	insults10000: createAchievementUnlocker('insults10000'),
 	insults100000: createAchievementUnlocker('insults100000'),
 	insults1000000: createAchievementUnlocker('insults1000000'),
+	streak7: createAchievementUnlocker('streak7'),
+	streak30: createAchievementUnlocker('streak30'),
+	streak100: createAchievementUnlocker('streak100'),
+	streak365: createAchievementUnlocker('streak365'),
 	hedgehogEggFound: createAchievementUnlocker('hedgehogEggFound'),
 	shareTheHate: createAchievementUnlocker('shareTheHate'),
 	topThree: createAchievementUnlocker('topThree'),
@@ -239,6 +286,8 @@ export const getAchievementDefinitions = (): AchievementDefinition[] => achievem
 
 export const isInsultMilestoneCount = (insultsSeen: number): boolean => insultMilestoneCounts.has(insultsSeen);
 
+export const isStreakMilestoneCount = (insultStreak: number): boolean => streakMilestoneCounts.has(insultStreak);
+
 /**
  * Retroactive + normal milestone sync.
  * Pass any total insult count and this will unlock all matching milestones.
@@ -248,6 +297,16 @@ export const syncMilestoneAchievements = (insultsSeen: number): Promise<Achievem
 		.filter((achievementDefinition) => (
 			achievementDefinition.kind === 'insultsSeen'
 && insultsSeen >= Number(achievementDefinition.requiredInsultsSeen ?? Number.MAX_SAFE_INTEGER)
+		))
+		.map((achievementDefinition) => achievementDefinition.id);
+	return unlockAchievementsById(unlockedAchievementIds);
+};
+
+export const syncStreakMilestoneAchievements = (insultStreak: number): Promise<AchievementId[]> => {
+	const unlockedAchievementIds: AchievementId[] = achievementDefinitions
+		.filter((achievementDefinition) => (
+			achievementDefinition.kind === 'insultStreak'
+&& insultStreak >= Number(achievementDefinition.requiredInsultStreak ?? Number.MAX_SAFE_INTEGER)
 		))
 		.map((achievementDefinition) => achievementDefinition.id);
 	return unlockAchievementsById(unlockedAchievementIds);
