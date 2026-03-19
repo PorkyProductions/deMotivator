@@ -21,6 +21,10 @@ const config: UserConfig = {
   css: {
     devSourcemap: true,
   },
+  optimizeDeps: {
+    noDiscovery: true,
+    entries: [resolve(__dirname, './index.html')]
+  },
   resolve: {
     alias: {
       'demotivator': resolve(__dirname, '../../packages/demotivator/source/index.ts'),
