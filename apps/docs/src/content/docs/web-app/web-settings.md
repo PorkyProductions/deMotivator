@@ -39,6 +39,8 @@ The app comes with several themed packs of insults. Each pack can be individuall
 | **Profane** | Strong language and mature content. Requires the Profanity toggle to be enabled. | Yes |
 | **Halloween 🎃** | Seasonal insults themed around ghosts, monsters, and trick-or-treating. | No |
 | **Christmas 🎄** | Seasonal insults themed around the holidays. | No |
+| **Valentine's Day 💝** | Seasonal insults themed around love and romance. | No |
+| **St. Patrick's Day ☘️** | Seasonal insults themed around Irish culture and St. Patrick's Day. | No |
 
 At least one pack must remain enabled at all times. If you try to disable the last remaining pack, the app will stop you.
 
