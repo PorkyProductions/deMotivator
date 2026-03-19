@@ -6,7 +6,7 @@
 		"alwaysStrict": true,
 		"exactOptionalPropertyTypes": false,
 		"diagnostics": true,
-		"moduleResolution": "node",
+		"moduleResolution": "bundler",
 		"noFallthroughCasesInSwitch": true,
 		"noErrorTruncation": false,
 		"noImplicitAny": true,

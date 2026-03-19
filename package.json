@@ -12,6 +12,7 @@
 		"build:force": "turbo run build --force",
 		"lint": "turbo run lint",
 		"typeCheck": "turbo run typeCheck",
+		"deploy": "turbo run deploy",
 		"clean": "turbo run clean && rm -rf node_modules/.cache .turbo",
 		"turbo:prune": "turbo prune --scope=@apps/web"
 	},

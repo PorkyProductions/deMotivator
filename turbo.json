@@ -1,5 +1,6 @@
 {
   "$schema": "./node_modules/turbo/schema.json",
+  // Any change to these files invalidates the cache for all tasks across all packages.
   "globalDependencies": [
     ".env",
     ".env.*",
@@ -12,40 +13,51 @@
     "CI"
   ],
   "tasks": {
+    // Build order for apps/web:
+    //   1. packages/* build first (enforced by "^build")
+    //   2. lint runs (enforced by "lint" dep)
+    //   3. npm lifecycle hooks fire automatically in order:
+    //      prebuild  →  supportedBrowsers, updateGuardian, rm -rf out
+    //      build     →  vite build
+    //      postbuild →  injectPWA, cp www assets, pushPrepareDocs
+    //
+    // Note: prebuild is NOT a turbo task. It is an npm lifecycle hook that
+    // npm fires automatically before running the "build" script. Declaring it
+    // as a turbo task as well would cause it to run twice.
     "build": {
-      "dependsOn": ["lint", "prebuild", "^build"],
+      // "^build" = all workspace dependencies must finish their build first.
+      // "lint"   = lint must pass before vite build starts.
+      "dependsOn": ["lint", "^build"],
       "outputs": ["out/**", "dist/**", ".vite/**"],
-      "cache": true,
-        "inputs": [
-          "src/**",
-          "source/**",
-          "public/**",
-          "*.html",
-          "astro.config.mjs",
-          "vite.config.ts",
-          "tsconfig.json",
-          "package.json"
-        ],
-      "outputLogs": "new-only"
-    },
-    "prebuild": {
-      "dependsOn": ["lint"],
-      "outputs": [],
       "cache": true,
       "inputs": [
         "src/**",
         "source/**",
+        "public/**",
+        "www/**",       // postbuild copies from www/ into out/
+        "*.html",
+        "astro.config.mjs",
+        "vite.config.ts",
+        "tsconfig.json",
         "package.json"
       ],
-      "outputLogs": "errors-only"
+      "outputLogs": "new-only"
     },
+    // deploy depends on build completing successfully.
+    // Not cached — always re-runs to ensure latest artifacts are pushed.
+    "deploy": {
+      "dependsOn": ["build"],
+      "cache": false
+    },
+    // lint runs after all dependency packages have linted ("^lint"),
+    // but is otherwise independent of the local build.
     "lint": {
       "dependsOn": ["^lint"],
       "cache": true,
       "inputs": [
         "src/**/*.{js,ts,svelte}",
         "source/**/*.{js,ts,svelte}",
-        ".eslintrc.*",
+        "eslint.config.*",    // flat config (v9+); legacy .eslintrc.* removed
         ".eslintignore"
       ],
       "outputLogs": "errors-only"
@@ -54,15 +66,17 @@
       "dependsOn": ["^typeCheck"],
       "outputs": ["*.tsbuildinfo"],
       "cache": true,
-        "inputs": [
-          "src/**/*.{ts,tsx,svelte,astro,md,mdx}",
-          "source/**/*.{ts,tsx,svelte}",
-          "content/**/*.{md,mdx}",
-          "astro.config.mjs",
-          "tsconfig.json"
-        ],
+      "inputs": [
+        "src/**/*.{ts,tsx,svelte,astro,md,mdx}",
+        "source/**/*.{ts,tsx,svelte}",
+        "content/**/*.{md,mdx}",
+        "astro.config.mjs",
+        "tsconfig.json"
+      ],
       "outputLogs": "errors-only"
     },
+    // dev is a long-running process; never cached, never exits.
+    // "^build" ensures packages are built before the dev server starts.
     "dev": {
       "dependsOn": ["^build"],
       "cache": false,

@@ -6,9 +6,11 @@
 	"scripts": {
 		"dev": "vite serve",
 		"updateGuardian": "node -e \"const{spawnSync}=require('child_process'),p=require('os').platform();const r=p==='win32'?spawnSync('pwsh',['-File','../../scripts/updateGuardian.ps1'],{stdio:'inherit',shell:true}):spawnSync('zsh',['../../scripts/updateGuardian.sh'],{stdio:'inherit'});if(r.status!==0)process.exit(r.status||1);\"",
-		"prebuild": "npm run updateGuardian && rm -rf out",
+		"prebuild": "npm run supportedBrowsers && npm run updateGuardian && rm -rf out",
 		"build": "vite build",
-		"postbuild": "cp -r ../../www/* out/ && if [ -d ../docs/dist ]; then rm -rf out/docs && mkdir -p out/docs && cp -r ../docs/dist/* out/docs/; fi",
+		"injectPWA": "node -e \"const{spawnSync}=require('child_process'),p=require('os').platform();const r=p==='win32'?spawnSync('pwsh',['-File','../../scripts/injectPWA.ps1'],{stdio:'inherit',shell:true}):spawnSync('zsh',['../../scripts/injectPWA.sh'],{stdio:'inherit'});if(r.status!==0)process.exit(r.status||1);\"",
+		"postbuild": "npm run injectPWA && cp -r ../../www/* out/ && npm run pushPrepareDocs",
+		"deploy": "npx firebase-tools deploy",
 		"ssrBuild": "vite ssrBuild",
 		"lint": "eslint \"./src/**/*.{js,ts,svelte}\" --fix --max-warnings=-1 || true",
 		"buildTS": "tsc --project tsconfig.json",
@@ -20,6 +22,7 @@
 	},
 	"devDependencies": {
 		"@sveltejs/vite-plugin-svelte": "^7.0.0",
+		"firebase-tools": "^15.8.0",
 		"@tailwindcss/postcss": "^4.2.1",
 		"@tailwindcss/vite": "^4.2.1",
 		"autoprefixer": "^10.4.27",
@@ -46,7 +49,6 @@
 		"canvas-confetti": "^1.9.4",
 		"demotivator": "^14.0.0",
 		"firebase": "^12.10.0",
-		"firebase-tools": "^15.8.0",
 		"lodash": "^4.17.23",
 		"uadetect": "^7.0.0-alpha-2"
 	}
