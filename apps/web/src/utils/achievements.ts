@@ -124,7 +124,7 @@ const achievementDefinitions: AchievementDefinition[] = [
 	},
 	{
 		id: 'streak365',
-		title: 'Yearlong Yikes',
+		title: 'A Year of Suffering',
 		description: 'Keep a 365-day insult streak.',
 		emoji: '🕰️',
 		kind: 'insultStreak',

@@ -51,12 +51,18 @@ Achievements are milestones you unlock by using the app. Once earned, they're pe
 | **Low Life** | 👹 | Generate 10,000 insults. |
 | **Disparagement Demi-God** | 🌋 | Generate 100,000 insults. |
 | **Ego Death** | 💀 | Generate 1,000,000 insults. |
+| **Week of Spite** | 📆 | Keep a 7-day insult streak. |
+| **Monthly Menace** | 🗓️ | Keep a 30-day insult streak. |
+| **Centurion of Cynicism** | 💥 | Keep a 100-day insult streak. |
+| **A Year of Suffering** | 🕰️ | Keep a 365-day insult streak. |
 | **Hog Hunter** | 🦔 | Find the hidden hedgehog easter egg. (See [Secrets](/docs/web-app/web-secrets).) |
 | **Share the Hate** | 📢 | Share an insult on social media. |
 | **Top Three Terror** | 🏆 | Reach the top 3 on the leaderboard. |
 | **Supreme Leader of (de)Motivation** | 👑 | Claim 1st place on the leaderboard. |
 
 Insult milestone achievements (First Blood through Ego Death) are **retroactive** — if you already have 5,000 insults and then sign in, you'll automatically receive First Blood and Roast Regular.
+
+Streak milestone achievements (Week of Spite through A Year of Suffering) are also **retroactive** — refreshing your profile syncs your current streak and awards every streak milestone you've already reached.
 
 Earned achievements appear in full color on your profile; locked ones are shown as disabled so you can see what to aim for.
 
