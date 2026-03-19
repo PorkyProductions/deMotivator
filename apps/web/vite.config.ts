@@ -21,10 +21,6 @@ const config: UserConfig = {
   css: {
     devSourcemap: true,
   },
-  optimizeDeps: {
-    noDiscovery: true,
-    entries: [resolve(__dirname, './index.html')]
-  },
   resolve: {
     alias: {
       'demotivator': resolve(__dirname, '../../packages/demotivator/source/index.ts'),
@@ -39,7 +35,7 @@ const config: UserConfig = {
     sourcemap: false,
     minify: "esbuild",
     rollupOptions: {
-      treeshake: "recommended",
+      treeshake: true,
       input: {
         index: "index.html",
         fourHundredFour: "./404.html",
