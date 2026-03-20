@@ -1,12 +1,19 @@
 import { DocumentData, QuerySnapshot } from 'firebase/firestore';
 import { GlobInsultDBQueryResponse, type InsultDBQueryResponse  } from './types';
 export const readInsults = async (): Promise<number> => {
-	const { getFirestore, doc, getDoc, setDoc } = await import('firebase/firestore');
+	const { getFirestore, doc, runTransaction } = await import('firebase/firestore');
 	const { getAuth } = await import('firebase/auth');
 	const { getFirebaseApp } = await import('../utils/firebase/firebaseApp');
 	const app = await getFirebaseApp();
 	const db = getFirestore(app);
 	const auth = getAuth(app);
+	const normalizeInsultsSeen = (value: unknown): number => {
+		const parsedValue = Math.floor(Number(value));
+		if (!Number.isFinite(parsedValue) || parsedValue < 0) {
+			return 0;
+		}
+		return parsedValue;
+	};
 
 	await auth.authStateReady();
 
@@ -16,15 +23,27 @@ export const readInsults = async (): Promise<number> => {
 	}
 
 	const usersRef = doc(db, 'users', user.uid);
-	const usersSnap = await getDoc(usersRef);
-	if (!usersSnap.exists()) {
-		return 0;
-	}
-
-	const data: InsultDBQueryResponse = usersSnap.data();
-	const insultsSeen = typeof data.insultsSeen === 'number' ? data.insultsSeen : 0;
 	const leaderboardRef = doc(db, 'leaderboardEntries', user.uid);
-	await setDoc(leaderboardRef, { insultsSeen }, { merge: true });
+	const insultsSeen = await runTransaction(db, async (transaction) => {
+		const [usersSnap, leaderboardSnap] = await Promise.all([
+			transaction.get(usersRef),
+			transaction.get(leaderboardRef)
+		]);
+		if (!usersSnap.exists() && !leaderboardSnap.exists()) {
+			return 0;
+		}
+		const usersData: InsultDBQueryResponse = usersSnap.exists() ? usersSnap.data() : {};
+		const usersInsultsSeen = normalizeInsultsSeen(usersData.insultsSeen);
+		const leaderboardInsultsSeen = normalizeInsultsSeen(leaderboardSnap.data()?.insultsSeen);
+		const reconciledInsultsSeen = Math.max(usersInsultsSeen, leaderboardInsultsSeen);
+		if (usersInsultsSeen !== reconciledInsultsSeen) {
+			transaction.set(usersRef, { insultsSeen: reconciledInsultsSeen }, { merge: true });
+		}
+		if (leaderboardInsultsSeen !== reconciledInsultsSeen) {
+			transaction.set(leaderboardRef, { insultsSeen: reconciledInsultsSeen }, { merge: true });
+		}
+		return reconciledInsultsSeen;
+	});
 	return insultsSeen;
 };
 export let leaderboard: GlobInsultDBQueryResponse[] = [];

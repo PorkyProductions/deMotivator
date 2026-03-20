@@ -1,10 +1,17 @@
 export const updateInsultsSeen = async (insultsSeen: number): Promise<boolean> => {
-	const { getFirestore, doc, writeBatch } = await import('firebase/firestore');
+	const { getFirestore, doc, runTransaction } = await import('firebase/firestore');
 	const { getAuth } = await import('firebase/auth');
 	const { getFirebaseApp } = await import('../utils/firebase/firebaseApp');
 	const app = await getFirebaseApp();
 	const db = getFirestore(app);
 	const auth = getAuth(app);
+	const normalizeInsultsSeen = (value: unknown): number => {
+		const parsedValue = Math.floor(Number(value));
+		if (!Number.isFinite(parsedValue) || parsedValue < 0) {
+			return 0;
+		}
+		return parsedValue;
+	};
 
 	// Use currentUser instead of onAuthStateChanged for synchronous check
 	const user = auth.currentUser;
@@ -13,21 +20,31 @@ export const updateInsultsSeen = async (insultsSeen: number): Promise<boolean> =
 		return false;
 	}
 
-	const batch = writeBatch(db);
-	batch.set(
-		doc(db, 'users', user.uid),
-		{
-			insultsSeen: insultsSeen,
-			displayName: user.displayName ?? '',
-			photoURL: user.photoURL ?? ''
-		},
-		{ merge: true }
-	);
-	batch.set(
-		doc(db, 'leaderboardEntries', user.uid),
-		{ insultsSeen: insultsSeen },
-		{ merge: true }
-	);
-	await batch.commit();
+	const usersRef = doc(db, 'users', user.uid);
+	const leaderboardRef = doc(db, 'leaderboardEntries', user.uid);
+	const incomingInsultsSeen = normalizeInsultsSeen(insultsSeen);
+	await runTransaction(db, async (transaction) => {
+		const [usersSnap, leaderboardSnap] = await Promise.all([
+			transaction.get(usersRef),
+			transaction.get(leaderboardRef)
+		]);
+		const usersInsultsSeen = normalizeInsultsSeen(usersSnap.data()?.insultsSeen);
+		const leaderboardInsultsSeen = normalizeInsultsSeen(leaderboardSnap.data()?.insultsSeen);
+		const nextInsultsSeen = Math.max(incomingInsultsSeen, usersInsultsSeen, leaderboardInsultsSeen);
+		transaction.set(
+			usersRef,
+			{
+				insultsSeen: nextInsultsSeen,
+				displayName: user.displayName ?? '',
+				photoURL: user.photoURL ?? ''
+			},
+			{ merge: true }
+		);
+		transaction.set(
+			leaderboardRef,
+			{ insultsSeen: nextInsultsSeen },
+			{ merge: true }
+		);
+	});
 	return true;
 };
