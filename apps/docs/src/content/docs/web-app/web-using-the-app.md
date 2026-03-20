@@ -9,6 +9,8 @@ The home page is (de)Motivator's core experience. Front and center is a large re
 
 Once an insult appears, it displays to the right of the button on desktop or below it on mobile. The text automatically scales to fit the screen.
 
+If **Profanity Censor** and/or **Angry Mode** are enabled in [Settings](./web-settings.md), the displayed insult reflects those transformations.
+
 ### Copy to Clipboard
 
 Below the button you'll find a **Copy Insult to Clipboard** button. Tap it to copy the currently displayed insult so you can paste it anywhere — a text message, a group chat, wherever the roast needs to land.
@@ -20,6 +22,8 @@ Feeling extra? Toggle the **MEGAMODE** switch below the button. Instead of press
 While MEGAMODE is active, you'll see a speed slider and a counter showing how many insults have been generated. Drag the slider to control how fast insults cycle — all the way from leisurely reading pace to an absurd blur. MEGAMODE insults don't count toward your stats, so go wild.
 
 Note that the Copy button is disabled during MEGAMODE since insults change too fast to copy individually.
+
+MEGAMODE output also respects **Profanity Censor** and **Angry Mode** settings.
 
 ---
 
@@ -54,6 +58,8 @@ Every insult has a **share** button that opens a share sheet with options to sha
 - **Facebook** — Opens a Facebook share dialog.
 - **Reddit** — Opens a Reddit submission with the insult as the title.
 - **Other...** — Uses your device's native share menu (on supported browsers).
+
+Shared and copied insult text uses your active content transformations (for example, profanity censoring and angry mode formatting).
 
 Sharing an insult for the first time unlocks the **Share the Hate** achievement.
 

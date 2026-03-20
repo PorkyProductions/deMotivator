@@ -17,6 +17,29 @@ These settings control what kind of insults you see across the entire app — on
 
 A toggle that controls whether insults containing strong language and mature content are included. This is **off by default**. Enabling it will show a warning, and it unlocks the Profane insult pack for selection in the Insult Pool section below.
 
+### Profanity Censor
+
+When **Profanity** is enabled, you can also enable **Profanity Censor**. This masks profane words using `#` characters (for example, `####`) while keeping the rest of the insult unchanged.
+
+This applies across the app, including:
+
+- Home page random insults
+- MEGAMODE output
+- Insult Browser display
+- Copy and share text output
+
+If Profanity is disabled, this setting is unavailable.
+
+### Angry Mode
+
+**Angry Mode** transforms insults to uppercase and appends exclamation points.
+
+- Home page and MEGAMODE: each generated insult gets a random `1-7` exclamation count.
+- Insult Browser: each insult keeps a stable exclamation count while you're viewing the page, so punctuation does not constantly change on re-render.
+- Copy/share actions use the transformed text.
+
+Filtering, favorites, and internal matching still use canonical insult text so saved favorites and search behavior remain stable.
+
 ### Length Limit
 
 A number field that sets the **maximum number of words** an insult can have. Any insult longer than this limit is filtered out. Set it to **0** (the default) for unlimited length. The maximum value is 100 words.
