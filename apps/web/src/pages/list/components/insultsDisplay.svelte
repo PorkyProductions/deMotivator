@@ -8,6 +8,7 @@ type ViewMode = 'cards' | 'list';
 interface Props {
 filteredInsults: string[];
 paginatedInsults: string[];
+displayInsultMap: Record<string, string>;
 viewMode: ViewMode;
 favoriteInsults: Set<string>;
 currentPage: number;
@@ -23,6 +24,7 @@ onClearFilters: () => void;
 const {
 	filteredInsults,
 	paginatedInsults,
+	displayInsultMap,
 	viewMode,
 	favoriteInsults,
 	currentPage,
@@ -40,6 +42,7 @@ const {
 {#if viewMode === 'cards'}
 <div class="row g-4 mb-4">
 {#each paginatedInsults as insult, i (insult)}
+{@const displayedInsult = displayInsultMap[insult] ?? insult}
 <div
 class="col-lg-6"
 transition:scale={{ delay: i * 50 }}
@@ -48,12 +51,12 @@ animate:flip={{ duration: 300 }}
 <div class="card h-100 border-0 shadow-sm hover-shadow-lg transition-shadow">
 <div class="card-body d-flex flex-column">
 <p class="card-text fs-5 grow mb-3">
-"{insult}"
+"{displayedInsult}"
 </p>
 <div class="d-flex gap-2 justify-content-end">
 <button
 class="btn btn-sm btn-outline-primary"
-onclick={() => onCopyToClipboard(insult)}
+	onclick={() => onCopyToClipboard(insult)}
 title="Copy"
 >
 <Icon name="clipboard" />
@@ -82,13 +85,14 @@ title="Favorite"
 <div class="card border-0 shadow-sm mb-4">
 <ul class="list-group list-group-flush">
 {#each paginatedInsults as insult, i (insult)}
+{@const displayedInsult = displayInsultMap[insult] ?? insult}
 <li
 class="list-group-item py-3 hover-bg-light"
 transition:fade={{ delay: i * 30 }}
 animate:flip={{ duration: 300 }}
 >
 <div class="d-flex justify-content-between align-items-center">
-<span class="fs-5 me-3">"{insult}"</span>
+<span class="fs-5 me-3">"{displayedInsult}"</span>
 <div class="d-flex gap-2">
 <button
 class="btn btn-sm btn-outline-primary"

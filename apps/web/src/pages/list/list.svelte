@@ -21,11 +21,17 @@
 	import { bsTheme } from '../../utils/darkMode';
 	import { onMount } from 'svelte';
 	import shuffle from 'lodash/shuffle';
-	import { initSettingsListener, resolveEnabledPackKeys, settingsStore } from '../../utils/userSettings';
+	import {
+		initSettingsListener,
+		resolveEnabledPackKeys,
+		settingsStore,
+		type UserSettings
+	} from '../../utils/userSettings';
 	import { filterInsultsByMaxWords } from '../../utils/insultLength';
 	import { submitInsultRequest } from '../../utils/insultRequests';
 	import { onAuthStateChanged } from '../../utils/firebase';
 	import { achievementUnlockers } from '../../utils/achievements';
+	import { getRandomExclamationCount, shouldPostProcessInsult, transformInsultText } from '../../utils/insultTransform';
 	let dmv;
 	let availableInsults = $state([]);
 
@@ -85,9 +91,12 @@
 	let ready = $state(false);
 	let copySuccess = $state('');
 	let favoriteInsults = $state(new Set());
+	let displayInsultMap = $state<Record<string, string>>({});
+	let angryExclamationMap = $state<Record<string, number>>({});
 	let showFavoritesOnly = $state(false);
 	let shareDialogOpen = $state(false);
 	let shareDialogInsult = $state('');
+	let shareDialogDisplayInsult = $state('');
 
 	// Insult request state
 	let requestText = $state('');
@@ -113,6 +122,49 @@
 		currentPage * itemsPerPage
 	));
 
+	const getStableExclamationCount = (insult: string) => {
+		const existingExclamationCount = angryExclamationMap[insult];
+		if (existingExclamationCount !== undefined) {
+			return existingExclamationCount;
+		}
+		const nextExclamationCount = getRandomExclamationCount();
+		angryExclamationMap = {
+			...angryExclamationMap,
+			[insult]: nextExclamationCount
+		};
+		return nextExclamationCount;
+	};
+
+	const resolveDisplayInsult = async (insult: string, settings: UserSettings) => {
+		if (!shouldPostProcessInsult(settings)) {
+			return insult;
+		}
+		const exclamationCount = settings.angryMode ? getStableExclamationCount(insult) : undefined;
+		return await transformInsultText(insult, settings, { exclamationCount });
+	};
+
+	let displayTransformRunId = 0;
+	$effect(() => {
+		const paginatedInsultsSnapshot = [...paginatedInsults];
+		const shareDialogInsultSnapshot = shareDialogInsult;
+		const settingsSnapshot = $settingsStore;
+		const runId = ++displayTransformRunId;
+		void (async () => {
+			const nextDisplayInsultMap: Record<string, string> = {};
+			for (const insult of paginatedInsultsSnapshot) {
+				nextDisplayInsultMap[insult] = await resolveDisplayInsult(insult, settingsSnapshot);
+			}
+			const nextShareDialogDisplayInsult = shareDialogInsultSnapshot
+				? await resolveDisplayInsult(shareDialogInsultSnapshot, settingsSnapshot)
+				: '';
+			if (runId !== displayTransformRunId) {
+				return;
+			}
+			displayInsultMap = nextDisplayInsultMap;
+			shareDialogDisplayInsult = nextShareDialogDisplayInsult;
+		})();
+	});
+
 	$effect(() => {
 		if (searchQuery || showFavoritesOnly || $settingsStore.maxInsultWords || $settingsStore.selectedPacks.length) {
 			currentPage = 1;
@@ -130,22 +182,30 @@
 		}
 	};
 
+	const copyInsultToClipboard = async (insult: string) => {
+		const displayInsult = displayInsultMap[insult] ?? await resolveDisplayInsult(insult, $settingsStore);
+		await copyToClipboard(displayInsult);
+	};
+
 	const openShareDialog = (insult: string) => {
 		shareDialogInsult = insult;
+		shareDialogDisplayInsult = displayInsultMap[insult] ?? '';
 		shareDialogOpen = true;
 	};
 
 	const closeShareDialog = () => {
 		shareDialogOpen = false;
 		shareDialogInsult = '';
+		shareDialogDisplayInsult = '';
 	};
 
 	const shareInsult = async (destination: ShareDestination) => {
 		if (!shareDialogInsult) {
 			return;
 		}
+		const displayInsult = shareDialogDisplayInsult || await resolveDisplayInsult(shareDialogInsult, $settingsStore);
 		const sharePayload = createSharePayload({
-			shareText: `"${shareDialogInsult}"`,
+			shareText: `"${displayInsult}"`,
 			shareTitle: '(de)Motivator insult'
 		});
 		const { shareUrl, shareText, shareBody } = sharePayload;
@@ -312,27 +372,28 @@
 						<CopySuccessAlert />
 					{/if}
 
-					{#if shareDialogOpen}
-						<ShareSheetDialog
-							dialogTitle="Share insult"
-							dialogDescription="Choose where to share this insult:"
-							previewText={`"${shareDialogInsult}"`}
-							buttons={defaultShareButtons}
-							onCloseDialog={closeShareDialog}
-							onShare={shareInsult}
+						{#if shareDialogOpen}
+							<ShareSheetDialog
+								dialogTitle="Share insult"
+								dialogDescription="Choose where to share this insult:"
+								previewText={`"${shareDialogDisplayInsult || shareDialogInsult}"`}
+								buttons={defaultShareButtons}
+								onCloseDialog={closeShareDialog}
+								onShare={shareInsult}
 						/>
 					{/if}
 
 					<InsultsDisplay
 						{filteredInsults}
 						{paginatedInsults}
+						{displayInsultMap}
 						{viewMode}
 						{favoriteInsults}
 						{currentPage}
 						{totalPages}
 						{getPaginationRange}
 						{goToPage}
-						onCopyToClipboard={copyToClipboard}
+						onCopyToClipboard={copyInsultToClipboard}
 						onOpenShareDialog={openShareDialog}
 						onToggleFavorite={toggleFavorite}
 						onClearFilters={clearFilters}

@@ -9,6 +9,7 @@ import ButtonControls from './button/buttonControls.svelte';
 import ButtonDisplay from './button/buttonDisplay.svelte';
 import { createMegamodeIntervalController } from './button/megamodeInterval';
 import { getRandomInsultFromSettings } from './button/randomInsult';
+import { transformInsultText } from '../utils/insultTransform';
 
 let result = $state('');
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -45,7 +46,7 @@ const randomize = async () => {
 		userResult = noMatchingInsultsMessage;
 		return;
 	}
-	result = selectedInsult;
+	result = await transformInsultText(selectedInsult, $settingsStore);
 	insultsShown++;
 	if (!MEGAMODE) {
 		cachedInsultCount++;
@@ -100,7 +101,7 @@ const MEGAMODErandomize = async () => {
 		MEGAMODEresult = `No insults found with ${maxWordsLabel}.`;
 		return;
 	}
-	MEGAMODEresult = selectedInsult;
+	MEGAMODEresult = await transformInsultText(selectedInsult, $settingsStore);
 	MEGAMODEinsults++;
 };
 
