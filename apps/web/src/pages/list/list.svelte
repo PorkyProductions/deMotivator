@@ -19,7 +19,6 @@
 	} from '../../utils/shareSheet';
 	import Auth from '../login/auth.svelte';
 	import { bsTheme } from '../../utils/darkMode';
-	import { userInsults } from '../../typescript/insults';
 	import { onMount } from 'svelte';
 	import shuffle from 'lodash/shuffle';
 	import { initSettingsListener, resolveEnabledPackKeys, settingsStore } from '../../utils/userSettings';
@@ -35,7 +34,7 @@
 		dmv = new DeMotivator();
 		const selectedPacks = resolveEnabledPackKeys($settingsStore);
 		const insults = dmv.createArray({ packs: selectedPacks });
-		availableInsults = shuffle(userInsults.concat(insults));
+		availableInsults = shuffle(insults);
 	};
 
 	onMount(() => {
@@ -75,7 +74,7 @@
 		}
 		const selectedPacks = resolveEnabledPackKeys($settingsStore);
 		const insults = dmv.createArray({ packs: selectedPacks });
-		availableInsults = shuffle(userInsults.concat(insults));
+		availableInsults = shuffle(insults);
 	});
 
 	// State management

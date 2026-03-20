@@ -9,18 +9,27 @@ Everything documented here is exported from the package root:
 
 ```typescript
 import {
+	insults,
+	profaneInsults,
+	halloweenInsults,
+	christmasInsults,
+	valentinesInsults,
+	stPatricksInsults,
+	insultPacks,
+	insultPackList,
 	generateInsult,
 	insultAt,
 	searchInsults,
-	createArray,
 	purify,
 	packInfo,
 	porkify,
 	makeAngry,
-	deMotivator,
-	DeMotivator,
+	type Insult,
+	type InsultPack,
+	type InsultPackMap,
 	type InsultSearchResult,
-	type InsultPackInfo
+	type InsultPackInfo,
+	type CreateArrayConfig
 } from 'demotivator';
 ```
 
