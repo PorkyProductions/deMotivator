@@ -14,7 +14,7 @@
 		"@astrojs/check": "^0.9.8",
 		"@astrojs/starlight": "^0.38.1",
 		"@tailwindcss/vite": "^4.2.2",
-		"astro": "^6.0.6",
+		"astro": "^6.0.8",
 		"eslint": "^10.1.0",
 		"tailwindcss": "^4.2.1",
 		"typescript": "^5.9.3"
