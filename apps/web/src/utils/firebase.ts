@@ -1,10 +1,18 @@
-import { initializeApp } from 'firebase/app';
+import { getApp, getApps, initializeApp } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics';
 import { getAuth, signInWithEmailAndPassword, signInWithPopup, signInWithRedirect, signInAnonymously, GoogleAuthProvider, sendPasswordResetEmail as firebaseSendPasswordResetEmail } from 'firebase/auth';
-import { firebaseConfig } from '../typescript/insults';
+export const firebaseConfig = {
+	apiKey: import.meta.env.VITE_FB_API_KEY,
+	authDomain: import.meta.env.VITE_FB_AUTH_DOMAIN,
+	projectId: import.meta.env.VITE_FB_PROJECT_ID,
+	storageBucket: import.meta.env.VITE_FB_STORAGE_BUCKET,
+	messagingSenderId: import.meta.env.VITE_FB_MESSAGING_SENDER_ID,
+	appId: import.meta.env.VITE_FB_APP_ID,
+	measurementId: import.meta.env.VITE_FB_MEASUREMENT_ID
+} as const;
 
 // Initialize Firebase app
-const app = initializeApp(firebaseConfig);
+const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
 
 // Initialize Analytics
 const analytics = getAnalytics(app);

@@ -33,7 +33,7 @@ export const checkAdminAccess = async (): Promise<AdminAccessState> => {
 		const { getAuth } = await import('firebase/auth');
 		const { getFirestore, doc, getDoc } = await import('firebase/firestore');
 		const { initializeApp, getApps, getApp } = await import('firebase/app');
-		const { firebaseConfig } = await import('../typescript/insults');
+		const { firebaseConfig } = await import('./firebase');
 
 		const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
 		const auth = getAuth(app);
@@ -90,7 +90,7 @@ export const initAdminAccessListener = () => {
 	const setupListener = async () => {
 		const { getAuth } = await import('firebase/auth');
 		const { initializeApp, getApps, getApp } = await import('firebase/app');
-		const { firebaseConfig } = await import('../typescript/insults');
+		const { firebaseConfig } = await import('./firebase');
 
 		const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
 		const auth = getAuth(app);

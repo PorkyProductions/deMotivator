@@ -37,6 +37,7 @@ import {
 	type InsultPackMap,
 	type InsultSearchResult,
 	type InsultPackInfo,
+	type PackInfoFunction,
 	type SearchInsultsFunction
 } from './typings';
 
@@ -61,6 +62,7 @@ export {
 	type InsultPackMap,
 	type InsultSearchResult,
 	type InsultPackInfo,
+	type PackInfoFunction,
 	type CreateArrayConfig
 };
 
