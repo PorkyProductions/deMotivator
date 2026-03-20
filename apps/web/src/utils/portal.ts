@@ -11,4 +11,4 @@ export const portal = (el: HTMLElement, target: string = 'body') => {
 			el.parentNode?.removeChild(el);
 		}
 	};
-}
+};
