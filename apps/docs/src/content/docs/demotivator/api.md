@@ -232,24 +232,32 @@ const alt = purify('You are so fucking stupid', '#');
 
 ---
 
-### `packInfo(insult)`
+### `packInfo(insult | position | searchResult, array?)`
 
-Finds the first built-in pack containing the insult and returns pack metadata with a 1-based position.
+Finds the first built-in pack containing an insult and returns pack metadata with a 1-based position.
 
-| Parameter | Type | Description |
-| --------- | ---- | ----------- |
-| `insult` | `Insult` | Exact insult string to look up. |
+Supported signatures:
+
+- `packInfo(insult: Insult)`
+- `packInfo(position: number, array?: Insult[])`
+- `packInfo(searchResult: InsultSearchResult, array?: Insult[])`
 
 **Returns:** `InsultPackInfo`
 
 **Throws:** `Error` if the insult is not found in any built-in pack.
 
 ```typescript
-import { insultAt, packInfo } from 'demotivator';
+import { createArray, searchInsults, insultAt, packInfo } from 'demotivator';
 
 const target = insultAt(1);
 const info = packInfo(target);
 // => { insult, packKey: 'original', packTitle: 'Original', explicit: false, position: 1 }
+
+const pool = createArray({ packs: ['original', 'halloween'] });
+const found = searchInsults('ghost', pool, true);
+const roundTripped = insultAt(found.position, pool);
+const samePackInfo = packInfo(found, pool);
+// `samePackInfo.insult` matches `roundTripped`
 ```
 
 ---

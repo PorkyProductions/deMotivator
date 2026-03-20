@@ -36,7 +36,8 @@ import {
 	type InsultPack,
 	type InsultPackMap,
 	type InsultSearchResult,
-	type InsultPackInfo
+	type InsultPackInfo,
+	type SearchInsultsFunction
 } from './typings';
 
 export {
@@ -120,7 +121,7 @@ export const deMotivator: __DeMotivator<InsultPackKey> = {
 	defineCustomPack: defineCustomPack,
 	generateInsult: generateInsult,
 	insultAt: insultAt,
-	searchInsults: searchInsults,
+	searchInsults: searchInsults as SearchInsultsFunction,
 	purify: purify,
 	packInfo: packInfo,
 	porkify: porkify,
@@ -271,8 +272,29 @@ export class DeMotivator implements __DeMotivator<InsultPackKey> {
 	 * @param {Insult} insult
 	 * @returns {InsultPackInfo}
 	 */
-	public packInfo(insult: Insult): InsultPackInfo<InsultPackKey> {
-		return packInfo(insult);
+	public packInfo(insult: Insult): InsultPackInfo<InsultPackKey>;
+	/**
+	 * Finds pack info using a 1-based position in a specific array.
+	 * @param {number} position
+	 * @param {Insult[]} [array=this.__createBasicArray()]
+	 * @returns {InsultPackInfo}
+	 */
+	public packInfo(position: number, array?: Insult[]): InsultPackInfo<InsultPackKey>;
+	/**
+	 * Finds pack info from `searchInsults(..., true)` and optionally verifies against a provided array.
+	 * @param {InsultSearchResult} searchResult
+	 * @param {Insult[]} [array=this.__createBasicArray()]
+	 * @returns {InsultPackInfo}
+	 */
+	public packInfo(searchResult: InsultSearchResult, array?: Insult[]): InsultPackInfo<InsultPackKey>;
+	public packInfo(input: Insult | number | InsultSearchResult, array: Insult[] = this.__createBasicArray()): InsultPackInfo<InsultPackKey> {
+		if (typeof input === 'string') {
+			return packInfo(input);
+		}
+		if (typeof input === 'number') {
+			return packInfo(input, array);
+		}
+		return packInfo(input, array);
 	}
 	/**
 	 * Inserts the word "Porky" into random positions in an insult.

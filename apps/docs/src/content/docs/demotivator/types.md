@@ -106,6 +106,12 @@ The metadata object returned by `packInfo`. It tells you where a specific insult
 - **`explicit`** — Whether the pack is marked explicit.
 - **`position`** — 1-based insult position inside the pack, compatible with `insultAt`.
 
+`packInfo` can be called with:
+
+- `packInfo(insult)`
+- `packInfo(position, array?)`
+- `packInfo(searchResult, array?)` where `searchResult` comes from `searchInsults(..., true)`
+
 ## `__DeMotivator<TPackKey>`
 
 ```typescript
@@ -122,9 +128,9 @@ interface __DeMotivator<TPackKey extends string = InsultPackKey> {
 	defineCustomPack: (pack: InsultPack) => InsultPack;
 	generateInsult: (array: Insult[]) => Insult;
 	insultAt: (position: number, array: Insult[]) => Insult;
-	searchInsults: (term: string, array?: Insult[], withPosition?: false) => Insult;
+	searchInsults: SearchInsultsFunction;
 	purify: (insult: Insult, symbol?: string) => Insult;
-	packInfo: (insult: Insult) => InsultPackInfo<TPackKey>;
+	packInfo: PackInfoFunction<TPackKey>;
 	porkify: (insult: Insult, amount?: number) => Insult;
 	makeAngry: (insult: Insult, exclamationCount?: number) => Insult;
 }

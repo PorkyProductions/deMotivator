@@ -16,7 +16,7 @@
  */
 
 import { insultPacks } from './insults';
-import { type Insult, type InsultPackInfo, type InsultPackKey } from './typings';
+import { type Insult, type InsultPackInfo, type InsultPackKey, type InsultSearchResult } from './typings';
 
 const profanityWords = [
 	'bullshit',
@@ -37,6 +37,24 @@ const assertInsult = (insult: Insult): void => {
 const assertPositiveInteger = (value: number, label: string): void => {
 	if (!Number.isInteger(value)) throw new TypeError(`${label} must be an integer`);
 	if (value < 1) throw new RangeError(`${label} must be greater than 0`);
+};
+
+const getPackInfoFromInsult = (insult: Insult): InsultPackInfo<InsultPackKey> => {
+	const packKeys = Object.keys(insultPacks) as InsultPackKey[];
+	for (const packKey of packKeys) {
+		const pack = insultPacks[packKey];
+		const position = pack.insults.indexOf(insult);
+		if (position >= 0) {
+			return {
+				insult,
+				packKey,
+				packTitle: pack.title,
+				explicit: pack.explicit,
+				position: position + 1
+			};
+		}
+	}
+	throw new Error('Insult not found in any built-in pack');
 };
 
 const buildMask = (length: number, symbol: string): string => {
@@ -60,29 +78,49 @@ export const purify = (insult: Insult, symbol: string = '*'): Insult => {
 };
 
 /**
- * Finds the first pack that contains the insult and returns pack metadata.
- * @param insult The insult to locate.
- * @returns The first matching pack info with 1-based position.
- * @since 15.0.0
+ * Finds the first pack containing an insult.
+ * Overloads:
+ * - `packInfo(insult)`
+ * - `packInfo(position, array?)`
+ * - `packInfo(searchResult, array?)`
+ * @since 15.1.0
  */
-export const packInfo = (insult: Insult): InsultPackInfo<InsultPackKey> => {
-	assertInsult(insult);
-	const packKeys = Object.keys(insultPacks) as InsultPackKey[];
-	for (const packKey of packKeys) {
-		const pack = insultPacks[packKey];
-		const position = pack.insults.indexOf(insult);
-		if (position >= 0) {
-			return {
-				insult,
-				packKey,
-				packTitle: pack.title,
-				explicit: pack.explicit,
-				position: position + 1
-			};
-		}
+export function packInfo(insult: Insult): InsultPackInfo<InsultPackKey>;
+export function packInfo(position: number, array?: Insult[]): InsultPackInfo<InsultPackKey>;
+export function packInfo(searchResult: InsultSearchResult, array?: Insult[]): InsultPackInfo<InsultPackKey>;
+export function packInfo(
+	input: Insult | number | InsultSearchResult,
+	array?: Insult[]
+): InsultPackInfo<InsultPackKey> {
+	if (typeof input === 'string') {
+		assertInsult(input);
+		return getPackInfoFromInsult(input);
 	}
-	throw new Error('Insult not found in any built-in pack');
-};
+
+	if (typeof input === 'number') {
+		assertPositiveInteger(input, 'Position');
+		const sourceArray = array ?? insultPacks.original.insults;
+		if (input > sourceArray.length) throw new RangeError(`Position must be between 1 and ${sourceArray.length}`);
+		const insult = sourceArray[input - 1];
+		if (!insult) throw new Error('No insults available');
+		return getPackInfoFromInsult(insult);
+	}
+
+	if (typeof input === 'object' && input !== null) {
+		assertPositiveInteger(input.position, 'Position');
+		assertInsult(input.insult);
+		if (!array) {
+			return getPackInfoFromInsult(input.insult);
+		}
+		if (input.position > array.length) throw new RangeError(`Position must be between 1 and ${array.length}`);
+		const insultAtPosition = array[input.position - 1];
+		if (!insultAtPosition) throw new Error('No insults available');
+		if (insultAtPosition !== input.insult) throw new Error('Search result does not match insult at the provided position in the supplied array');
+		return getPackInfoFromInsult(insultAtPosition);
+	}
+
+	throw new TypeError('Invalid packInfo input');
+}
 
 /**
  * Inserts "Porky" into random positions in an insult.

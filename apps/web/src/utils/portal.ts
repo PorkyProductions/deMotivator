@@ -3,7 +3,7 @@
  * Used to escape stacking contexts created by backdrop-filter or z-index on parent elements,
  * which would otherwise trap Bootstrap modals behind their own backdrop.
  */
-export function portal(el: HTMLElement, target: string = 'body') {
+export const portal = (el: HTMLElement, target: string = 'body') => {
 	const targetEl = document.querySelector(target) as HTMLElement;
 	targetEl.appendChild(el);
 	return {

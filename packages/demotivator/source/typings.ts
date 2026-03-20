@@ -60,6 +60,15 @@ export interface SearchInsultsFunction {
 }
 
 /**
+ * Overloaded call signatures for `packInfo`.
+ */
+export interface PackInfoFunction<TPackKey extends string = InsultPackKey> {
+	(insult: Insult): InsultPackInfo<TPackKey>;
+	(position: number, array?: Insult[]): InsultPackInfo<TPackKey>;
+	(searchResult: InsultSearchResult, array?: Insult[]): InsultPackInfo<TPackKey>;
+}
+
+/**
  * The object returned by `packInfo`.
  */
 export interface InsultPackInfo<TPackKey extends string = InsultPackKey> {
@@ -91,7 +100,7 @@ export interface __DeMotivator<TPackKey extends string = InsultPackKey> {
 	insultAt: (position: number, array: Insult[]) => Insult;
 	searchInsults: SearchInsultsFunction;
 	purify: (insult: Insult, symbol?: string) => Insult;
-	packInfo: (insult: Insult) => InsultPackInfo<TPackKey>;
+	packInfo: PackInfoFunction<TPackKey>;
 	porkify: (insult: Insult, amount?: number) => Insult;
 	makeAngry: (insult: Insult, exclamationCount?: number) => Insult;
 }
