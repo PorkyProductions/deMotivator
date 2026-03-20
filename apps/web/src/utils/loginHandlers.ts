@@ -72,7 +72,8 @@ export const createLoginHandler = (
 
 		setTimeout(() => setReady(true), 1000);
 	} catch (err) {
-		setError(err instanceof Error ? err : new Error(String(err)));
+		const normalizedError = err instanceof Error ? err : new Error(String(err));
+		setError(normalizedError);
 		setReady(true);
 	}
 };

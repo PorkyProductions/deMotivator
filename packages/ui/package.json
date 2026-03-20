@@ -25,11 +25,9 @@
 		"./dist/**/*"
 	],
 	"main": "./dist/index.js",
-	"types": "./source/index.d.ts",
 	"svelte": "./source/index.js",
 	"exports": {
 		".": {
-			"types": "./source/index.d.ts",
 			"svelte": "./source/index.js",
 			"default": "./dist/index.js"
 		}
