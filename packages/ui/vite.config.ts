@@ -1,6 +1,9 @@
 import { svelte, vitePreprocess } from '@sveltejs/vite-plugin-svelte';
-import { resolve } from 'node:path';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import type { UserConfig } from 'vite';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const config: UserConfig = {
   plugins: [
@@ -14,7 +17,7 @@ const config: UserConfig = {
   ],
   build: {
     lib: {
-      entry: resolve(import.meta.dirname, 'source/index.js'),
+      entry: resolve(__dirname, 'source/index.js'),
       formats: ['es'],
       fileName: 'index',
     },
