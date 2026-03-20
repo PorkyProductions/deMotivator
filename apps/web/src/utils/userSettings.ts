@@ -5,6 +5,8 @@ import { insultPackList } from 'demotivator';
 
 export type UserSettings = {
 	allowProfanity: boolean;
+	censorProfanity: boolean;
+	angryMode: boolean;
 	maxInsultWords: number;
 	selectedPacks: string[];
 	enablePackWeighting: boolean;
@@ -133,6 +135,14 @@ const userSettingsDefinitionMap: UserSettingsDefinitionMap = {
 		defaultValue: false,
 		sanitize: (value) => Boolean(value)
 	},
+	censorProfanity: {
+		defaultValue: false,
+		sanitize: (value) => Boolean(value)
+	},
+	angryMode: {
+		defaultValue: false,
+		sanitize: (value) => Boolean(value)
+	},
 	maxInsultWords: {
 		defaultValue: maxInsultWordsDefault,
 		sanitize: (value) => {
@@ -183,6 +193,9 @@ const userSettingsDefinitionMap: UserSettingsDefinitionMap = {
 
 export type UserSettingKey = keyof UserSettings;
 const userSettingKeys = Object.keys(userSettingsDefinitionMap) as UserSettingKey[];
+const insultPostProcessingSettingKeys = ['allowProfanity', 'censorProfanity', 'angryMode'] as const satisfies readonly UserSettingKey[];
+type InsultPostProcessingSettingKey = (typeof insultPostProcessingSettingKeys)[number];
+type InsultPostProcessingSettings = Pick<UserSettings, InsultPostProcessingSettingKey>;
 
 const resolveEnabledPackKeys = (settings: Pick<UserSettings, 'allowProfanity' | 'selectedPacks'>): string[] => {
 	const allowedPacks = settings.selectedPacks.filter((packKey) => {
@@ -284,7 +297,7 @@ const saveUserSettings = async (settings: Partial<UserSettings>): Promise<void> 
 			(error.code === 'not-found' || error.code === 'NOT_FOUND');
 		if (isNotFoundError) {
 			const sanitizedSettings = sanitizeSettings(settings);
-			await setDoc(userRef, { settings: sanitizedSettings });
+			await setDoc(userRef, { settings: sanitizedSettings }, { merge: true });
 		} else {
 			throw error;
 		}
@@ -331,3 +344,4 @@ const initSettingsListener = () => {
 export { settingsStore, defaultSettings, initSettingsListener, setUserSettings, setUserSetting, exportSettingsJson };
 export { maxInsultWordsMin, maxInsultWordsMax };
 export { availableInsultPacks, resolveEnabledPackKeys, resolveWeightedPackEntries };
+export { insultPostProcessingSettingKeys, type InsultPostProcessingSettingKey, type InsultPostProcessingSettings };

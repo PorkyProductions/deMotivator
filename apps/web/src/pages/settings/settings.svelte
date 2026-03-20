@@ -33,6 +33,21 @@
 			label: 'Allow profane insults',
 			description: 'This setting applies across the app.',
 			enableWarningMessage: 'Warning: Enabling profanity will include offensive content.'
+		},
+		{
+			key: 'censorProfanity',
+			title: 'Profanity Censor',
+			icon: 'hash',
+			label: 'Censor profane words with #',
+			description: 'When profanity is enabled, profane words are masked with # across display and sharing.',
+			requiresProfanity: true
+		},
+		{
+			key: 'angryMode',
+			title: 'Angry Mode',
+			icon: 'emoji-angry-fill',
+			label: 'Enable angry text mode',
+			description: 'Converts insults to uppercase with randomized 1-7 exclamation points across display and sharing.'
 		}
 	];
 
@@ -69,7 +84,7 @@
 		const target = event.target as HTMLInputElement;
 		const enabledPackKeys = resolveEnabledPackKeys($settingsStore);
 		const nextPackKeys = target.checked
-			? Array.from(new Set(enabledPackKeys.concat(pack.key)))
+			? (enabledPackKeys.includes(pack.key) ? enabledPackKeys : enabledPackKeys.concat(pack.key))
 			: enabledPackKeys.filter((enabledPackKey) => enabledPackKey !== pack.key);
 		if (nextPackKeys.length === 0) {
 			target.checked = true;

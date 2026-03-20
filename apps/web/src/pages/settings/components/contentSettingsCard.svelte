@@ -22,8 +22,8 @@
 
 <div class="card border-0 shadow-sm mb-4">
 	<div class="card-body">
-		{#each toggleSettings as setting (setting.key)}
-			<div>
+		{#each toggleSettings as setting, index (setting.key)}
+			<div class={index > 0 ? 'mt-4' : ''}>
 				<h2 class="h5 mb-3">
 					<Icon name={setting.icon} /> {setting.title}
 				</h2>
@@ -33,6 +33,7 @@
 						type="checkbox"
 						id={getSettingInputId(setting.key)}
 						checked={settings[setting.key] as boolean}
+						disabled={setting.requiresProfanity && !settings.allowProfanity}
 						onchange={(event) => onToggleSettingChange(setting, event)}
 					/>
 					<label class="form-check-label" for={getSettingInputId(setting.key)}>
@@ -42,6 +43,11 @@
 				<p class="text-muted small mt-2 mb-0">
 					{setting.description}
 				</p>
+				{#if setting.requiresProfanity && !settings.allowProfanity}
+					<p class="text-muted small mt-1 mb-0">
+						Enable profanity to use this setting.
+					</p>
+				{/if}
 			</div>
 		{/each}
 		<hr class="my-4" />

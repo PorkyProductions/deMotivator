@@ -6,6 +6,7 @@ export interface ToggleSettingConfig {
 	icon: string;
 	label: string;
 	description: string;
+	requiresProfanity?: boolean;
 	enableWarningMessage?: string;
 }
 
