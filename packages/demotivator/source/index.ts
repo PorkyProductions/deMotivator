@@ -27,6 +27,7 @@ import {
 } from './insults';
 
 import generateInsult, { insultAt, searchInsults } from './generateinsult';
+import { purify, packInfo, porkify, makeAngry } from './texttools';
 import {
 	type __DeMotivator,
 	type Insult,
@@ -34,7 +35,8 @@ import {
 	type InsultPackKey,
 	type InsultPack,
 	type InsultPackMap,
-	type InsultSearchResult
+	type InsultSearchResult,
+	type InsultPackInfo
 } from './typings';
 
 export {
@@ -49,10 +51,15 @@ export {
 	generateInsult,
 	insultAt,
 	searchInsults,
+	purify,
+	packInfo,
+	porkify,
+	makeAngry,
 	type Insult,
 	type InsultPack,
 	type InsultPackMap,
 	type InsultSearchResult,
+	type InsultPackInfo,
 	type CreateArrayConfig
 };
 
@@ -113,7 +120,11 @@ export const deMotivator: __DeMotivator<InsultPackKey> = {
 	defineCustomPack: defineCustomPack,
 	generateInsult: generateInsult,
 	insultAt: insultAt,
-	searchInsults: searchInsults
+	searchInsults: searchInsults,
+	purify: purify,
+	packInfo: packInfo,
+	porkify: porkify,
+	makeAngry: makeAngry
 };
 export default deMotivator;
 
@@ -245,5 +256,40 @@ export class DeMotivator implements __DeMotivator<InsultPackKey> {
 	public searchInsults(term: string, array: Insult[] | undefined, withPosition: true): InsultSearchResult;
 	public searchInsults(term: string, array: Insult[] = this.__createBasicArray(), withPosition: boolean = false): Insult | InsultSearchResult {
 		return searchInsults(term, array, withPosition as false);
+	}
+	/**
+	 * Masks profane words in an insult using a selected replacement symbol.
+	 * @param {Insult} insult
+	 * @param {string} [symbol='*']
+	 * @returns {Insult}
+	 */
+	public purify(insult: Insult, symbol: string = '*'): Insult {
+		return purify(insult, symbol);
+	}
+	/**
+	 * Finds the first built-in pack that contains the insult and its 1-based position.
+	 * @param {Insult} insult
+	 * @returns {InsultPackInfo}
+	 */
+	public packInfo(insult: Insult): InsultPackInfo<InsultPackKey> {
+		return packInfo(insult);
+	}
+	/**
+	 * Inserts the word "Porky" into random positions in an insult.
+	 * @param {Insult} insult
+	 * @param {number} [amount=1]
+	 * @returns {Insult}
+	 */
+	public porkify(insult: Insult, amount: number = 1): Insult {
+		return porkify(insult, amount);
+	}
+	/**
+	 * Uppercases an insult, strips trailing punctuation, and appends exclamation marks.
+	 * @param {Insult} insult
+	 * @param {number} [exclamationCount=3]
+	 * @returns {Insult}
+	 */
+	public makeAngry(insult: Insult, exclamationCount: number = 3): Insult {
+		return makeAngry(insult, exclamationCount);
 	}
 }

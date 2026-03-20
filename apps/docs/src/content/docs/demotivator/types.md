@@ -6,7 +6,7 @@ description: 'TypeScript types and interfaces for the demotivator package.'
 All types are defined in `typings.ts` and re-exported from the package root. Import them with the `type` keyword:
 
 ```typescript
-import { type Insult, type InsultPack, type InsultPackMap, type CreateArrayConfig } from 'demotivator';
+import { type Insult, type InsultPack, type InsultPackMap, type InsultPackInfo, type CreateArrayConfig } from 'demotivator';
 ```
 
 ## `Insult`
@@ -52,7 +52,7 @@ type InsultPackKey = keyof typeof import('./insults').insultPacks;
 A union of the literal string keys for every built-in insult pack. As of the current version, this resolves to:
 
 ```typescript
-'original' | 'profane' | 'halloween' | 'christmas'
+'original' | 'profane' | 'halloween' | 'christmas' | 'valentines' | 'stPatricks'
 ```
 
 This type is derived directly from the `insultPacks` object at compile time, so it updates automatically when new packs are added to the source. It is used to enforce type safety on functions like `createArray`, ensuring you can only pass valid pack identifiers.
@@ -86,6 +86,26 @@ const myPack = defineCustomPack({ key: 'byoi', title: 'My Pack', explicit: false
 const poolWithCustom = createArray({ packs: ['original'], customPacks: [myPack] });
 ```
 
+## `InsultPackInfo<TPackKey>`
+
+```typescript
+interface InsultPackInfo<TPackKey extends string = InsultPackKey> {
+	insult: Insult;
+	packKey: TPackKey;
+	packTitle: string;
+	explicit: boolean;
+	position: number;
+}
+```
+
+The metadata object returned by `packInfo`. It tells you where a specific insult was found in the built-in pack registry.
+
+- **`insult`** — The exact insult string you looked up.
+- **`packKey`** — The key of the first matching pack.
+- **`packTitle`** — Human-readable title for that pack.
+- **`explicit`** — Whether the pack is marked explicit.
+- **`position`** — 1-based insult position inside the pack, compatible with `insultAt`.
+
 ## `__DeMotivator<TPackKey>`
 
 ```typescript
@@ -94,11 +114,19 @@ interface __DeMotivator<TPackKey extends string = InsultPackKey> {
 	profaneInsults: Insult[];
 	halloweenInsults: Insult[];
 	christmasInsults: Insult[];
+	valentinesInsults: Insult[];
+	stPatricksInsults: Insult[];
 	insultPacks: InsultPackMap;
 	insultPackList: InsultPack[];
 	createArray: (configuration: CreateArrayConfig<TPackKey>) => Insult[];
+	defineCustomPack: (pack: InsultPack) => InsultPack;
 	generateInsult: (array: Insult[]) => Insult;
 	insultAt: (position: number, array: Insult[]) => Insult;
+	searchInsults: (term: string, array?: Insult[], withPosition?: false) => Insult;
+	purify: (insult: Insult, symbol?: string) => Insult;
+	packInfo: (insult: Insult) => InsultPackInfo<TPackKey>;
+	porkify: (insult: Insult, amount?: number) => Insult;
+	makeAngry: (insult: Insult, exclamationCount?: number) => Insult;
 }
 ```
 

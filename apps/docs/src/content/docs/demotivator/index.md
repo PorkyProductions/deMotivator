@@ -20,7 +20,7 @@ There are three ways to use the package depending on your preference: **named im
 ### Named Imports (recommended)
 
 ```typescript
-import { generateInsult, insults, createArray } from 'demotivator';
+import { generateInsult, insults, createArray, makeAngry } from 'demotivator';
 
 // Random insult from the original pack
 const insult = generateInsult(insults);
@@ -28,6 +28,7 @@ const insult = generateInsult(insults);
 // Random insult from a custom combination of packs
 const pool = createArray({ packs: ['original', 'halloween'] });
 const seasonalInsult = generateInsult(pool);
+const dramatic = makeAngry(seasonalInsult);
 ```
 
 ### Object API

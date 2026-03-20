@@ -60,6 +60,17 @@ export interface SearchInsultsFunction {
 }
 
 /**
+ * The object returned by `packInfo`.
+ */
+export interface InsultPackInfo<TPackKey extends string = InsultPackKey> {
+	insult: Insult;
+	packKey: TPackKey;
+	packTitle: string;
+	explicit: boolean;
+	position: number;
+}
+
+/**
  * A typesafe interface for `deMotivator` and `DeMotivator`
  *
  * @export
@@ -79,6 +90,10 @@ export interface __DeMotivator<TPackKey extends string = InsultPackKey> {
 	generateInsult: (array: Insult[]) => Insult;
 	insultAt: (position: number, array: Insult[]) => Insult;
 	searchInsults: SearchInsultsFunction;
+	purify: (insult: Insult, symbol?: string) => Insult;
+	packInfo: (insult: Insult) => InsultPackInfo<TPackKey>;
+	porkify: (insult: Insult, amount?: number) => Insult;
+	makeAngry: (insult: Insult, exclamationCount?: number) => Insult;
 }
 
 /**

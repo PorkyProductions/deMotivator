@@ -8,7 +8,20 @@ description: 'Every exported function, object, and class in the demotivator pack
 Everything documented here is exported from the package root:
 
 ```typescript
-import { generateInsult, insultAt, searchInsults, createArray, deMotivator, DeMotivator, type InsultSearchResult } from 'demotivator';
+import {
+	generateInsult,
+	insultAt,
+	searchInsults,
+	createArray,
+	purify,
+	packInfo,
+	porkify,
+	makeAngry,
+	deMotivator,
+	DeMotivator,
+	type InsultSearchResult,
+	type InsultPackInfo
+} from 'demotivator';
 ```
 
 ## Functions
@@ -190,6 +203,100 @@ const result = searchInsults('ghost', pool);
 
 ---
 
+### `purify(insult, symbol?)`
+
+Masks known profanity words in an insult string with a replacement symbol.
+
+| Parameter | Type | Default | Description |
+| --------- | ---- | ------- | ----------- |
+| `insult` | `Insult` | — | Insult text to sanitize. |
+| `symbol` | `string` | `'*'` | Replacement symbol or token used for masking. |
+
+**Returns:** `Insult`
+
+**Throws:**
+
+- `TypeError` if `insult` is not a string.
+- `Error` if `insult` is empty.
+- `TypeError` if `symbol` is empty or not a string.
+
+```typescript
+import { purify } from 'demotivator';
+
+const safe = purify('You are so fucking stupid');
+// => 'You are so ******* stupid'
+
+const alt = purify('You are so fucking stupid', '#');
+// => 'You are so ####### stupid'
+```
+
+---
+
+### `packInfo(insult)`
+
+Finds the first built-in pack containing the insult and returns pack metadata with a 1-based position.
+
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| `insult` | `Insult` | Exact insult string to look up. |
+
+**Returns:** `InsultPackInfo`
+
+**Throws:** `Error` if the insult is not found in any built-in pack.
+
+```typescript
+import { insultAt, packInfo } from 'demotivator';
+
+const target = insultAt(1);
+const info = packInfo(target);
+// => { insult, packKey: 'original', packTitle: 'Original', explicit: false, position: 1 }
+```
+
+---
+
+### `porkify(insult, amount?)`
+
+Inserts the token `Porky` into random positions in the insult.
+
+| Parameter | Type | Default | Description |
+| --------- | ---- | ------- | ----------- |
+| `insult` | `Insult` | — | Insult text to modify. |
+| `amount` | `number` | `1` | Number of `Porky` insertions. Must be a positive integer. |
+
+**Returns:** `Insult`
+
+```typescript
+import { porkify } from 'demotivator';
+
+const result = porkify('You are a toaster', 2);
+// One possible output: 'You Porky are a Porky toaster'
+```
+
+---
+
+### `makeAngry(insult, exclamationCount?)`
+
+Uppercases an insult, strips trailing punctuation, and appends exclamation points.
+
+| Parameter | Type | Default | Description |
+| --------- | ---- | ------- | ----------- |
+| `insult` | `Insult` | — | Insult text to transform. |
+| `exclamationCount` | `number` | `3` | Number of exclamation marks to append. Must be a positive integer. |
+
+**Returns:** `Insult`
+
+```typescript
+import { makeAngry } from 'demotivator';
+
+makeAngry('you are a walnut.');
+// => 'YOU ARE A WALNUT!!!'
+
+makeAngry('you are a walnut...', 5);
+// => 'YOU ARE A WALNUT!!!!!'
+```
+
+---
+
 ## `deMotivator` Object
 
 The default export. A plain object that bundles every piece of the API into a single namespace. Implements the `__DeMotivator` interface.
@@ -218,6 +325,10 @@ import deMotivator from 'demotivator';
 | `generateInsult` | `(array: Insult[]) => Insult` | Pick a random insult. |
 | `insultAt` | `(position: number, array: Insult[]) => Insult` | Get insult at a 1-based index. |
 | `searchInsults` | `(term: string, array?: Insult[], withPosition?: boolean) => Insult \| InsultSearchResult` | Find the most relevant insult for a search term. |
+| `purify` | `(insult: Insult, symbol?: string) => Insult` | Mask profane words in a string. |
+| `packInfo` | `(insult: Insult) => InsultPackInfo` | Get first matching built-in pack metadata and position. |
+| `porkify` | `(insult: Insult, amount?: number) => Insult` | Insert `Porky` at random positions. |
+| `makeAngry` | `(insult: Insult, exclamationCount?: number) => Insult` | Uppercase text and append exclamation marks. |
 
 ```typescript
 const pool = deMotivator.createArray({ packs: ['original', 'halloween'] });

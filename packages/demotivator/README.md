@@ -18,3 +18,12 @@ Documentation can be found [here](https://demotivator.web.app/docs/demotivator/)
 ```bash
 npm install demotivator
 ```
+
+## Quick Example
+```ts
+import { generateInsult, purify, makeAngry } from 'demotivator';
+
+const insult = generateInsult();
+const cleanInsult = purify(insult, '#');
+const angryInsult = makeAngry(cleanInsult, 5);
+```
