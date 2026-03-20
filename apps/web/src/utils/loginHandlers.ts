@@ -39,7 +39,7 @@ export const launchConfetti = () => {
 export const createLoginHandler = (
 	deviceType: string,
 	setReady: (ready: boolean) => void,
-	setError: (error: Error) => void
+	setError: (error: Error | null) => void
 ) => async (
 	event: Event,
 	loginAction: (email: string, password: string) => Promise<unknown>,
@@ -72,7 +72,7 @@ export const createLoginHandler = (
 
 		setTimeout(() => setReady(true), 1000);
 	} catch (err) {
-		setError(err);
+		setError(err instanceof Error ? err : new Error(String(err)));
 		setReady(true);
 	}
 };
