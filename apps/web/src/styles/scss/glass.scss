@@ -11,6 +11,48 @@
 		radial-gradient(ellipse at 92% 96%, rgb(109 40 217 / 7%) 0%, transparent 42%);
 }
 
+// Glass surface utility — for non-card elements like stat boxes, achievement rows, details panels
+.glass-surface {
+	background-color: rgb(255 255 255 / 45%) !important;
+	backdrop-filter: blur(8px) saturate(110%);
+}
+
+[data-bs-theme='dark'] .glass-surface {
+	background-color: rgb(10 14 28 / 45%) !important;
+	backdrop-filter: blur(8px) saturate(110%);
+}
+
+// Sub-elements inside glass cards — strip Bootstrap grey fills so the glass card bg shows through
+.card.border-0:not(.auth-panel) .card-header {
+	background-color: rgb(255 255 255 / 30%) !important;
+	border-color: rgb(255 255 255 / 25%) !important;
+}
+
+[data-bs-theme='dark'] .card.border-0:not(.auth-panel) .card-header {
+	background-color: rgb(255 255 255 / 4%) !important;
+	border-color: rgb(255 255 255 / 6%) !important;
+}
+
+.card.border-0:not(.auth-panel) .list-group-item:not(.bg-transparent) {
+	background-color: transparent;
+	border-color: rgb(0 0 0 / 8%);
+}
+
+[data-bs-theme='dark'] .card.border-0:not(.auth-panel) .list-group-item:not(.bg-transparent) {
+	border-color: rgb(255 255 255 / 8%);
+}
+
+// Table inside glass cards — transparent bg + purple row hover
+.card.border-0:not(.auth-panel) .table {
+	--bs-table-bg: transparent;
+	--bs-table-hover-bg: rgb(79 70 229 / 5%);
+	--bs-table-hover-color: inherit;
+}
+
+[data-bs-theme='dark'] .card.border-0:not(.auth-panel) .table {
+	--bs-table-hover-bg: rgb(79 70 229 / 10%);
+}
+
 // Glassmorphism treatment — applied to all flat (border-0) cards across the app.
 // .auth-panel manages its own glass styling in login.scss, so it is excluded.
 .card.border-0:not(.auth-panel) {

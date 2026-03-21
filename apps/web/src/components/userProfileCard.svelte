@@ -128,19 +128,19 @@
 
 		<div class="row g-3 mb-4">
 			<div class="col-md-4 col-6">
-				<div class="p-3 bg-body-tertiary rounded-3">
+				<div class="p-3 rounded-3 border border-secondary-subtle glass-surface">
 					<small class="text-uppercase text-secondary fw-bold d-block"> <Icon name="chat-quote" /> Insults Seen</small>
 					<span class="fs-4 fw-bold">{insultsSeenDB ?? 0}</span>
 				</div>
 			</div>
 			<div class="col-md-4 col-6">
-				<div class="p-3 bg-body-tertiary rounded-3">
+				<div class="p-3 rounded-3 border border-secondary-subtle glass-surface">
 					<small class="text-uppercase fw-bold d-block text-theme-orange"> <Icon name="fire"/>  Current Streak</small>
 					<span class="fs-4 fw-bold text-theme-orange">{insultStreakDB ?? 0}</span>
 				</div>
 			</div>
 			<div class="col-md-4 col-12">
-				<div class="p-3 bg-body-tertiary rounded-3">
+				<div class="p-3 rounded-3 border border-secondary-subtle glass-surface">
 					<small class="text-uppercase text-secondary fw-bold d-block"> <Icon name="braces"/>  User ID</small>
 					<span class="font-monospace text-break d-block" title={user.id}>{user.id}</span>
 				</div>
@@ -152,25 +152,25 @@
 		</div>
 	{/if}
 	{#if Array.isArray(achievementsDB)}
-		<details class="mb-4 text-start p-3 rounded-3 border border-secondary-subtle bg-body" open>
+		<details class="mb-4 text-start p-3 rounded-3 border border-secondary-subtle glass-surface" open>
 			<summary class="h5 fw-bold mb-3 cursor-pointer">
 				<Icon name="award-fill" /> Acheivements
 			</summary>
 				<div class="d-flex flex-column gap-2">
 					{#each achievementsDB as achievement (achievement.id)}
-						<div class={`p-3 rounded-3 border ${achievement.earned ? 'bg-body-tertiary border-primary-subtle' : 'bg-body-secondary border-secondary-subtle opacity-50'}`}>
+						<div class={`p-3 rounded-3 border glass-surface ${achievement.earned ? 'border-primary-majorelle-blue dark:border-primary-majorelle-blue' : 'border-secondary-subtle opacity-50'}`}>
 							<div class="d-flex justify-content-between align-items-center mb-1 gap-2">
 								<div class="fw-semibold">{achievement.emoji} {achievement.title}</div>
 								{#if achievement.earned}
 									<button
 										type="button"
-										class="btn btn-sm btn-outline-info"
+										class="btn btn-sm btn-outline-primary"
 										onclick={() => openAchievementShareDialog(achievement)}
 									>
 										<Icon name="share" /> Share
 									</button>
 								{:else}
-									<span class="badge text-bg-secondary">Locked</span>
+									<span class="badge bg-secondary-subtle text-secondary">Locked</span>
 								{/if}
 							</div>
 							<p class="text-muted small mb-0">{achievement.description}</p>

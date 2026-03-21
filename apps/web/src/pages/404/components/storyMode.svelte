@@ -71,7 +71,7 @@
 						{currentLine}
 					</div>
 				{:else if currentLine === 'THE END'}
-					<div transition:scale class="display-4 fw-bold text-primary">
+					<div transition:scale class="display-4 fw-bold text-primary-majorelle-blue dark:text-primary-majorelle-blue">
 						{currentLine}
 					</div>
 				{:else}
