@@ -236,7 +236,7 @@
 						<a
 							href="/account.html"
 							onclick={closeNavigation}
-							class="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-cyan-200/70 bg-cyan-300/20 px-4 py-3 text-lg font-semibold text-cyan-50 no-underline transition-all duration-300 hover:bg-cyan-300/30"
+							class="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-primary-majorelle-blue/70 bg-primary-majorelle-blue/35 px-4 py-3 text-lg font-semibold text-white no-underline transition-all duration-300 hover:bg-primary-majorelle-blue/50"
 						>
 							<Icon name="person-circle" />
 							<span>My Account</span>
