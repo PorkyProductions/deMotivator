@@ -28,5 +28,5 @@ Get-ChildItem -Path $outDir -Filter '*.html' | ForEach-Object {
     }
     $content = $content -replace '</head>', "$pwaBlock`n</head>"
     [System.IO.File]::WriteAllText($_.FullName, $content)
-    Write-Host "Injected PWA links into $($_.Name)"
+    Write-Host "Injected PWA links into $($_.Name) ✅"
 }

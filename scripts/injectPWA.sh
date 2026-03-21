@@ -32,7 +32,7 @@ for HTML_FILE in "${OUT_DIR}"/*.html; do
         { print }
     ' "${HTML_FILE}" > "${TMPFILE}"
     mv "${TMPFILE}" "${HTML_FILE}"
-    echo "Injected PWA links into $(basename ${HTML_FILE})"
+    echo "Injected PWA links into $(basename ${HTML_FILE}) ✅"
 done
 
 rm -f "${PWA_LINKS_FILE}"
