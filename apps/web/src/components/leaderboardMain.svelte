@@ -330,7 +330,7 @@
 												{#if getMedalIcon(index + 1)}
 													<span class="fs-4">{getMedalIcon(index + 1)}</span>
 												{:else}
-													<span class="badge bg-primary-subtle text-primary-majorelle-blue dark:text-primary-majorelle-blue rounded-pill">#{index + 1}</span>
+													<span class="badge bg-primary-majorelle-blue/15 dark:bg-primary-majorelle-blue/20 text-primary-majorelle-blue dark:text-primary-majorelle-blue rounded-pill">#{index + 1}</span>
 												{/if}
 											</td>
 											<td>
@@ -360,7 +360,7 @@
 														<Icon name="lightning" /> Top 3
 													</span>
 												{:else if index < 10}
-													<span class="badge bg-primary-subtle text-primary-majorelle-blue dark:text-primary-majorelle-blue">
+													<span class="badge bg-primary-majorelle-blue/15 dark:bg-primary-majorelle-blue/20 text-primary-majorelle-blue dark:text-primary-majorelle-blue">
 														<Icon name="graph-up-arrow" /> Top 10
 													</span>
 												{:else if index < 25}
