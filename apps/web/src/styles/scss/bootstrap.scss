@@ -28,3 +28,6 @@ $font-family-base: 'Raleway', 'sans-serif';
 @import "bootstrap/scss/bootstrap";
 @import "bootstrap/scss/bootstrap-reboot";
 @import './glass.scss';
+a {
+    color: inherit;
+}
