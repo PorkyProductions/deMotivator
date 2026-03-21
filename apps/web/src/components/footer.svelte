@@ -110,7 +110,7 @@
 	aria-haspopup="dialog"
 	aria-expanded={navigationOpen}
 	aria-controls="dmv-slideover-navigation"
-	class={`fixed top-1/2 -translate-y-1/2 z-[80] border border-white/25 shadow-2xl backdrop-blur-xl py-2.5 text-white transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] bg-linear-to-b from-primary-majorelle-blue/95 via-indigo-600/95 to-primary-majorelle-blue/95 dark:from-gray-900/95 dark:via-gray-800/95 dark:to-gray-900/95 ${launcherExpanded ? 'right-0 w-[10.75rem] pl-3 pr-4 rounded-l-full rounded-r-none' : 'right-[-0.8rem] w-14 px-2 rounded-full'} ${navigationOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+	class={`fixed top-1/2 -translate-y-1/2 z-[80] border border-white/25 shadow-2xl backdrop-blur-xl py-2.5 text-white transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] bg-linear-to-b from-primary-majorelle-blue/95 via-indigo-600/95 to-primary-majorelle-blue/95 dark:from-gray-900/95 dark:via-gray-800/95 dark:to-gray-900/95 ${launcherExpanded ? 'right-0 w-[10.75rem] pl-3 pr-4 rounded-l-full rounded-r-none' : 'right-[-0.95rem] w-16 px-2.5 rounded-full'} ${navigationOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
 >
 	<span class="sr-only">Open navigation menu</span>
 	<span class="flex items-center gap-2 overflow-hidden whitespace-nowrap">
@@ -122,7 +122,7 @@
 				style={`animation-duration: ${hedgehogSpinDuration}s;`}
 			/>
 		{/if}
-		<span class="inline-flex items-center justify-center rounded-full bg-white/15 border border-white/30 h-8 w-8 shrink-0 transition-all duration-500">
+		<span class="inline-flex items-center justify-center rounded-full bg-white/15 border border-white/30 h-9 w-9 shrink-0 transition-all duration-500">
 			<Icon name="list" />
 		</span>
 		<span class={`text-sm font-semibold tracking-wide transition-all duration-500 ${launcherExpanded ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2'}`}>
