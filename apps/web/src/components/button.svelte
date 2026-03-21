@@ -2,6 +2,7 @@
 import logo from '../img/dmv-logo.png';
 import { darkMode } from '../utils/darkMode';
 import '../styles/scss/bootstrapRange.scss';
+import '../styles/scss/buttonsBootstrap.scss';
 import { onDestroy, onMount } from 'svelte';
 import { settingsStore } from '../utils/userSettings';
 import { calcInsultFontSizeRem } from './button/calcInsultFontSize';
