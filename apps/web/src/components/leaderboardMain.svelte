@@ -110,7 +110,7 @@
 	loadInitialLeaderboard();
 </script>
 
-<div id="root" data-bs-theme={bsTheme} class="min-h-screen bg-body">
+<div id="root" data-bs-theme={bsTheme} class="min-h-screen dark:bg-theme-black">
 	{#if !ready}
 		<!-- Loading State -->
 		<div transition:fade={{ duration: 300 }} class="backdrop-blur-sm">
@@ -118,7 +118,7 @@
 		</div>
 	{:else}
 		<!-- Hero Section -->
-		<div class="bg-linear-to-br from-primary-subtle to-body-tertiary py-5 px-4 mb-5" transition:fade>
+		<div class="py-8 px-4 mb-2" transition:fade>
 			<div class="container">
 				<div class="row align-items-center">
 					<div class="col-12 text-center">
@@ -302,7 +302,7 @@
 				{/if}
 
 				<!-- Full Leaderboard Table -->
-				<div class="card border-0 shadow-sm" transition:fly={{ y: 20, delay: 400 }}>
+				<div class="card border-0 shadow-sm border-l-4 border-primary-majorelle-blue dark:border-primary-majorelle-blue" transition:fly={{ y: 20, delay: 400 }}>
 					<div class="card-header bg-body-tertiary border-0 py-3">
 						<h2 class="h5 mb-0 fw-bold">
 							<Icon name="list-ol" /> Complete Rankings
@@ -380,7 +380,7 @@
 				</div>
 			{:else}
 				<!-- Empty State -->
-				<div class="card border-0 shadow-sm">
+				<div class="card border-0 shadow-sm border-l-4 border-primary-majorelle-blue dark:border-primary-majorelle-blue">
 					<div class="card-body text-center py-5">
 						<div class="text-muted mb-3">
 							<Icon name="inbox"/>

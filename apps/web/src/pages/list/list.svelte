@@ -331,7 +331,7 @@
 	};
 </script>
 
-<div id="root" data-bs-theme={bsTheme} class="min-h-screen bg-body">
+<div id="root" data-bs-theme={bsTheme} class="min-h-screen dark:bg-theme-black">
 	<Auth let:loggedIn>
 		{#if !ready}
 			<LoadingOverlay />

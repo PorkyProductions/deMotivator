@@ -29,7 +29,7 @@ type ViewMode = 'cards' | 'list';
 	};
 </script>
 
-<div class="card border-0 shadow-sm mb-4" transition:fly={{ y: 20, delay: 300 }}>
+<div class="card border-0 shadow-sm mb-4 border-l-4 border-primary-majorelle-blue dark:border-primary-majorelle-blue" transition:fly={{ y: 20, delay: 300 }}>
 <div class="card-body">
 <div class="row g-3">
 <div class="col-lg-4">

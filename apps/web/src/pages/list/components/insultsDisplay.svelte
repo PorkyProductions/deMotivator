@@ -48,9 +48,9 @@ class="col-lg-6"
 transition:scale={{ delay: i * 50 }}
 animate:flip={{ duration: 300 }}
 >
-<div class="card h-100 border-0 shadow-sm hover-shadow-lg transition-shadow">
+<div class="card h-100 border-0 shadow-sm hover-shadow-lg transition-shadow border-l-4 border-primary-majorelle-blue dark:border-primary-majorelle-blue">
 <div class="card-body d-flex flex-column">
-<p class="card-text fs-5 grow mb-3">
+<p class="card-text fs-5 grow mb-3 font-primary font-semibold leading-tight">
 "{displayedInsult}"
 </p>
 <div class="d-flex gap-2 justify-content-end">
@@ -82,7 +82,7 @@ title="Favorite"
 {/each}
 </div>
 {:else}
-<div class="card border-0 shadow-sm mb-4">
+<div class="card border-0 shadow-sm mb-4 border-l-4 border-primary-majorelle-blue dark:border-primary-majorelle-blue">
 <ul class="list-group list-group-flush">
 {#each paginatedInsults as insult, i (insult)}
 {@const displayedInsult = displayInsultMap[insult] ?? insult}
@@ -184,7 +184,7 @@ disabled={currentPage === totalPages}
 </nav>
 {/if}
 {:else}
-<div class="card border-0 shadow-sm">
+<div class="card border-0 shadow-sm border-l-4 border-primary-majorelle-blue dark:border-primary-majorelle-blue">
 <div class="card-body text-center py-5">
 <div class="text-muted mb-3 text-4xl">
 <Icon name="search-heart"/>

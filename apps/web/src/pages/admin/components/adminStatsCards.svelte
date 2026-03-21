@@ -20,7 +20,7 @@ const {
 <div class="col-lg-3 col-md-4 col-6">
 <div class="card border-0 shadow-sm">
 <div class="card-body text-center py-3">
-<div class="text-primary small mb-1">Total Users</div>
+<div class="text-primary-majorelle-blue dark:text-primary-majorelle-blue small mb-1">Total Users</div>
 <div class="h4 mb-0 fw-bold">{totalUsers.toLocaleString()}</div>
 </div>
 </div>

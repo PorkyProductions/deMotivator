@@ -110,7 +110,7 @@
 
 </script>
 
-<div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+<div class="card shadow-lg border-0 rounded-4 overflow-hidden border-l-4 border-primary-majorelle-blue dark:border-primary-majorelle-blue">
 	<div class="card-body p-5 text-center">
 		<div class="mb-4 position-relative d-inline-block">
 			<img

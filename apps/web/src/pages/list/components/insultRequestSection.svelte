@@ -21,7 +21,7 @@ import { fly } from 'svelte/transition';
 	}: Props = $props();
 </script>
 
-<div class="card border-0 shadow-sm mb-4" transition:fly={{ y: 20, delay: 250 }}>
+<div class="card border-0 shadow-sm mb-4 border-l-4 border-primary-majorelle-blue dark:border-primary-majorelle-blue" transition:fly={{ y: 20, delay: 250 }}>
 <div class="card-body">
 <h2 class="h6 mb-3 fw-bold">
 <Icon name="chat-left-text" /> Request a New Insult

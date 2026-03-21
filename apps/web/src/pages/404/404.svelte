@@ -97,7 +97,7 @@
 	const randomErrorMessage = errorMessages[Math.floor(Math.random() * errorMessages.length)];
 </script>
 
-<div id="root" data-bs-theme={bsTheme} class="min-h-screen bg-body">
+<div id="root" data-bs-theme={bsTheme} class="min-h-screen dark:bg-theme-black">
 	<HeroSection />
 
 	<!-- Main Content -->
@@ -146,13 +146,13 @@
 
 	/* Large switch styling */
 	:global(.form-switch .form-check-input:checked) {
-		background-color: #dc3545;
-		border-color: #dc3545;
+		background-color: #4f46e5;
+		border-color: #4f46e5;
 	}
 
 	/* Glowing effect for mystery switch */
 	:global(.form-check-input:hover) {
-		box-shadow: 0 0 20px rgba(220, 53, 69, 0.5);
+		box-shadow: 0 0 20px rgba(79, 70, 229, 0.5);
 	}
 
 	/* Text animations */

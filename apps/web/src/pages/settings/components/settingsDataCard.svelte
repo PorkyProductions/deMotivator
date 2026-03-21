@@ -10,7 +10,7 @@
 	} = $props();
 </script>
 
-<div class="card border-0 shadow-sm">
+<div class="card border-0 shadow-sm border-l-4 border-primary-majorelle-blue dark:border-primary-majorelle-blue">
 	<div class="card-body d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
 		<div>
 			<h2 class="h5 mb-1">

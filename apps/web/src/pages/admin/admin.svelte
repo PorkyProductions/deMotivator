@@ -163,7 +163,7 @@ $effect(() => {
 });
 </script>
 
-<div id="root" data-bs-theme={bsTheme} class="min-h-screen bg-body">
+<div id="root" data-bs-theme={bsTheme} class="min-h-screen dark:bg-theme-black">
 <Auth let:loggedIn>
 {#if $adminAccessStore.loading}
 <div transition:fade={{ duration: 300 }} class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-body backdrop-blur-sm">
@@ -195,7 +195,7 @@ $effect(() => {
 />
 </div>
 
-<div class="card border-0 shadow-sm mb-4" transition:fly={{ y: 20, delay: 300 }}>
+<div class="card border-0 shadow-sm mb-4 border-l-4 border-primary-majorelle-blue dark:border-primary-majorelle-blue" transition:fly={{ y: 20, delay: 300 }}>
 <div class="card-header bg-body-tertiary border-0">
 <AdminRequestTabs
 {activeTab}

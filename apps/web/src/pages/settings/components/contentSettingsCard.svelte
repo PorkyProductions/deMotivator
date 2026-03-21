@@ -20,7 +20,7 @@
 	} = $props();
 </script>
 
-<div class="card border-0 shadow-sm mb-4">
+<div class="card border-0 shadow-sm mb-4 border-l-4 border-primary-majorelle-blue dark:border-primary-majorelle-blue">
 	<div class="card-body">
 		{#each toggleSettings as setting, index (setting.key)}
 			<div class={index > 0 ? 'mt-4' : ''}>

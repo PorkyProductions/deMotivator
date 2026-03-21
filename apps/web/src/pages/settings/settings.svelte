@@ -189,10 +189,10 @@
 	});
 </script>
 
-<div id="root" data-bs-theme={bsTheme} class="min-h-screen bg-body">
+<div id="root" data-bs-theme={bsTheme} class="min-h-screen dark:bg-theme-black">
 	<Auth let:loggedIn>
 		{#if loggedIn}
-			<div class="bg-linear-to-br from-primary-subtle to-body-tertiary py-5 px-4 mb-5">
+			<div class="py-8 px-4 mb-2">
 				<div class="container">
 					<div class="text-center">
 						<a href="/" class="text-decoration-none">
@@ -260,7 +260,7 @@
 					<div class="col-lg-6">
 						<div class="card border-0 shadow-lg">
 							<div class="card-body text-center py-5">
-								<div class="text-danger mb-4 text-4xl">
+								<div class="text-primary-majorelle-blue dark:text-primary-majorelle-blue mb-4 text-4xl">
 									<Icon name="lock-fill"/>
 								</div>
 								<h2 class="card-title fw-bold mb-3">Authentication Required</h2>

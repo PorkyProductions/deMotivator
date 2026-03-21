@@ -29,3 +29,13 @@ $enable-shadows: true;
 @import "bootstrap/scss/mixins";
 @import "bootstrap/scss/root";
 @import "bootstrap/scss/buttons";
+
+.btn {
+	transition: transform 0.15s ease-in-out;
+}
+.btn:hover:not(:disabled) {
+	transform: scale(1.02);
+}
+.btn:active:not(:disabled) {
+	transform: scale(0.98);
+}

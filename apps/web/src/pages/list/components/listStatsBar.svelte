@@ -16,7 +16,7 @@ const { totalCount, filteredCount, favoriteCount, currentPage, totalPages }: Pro
 <div class="col-md-3 col-6">
 <div class="card border-0 shadow-sm">
 <div class="card-body text-center py-3">
-<div class="text-primary small mb-1">Total</div>
+<div class="text-primary-majorelle-blue dark:text-primary-majorelle-blue small mb-1">Total</div>
 <div class="h4 mb-0 fw-bold">{totalCount}</div>
 </div>
 </div>
@@ -40,7 +40,7 @@ const { totalCount, filteredCount, favoriteCount, currentPage, totalPages }: Pro
 <div class="col-md-3 col-6">
 <div class="card border-0 shadow-sm">
 <div class="card-body text-center py-3">
-<div class="text-info small mb-1">Page</div>
+<div class="text-primary-majorelle-blue dark:text-primary-majorelle-blue small mb-1">Page</div>
 <div class="h4 mb-0 fw-bold">{currentPage}/{totalPages || 1}</div>
 </div>
 </div>

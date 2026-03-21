@@ -13,7 +13,7 @@ const {
 }: Props = $props();
 </script>
 
-<div class="bg-linear-to-br from-primary-subtle to-body-tertiary py-5 px-4 mb-5">
+<div class="py-8 px-4 mb-2">
 <div class="container">
 <div class="text-center">
 <a href="/" class="text-decoration-none">

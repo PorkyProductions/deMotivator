@@ -34,7 +34,7 @@
 	} = $props();
 </script>
 
-<div class="card border-0 shadow-sm mb-4">
+<div class="card border-0 shadow-sm mb-4 border-l-4 border-primary-majorelle-blue dark:border-primary-majorelle-blue">
 	<div class="card-body">
 		<h2 class="h5 mb-3">
 			<Icon name="collection-fill" /> Insult Packs
