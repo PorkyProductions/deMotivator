@@ -5,6 +5,7 @@ export const updateInsultsSeen = async (insultsSeen: number): Promise<boolean> =
 	const app = await getFirebaseApp();
 	const db = getFirestore(app);
 	const auth = getAuth(app);
+	await auth.authStateReady();
 	const normalizeInsultsSeen = (value: unknown): number => {
 		const parsedValue = Math.floor(Number(value));
 		if (!Number.isFinite(parsedValue) || parsedValue < 0) {
