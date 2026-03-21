@@ -27,6 +27,18 @@ MEGAMODE output also respects **Profanity Censor** and **Angry Mode** settings.
 
 ---
 
+## Navigation
+
+Use the launcher on the right side of the screen to navigate between app pages.
+
+- Default state: shows a hamburger menu icon for clear discoverability.
+- Hover/focus state: expands to preview the menu affordance.
+- Open state: tap/click to open a full-screen slideover menu with large centered links.
+
+On mobile, tap the launcher directly to open the menu.
+
+---
+
 ## Insult Browser
 
 The **Insult Browser** (accessible from the navigation bar as "List" or from your Account Hub) lets you explore the full catalog of insults rather than seeing them one at a time.

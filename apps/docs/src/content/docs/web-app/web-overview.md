@@ -9,7 +9,7 @@ The app is free to use at **[demotivator.web.app](https://demotivator.web.app/)*
 
 ## What's Inside
 
-The app has several pages, all accessible from the navigation bar at the bottom of the screen (mobile) or footer (desktop):
+The app has several pages, all accessible from the slideover navigation launcher on the right edge of the screen:
 
 | Page | What It Does |
 | ---- | ------------ |
@@ -19,6 +19,12 @@ The app has several pages, all accessible from the navigation bar at the bottom 
 | **Settings** | Customize which insult packs are active, toggle profanity, set word limits, and more. |
 | **Account** | View your profile, stats, achievements, and manage your account. |
 | **v1.0** | A preserved copy of the original (de)Motivator for nostalgia purposes. |
+
+### Navigation Behavior
+
+- In its default state, the launcher shows a **hamburger menu icon** so first-time users can quickly identify it as navigation.
+- Hovering (or keyboard focusing) the launcher expands it to show a clearer menu affordance before opening.
+- Clicking or tapping opens a full-screen slideover menu with large centered links for easier navigation on both desktop and mobile.
 
 ## Quick Links
 

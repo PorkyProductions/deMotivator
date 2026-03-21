@@ -114,13 +114,15 @@
 >
 	<span class="sr-only">Open navigation menu</span>
 	<span class="flex items-center gap-2 overflow-hidden whitespace-nowrap">
-		<img
-			src={hedgehog}
-			alt="Navigation trigger icon"
-			class="h-8 w-8 shrink-0 object-contain drop-shadow-md"
-			style={`animation-duration: ${hedgehogSpinDuration}s;`}
-		/>
-		<span class={`inline-flex items-center justify-center rounded-full bg-white/15 border border-white/30 h-8 w-8 shrink-0 transition-all duration-500 ${launcherExpanded ? 'opacity-100' : 'opacity-0 -translate-x-2 sm:opacity-100 sm:translate-x-0'}`}>
+		{#if launcherExpanded}
+			<img
+				src={hedgehog}
+				alt="Menu trigger icon"
+				class="h-8 w-8 shrink-0 object-contain drop-shadow-md"
+				style={`animation-duration: ${hedgehogSpinDuration}s;`}
+			/>
+		{/if}
+		<span class="inline-flex items-center justify-center rounded-full bg-white/15 border border-white/30 h-8 w-8 shrink-0 transition-all duration-500">
 			<Icon name="list" />
 		</span>
 		<span class={`text-sm font-semibold tracking-wide transition-all duration-500 ${launcherExpanded ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2'}`}>
