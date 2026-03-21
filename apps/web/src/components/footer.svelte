@@ -169,13 +169,18 @@
 						<Title />
 					</div>
 				</div>
-				<button type="button" class="btn btn-outline-light" onclick={closeNavigation} aria-label="Close navigation menu">
+				<button
+					type="button"
+					onclick={closeNavigation}
+					aria-label="Close navigation menu"
+					class="inline-flex items-center gap-2 rounded-xl border border-white/40 px-3 py-2 text-sm font-semibold text-white hover:bg-white/15 transition-colors duration-200"
+				>
 					<Icon name="x-lg" /> Close
 				</button>
 			</div>
 
 			<div class="flex-1 overflow-y-auto px-4 pb-4 sm:px-6 sm:pb-6">
-				<nav class="mx-auto d-flex flex-column items-stretch text-center gap-3 sm:gap-4 w-full max-w-4xl py-2">
+				<nav class="mx-auto flex flex-col items-stretch text-center gap-3 sm:gap-4 w-full max-w-4xl py-2">
 					{#each navLinks as link, i}
 						<a
 							href={link.href}
