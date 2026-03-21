@@ -1,0 +1,34 @@
+// Subtle ambient glow — gives glass cards something to blur against and adds page depth
+#root {
+	background-image:
+		radial-gradient(ellipse at 8% 4%, rgb(79 70 229 / 4%) 0%, transparent 42%),
+		radial-gradient(ellipse at 92% 96%, rgb(109 40 217 / 3%) 0%, transparent 42%);
+}
+
+[data-bs-theme='dark'] #root {
+	background-image:
+		radial-gradient(ellipse at 8% 4%, rgb(79 70 229 / 9%) 0%, transparent 42%),
+		radial-gradient(ellipse at 92% 96%, rgb(109 40 217 / 7%) 0%, transparent 42%);
+}
+
+// Glassmorphism treatment — applied to all flat (border-0) cards across the app.
+// .auth-panel manages its own glass styling in login.scss, so it is excluded.
+.card.border-0:not(.auth-panel) {
+	background-color: rgb(255 255 255 / 82%);
+	backdrop-filter: blur(12px) saturate(120%);
+	border: 1px solid rgb(255 255 255 / 60%) !important;
+	box-shadow:
+		0 4px 20px rgb(15 23 42 / 8%),
+		0 1px 4px rgb(15 23 42 / 5%),
+		inset 0 1px 0 rgb(255 255 255 / 50%) !important;
+}
+
+[data-bs-theme='dark'] .card.border-0:not(.auth-panel) {
+	background-color: rgb(10 14 28 / 65%);
+	backdrop-filter: blur(12px) saturate(120%);
+	border: 1px solid rgb(255 255 255 / 7%) !important;
+	box-shadow:
+		0 4px 20px rgb(0 0 0 / 36%),
+		0 1px 4px rgb(0 0 0 / 18%),
+		inset 0 1px 0 rgb(255 255 255 / 4%) !important;
+}
