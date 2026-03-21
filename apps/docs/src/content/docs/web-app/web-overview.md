@@ -25,6 +25,9 @@ The app has several pages, all accessible from the slideover navigation launcher
 - In its default state, the launcher shows a **hamburger menu icon** so first-time users can quickly identify it as navigation.
 - Hovering (or keyboard focusing) the launcher expands it to show a clearer menu affordance before opening.
 - Clicking or tapping opens a full-screen slideover menu with large centered links for easier navigation on both desktop and mobile.
+- The menu includes a dedicated account area:
+  - Signed out users see a **Log In** button.
+  - Signed in users see a PorkyProductionsID greeting and a separate **My Account** button.
 
 ## Quick Links
 

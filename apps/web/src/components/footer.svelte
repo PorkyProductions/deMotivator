@@ -7,6 +7,8 @@
 	import { parentCompany } from '../typescript/constants';
 	import { navigation } from '../utils/navigation';
 	import { adminAccessStore } from '../utils/adminAccess';
+	import { onAuthStateChanged } from '../utils/firebase';
+	import type { AppUser } from '../utils/firebase';
 
 	const year = new Date().getFullYear();
 	const initialHedgehogSpinDuration = 10;
@@ -16,6 +18,7 @@
 	let launcherExpanded = $state(false);
 	let hedgehogSpinDuration = $state(initialHedgehogSpinDuration);
 	let hedgehogAccelerationTimer: ReturnType<typeof setInterval> | undefined;
+	let currentUser = $state<AppUser | null>(null);
 
 	const showAdminLink = $derived(
 		$adminAccessStore.isAuthenticated === true &&
@@ -24,19 +27,22 @@
 	);
 
 	const navLinks = $derived.by(() => {
-		const accountLink = {
-			name: 'Account',
-			shortName: 'Account',
-			href: '/account.html',
-			icon: 'person-circle'
-		};
 		const adminLink = {
 			name: 'Admin',
 			shortName: 'Admin',
 			href: '/admin.html',
 			icon: 'speedometer2'
 		};
-		return showAdminLink ? [...navigation, accountLink, adminLink] : [...navigation, accountLink];
+		return showAdminLink ? [...navigation, adminLink] : [...navigation];
+	});
+
+	const authGreeting = $derived.by(() => {
+		if (!currentUser) {
+			return '';
+		}
+		const name = currentUser.name?.trim();
+		const email = currentUser.email?.trim();
+		return name || email || 'there';
 	});
 
 	const startHedgehogAcceleration = () => {
@@ -86,6 +92,12 @@
 
 	onMount(() => {
 		window.addEventListener('keydown', onWindowKeyDown);
+		const unsubscribeAuth = onAuthStateChanged((user) => {
+			currentUser = user;
+		});
+		return () => {
+			unsubscribeAuth();
+		};
 	});
 
 	onDestroy(() => {
@@ -206,6 +218,31 @@
 						</a>
 					{/each}
 				</nav>
+
+				<div class="mx-auto mt-5 w-full max-w-4xl rounded-3xl border border-white/20 bg-white/8 p-4 sm:p-5">
+					{#if !currentUser}
+						<a
+							href="/login.html"
+							onclick={closeNavigation}
+							class="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-white/45 bg-white/20 px-4 py-3 text-lg font-semibold text-white no-underline transition-all duration-300 hover:bg-white/30"
+						>
+							<Icon name="box-arrow-in-right" />
+							<span>Log In</span>
+						</a>
+					{:else}
+						<div class="text-center text-sm sm:text-base text-white/90">
+							Hello {authGreeting}. Logged in via PorkyProductionsID
+						</div>
+						<a
+							href="/account.html"
+							onclick={closeNavigation}
+							class="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-cyan-200/70 bg-cyan-300/20 px-4 py-3 text-lg font-semibold text-cyan-50 no-underline transition-all duration-300 hover:bg-cyan-300/30"
+						>
+							<Icon name="person-circle" />
+							<span>My Account</span>
+						</a>
+					{/if}
+				</div>
 			</div>
 
 			<div class="pb-6 sm:pb-8 px-4 text-center">

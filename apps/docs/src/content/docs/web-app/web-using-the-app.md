@@ -34,6 +34,9 @@ Use the launcher on the right side of the screen to navigate between app pages.
 - Default state: shows a hamburger menu icon for clear discoverability.
 - Hover/focus state: expands to preview the menu affordance.
 - Open state: tap/click to open a full-screen slideover menu with large centered links.
+- Account area behavior inside the menu:
+  - Signed out: shows a **Log In** button.
+  - Signed in: shows `Hello {username/email}. Logged in via PorkyProductionsID` plus a **My Account** button beneath it.
 
 On mobile, tap the launcher directly to open the menu.
 
