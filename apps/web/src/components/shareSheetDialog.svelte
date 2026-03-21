@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Icon } from '@demotivator/ui';
+	import { Icon, portal } from '@demotivator/ui';
 	import type { ShareDestination, ShareProviderButton } from '../utils/shareSheet';
 
 	interface Props {
@@ -21,7 +21,7 @@
 	}: Props = $props();
 </script>
 
-<div class="modal fade show d-block" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="shareSheetDialogTitle">
+<div class="modal fade show d-block" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="shareSheetDialogTitle" use:portal>
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -51,7 +51,7 @@
 		</div>
 	</div>
 </div>
-<div class="modal-backdrop fade show"></div>
+<div class="modal-backdrop fade show" use:portal></div>
 
 <style>
 	:global(.share-btn-x) {

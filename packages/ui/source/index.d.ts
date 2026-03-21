@@ -5,6 +5,7 @@ export { default as BsLoader } from './bsLoader.svelte';
 export { default as BsModal } from './bsModal.svelte';
 export { default as BsSpinner } from './bsSpinner.svelte';
 export { default as Icon } from './icon.svelte';
+export { portal } from './portal';
 export type {
 	BSVariant,
 	BSVarient,
