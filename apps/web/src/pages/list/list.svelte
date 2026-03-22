@@ -22,6 +22,7 @@
 	import { onMount } from 'svelte';
 	import shuffle from 'lodash/shuffle';
 	import {
+		availableInsultPacks,
 		initSettingsListener,
 		resolveEnabledPackKeys,
 		settingsStore,
@@ -34,13 +35,55 @@
 	import { getRandomExclamationCount, shouldPostProcessInsult, transformInsultText } from '../../utils/insultTransform';
 	let dmv;
 	let availableInsults = $state([]);
+	let listSelectedPackKeys = $state<string[]>([]);
+
+	const isSamePackKeyArray = (leftPackKeys: string[], rightPackKeys: string[]) => {
+		if (leftPackKeys.length !== rightPackKeys.length) {
+			return false;
+		}
+		return leftPackKeys.every((packKey, index) => rightPackKeys[index] === packKey);
+	};
+
+	const sanitizeListSelectedPackKeys = (packKeys: string[], settings: UserSettings) => {
+		const allowedPackKeys = availableInsultPacks
+			.filter((pack) => settings.allowProfanity || !pack.explicit)
+			.map((pack) => pack.key);
+		const allowedPackKeySet = new Set(allowedPackKeys);
+		const sanitizedPackKeys = Array.from(new Set(packKeys)).filter((packKey) => allowedPackKeySet.has(packKey));
+		if (sanitizedPackKeys.length > 0) {
+			return sanitizedPackKeys;
+		}
+		const fallbackPackKeys = resolveEnabledPackKeys(settings).filter((packKey) => allowedPackKeySet.has(packKey));
+		if (fallbackPackKeys.length > 0) {
+			return fallbackPackKeys;
+		}
+		return allowedPackKeys.slice(0, 1);
+	};
+
+	const updateInsultPool = () => {
+		if (!dmv) {
+			return;
+		}
+		const selectedPacks = sanitizeListSelectedPackKeys(listSelectedPackKeys, $settingsStore);
+		if (!isSamePackKeyArray(selectedPacks, listSelectedPackKeys)) {
+			listSelectedPackKeys = selectedPacks;
+			return;
+		}
+		const insults = dmv.createArray({ packs: selectedPacks });
+		availableInsults = shuffle(insults);
+	};
+
+	const setListSelectedPackKeys = (packKeys: string[]) => {
+		listSelectedPackKeys = sanitizeListSelectedPackKeys(packKeys, $settingsStore);
+	};
+
+	const selectedPackKeySignature = $derived(listSelectedPackKeys.join('|'));
 
 	const initDemotivator = async () => {
 		const { DeMotivator } = await import('demotivator');
 		dmv = new DeMotivator();
-		const selectedPacks = resolveEnabledPackKeys($settingsStore);
-		const insults = dmv.createArray({ packs: selectedPacks });
-		availableInsults = shuffle(insults);
+		listSelectedPackKeys = sanitizeListSelectedPackKeys(resolveEnabledPackKeys($settingsStore), $settingsStore);
+		updateInsultPool();
 	};
 
 	onMount(() => {
@@ -75,12 +118,11 @@
 	$effect(() => {
 		$settingsStore.allowProfanity;
 		$settingsStore.selectedPacks;
+		listSelectedPackKeys;
 		if (!dmv) {
 			return;
 		}
-		const selectedPacks = resolveEnabledPackKeys($settingsStore);
-		const insults = dmv.createArray({ packs: selectedPacks });
-		availableInsults = shuffle(insults);
+		updateInsultPool();
 	});
 
 	// State management
@@ -166,7 +208,8 @@
 	});
 
 	$effect(() => {
-		if (searchQuery || showFavoritesOnly || $settingsStore.maxInsultWords || $settingsStore.selectedPacks.length) {
+		selectedPackKeySignature;
+		if (searchQuery || showFavoritesOnly || $settingsStore.maxInsultWords || selectedPackKeySignature) {
 			currentPage = 1;
 		}
 	});
@@ -362,10 +405,14 @@
 						{searchQuery}
 						{showFavoritesOnly}
 						{viewMode}
+						availableInsultPacks={availableInsultPacks}
+						selectedPackKeys={listSelectedPackKeys}
+						allowProfanity={$settingsStore.allowProfanity}
 						onShuffleInsults={shuffleInsults}
 						onSearchQueryChange={setSearchQuery}
 						onShowFavoritesOnlyChange={setShowFavoritesOnly}
 						onViewModeChange={setViewMode}
+						onPackSelectionChange={setListSelectedPackKeys}
 					/>
 
 					{#if copySuccess}
