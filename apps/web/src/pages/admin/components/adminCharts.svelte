@@ -24,9 +24,21 @@ const {
 
 let statusChartContainer = $state<HTMLDivElement | null>(null);
 let trendChartContainer = $state<HTMLDivElement | null>(null);
-let statusChart = $state<import('echarts').ECharts | null>(null);
-let trendChart = $state<import('echarts').ECharts | null>(null);
-let echartsModule = $state<typeof import('echarts') | null>(null);
+let statusChart = $state<import('echarts/core').EChartsType | null>(null);
+let trendChart = $state<import('echarts/core').EChartsType | null>(null);
+let echartsModule = $state<typeof import('echarts/core') | null>(null);
+
+const daysToDisplay = 7;
+
+interface ChartInputs {
+	pendingCount: number;
+	approvedCount: number;
+	rejectedCount: number;
+	pendingRequests: InsultRequest[];
+	approvedRequests: InsultRequest[];
+	rejectedRequests: InsultRequest[];
+	bsTheme: 'light' | 'dark';
+}
 
 const getChartColors = () => {
 	const isDark = bsTheme === 'dark';
@@ -38,22 +50,8 @@ const getChartColors = () => {
 	};
 };
 
-const buildTrendData = () => {
-	const dailyCounts = new Map<string, number>();
-	const dailyLabels = new Map<string, string>();
-	const today = new Date();
-
-	for (let index = 6; index >= 0; index -= 1) {
-		const date = new Date(today);
-		date.setHours(0, 0, 0, 0);
-		date.setDate(today.getDate() - index);
-		const key = date.toISOString().slice(0, 10);
-		dailyCounts.set(key, 0);
-		dailyLabels.set(key, date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
-	}
-
-	const allRequests = [...pendingRequests, ...approvedRequests, ...rejectedRequests];
-	allRequests.forEach((request) => {
+const addRequestDatesToTrend = (requests: InsultRequest[], dailyCounts: Map<string, number>) => {
+	requests.forEach((request) => {
 		const createdAt = new Date(request.createdAt);
 		createdAt.setHours(0, 0, 0, 0);
 		const key = createdAt.toISOString().slice(0, 10);
@@ -61,6 +59,25 @@ const buildTrendData = () => {
 			dailyCounts.set(key, (dailyCounts.get(key) ?? 0) + 1);
 		}
 	});
+};
+
+const buildTrendData = (inputs: ChartInputs) => {
+	const dailyCounts = new Map<string, number>();
+	const dailyLabels = new Map<string, string>();
+	const today = new Date();
+
+	for (let daysAgo = daysToDisplay - 1; daysAgo >= 0; daysAgo -= 1) {
+		const date = new Date(today);
+		date.setHours(0, 0, 0, 0);
+		date.setDate(today.getDate() - daysAgo);
+		const key = date.toISOString().slice(0, 10);
+		dailyCounts.set(key, 0);
+		dailyLabels.set(key, date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
+	}
+
+	addRequestDatesToTrend(inputs.pendingRequests, dailyCounts);
+	addRequestDatesToTrend(inputs.approvedRequests, dailyCounts);
+	addRequestDatesToTrend(inputs.rejectedRequests, dailyCounts);
 
 	const keys = [...dailyCounts.keys()];
 	return {
@@ -69,13 +86,13 @@ const buildTrendData = () => {
 	};
 };
 
-const updateCharts = () => {
+const updateCharts = (inputs: ChartInputs) => {
 	if (!statusChart || !trendChart) {
 		return;
 	}
 
 	const colors = getChartColors();
-	const trendData = buildTrendData();
+	const trendData = buildTrendData(inputs);
 
 	statusChart.setOption({
 		backgroundColor: colors.background,
@@ -93,9 +110,9 @@ const updateCharts = () => {
 				avoidLabelOverlap: false,
 				label: { show: false },
 				data: [
-					{ value: pendingCount, name: 'Pending', itemStyle: { color: '#F59E0B' } },
-					{ value: approvedCount, name: 'Approved', itemStyle: { color: '#22C55E' } },
-					{ value: rejectedCount, name: 'Rejected', itemStyle: { color: '#EF4444' } }
+					{ value: inputs.pendingCount, name: 'Pending', itemStyle: { color: '#F59E0B' } },
+					{ value: inputs.approvedCount, name: 'Approved', itemStyle: { color: '#22C55E' } },
+					{ value: inputs.rejectedCount, name: 'Rejected', itemStyle: { color: '#EF4444' } }
 				]
 			}
 		]
@@ -119,6 +136,9 @@ const updateCharts = () => {
 		},
 		yAxis: {
 			type: 'value',
+			name: 'Requests',
+			nameLocation: 'middle',
+			nameGap: 50,
 			minInterval: 1,
 			axisLine: { lineStyle: { color: colors.axis } },
 			splitLine: { lineStyle: { color: colors.grid } },
@@ -141,15 +161,40 @@ const handleResize = () => {
 	trendChart?.resize();
 };
 
+const chartInputs = $derived.by(() => {
+	return {
+		pendingCount,
+		approvedCount,
+		rejectedCount,
+		pendingRequests,
+		approvedRequests,
+		rejectedRequests,
+		bsTheme
+	};
+});
+
 onMount(async () => {
 	if (!statusChartContainer || !trendChartContainer) {
 		return;
 	}
 
-	echartsModule = await import('echarts');
+	const [
+		echartsCore,
+		{ PieChart, BarChart },
+		{ TooltipComponent, LegendComponent, GridComponent },
+		{ CanvasRenderer }
+	] = await Promise.all([
+		import('echarts/core'),
+		import('echarts/charts'),
+		import('echarts/components'),
+		import('echarts/renderers')
+	]);
+
+	echartsCore.use([PieChart, BarChart, TooltipComponent, LegendComponent, GridComponent, CanvasRenderer]);
+	echartsModule = echartsCore;
 	statusChart = echartsModule.init(statusChartContainer);
 	trendChart = echartsModule.init(trendChartContainer);
-	updateCharts();
+	updateCharts(chartInputs);
 	window.addEventListener('resize', handleResize);
 });
 
@@ -167,14 +212,7 @@ $effect(() => {
 		return;
 	}
 
-	pendingCount;
-	approvedCount;
-	rejectedCount;
-	pendingRequests.length;
-	approvedRequests.length;
-	rejectedRequests.length;
-	bsTheme;
-	updateCharts();
+	updateCharts(chartInputs);
 });
 </script>
 
