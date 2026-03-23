@@ -20,6 +20,7 @@ import NotAuthenticatedView from './components/notAuthenticatedView.svelte';
 import NotAdminView from './components/notAdminView.svelte';
 import AdminDashboardHeader from './components/adminDashboardHeader.svelte';
 import AdminStatsCards from './components/adminStatsCards.svelte';
+import AdminCharts from './components/adminCharts.svelte';
 import AdminRequestTabs from './components/adminRequestTabs.svelte';
 import PendingRequestsTable from './components/pendingRequestsTable.svelte';
 import ApprovedRequestsTable from './components/approvedRequestsTable.svelte';
@@ -192,6 +193,18 @@ $effect(() => {
 {pendingCount}
 {approvedCount}
 {rejectedCount}
+/>
+</div>
+
+<div transition:fly={{ y: 20, delay: 250 }}>
+<AdminCharts
+{pendingCount}
+{approvedCount}
+{rejectedCount}
+{pendingRequests}
+{approvedRequests}
+{rejectedRequests}
+{bsTheme}
 />
 </div>
 
