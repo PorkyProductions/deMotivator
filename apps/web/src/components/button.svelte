@@ -89,7 +89,7 @@ const writeInsultToClipboard = async () => {
 
 let MEGAMODEresult = $state('');
 let MEGAMODE = $state(false);
-let MEGAMODEspeed = $state(250);
+let MEGAMODEspeed = $state(500);
 let MEGAMODEinsults = $state(0);
 const sliderMin = 1;
 const sliderMax = 4680;

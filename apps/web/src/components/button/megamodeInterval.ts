@@ -18,7 +18,7 @@ const createMegamodeIntervalController = (
 
 	const start = () => {
 		stop();
-		const speed = Math.max(20, Number(getSpeed()) || 250);
+		const speed = Math.max(20, Number(getSpeed()) || 500);
 		megamodeInterval = setInterval(() => {
 			void onTick();
 		}, speed);
