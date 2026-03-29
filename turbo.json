@@ -63,7 +63,7 @@
       "outputLogs": "errors-only"
     },
     "typeCheck": {
-      "dependsOn": ["^typeCheck"],
+      "dependsOn": ["^typeCheck", "^build"],
       "outputs": ["*.tsbuildinfo"],
       "cache": true,
       "inputs": [
