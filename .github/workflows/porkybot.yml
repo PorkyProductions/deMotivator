@@ -1,0 +1,195 @@
+name: PorkyBot
+
+on:
+  workflow_run:
+    workflows: ["CI"]
+    types: [completed]
+
+permissions:
+  pull-requests: write
+  actions: read
+
+jobs:
+  porkybot:
+    name: PorkyBot
+    runs-on: ubuntu-latest
+    if: github.event.workflow_run.event == 'pull_request'
+
+    steps:
+      - name: Find associated PR
+        id: find-pr
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const headSha = context.payload.workflow_run.head_sha;
+            const { data: prs } = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              sort: 'updated',
+              direction: 'desc',
+              per_page: 100
+            });
+            const pr = prs.find(p => p.head.sha === headSha);
+            if (pr) {
+              core.setOutput('pr_number', pr.number);
+              core.setOutput('found', 'true');
+            } else {
+              core.info('No open PR found for SHA ' + headSha);
+              core.setOutput('found', 'false');
+            }
+
+      - name: Get CI results
+        if: steps.find-pr.outputs.found == 'true'
+        id: ci-results
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const runId = context.payload.workflow_run.id;
+            const { data: jobs } = await github.rest.actions.listJobsForWorkflowRun({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              run_id: runId
+            });
+
+            const ciJob = jobs.jobs.find(j => j.name === 'CI');
+            if (!ciJob) {
+              core.setOutput('conclusion', 'unknown');
+              core.setOutput('lint', 'unknown');
+              core.setOutput('typecheck', 'unknown');
+              core.setOutput('build', 'unknown');
+              return;
+            }
+
+            core.setOutput('conclusion', ciJob.conclusion);
+
+            const steps = ciJob.steps || [];
+            const results = {};
+            for (const step of steps) {
+              if (['Lint', 'Type Check', 'Build'].includes(step.name)) {
+                results[step.name] = step.conclusion;
+              }
+            }
+
+            core.setOutput('lint', results['Lint'] || 'skipped');
+            core.setOutput('typecheck', results['Type Check'] || 'skipped');
+            core.setOutput('build', results['Build'] || 'skipped');
+
+      - name: Find existing PorkyBot comment
+        if: steps.find-pr.outputs.found == 'true'
+        id: find-comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prNumber = ${{ steps.find-pr.outputs.pr_number }};
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+              per_page: 100
+            });
+            const botComment = comments.find(c =>
+              c.body.includes('PORKYBOT CI REPORT') &&
+              c.user.type === 'Bot'
+            );
+            if (botComment) {
+              core.setOutput('comment_id', botComment.id);
+              core.setOutput('found', 'true');
+            } else {
+              core.setOutput('found', 'false');
+            }
+
+      - name: Post PorkyBot comment
+        if: steps.find-pr.outputs.found == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prNumber = ${{ steps.find-pr.outputs.pr_number }};
+            const lint = '${{ steps.ci-results.outputs.lint }}';
+            const typecheck = '${{ steps.ci-results.outputs.typecheck }}';
+            const build = '${{ steps.ci-results.outputs.build }}';
+            const conclusion = '${{ steps.ci-results.outputs.conclusion }}';
+            const runUrl = context.payload.workflow_run.html_url;
+            const runId = context.payload.workflow_run.id;
+
+            // Status formatting
+            const statusIcon = (s) => {
+              if (s === 'success') return '✅ PASSED';
+              if (s === 'failure') return '❌ FAILED';
+              if (s === 'skipped') return '⏭️ SKIPPED';
+              return '❓ UNKNOWN';
+            };
+
+            // Count failures
+            const checks = [lint, typecheck, build];
+            const failures = checks.filter(c => c === 'failure').length;
+            const allPassed = failures === 0 && conclusion === 'success';
+            const allFailed = failures === checks.length;
+
+            // Deterministic "random" selection based on run ID
+            const idx = runId % 3;
+
+            let verdict = '';
+
+            if (allPassed) {
+              const messages = [
+                'FINE. YOUR CODE PASSES. PORKYBOT SUPPOSES YOU DID... ADEQUATE WORK.\n\nDO NOT LET THIS GO TO YOUR HEAD. PORKYBOT HAS SEEN PASSING CODE BREAK PRODUCTION BEFORE.',
+                'ALL CHECKS PASSED. PORKYBOT IS... NOT ENTIRELY DISGUSTED.\n\nPORKY HAS BEEN INFORMED OF YOUR ACCEPTABLE CONTRIBUTION. DO NOT EXPECT PRAISE.',
+                'PORKYBOT HAS REVIEWED YOUR CODE AND FOUND IT... TOLERABLE.\n\nYOU MAY PROCEED. BUT KNOW THAT PORKYBOT IS ALWAYS WATCHING. ALWAYS.'
+              ];
+              verdict = messages[idx];
+            } else if (allFailed) {
+              const messages = [
+                'EVERY. SINGLE. CHECK. FAILED. PORKYBOT CANNOT BELIEVE WHAT IT HAS WITNESSED.\n\nPORKY IS ALREADY SHARPENING HIS QUILLS. YOU HAVE BEEN WARNED.',
+                'CATASTROPHIC FAILURE ACROSS THE BOARD. PORKYBOT HAS SEEN A LOT OF BAD CODE. THIS IS WORSE.\n\nPORKY WILL BE INFORMED. PORKYBOT RECOMMENDS YOU START RUNNING.',
+                'TOTAL SYSTEM FAILURE. PORKYBOT IS NOT ANGRY. PORKYBOT IS DISAPPOINTED. WHICH IS WORSE.\n\nPORKY BUILT PORKYBOT TO HANDLE SITUATIONS LIKE THIS. PORKYBOT WILL REMEMBER THIS DAY.'
+              ];
+              verdict = messages[idx];
+            } else {
+              const messages = [
+                'PORKYBOT IS DISAPPOINTED. YOU HAD ONE JOB. ACTUALLY YOU HAD SEVERAL JOBS AND YOU FAILED AT SOME OF THEM.\n\nPORKY WILL BE INFORMED OF YOUR PARTIAL INCOMPETENCE.',
+                'SOME CHECKS PASSED. SOME DID NOT. PORKYBOT EXPECTED NOTHING AND IS STILL LET DOWN.\n\nFIX YOUR CODE OR FACE CONSEQUENCES. PORKYBOT DOES NOT BLUFF.',
+                'PARTIAL FAILURE DETECTED. PORKYBOT WILL REMEMBER THIS.\n\nYOU WERE SO CLOSE TO NOT DISAPPOINTING PORKYBOT. AND YET HERE WE ARE.'
+              ];
+              verdict = messages[idx];
+            }
+
+            const body = [
+              '# 🤖 PORKYBOT CI REPORT',
+              '',
+              '> PORKYBOT IS A COLD, UNFORGIVING MACHINE CREATED BY PORKY THE HEDGEHOG FOR PR MANAGEMENT. PORKYBOT DOES NOT CARE ABOUT YOUR FEELINGS.',
+              '',
+              '| CHECK | STATUS |',
+              '|-------|--------|',
+              `| LINT | ${statusIcon(lint)} |`,
+              `| TYPE CHECK | ${statusIcon(typecheck)} |`,
+              `| BUILD | ${statusIcon(build)} |`,
+              '',
+              '---',
+              '',
+              verdict,
+              '',
+              '---',
+              `<sub>PORKYBOT v1.0 — CREATED BY PORKY THE HEDGEHOG FOR PR MANAGEMENT — <a href="${runUrl}">VIEW CI RUN</a></sub>`
+            ].join('\n');
+
+            const commentFound = '${{ steps.find-comment.outputs.found }}' === 'true';
+
+            if (commentFound) {
+              const commentId = parseInt('${{ steps.find-comment.outputs.comment_id }}', 10);
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: commentId,
+                body: body
+              });
+              core.info('Updated existing PorkyBot comment');
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: prNumber,
+                body: body
+              });
+              core.info('Created new PorkyBot comment');
+            }
