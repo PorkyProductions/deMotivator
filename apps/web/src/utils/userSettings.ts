@@ -326,7 +326,7 @@ const initSettingsListener = () => {
 	if (settingsListenerActive) return;
 	settingsListenerActive = true;
 	onAuthStateChanged(async (user) => {
-		const userId = user?.id ?? user?.user_id;
+		const userId = user?.id;
 		if (!userId) {
 			settingsStore.set({ ...defaultSettings });
 			return;

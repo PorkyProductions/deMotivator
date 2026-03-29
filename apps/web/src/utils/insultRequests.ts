@@ -2,6 +2,13 @@ import { getFirebaseApp } from './firebase/firebaseApp';
 
 export type InsultRequestStatus = 'pending' | 'approved' | 'rejected';
 
+const asInsultRequestStatus = (value: unknown): InsultRequestStatus => {
+	if (value === 'pending' || value === 'approved' || value === 'rejected') {
+		return value;
+	}
+	throw new Error(`Invalid insult request status: ${String(value)}`);
+};
+
 export interface InsultRequest {
 	id?: string;
 	text: string;
@@ -65,7 +72,7 @@ export const listInsultRequests = async (statusFilter?: InsultRequestStatus): Pr
 		requests.push({
 			id: doc.id,
 			text: data.text as string,
-			status: data.status as string,
+			status: asInsultRequestStatus(data.status),
 			requestedByUid: data.requestedByUid,
 			requestedByName: data.requestedByName,
 			requestedByEmail: data.requestedByEmail,

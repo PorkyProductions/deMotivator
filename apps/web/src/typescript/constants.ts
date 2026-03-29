@@ -1,5 +1,5 @@
 const year = new Date().getFullYear();
-export const PROD: boolean = process.env.NODE_ENV === 'production';
+export const PROD: boolean = import.meta.env.PROD;
 
 import pkg from '../../package.json';
 
@@ -33,8 +33,7 @@ export default {
 };
 
 abstract class __Constants {
-	private static readonly __PROD: boolean =
-		process.env.NODE_ENV === 'production';
+	private static readonly __PROD: boolean = import.meta.env.PROD;
 	private static readonly __name: string = '(de)Motivator';
 	private static readonly __shortName: string = 'deMotivator';
 	private static readonly __parentCompany: string = 'PorkyProductions';
