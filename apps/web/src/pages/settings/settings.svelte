@@ -192,7 +192,7 @@
 <div id="root" data-bs-theme={bsTheme} class="min-h-screen dark:bg-theme-black">
 	<Auth let:loggedIn>
 		{#if loggedIn}
-			<div class="py-8 px-4 mb-2">
+			<div class="settings-hero py-10 px-4 mb-2">
 				<div class="container">
 					<div class="text-center">
 						<a href="/" class="text-decoration-none">
@@ -200,9 +200,15 @@
 								<Title />
 							</span>
 						</a>
-						<h1 class="display-5 fw-bold mt-3 mb-2">
-							<Icon name="gear-fill" /> Settings
+						<div class="hero-badge mx-auto mt-3 mb-2">
+							<span class="badge rounded-pill px-3 py-2 text-bg-primary bg-opacity-10 fw-semibold">
+								<Icon name="sliders2" /> Preferences
+							</span>
+						</div>
+						<h1 class="display-3 fw-bold mb-2 settings-title">
+							Settings
 						</h1>
+						<p class="text-muted mb-0">Customize your (de)Motivator experience.</p>
 					</div>
 				</div>
 			</div>
@@ -214,6 +220,7 @@
 							icon="sliders2"
 							title="Content Settings"
 							description="Control filtering and content behavior across the app."
+							step={1}
 						/>
 						<ContentSettingsCard
 							toggleSettings={toggleSettings}
@@ -228,6 +235,7 @@
 							icon="shuffle"
 							title="Insult Pool Settings"
 							description="Control which packs are used and how random weighting is applied."
+							step={2}
 						/>
 						<PackSettingsCard
 							availableInsultPacks={availableInsultPacks}
@@ -249,6 +257,7 @@
 							icon="person-circle"
 							title="Profile Settings Data"
 							description="Save your current settings or export them as a JSON file."
+							step={3}
 						/>
 						<SettingsDataCard onSaveSettings={saveSettings} onDownloadSettings={downloadSettings} />
 					</div>
@@ -258,9 +267,9 @@
 			<div class="container py-5">
 				<div class="row justify-content-center">
 					<div class="col-lg-6">
-						<div class="card border-0 shadow-lg">
+						<div class="card border-0 shadow-lg rounded-4">
 							<div class="card-body text-center py-5">
-								<div class="text-primary-majorelle-blue dark:text-primary-majorelle-blue mb-4 text-4xl">
+								<div class="auth-lock-icon mx-auto mb-4">
 									<Icon name="lock-fill"/>
 								</div>
 								<h2 class="card-title fw-bold mb-3">Authentication Required</h2>
@@ -268,10 +277,10 @@
 									Sign in to manage your settings and sync preferences across devices.
 								</p>
 								<div class="d-flex gap-3 justify-content-center">
-									<a href="/login.html" class="btn btn-primary btn-lg shadow-sm">
+									<a href="/login.html" class="btn btn-primary btn-lg shadow-sm rounded-pill px-4">
 										<Icon name="box-arrow-in-right" /> Sign In
 									</a>
-									<a href="/signUp.html" class="btn btn-outline-primary btn-lg">
+									<a href="/signUp.html" class="btn btn-outline-primary btn-lg rounded-pill px-4">
 										<Icon name="person-plus" /> Create Account
 									</a>
 								</div>
@@ -291,3 +300,40 @@
 		<Footer />
 	</Auth>
 </div>
+
+<style>
+	.settings-hero {
+		position: relative;
+	}
+
+	.settings-title {
+		background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+	}
+
+	:global([data-bs-theme='dark']) .settings-title {
+		background: linear-gradient(135deg, #818cf8 0%, #a78bfa 100%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+	}
+
+	.auth-lock-icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 72px;
+		height: 72px;
+		border-radius: 50%;
+		background: rgb(79 70 229 / 12%);
+		color: #4f46e5;
+		font-size: 2rem;
+	}
+
+	:global([data-bs-theme='dark']) .auth-lock-icon {
+		background: rgb(79 70 229 / 25%);
+		color: #818cf8;
+	}
+</style>
