@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { leaderboard } from '../typescript/readInsults';
 	import { getListOfAllUsersWhoHaveSeenInsults as getList } from '../typescript/readInsults';
+	import type { GlobInsultDBQueryResponse } from '../typescript/types';
 	import { fade, fly, scale } from 'svelte/transition';
 	import { bsTheme } from '../utils/darkMode';
 	import { getAvatarApiUrl } from '../utils/avatarApi';
@@ -15,13 +16,15 @@
 	let loading = $state(false);
 	let error = $state();
 	let lastUpdated = $state(new Date());
+	let leaderboardData = $state<GlobInsultDBQueryResponse[]>([]);
 
-	const totalViews = $derived(leaderboard.reduce((acc, entry) => acc + entry.data, 0));
-	const averageViews = $derived(leaderboard.length > 0 ? Math.round(totalViews / leaderboard.length) : 0);
+	const totalViews = $derived(leaderboardData.reduce((acc, entry) => acc + entry.data, 0));
+	const averageViews = $derived(leaderboardData.length > 0 ? Math.round(totalViews / leaderboardData.length) : 0);
 
 	const loadInitialLeaderboard = async () => {
 		try {
 			await getList();
+			leaderboardData = [...leaderboard];
 			lastUpdated = new Date();
 		} catch (err) {
 			error = err;
@@ -35,6 +38,7 @@
 		error = null;
 		try {
 			await getList();
+			leaderboardData = [...leaderboard];
 			lastUpdated = new Date();
 			setTimeout(() => (loading = false), 300);
 		} catch (err) {
@@ -66,7 +70,7 @@
 	};
 
 	const getLeaderboardAvatarUrl = (referrer?: string) => {
-		const matchedEntry = leaderboard.find((entry) => entry.referrer === referrer);
+		const matchedEntry = leaderboardData.find((entry) => entry.referrer === referrer);
 		const profileId = referrer ?? 'guest-user';
 		if (!matchedEntry?.isCurrentUser) {
 			return getAvatarApiUrl({
@@ -83,7 +87,7 @@
 	};
 
 	const getDisplayName = (position: number) => {
-		const entry = leaderboard[position];
+		const entry = leaderboardData[position];
 		if (!entry) {
 			return 'Unknown User';
 		}
@@ -93,14 +97,14 @@
 	};
 
 	const getCurrentUserRank = () => {
-		const index = leaderboard.findIndex((entry) => entry.isCurrentUser);
+		const index = leaderboardData.findIndex((entry) => entry.isCurrentUser);
 		return index >= 0 ? index + 1 : null;
 	};
 
 	const getLeaderboardRowId = (referrer?: string) => `leaderboard-row-${encodeURIComponent(referrer ?? '')}`;
 
 	const jumpToCurrentUser = () => {
-		const currentUserEntry = leaderboard.find((entry) => entry.isCurrentUser);
+		const currentUserEntry = leaderboardData.find((entry) => entry.isCurrentUser);
 		if (!currentUserEntry?.referrer) {
 			return;
 		}
@@ -131,12 +135,7 @@
 								<Title />
 							</span>
 						</a>
-						<div class="hero-badge mx-auto mt-3 mb-2">
-							<span class="badge rounded-pill px-3 py-2 text-bg-warning bg-opacity-15 text-warning-emphasis fw-semibold">
-								<Icon name="trophy-fill" /> Global Rankings
-							</span>
-						</div>
-						<h1 class="display-3 fw-bold mb-3 leaderboard-title">
+						<h1 class="display-3 fw-bold mb-3 mt-3 leaderboard-title">
 							Leaderboard
 						</h1>
 
@@ -188,7 +187,7 @@
 				</div>
 			{/if}
 
-			{#if leaderboard && leaderboard.length > 0}
+			{#if leaderboardData && leaderboardData.length > 0}
 				<!-- Stats Cards -->
 				<div class="row g-4 mb-5" transition:fly={{ y: 20, delay: 200 }}>
 					<div class="col-md-4">
@@ -198,7 +197,7 @@
 									<Icon name="people-fill" />
 								</div>
 								<h3 class="card-title h6 text-uppercase text-secondary fw-bold tracking-wide mb-1">Total Participants</h3>
-								<p class="card-text display-5 fw-bold mb-0">{formatNumber(leaderboard.length)}</p>
+								<p class="card-text display-5 fw-bold mb-0">{formatNumber(leaderboardData.length)}</p>
 							</div>
 						</div>
 					</div>
@@ -231,7 +230,7 @@
 				</div>
 
 				<!-- Top 3 Podium -->
-				{#if leaderboard.length >= 3}
+				{#if leaderboardData.length >= 3}
 					<div class="mb-5" transition:fly={{ y: 20, delay: 300 }}>
 						<h2 class="h4 fw-bold text-center mb-4 d-flex align-items-center justify-content-center gap-2">
 							<span class="text-warning">🏆</span> Top Performers
@@ -245,7 +244,7 @@
 										<h3 class="h6 fw-bold text-secondary text-uppercase tracking-wide mb-3">2nd Place</h3>
 										<div class="d-flex justify-content-center mb-3">
 											<img
-												src={getLeaderboardAvatarUrl(leaderboard[1].referrer)}
+												src={getLeaderboardAvatarUrl(leaderboardData[1].referrer)}
 												alt="2nd place avatar"
 												class="rounded-circle shadow podium-avatar podium-avatar-sm"
 											/>
@@ -253,7 +252,7 @@
 										<p class="text-muted small mb-2 text-truncate px-2">
 											<code>{getDisplayName(1)}</code>
 										</p>
-										<p class="display-6 fw-bold text-primary-majorelle-blue dark:text-primary-majorelle-blue mb-0">{formatNumber(leaderboard[1].data)}</p>
+										<p class="display-6 fw-bold text-primary-majorelle-blue dark:text-primary-majorelle-blue mb-0">{formatNumber(leaderboardData[1].data)}</p>
 										<p class="text-muted small mb-0">insults seen</p>
 									</div>
 								</div>
@@ -269,7 +268,7 @@
 										</div>
 										<div class="d-flex justify-content-center mt-3 mb-3">
 											<img
-												src={getLeaderboardAvatarUrl(leaderboard[0].referrer)}
+												src={getLeaderboardAvatarUrl(leaderboardData[0].referrer)}
 												alt="1st place avatar"
 												class="rounded-circle shadow-lg podium-avatar podium-avatar-lg"
 											/>
@@ -277,7 +276,7 @@
 										<p class="text-muted small mb-2 text-truncate px-2">
 											<code>{getDisplayName(0)}</code>
 										</p>
-										<p class="display-5 fw-bold text-primary-majorelle-blue dark:text-primary-majorelle-blue mb-0">{formatNumber(leaderboard[0].data)}</p>
+										<p class="display-5 fw-bold text-primary-majorelle-blue dark:text-primary-majorelle-blue mb-0">{formatNumber(leaderboardData[0].data)}</p>
 										<p class="text-muted small mb-0">insults seen</p>
 									</div>
 								</div>
@@ -292,7 +291,7 @@
 										<h3 class="h6 fw-bold text-secondary text-uppercase tracking-wide mb-3">3rd Place</h3>
 										<div class="d-flex justify-content-center mb-3">
 											<img
-												src={getLeaderboardAvatarUrl(leaderboard[2].referrer)}
+												src={getLeaderboardAvatarUrl(leaderboardData[2].referrer)}
 												alt="3rd place avatar"
 												class="rounded-circle shadow podium-avatar podium-avatar-sm"
 											/>
@@ -300,7 +299,7 @@
 										<p class="text-muted small mb-2 text-truncate px-2">
 											<code>{getDisplayName(2)}</code>
 										</p>
-										<p class="display-6 fw-bold text-primary-majorelle-blue dark:text-primary-majorelle-blue mb-0">{formatNumber(leaderboard[2].data)}</p>
+										<p class="display-6 fw-bold text-primary-majorelle-blue dark:text-primary-majorelle-blue mb-0">{formatNumber(leaderboardData[2].data)}</p>
 										<p class="text-muted small mb-0">insults seen</p>
 									</div>
 								</div>
@@ -329,7 +328,7 @@
 									</tr>
 								</thead>
 								<tbody>
-									{#each leaderboard as entry, index}
+									{#each leaderboardData as entry, index}
 										<tr
 											id={getLeaderboardRowId(entry.referrer)}
 											transition:fade={{ delay: index * 30 }}

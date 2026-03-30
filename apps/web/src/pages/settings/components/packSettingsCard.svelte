@@ -52,11 +52,12 @@
 					{#each availableInsultPacks as pack (pack.key)}
 						<div class="col-12 col-sm-6">
 							<label
-								class={`pack-tile d-flex align-items-center gap-3 p-3 rounded-3 border cursor-pointer ${isPackEnabled(pack.key) ? 'pack-tile-active' : 'border-secondary-subtle'} ${isPackToggleDisabled(pack) ? 'pack-tile-disabled' : ''}`}
+								class={`pack-tile d-flex align-items-start gap-3 p-3 rounded-3 border cursor-pointer h-100 ${isPackEnabled(pack.key) ? 'pack-tile-active' : 'border-secondary-subtle'} ${isPackToggleDisabled(pack) ? 'pack-tile-disabled' : ''}`}
 								for={getPackInputId(pack.key)}
 							>
 								<input
-									class="form-check-input flex-shrink-0 mt-0"
+									class="form-check-input flex-shrink-0"
+									style="margin-top: 0.2rem;"
 									type="checkbox"
 									id={getPackInputId(pack.key)}
 									checked={isPackEnabled(pack.key)}
@@ -67,9 +68,9 @@
 									<div class="fw-semibold text-truncate">{pack.title}</div>
 									{#if pack.explicit}
 										<span class="badge text-bg-danger rounded-pill mt-1">Explicit</span>
-									{/if}
-									{#if pack.explicit && !settings.allowProfanity}
-										<p class="text-muted small mt-1 mb-0">Enable profanity to use.</p>
+										{#if !settings.allowProfanity}
+											<p class="text-muted small mt-1 mb-0">Enable profanity to use.</p>
+										{/if}
 									{/if}
 								</div>
 							</label>
