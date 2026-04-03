@@ -12,7 +12,7 @@
 	"license": "Apache-2.0",
 	"peerDependencies": {
 		"bootstrap": "^5.3.8",
-		"svelte": "^5.53.7"
+		"svelte": "^5.55.1"
 	},
 	"devDependencies": {
 		"@sveltejs/vite-plugin-svelte": "^7.0.0",
