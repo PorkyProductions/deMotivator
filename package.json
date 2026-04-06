@@ -30,7 +30,7 @@
     "tailwindcss": "^4.1.18",
     "terser": "^5.46.0",
     "typescript": "^5.9.3",
-    "vite": "^7.3.1"
+    "vite": "^7.3.2"
   },
   "dependencies": {
     "@porkyproductions/hat": "^1.5.0",
