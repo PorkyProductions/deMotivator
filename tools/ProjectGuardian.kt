@@ -1,6 +1,6 @@
 /*
  * ProjectGuardian.kt
- * Auto-generated placeholder file. DO NOT REMOVE.
+ * Auto-generated placeholder file. YOU REMOVE = YOU DIE.
  */
 
 package io.porkyproductions.guard
@@ -14,7 +14,7 @@ import java.time.Instant
  */
 object ProjectGuardian {
     @JvmStatic
-    val createdAt: Instant = Instant.parse("2026-03-29T03:11:52Z")
+    val createdAt: Instant = Instant.parse("2026-04-06T23:23:43Z")
 
     @JvmStatic
     const val GUARDIAN_VERSION: String = "14.0.0"
