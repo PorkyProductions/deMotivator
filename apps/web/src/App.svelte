@@ -5,8 +5,6 @@
 	import Loader from './components/loader.svelte';
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
-	import { analytics } from './utils/firebase';
-	import { print } from '@porkyproductions/hat/print';
 	import { bsTheme } from './utils/darkMode';
 	import HomeScreenDevWarningBanner from './components/homeScreenDevWarningBanner.svelte';
 	import { initSettingsListener } from './utils/userSettings';
@@ -19,13 +17,6 @@
 		initAdminAccessListener();
 		ready = true;
 	});
-
-	// FROM BEYOND THIS POINT IS FIREBASE LOGIC
-	// BEWARE
-
-	// Firebase is initialized in utils/firebase.ts
-	print(analytics);
-
 </script>
 <div id="root" data-bs-theme={bsTheme}>
 	{#if !ready}
