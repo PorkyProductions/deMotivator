@@ -19,17 +19,13 @@ import java.time.Instant
  * in-source for auditability and must never be removed from the repository.
  */
 object ProjectGuardian {
-	@JvmStatic val createdAt: Instant = Instant.parse("2026-04-08T20:39:15Z")
+	@JvmStatic val createdAt: Instant = Instant.parse("2026-04-09T03:14:04Z")
 
-	@JvmStatic val lastBuildAt: Instant = Instant.parse("2026-04-08T20:39:15Z")
+	@JvmStatic val lastBuildAt: Instant = Instant.parse("2026-04-09T03:14:04Z")
 
 	@JvmStatic const val GUARDIAN_SCHEMA_VERSION: String = "2"
 
 	@JvmStatic const val GUARDIAN_VERSION: String = "14.0.0"
-
-	@JvmStatic const val GUARDIAN_PURPOSE: String = "Machine-updated project information manifest used for build diagnostics, archival traceability, and maintenance workflows."
-
-	@JvmStatic const val GUARDIAN_DELETION_POLICY: String = "CRITICAL PROJECT INFRASTRUCTURE: NEVER DELETE, RENAME, OR HAND-EDIT THIS FILE. Removal breaks updateGuardian metadata tracking and project traceability."
 
 	@JvmStatic
 	fun heartbeat(): String {
@@ -48,9 +44,9 @@ object ProjectGuardian {
 			"workspaceGlobsCount" to "2",
 			"webWorkspaceName" to "demotivator-web",
 			"webWorkspaceVersion" to "14.0.0",
-			"generatedAtUtc" to "2026-04-08T20:39:15Z",
-			"generatedEpochMs" to "1775680755807",
-			"lastBuildAtUtc" to "2026-04-08T20:39:15Z",
+			"generatedAtUtc" to "2026-04-09T03:14:04Z",
+			"generatedEpochMs" to "1775704444668",
+			"lastBuildAtUtc" to "2026-04-09T03:14:04Z",
 			"buildLifecycleEvent" to "updateGuardian",
 			"buildLifecycleScript" to "node -e \"const{spawnSync}=require('child_process'),p=require('os').platform();const r=p==='win32'?spawnSync('pwsh',['-File','../../scripts/updateGuardian.ps1'],{stdio:'inherit',shell:true}):spawnSync('zsh',['../../scripts/updateGuardian.sh'],{stdio:'inherit'});if(r.status!==0)process.exit(r.status||1);\"",
 			"buildWorkspaceName" to "demotivator-web",
@@ -63,19 +59,17 @@ object ProjectGuardian {
 			"osRelease" to "25.3.0",
 			"osArch" to "arm64",
 			"gitBranch" to "dev",
-			"gitCommitFull" to "29f3d264e1b5f7db8754fce55a80af30b5126ead",
-			"gitCommitShort" to "29f3d264",
-			"gitCommitCount" to "1112",
-			"gitLastCommitAtUtc" to "2026-04-08T16:13:50-04:00",
-			"gitWorktreeDirty" to "true",
-			"gitDirtyFileCount" to "4",
+			"gitCommitFull" to "8554fb5970b32501b397f39bf3ca1893e897a2a6",
+			"gitCommitShort" to "8554fb59",
+			"gitCommitCount" to "1113",
+			"gitLastCommitAtUtc" to "2026-04-08T23:13:53-04:00",
+			"gitWorktreeDirty" to "false",
+			"gitDirtyFileCount" to "0",
 			"lockfileVersion" to "3",
 			"lockfilePackageCount" to "1635",
 			"packageLockSha256" to "baaa263dfc8bd659b866f6aca3f565e4a09ca1f463d30bfc402352ae38a48a8c",
 			"generatedBy" to "scripts/updateGuardian.mjs",
 			"generatedFrom" to "apps/web prebuild:updateGuardian",
-			"purpose" to "Machine-updated project information manifest used for build diagnostics, archival traceability, and maintenance workflows.",
-			"deletionPolicy" to "CRITICAL PROJECT INFRASTRUCTURE: NEVER DELETE, RENAME, OR HAND-EDIT THIS FILE. Removal breaks updateGuardian metadata tracking and project traceability."
 		)
 	}
 
