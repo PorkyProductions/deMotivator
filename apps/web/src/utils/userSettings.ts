@@ -57,6 +57,8 @@ const distributeWeightEvenly = (packKeys: string[], fallbackKey: string): PackWe
 	return nextPackWeights;
 };
 
+const createEvenPackWeights = (packKeys: string[], fallbackKey: string): PackWeights => distributeWeightEvenly(packKeys, fallbackKey);
+
 const normalizePackWeights = (
 	packWeights: PackWeights,
 	packKeys: string[],
@@ -344,4 +346,5 @@ const initSettingsListener = () => {
 export { settingsStore, defaultSettings, initSettingsListener, setUserSettings, setUserSetting, exportSettingsJson };
 export { maxInsultWordsMin, maxInsultWordsMax };
 export { availableInsultPacks, resolveEnabledPackKeys, resolveWeightedPackEntries };
+export { createEvenPackWeights };
 export { insultPostProcessingSettingKeys, type InsultPostProcessingSettingKey, type InsultPostProcessingSettings };

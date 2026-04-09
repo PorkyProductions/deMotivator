@@ -13,6 +13,7 @@
 	import { bsTheme } from '../../utils/darkMode';
 	import {
 		availableInsultPacks,
+		createEvenPackWeights,
 		exportSettingsJson,
 		initSettingsListener,
 		maxInsultWordsMax,
@@ -122,16 +123,7 @@
 			.map((pack) => pack.key);
 		const fallbackPackKey = resolveEnabledPackKeys($settingsStore)[0];
 		const nextPackKeys = allowedPackKeys.length > 0 ? allowedPackKeys : [fallbackPackKey];
-		const baseWeight = Math.floor(100 / nextPackKeys.length);
-		let remainder = 100 - (baseWeight * nextPackKeys.length);
-		const nextPackWeights = Object.fromEntries(
-			availableInsultPacks.map((pack) => [pack.key, 0])
-		) as Record<string, number>;
-		for (const packKey of nextPackKeys) {
-			const extraWeight = remainder > 0 ? 1 : 0;
-			nextPackWeights[packKey] = baseWeight + extraWeight;
-			remainder -= extraWeight;
-		}
+		const nextPackWeights = createEvenPackWeights(nextPackKeys, fallbackPackKey);
 		await setUserSetting('packWeights', nextPackWeights);
 	};
 
@@ -201,14 +193,10 @@
 							</span>
 						</a>
 						<div class="hero-badge mx-auto mt-3 mb-2">
-							<span class="badge rounded-pill px-3 py-2 text-bg-primary bg-opacity-10 fw-semibold">
-								<Icon name="sliders2" /> Preferences
-							</span>
 						</div>
 						<h1 class="display-3 fw-bold mb-2 settings-title">
 							Settings
 						</h1>
-						<p class="text-muted mb-0">Customize your (de)Motivator experience.</p>
 					</div>
 				</div>
 			</div>
