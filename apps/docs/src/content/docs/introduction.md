@@ -189,12 +189,14 @@ If you're looking for something specific:
 
 Both the npm package and the web app share the same set of insult packs:
 
-| Pack | Key | Explicit? | Description |
-| ---- | --- | --------- | ----------- |
-| **Original** | `original` | No | The core collection. General-purpose insults, no profanity. The default pack. |
-| **Profane** | `profane` | Yes | Strong language and mature content. Opt-in only. |
-| **Halloween** 🎃 | `halloween` | No | Seasonal — ghosts, monsters, candy, and spooky roasts. |
-| **Christmas** 🎄 | `christmas` | No | Seasonal — holiday-themed insults and festive burns. |
+| Key | Title | Explicit | Description |
+| --- | ----- | -------- | ----------- |
+| `original` | Original | No | The core insult collection. General-purpose, no profanity. |
+| `profane` | Profane | Yes | Contains strong language and mature content. |
+| `halloween` | Halloween 🎃 | No | Seasonal insults themed around Halloween. |
+| `christmas` | Christmas 🎄 | No | Seasonal insults themed around Christmas. |
+| `valentines` | Valentine's Day 💝 | No | Seasonal insults themed around Valentine's Day. |
+| `stPatricks` | St. Patrick's Day ☘️ | No | Seasonal insults themed around St. Patrick's Day. |
 
 In the npm package, packs are accessed through `insultPacks`, `insultPackList`, and the individual named exports. In the web app, packs are managed through the Settings page. See [Packs (package)](./packs.md) or [Settings (web app)](./web-app-docs/web-settings.md) for details.
 
