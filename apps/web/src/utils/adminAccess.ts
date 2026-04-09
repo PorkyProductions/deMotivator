@@ -1,4 +1,5 @@
 import { writable } from 'svelte/store';
+import { getFirebaseApp } from './firebase/firebaseApp';
 
 type AdminAccessState = {
 	loading: boolean;
@@ -32,11 +33,9 @@ export const checkAdminAccess = async (): Promise<AdminAccessState> => {
 
 		const { getAuth } = await import('firebase/auth');
 		const { getFirestore, doc, getDoc } = await import('firebase/firestore');
-		const { initializeApp, getApps, getApp } = await import('firebase/app');
-		const { firebaseConfig } = await import('./firebase');
-
-		const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
+		const app = await getFirebaseApp();
 		const auth = getAuth(app);
+		await auth.authStateReady();
 		const user = auth.currentUser;
 
 		if (!user) {
@@ -89,10 +88,7 @@ export const checkAdminAccess = async (): Promise<AdminAccessState> => {
 export const initAdminAccessListener = () => {
 	const setupListener = async () => {
 		const { getAuth } = await import('firebase/auth');
-		const { initializeApp, getApps, getApp } = await import('firebase/app');
-		const { firebaseConfig } = await import('./firebase');
-
-		const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
+		const app = await getFirebaseApp();
 		const auth = getAuth(app);
 
 		auth.onAuthStateChanged(async (user) => {
