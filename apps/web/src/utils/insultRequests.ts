@@ -28,6 +28,7 @@ export const submitInsultRequest = async (text: string): Promise<void> => {
 	const app = await getFirebaseApp();
 	const db = getFirestore(app);
 	const auth = getAuth(app);
+	await auth.authStateReady();
 	const user = auth.currentUser;
 
 	if (!user) {
@@ -92,6 +93,7 @@ export const approveInsultRequest = async (requestId: string): Promise<void> => 
 	const app = await getFirebaseApp();
 	const db = getFirestore(app);
 	const auth = getAuth(app);
+	await auth.authStateReady();
 	const user = auth.currentUser;
 
 	if (!user) {
@@ -114,6 +116,7 @@ export const rejectInsultRequest = async (requestId: string): Promise<void> => {
 	const app = await getFirebaseApp();
 	const db = getFirestore(app);
 	const auth = getAuth(app);
+	await auth.authStateReady();
 	const user = auth.currentUser;
 
 	if (!user) {
