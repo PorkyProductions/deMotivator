@@ -62,6 +62,17 @@
       ],
       "outputLogs": "errors-only"
     },
+    "lint:check": {
+      "dependsOn": ["^lint:check"],
+      "cache": true,
+      "inputs": [
+        "src/**/*.{js,ts,svelte}",
+        "source/**/*.{js,ts,svelte}",
+        "eslint.config.*",
+        ".eslintignore"
+      ],
+      "outputLogs": "errors-only"
+    },
     "typeCheck": {
       "dependsOn": ["^typeCheck", "^build"],
       "outputs": ["*.tsbuildinfo"],

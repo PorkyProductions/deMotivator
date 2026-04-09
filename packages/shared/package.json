@@ -5,6 +5,7 @@
 	"type": "module",
 	"scripts": {
 		"lint": "eslint ./source/** --fix",
+		"lint:check": "eslint ./source/** --max-warnings=0",
 		"build": "tsc -p tsconfig.json",
 		"typeCheck": "tsc -p tsconfig.json --noEmit"
 	},

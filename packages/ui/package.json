@@ -5,6 +5,7 @@
 	"type": "module",
 	"scripts": {
 		"lint": "eslint \"./source/**/*.{js,ts,svelte}\" --fix --max-warnings=-1 || true",
+		"lint:check": "eslint \"./source/**/*.{js,ts,svelte}\" --max-warnings=0",
 		"build": "vite build",
 		"typeCheck": "tsc -p tsconfig.json --noEmit"
 	},

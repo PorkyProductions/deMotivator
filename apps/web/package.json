@@ -14,6 +14,7 @@
 		"deploy": "npx firebase-tools deploy",
 		"ssrBuild": "vite ssrBuild",
 		"lint": "eslint \"./src/**/*.{js,ts,svelte}\" --fix --max-warnings=-1 || true",
+		"lint:check": "eslint \"./src/**/*.{js,ts,svelte}\" --max-warnings=0",
 		"buildTS": "tsc --project tsconfig.json",
 		"typeCheck": "tsc --project tsconfig.json --noEmit",
 		"supportedBrowsers": "(echo export default && browserslist-useragent-regexp --allowHigherVersions) > src/utils/supportedBrowsers.ts",
