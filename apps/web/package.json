@@ -28,7 +28,7 @@
 		"@tailwindcss/vite": "^4.2.2",
 		"autoprefixer": "^10.4.27",
 		"browserslist-useragent-regexp": "^4.1.4",
-		"eslint": "^10.1.0",
+		"eslint": "^10.2.0",
 		"eslint-plugin-import": "^2.32.0",
 		"firebase-tools": "^15.13.0",
 		"postcss": "^8.5.9",
