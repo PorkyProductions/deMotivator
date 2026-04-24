@@ -1,11 +1,10 @@
 
 # (de)Motivator 🔴
 
-Also check out [(de)Motivator.js](https://github.com/PorkyProductions/deMotivator.js) for the JavaScript Library
-
-**The Simple, Push-Button Way of Lowering your Self-Esteem**
+**The Simple, Push-Button Ecosystem for Lowering your Self-Esteem**
 
 **Brought to you by your friends at [PorkyProductions](https://porkyproductions.github.io/)**
+<br>
 ![PorkyProdutions Logo](https://avatars.githubusercontent.com/u/82683662?s=200&v=4)
 
 ---
@@ -39,6 +38,7 @@ Also check out [(de)Motivator.js](https://github.com/PorkyProductions/deMotivato
 - **Bundler**: Vite
 - **Hosting**: Firebase Hosting
 - **Data**: Firebase Firestore
+- **Shared Components**: `@demotivator/ui` — Bootstrap-wrapper Svelte component library.
 - **Utilities**: 
   - `@porkyproductions/hat` for randomization and utility functions.
   - `demotivator` npm package for insult generation.
@@ -54,7 +54,7 @@ This repository is a **monorepo** managed with [npm workspaces](https://docs.npm
 ├── apps/
 │   ├── web/                  # Svelte 5 + TypeScript web app (demotivator-web)
 │   │   ├── src/              # Application source (bootstrapper.ts, App.svelte, components/, utils/, styles/)
-│   │   ├── *.html            # HTML entry pages (index, login, signUp, list, settings, leaderboard, admin, 404, 500)
+│   │   ├── *.html            # HTML entry pages (index, login, signUp, list, settings, account, leaderboard, admin, egg, 404, 500)
 │   │   ├── vite.config.ts    # Vite multi-page app config
 │   │   └── out/              # Production build output (includes /docs on deploy flow)
 │   └── docs/                 # Astro + Starlight docs app (demotivator-docs)
@@ -63,7 +63,8 @@ This repository is a **monorepo** managed with [npm workspaces](https://docs.npm
 │
 ├── packages/
 │   ├── demotivator/          # `demotivator` npm package — insult packs and generation helpers (source/ → dist/)
-│   └── shared/               # `@demotivator/shared` — utility functions shared across packages and apps
+│   ├── shared/               # `@demotivator/shared` — utility functions shared across packages and apps
+│   └── ui/                   # `@demotivator/ui` — shared Bootstrap-wrapper Svelte components
 │
 ├── www/                      # PWA assets (manifest.json, icons, service-worker.js) — copied into apps/web/out/ at postbuild
 ├── docs/                     # Legacy GitHub Pages redirect → demotivator.web.app
@@ -78,17 +79,19 @@ Turbo orchestrates tasks across the monorepo in dependency order with intelligen
 | Task | Depends on | What it does |
 |---|---|---|
 | `lint` | upstream `lint` | Runs ESLint across each workspace, upstream first |
-| `prebuild` | `lint` | Runs workspace pre-build steps (e.g. `updateGuardian` in the web app) |
-| `build` | `lint`, `prebuild`, upstream `build` | Compiles package/app outputs (`dist/`, `out/`) across workspaces |
-| `typeCheck` | upstream `typeCheck` | Runs `tsc --noEmit` across all workspaces |
+| `lint:check` | upstream `lint:check` | Runs ESLint in check (non-fixing) mode |
+| `build` | `lint`, upstream `build` | Compiles package/app outputs (`dist/`, `out/`) across workspaces |
+| `typeCheck` | upstream `typeCheck`, upstream `build` | Runs `tsc --noEmit` across all workspaces |
 | `dev` | upstream `build` | Starts the dev server after packages are compiled |
+| `deploy` | `build` | Deploys to Firebase (always re-runs, never cached) |
 
 Because `build` has `^build` as a dependency, running `npm run build` from the root compiles upstream workspace dependencies first and then app workspaces. Turbo caches all outputs, so if source files haven't changed, tasks are skipped entirely.
 
 ```
-packages/shared  ──build──┐
-packages/demotivator ─build──┼──► apps/web build
-apps/docs ──────────build──┘
+packages/shared ─────build──┐
+packages/demotivator ──build──┤
+packages/ui ─────────build──┼──► apps/web build
+apps/docs ───────────build──┘
 ```
 
 ---
@@ -206,6 +209,8 @@ This project is licensed under the **ISC License**. See the LICENSE file for det
   - Firebase
   - `@porkyproductions/hat`
   - `demotivator`
+  - `@demotivator/ui`
+  - `@demotivator/shared`
 - **Special Thanks**: To all the users who keep coming back for more insults!
 
 ---
