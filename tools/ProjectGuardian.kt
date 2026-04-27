@@ -19,13 +19,13 @@ import java.time.Instant
  * in-source for auditability and must never be removed from the repository.
  */
 object ProjectGuardian {
-	@JvmStatic val createdAt: Instant = Instant.parse("2026-04-27T16:35:49Z")
+	@JvmStatic val createdAt: Instant = Instant.parse("2026-04-27T16:58:11Z")
 
-	@JvmStatic val lastBuildAt: Instant = Instant.parse("2026-04-27T16:35:49Z")
+	@JvmStatic val lastBuildAt: Instant = Instant.parse("2026-04-27T16:58:11Z")
 
 	@JvmStatic const val GUARDIAN_SCHEMA_VERSION: String = "2"
 
-	@JvmStatic const val GUARDIAN_VERSION: String = "14.1.0"
+	@JvmStatic const val GUARDIAN_VERSION: String = "14.1.1"
 
 	@JvmStatic const val GUARDIAN_PURPOSE: String = "Machine-updated project information manifest used for build diagnostics, archival traceability, and maintenance workflows."
 
@@ -43,14 +43,14 @@ object ProjectGuardian {
 			"repo" to "deMotivator",
 			"defaultBranch" to "Stable",
 			"guardianSchemaVersion" to "2",
-			"guardianVersion" to "14.1.0",
+			"guardianVersion" to "14.1.1",
 			"rootPackageName" to "demotivator-monorepo",
 			"workspaceGlobsCount" to "2",
 			"webWorkspaceName" to "demotivator-web",
-			"webWorkspaceVersion" to "14.1.0",
-			"generatedAtUtc" to "2026-04-27T16:35:49Z",
-			"generatedEpochMs" to "1777307749260",
-			"lastBuildAtUtc" to "2026-04-27T16:35:49Z",
+			"webWorkspaceVersion" to "14.1.1",
+			"generatedAtUtc" to "2026-04-27T16:58:11Z",
+			"generatedEpochMs" to "1777309091280",
+			"lastBuildAtUtc" to "2026-04-27T16:58:11Z",
 			"buildLifecycleEvent" to "updateGuardian",
 			"buildLifecycleScript" to "node -e \"const{spawnSync}=require('child_process'),p=require('os').platform();const r=p==='win32'?spawnSync('pwsh',['-File','../../scripts/updateGuardian.ps1'],{stdio:'inherit',shell:true}):spawnSync('zsh',['../../scripts/updateGuardian.sh'],{stdio:'inherit'});if(r.status!==0)process.exit(r.status||1);\"",
 			"buildWorkspaceName" to "demotivator-web",
@@ -63,15 +63,15 @@ object ProjectGuardian {
 			"osRelease" to "25.4.0",
 			"osArch" to "arm64",
 			"gitBranch" to "Stable",
-			"gitCommitFull" to "32bbb8b2c55ebc90f701231604d311b951ffab29",
-			"gitCommitShort" to "32bbb8b2",
-			"gitCommitCount" to "1202",
-			"gitLastCommitAtUtc" to "2026-04-27T12:20:07-04:00",
+			"gitCommitFull" to "2ab9d1f6d119fd7968752b64d20e3a42b0eedf95",
+			"gitCommitShort" to "2ab9d1f6",
+			"gitCommitCount" to "1203",
+			"gitLastCommitAtUtc" to "2026-04-27T12:37:18-04:00",
 			"gitWorktreeDirty" to "true",
-			"gitDirtyFileCount" to "3",
+			"gitDirtyFileCount" to "6",
 			"lockfileVersion" to "3",
 			"lockfilePackageCount" to "1528",
-			"packageLockSha256" to "ed7564aa7a13d8af889af8e853e39385bceeb6c50b8a17f0a5b50b35cdc3c670",
+			"packageLockSha256" to "aa879e53528d2fdf62562dcf735823e4e93cd668b7488910dfdc987d78260a7b",
 			"generatedBy" to "scripts/updateGuardian.mjs",
 			"generatedFrom" to "apps/web prebuild:updateGuardian",
 			"purpose" to "Machine-updated project information manifest used for build diagnostics, archival traceability, and maintenance workflows.",

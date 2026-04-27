@@ -1,7 +1,7 @@
 {
 	"name": "demotivator",
-	"version": "14.1.0",
-	"description": "An extremely large, procedural insult generation system with 500+ insults.",
+	"version": "14.1.1",
+	"description": "A TypeScript library containing 500+ hand-curated insults organized into themed packs, along with utilities to generate, search, and transform them.",
 	"type": "module",
 	"scripts": {
 		"lint": "eslint ./source/** --fix",
@@ -28,7 +28,7 @@
 	"bugs": {
 		"url": "https://github.com/PorkyProductions/deMotivator/issues"
 	},
-	"homepage": "https://demotivator.web.app",
+	"homepage": "https://demotivator.web.app/docs",
 	"devDependencies": {
 		"@types/lodash": "^4.17.24",
 		"eslint": "^10.2.1",
