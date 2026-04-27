@@ -1,6 +1,6 @@
 version: 2
+
 updates:
-  # NPM ecosystem configuration
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
@@ -8,23 +8,20 @@ updates:
       day: "friday"
       time: "15:00"
       timezone: "America/New_York"
+
     open-pull-requests-limit: 10
-    
-    # Auto-merge patch updates only for production
+
     allow:
-      - dependency-type: "all"
-    
-    # Commit message configuration
+      - dependency-type: "direct"
+
     commit-message:
       prefix: "Upgrade"
       include: "scope"
-    
-    # Labels for PR organization
+
     labels:
       - "dependencies"
       - "automated"
-    
-    # Grouped dependencies - Astro/React/Svelte/Vue ecosystem
+
     groups:
       frontend-framework:
         patterns:
@@ -38,11 +35,8 @@ updates:
         update-types:
           - "minor"
           - "patch"
-    
-    # Auto-approve specific packages for minor updates
-    # These will be handled through GitHub Actions or review rules
+
     ignore:
-      # We'll handle these with special rules via GitHub Actions
       - dependency-name: "demotivator"
         update-types: ["version-update:semver-major"]
       - dependency-name: "jquery"
@@ -55,38 +49,32 @@ updates:
         update-types: ["version-update:semver-major"]
       - dependency-name: "lodash"
         update-types: ["version-update:semver-major"]
-    
-    # Versioning requirements
+
     versioning-strategy: "increase"
-    
-  # Development dependencies configuration (separate for auto-merge all)
+
   - package-ecosystem: "npm"
     directory: "/"
-    target-branch: "dev"  # Assuming you have a dev branch
+    target-branch: "dev"
     schedule:
       interval: "weekly"
       day: "friday"
       time: "15:00"
       timezone: "America/New_York"
+
     open-pull-requests-limit: 10
-    
-    # Only target dev dependencies
+
     allow:
       - dependency-type: "development"
-    
-    # Commit message for dev dependencies
+
     commit-message:
       prefix: "Upgrade"
       include: "scope"
-    
-    # Labels for dev dependency PRs
+
     labels:
       - "dev-dependencies"
       - "automated"
       - "auto-merge"
-    
-    # No grouped updates for dev (separate commits as requested)
+
     groups: {}
-    
-    # Allow all updates for dev dependencies
+
     versioning-strategy: "increase"
