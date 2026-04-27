@@ -1,7 +1,7 @@
 {
 	"name": "demotivator",
-	"version": "14.0.0",
-	"description": "A extremely large array of 300+ insults so you can integrate the power of (de)Motivator into your webapp.",
+	"version": "14.1.0",
+	"description": "An extremely large, procedural insult generation system with 500+ insults.",
 	"type": "module",
 	"scripts": {
 		"lint": "eslint ./source/** --fix",
