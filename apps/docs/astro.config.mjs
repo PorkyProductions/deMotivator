@@ -54,7 +54,8 @@ export default defineConfig({
 						{ label: '(de)Motivator 11', slug: 'release-notes/11-0' },
 						{ label: '(de)Motivator 12', slug: 'release-notes/12-0' },
 						{ label: '(de)Motivator 13', slug: 'release-notes/13-0' },
-						{ label: '(de)Motivator 13.2', slug: 'release-notes/13-2' }
+						{ label: '(de)Motivator 13.2', slug: 'release-notes/13-2' },
+						{ label: '(de)Motivator 14', slug: 'release-notes/14-0'}
 					]
 				}
 			]

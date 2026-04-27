@@ -19,9 +19,9 @@ import java.time.Instant
  * in-source for auditability and must never be removed from the repository.
  */
 object ProjectGuardian {
-	@JvmStatic val createdAt: Instant = Instant.parse("2026-04-27T16:00:58Z")
+	@JvmStatic val createdAt: Instant = Instant.parse("2026-04-27T16:35:49Z")
 
-	@JvmStatic val lastBuildAt: Instant = Instant.parse("2026-04-27T16:00:58Z")
+	@JvmStatic val lastBuildAt: Instant = Instant.parse("2026-04-27T16:35:49Z")
 
 	@JvmStatic const val GUARDIAN_SCHEMA_VERSION: String = "2"
 
@@ -48,9 +48,9 @@ object ProjectGuardian {
 			"workspaceGlobsCount" to "2",
 			"webWorkspaceName" to "demotivator-web",
 			"webWorkspaceVersion" to "14.1.0",
-			"generatedAtUtc" to "2026-04-27T16:00:58Z",
-			"generatedEpochMs" to "1777305658632",
-			"lastBuildAtUtc" to "2026-04-27T16:00:58Z",
+			"generatedAtUtc" to "2026-04-27T16:35:49Z",
+			"generatedEpochMs" to "1777307749260",
+			"lastBuildAtUtc" to "2026-04-27T16:35:49Z",
 			"buildLifecycleEvent" to "updateGuardian",
 			"buildLifecycleScript" to "node -e \"const{spawnSync}=require('child_process'),p=require('os').platform();const r=p==='win32'?spawnSync('pwsh',['-File','../../scripts/updateGuardian.ps1'],{stdio:'inherit',shell:true}):spawnSync('zsh',['../../scripts/updateGuardian.sh'],{stdio:'inherit'});if(r.status!==0)process.exit(r.status||1);\"",
 			"buildWorkspaceName" to "demotivator-web",
@@ -62,13 +62,13 @@ object ProjectGuardian {
 			"osPlatform" to "darwin",
 			"osRelease" to "25.4.0",
 			"osArch" to "arm64",
-			"gitBranch" to "dev",
-			"gitCommitFull" to "9ebc33acd70f131aa9e44d8b6df57b685925d7c3",
-			"gitCommitShort" to "9ebc33ac",
-			"gitCommitCount" to "1163",
-			"gitLastCommitAtUtc" to "2026-04-27T11:56:43-04:00",
+			"gitBranch" to "Stable",
+			"gitCommitFull" to "32bbb8b2c55ebc90f701231604d311b951ffab29",
+			"gitCommitShort" to "32bbb8b2",
+			"gitCommitCount" to "1202",
+			"gitLastCommitAtUtc" to "2026-04-27T12:20:07-04:00",
 			"gitWorktreeDirty" to "true",
-			"gitDirtyFileCount" to "5",
+			"gitDirtyFileCount" to "3",
 			"lockfileVersion" to "3",
 			"lockfilePackageCount" to "1528",
 			"packageLockSha256" to "ed7564aa7a13d8af889af8e853e39385bceeb6c50b8a17f0a5b50b35cdc3c670",
