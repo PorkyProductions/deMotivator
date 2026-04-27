@@ -19,9 +19,9 @@ import java.time.Instant
  * in-source for auditability and must never be removed from the repository.
  */
 object ProjectGuardian {
-	@JvmStatic val createdAt: Instant = Instant.parse("2026-04-24T20:09:53Z")
+	@JvmStatic val createdAt: Instant = Instant.parse("2026-04-27T15:54:49Z")
 
-	@JvmStatic val lastBuildAt: Instant = Instant.parse("2026-04-24T20:09:53Z")
+	@JvmStatic val lastBuildAt: Instant = Instant.parse("2026-04-27T15:54:49Z")
 
 	@JvmStatic const val GUARDIAN_SCHEMA_VERSION: String = "2"
 
@@ -48,9 +48,9 @@ object ProjectGuardian {
 			"workspaceGlobsCount" to "2",
 			"webWorkspaceName" to "demotivator-web",
 			"webWorkspaceVersion" to "14.0.0",
-			"generatedAtUtc" to "2026-04-24T20:09:53Z",
-			"generatedEpochMs" to "1777061393454",
-			"lastBuildAtUtc" to "2026-04-24T20:09:53Z",
+			"generatedAtUtc" to "2026-04-27T15:54:49Z",
+			"generatedEpochMs" to "1777305289177",
+			"lastBuildAtUtc" to "2026-04-27T15:54:49Z",
 			"buildLifecycleEvent" to "updateGuardian",
 			"buildLifecycleScript" to "node -e \"const{spawnSync}=require('child_process'),p=require('os').platform();const r=p==='win32'?spawnSync('pwsh',['-File','../../scripts/updateGuardian.ps1'],{stdio:'inherit',shell:true}):spawnSync('zsh',['../../scripts/updateGuardian.sh'],{stdio:'inherit'});if(r.status!==0)process.exit(r.status||1);\"",
 			"buildWorkspaceName" to "demotivator-web",
@@ -63,15 +63,15 @@ object ProjectGuardian {
 			"osRelease" to "25.4.0",
 			"osArch" to "arm64",
 			"gitBranch" to "dev",
-			"gitCommitFull" to "0a03bf2a6fb566c0a2c4c19eea03ecdf5772f5d2",
-			"gitCommitShort" to "0a03bf2a",
-			"gitCommitCount" to "1157",
-			"gitLastCommitAtUtc" to "2026-04-24T16:03:25-04:00",
+			"gitCommitFull" to "42171b68f55c3831b9096142146c675d4af7142a",
+			"gitCommitShort" to "42171b68",
+			"gitCommitCount" to "1160",
+			"gitLastCommitAtUtc" to "2026-04-26T21:54:16-04:00",
 			"gitWorktreeDirty" to "true",
-			"gitDirtyFileCount" to "5",
+			"gitDirtyFileCount" to "3",
 			"lockfileVersion" to "3",
-			"lockfilePackageCount" to "1653",
-			"packageLockSha256" to "b6167e308e1716921bb4e4f3aa4e3453dfaa0284cd9075f41c0b31135a04a29b",
+			"lockfilePackageCount" to "1528",
+			"packageLockSha256" to "e0f6dd1726bc9b61a2dc8deb2fcb5036fa50436adf05d3bc6a2be54c18133f2e",
 			"generatedBy" to "scripts/updateGuardian.mjs",
 			"generatedFrom" to "apps/web prebuild:updateGuardian",
 			"purpose" to "Machine-updated project information manifest used for build diagnostics, archival traceability, and maintenance workflows.",
