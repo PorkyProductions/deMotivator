@@ -16,7 +16,6 @@
 */
 import { Insult, InsultSearchResult } from './typings';
 import { insults } from './insults';
-import { createArray } from './index';
 import s from 'lodash/sample';
 
 /**
@@ -57,11 +56,7 @@ export default (array: Insult[] = insults): Insult => {
  * @param {number} position The position in the array to select. Starts indexing at 1, not 0.
  * @returns {Insult}
  */
-export const insultAt = (position: number, array: Insult[] = createArray({
-	packs: [
-		'original'
-	]
-})): Insult => {
+export const insultAt = (position: number, array: Insult[] = insults): Insult => {
 	if (!Number.isInteger(position)) throw new TypeError('Position must be an integer');
 	if (position < 1 || position > array.length) throw new RangeError(`Position must be between 1 and ${array.length}`);
 	const result = array[position - 1];
@@ -102,7 +97,7 @@ export function searchInsults(term: string, array?: Insult[], withPosition?: fal
 export function searchInsults(term: string, array: Insult[] | undefined, withPosition: true): InsultSearchResult;
 export function searchInsults(
 	term: string,
-	array: Insult[] = createArray({ packs: ['original'] }),
+	array: Insult[] = insults,
 	withPosition: boolean = false
 ): Insult | InsultSearchResult {
 	if (array.length === 0) throw new Error('No insults available');

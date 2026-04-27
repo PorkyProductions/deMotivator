@@ -30,6 +30,7 @@
 	"exports": {
 		".": {
 			"svelte": "./source/index.js",
+			"types": "./source/index.d.ts",
 			"default": "./dist/index.js"
 		}
 	}

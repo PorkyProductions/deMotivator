@@ -30,6 +30,7 @@
 	},
 	"homepage": "https://demotivator.web.app",
 	"devDependencies": {
+		"@types/lodash": "^4.17.24",
 		"eslint": "^10.2.1",
 		"eslint-plugin-n": "^17.24.0",
 		"eslint-plugin-promise": "^7.2.1",
@@ -42,6 +43,12 @@
 		"./dist/**/*.d.ts.map"
 	],
 	"main": "./dist/index.js",
+	"exports": {
+		".": {
+			"import": "./dist/index.js",
+			"types": "./dist/index.d.ts"
+		}
+	},
 	"displayName": "(de)Motivator.js",
 	"contributors": [
 		"Tristan Winata"
@@ -51,7 +58,6 @@
 	],
 	"types": "./dist/index.d.ts",
 	"dependencies": {
-		"@types/lodash": "^4.17.24",
 		"lodash": "^4.17.23"
 	}
 }

@@ -59,10 +59,12 @@ export {
 	makeAngry,
 	type Insult,
 	type InsultPack,
+	type InsultPackKey,
 	type InsultPackMap,
 	type InsultSearchResult,
 	type InsultPackInfo,
 	type PackInfoFunction,
+	type SearchInsultsFunction,
 	type CreateArrayConfig
 };
 

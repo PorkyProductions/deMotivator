@@ -6,6 +6,7 @@
     "alwaysStrict": true,
     "exactOptionalPropertyTypes": false,
     "diagnostics": true,
+    "lib": ["dom", "es2022"],
     "moduleResolution": "bundler",
     "noFallthroughCasesInSwitch": true,
     "noErrorTruncation": false,
@@ -26,10 +27,9 @@
     "strictFunctionTypes": true,
     "sourceMap": true,
     "skipLibCheck": true,
-    "target": "ES2022", // 3 years ago JavaScript is up to date enough, right???
+    "target": "ES2022",
+    "typeRoots": ["node_modules/@types"],
+    "types": []
   },
-  "files": ["./source/index.ts"],
-  "types": [],
-  "typeRoots": ["node_modules/@types"],
-  "lib": ["dom", "es2016"]
+  "files": ["./source/index.ts"]
 }
