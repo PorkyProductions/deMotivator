@@ -19,9 +19,9 @@ import java.time.Instant
  * in-source for auditability and must never be removed from the repository.
  */
 object ProjectGuardian {
-	@JvmStatic val createdAt: Instant = Instant.parse("2026-04-27T15:54:49Z")
+	@JvmStatic val createdAt: Instant = Instant.parse("2026-04-27T15:55:51Z")
 
-	@JvmStatic val lastBuildAt: Instant = Instant.parse("2026-04-27T15:54:49Z")
+	@JvmStatic val lastBuildAt: Instant = Instant.parse("2026-04-27T15:55:51Z")
 
 	@JvmStatic const val GUARDIAN_SCHEMA_VERSION: String = "2"
 
@@ -48,9 +48,9 @@ object ProjectGuardian {
 			"workspaceGlobsCount" to "2",
 			"webWorkspaceName" to "demotivator-web",
 			"webWorkspaceVersion" to "14.0.0",
-			"generatedAtUtc" to "2026-04-27T15:54:49Z",
-			"generatedEpochMs" to "1777305289177",
-			"lastBuildAtUtc" to "2026-04-27T15:54:49Z",
+			"generatedAtUtc" to "2026-04-27T15:55:51Z",
+			"generatedEpochMs" to "1777305351708",
+			"lastBuildAtUtc" to "2026-04-27T15:55:51Z",
 			"buildLifecycleEvent" to "updateGuardian",
 			"buildLifecycleScript" to "node -e \"const{spawnSync}=require('child_process'),p=require('os').platform();const r=p==='win32'?spawnSync('pwsh',['-File','../../scripts/updateGuardian.ps1'],{stdio:'inherit',shell:true}):spawnSync('zsh',['../../scripts/updateGuardian.sh'],{stdio:'inherit'});if(r.status!==0)process.exit(r.status||1);\"",
 			"buildWorkspaceName" to "demotivator-web",
@@ -63,12 +63,12 @@ object ProjectGuardian {
 			"osRelease" to "25.4.0",
 			"osArch" to "arm64",
 			"gitBranch" to "dev",
-			"gitCommitFull" to "42171b68f55c3831b9096142146c675d4af7142a",
-			"gitCommitShort" to "42171b68",
-			"gitCommitCount" to "1160",
-			"gitLastCommitAtUtc" to "2026-04-26T21:54:16-04:00",
+			"gitCommitFull" to "59c6626bef8b7ecb141f3a0ed7a36f372026df82",
+			"gitCommitShort" to "59c6626b",
+			"gitCommitCount" to "1162",
+			"gitLastCommitAtUtc" to "2026-04-27T11:55:04-04:00",
 			"gitWorktreeDirty" to "true",
-			"gitDirtyFileCount" to "3",
+			"gitDirtyFileCount" to "1",
 			"lockfileVersion" to "3",
 			"lockfilePackageCount" to "1528",
 			"packageLockSha256" to "e0f6dd1726bc9b61a2dc8deb2fcb5036fa50436adf05d3bc6a2be54c18133f2e",
