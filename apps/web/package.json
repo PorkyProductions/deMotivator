@@ -29,7 +29,7 @@
 		"autoprefixer": "^10.5.0",
 		"browserslist-useragent-regexp": "^4.1.4",
 		"eslint": "^10.2.1",
-		"firebase-tools": "^15.15.0",
+		"firebase-tools": "^15.17.0",
 		"postcss": "^8.5.14",
 		"rollup-plugin-visualizer": "^7.0.1",
 		"sass": "^1.99.0",
