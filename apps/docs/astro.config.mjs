@@ -1,12 +1,16 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
-import tailwindCss from '@tailwindcss/vite';
+import tailwindcss from '@tailwindcss/postcss';
 
 export default defineConfig({
 	site: 'https://demotivator.web.app',
 	base: '/docs',
 	vite: {
-		plugins: [tailwindCss()]
+		css: {
+			postcss: {
+				plugins: [tailwindcss()]
+			}
+		}
 	},
 	integrations: [
 		starlight({
