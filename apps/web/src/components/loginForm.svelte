@@ -1,8 +1,18 @@
-<script>
+<script lang="ts">
 	import { isEmailValid, isPwValid } from '../utils/regEx';
 	import { getValidationClass } from '../utils/loginValidation';
 	import { Icon } from '@demotivator/ui';
 	import ForgotPasswordDialog from './forgotPasswordDialog.svelte';
+
+	interface Props {
+		emailBoxContent?: string;
+		pwText?: string;
+		emailInvalid?: boolean;
+		pwInvalid?: boolean;
+		keepMeLoggedIn?: boolean;
+		onSubmit: (e: Event) => void;
+		loginWithGoogle: () => void;
+	}
 
 	let {
 		emailBoxContent = $bindable(''),
@@ -12,7 +22,7 @@
 		keepMeLoggedIn = $bindable(false),
 		onSubmit,
 		loginWithGoogle
-	} = $props();
+	}: Props = $props();
 
 	const onChangeLoginText = () => {
 		pwInvalid = !isPwValid(pwText);

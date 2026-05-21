@@ -34,7 +34,7 @@ let ready = $state(false);
 let error = $state(null);
 let keepMeLoggedIn = $state(false);
 
-const load = async () => {
+const load = () => {
 	window.localStorage.getItem('keepMeLoggedIn');
 	ready = true;
 };

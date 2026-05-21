@@ -88,12 +88,22 @@ export default defineConfig([globalIgnores([
     files: ["**/*.svelte"],
 
     languageOptions: {
+        globals: {
+            ...globals.browser,
+            ...globals.node,
+        },
+
         parser: parser,
-        ecmaVersion: 5,
-        sourceType: "script",
+        ecmaVersion: "latest",
+        sourceType: "module",
 
         parserOptions: {
             parser: "@typescript-eslint/parser",
         },
+    },
+
+    rules: {
+        "@typescript-eslint/no-unused-expressions": "off",
+        "prefer-const": "off",
     },
 }]);
