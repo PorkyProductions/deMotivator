@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "skills": {
+    "bootstrap": {
+      "source": "mindrally/skills",
+      "sourceType": "github",
+      "skillPath": "bootstrap/SKILL.md",
+      "computedHash": "99c121c1791cbbadcb16b0ff4d3928c08d402e999a6611d2cbece613d98e7e97"
+    },
+    "firebase-auth-basics": {
+      "source": "firebase/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/firebase-auth-basics/SKILL.md",
+      "computedHash": "a68238619839f44f3b4c7d02d0c96bc05df2b018edd62dd299c964ce871d80a3"
+    },
+    "firebase-basics": {
+      "source": "firebase/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/firebase-basics/SKILL.md",
+      "computedHash": "d26debb78b35f73eb03b7ba6bc57cb670484de3ddcc66d95889cb5f9d0c54f7c"
+    },
+    "firebase-firestore": {
+      "source": "firebase/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/firebase-firestore/SKILL.md",
+      "computedHash": "659c60ba81cb70c41a5d6b4ca33312a8e0461468510b2214fd185af9ac925174"
+    },
+    "firebase-hosting-basics": {
+      "source": "firebase/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/firebase-hosting-basics/SKILL.md",
+      "computedHash": "fb86fd4035e8e6379931faeb443557ac6f2e43fde04b397433f287e69b6532a9"
+    },
+    "frontend-design": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "skillPath": "skills/frontend-design/SKILL.md",
+      "computedHash": "063a0e6448123cd359ad0044cc46b0e490cc7964d45ef4bb9fd842bd2ffbca67"
+    },
+    "turborepo": {
+      "source": "vercel/turborepo",
+      "sourceType": "github",
+      "skillPath": "skills/turborepo/SKILL.md",
+      "computedHash": "6a23ee82918e35f8848b6fc2ccbea699d740a30fee65f288201adb4e98bf3827"
+    }
+  }
+}

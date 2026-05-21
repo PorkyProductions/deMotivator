@@ -30,6 +30,7 @@
 	},
 	"packageManager": "npm@11.8.0",
 	"dependencies": {
-		"@astrojs/starlight": "^0.38.4"
+		"@astrojs/starlight": "^0.38.4",
+		"skills": "^1.5.7"
 	}
 }
