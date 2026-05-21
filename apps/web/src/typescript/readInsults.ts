@@ -63,10 +63,15 @@ export const getListOfAllUsersWhoHaveSeenInsults = async (): Promise<QuerySnapsh
 	const querySnapshot = await getDocs(query(leaderboardCollectionRef, where('insultsSeen', '>', 0)));
 	const entriesByReferrer = new Map<string, GlobInsultDBQueryResponse>();
 	querySnapshot.forEach((entryDoc) => {
-		entriesByReferrer.set(entryDoc.id, {
-			referrer: entryDoc.id,
-			data: entryDoc.data().insultsSeen
-		});
+		const trimmedId = entryDoc.id.trim();
+		const insultsSeen = entryDoc.data().insultsSeen as number;
+		const existing = entriesByReferrer.get(trimmedId);
+		if (!existing || insultsSeen > (existing.data ?? 0)) {
+			entriesByReferrer.set(trimmedId, {
+				referrer: trimmedId,
+				data: insultsSeen
+			});
+		}
 	});
 
 	const nextLeaderboard = Array.from(entriesByReferrer.values());

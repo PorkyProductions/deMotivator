@@ -19,7 +19,7 @@
 	const refreshProfileStats = async () => {
 		try {
 			const [
-				{ readInsults, getListOfAllUsersWhoHaveSeenInsults, leaderboard },
+				readInsultsModule,
 				{ readInsultStreak },
 				{ syncMilestoneAchievements, syncStreakMilestoneAchievements, syncLeaderboardRankAchievements, readAchievementCards }
 			] = await Promise.all([
@@ -27,9 +27,10 @@
 				import('../../utils/insultStreak'),
 				import('../../utils/achievements')
 			]);
+			const { readInsults, getListOfAllUsersWhoHaveSeenInsults } = readInsultsModule;
 			const [insultsSeen, insultStreak] = await Promise.all([readInsults(), readInsultStreak()]);
 			await getListOfAllUsersWhoHaveSeenInsults();
-			const currentUserRankIndex = leaderboard.findIndex((entry) => entry.isCurrentUser);
+			const currentUserRankIndex = readInsultsModule.leaderboard.findIndex((entry) => entry.isCurrentUser);
 			const currentUserRank = currentUserRankIndex >= 0 ? currentUserRankIndex + 1 : null;
 			await syncMilestoneAchievements(insultsSeen);
 			await syncStreakMilestoneAchievements(insultStreak);
