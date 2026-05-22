@@ -16,7 +16,7 @@
 		"@astrojs/starlight": "^0.39.2",
 		"@tailwindcss/postcss": "^4.3.0",
 		"astro": "^6.3.7",
-		"eslint": "^10.3.0",
+		"eslint": "^10.4.0",
 		"tailwindcss": "^4.3.0",
 		"typescript": "^6.0.3"
 	}
