@@ -30,7 +30,7 @@
 		"browserslist-useragent-regexp": "^4.1.4",
 		"eslint": "^10.3.0",
 		"firebase-tools": "^15.17.0",
-		"postcss": "^8.5.14",
+		"postcss": "^8.5.15",
 		"rollup-plugin-visualizer": "^7.0.1",
 		"sass": "^1.99.0",
 		"serve": "^14.2.6",
