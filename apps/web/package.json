@@ -35,7 +35,7 @@
 		"sass": "^1.99.0",
 		"serve": "^14.2.6",
 		"svelte": "^5.55.5",
-		"svelte-preprocess": "^6.0.3",
+		"svelte-preprocess": "^6.0.4",
 		"tailwindcss": "^4.3.0",
 		"terser": "^5.47.1",
 		"typescript": "^6.0.3",
