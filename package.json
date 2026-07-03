@@ -21,7 +21,7 @@
 		"@eslint/eslintrc": "^3.3.5",
 		"@eslint/js": "^10.0.1",
 		"@typescript-eslint/eslint-plugin": "^8.62.0",
-		"@typescript-eslint/parser": "^8.62.0",
+		"@typescript-eslint/parser": "^8.62.1",
 		"eslint": "^10.5.0",
 		"eslint-plugin-svelte": "^3.20.0",
 		"globals": "^17.7.0",
