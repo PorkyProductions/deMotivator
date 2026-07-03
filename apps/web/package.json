@@ -39,7 +39,7 @@
 		"tailwindcss": "^4.3.1",
 		"terser": "^5.48.0",
 		"typescript": "^6.0.3",
-		"vite": "^8.1.0"
+		"vite": "^8.1.3"
 	},
 	"dependencies": {
 		"@demotivator/shared": "^14.1.0",
