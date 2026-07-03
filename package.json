@@ -26,7 +26,7 @@
 		"eslint-plugin-svelte": "^3.20.0",
 		"globals": "^17.7.0",
 		"svelte-eslint-parser": "^1.8.0",
-		"turbo": "^2.10.0"
+		"turbo": "^2.10.3"
 	},
 	"packageManager": "npm@11.8.0",
 	"dependencies": {
