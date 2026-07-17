@@ -19,7 +19,7 @@
 		"@sveltejs/vite-plugin-svelte": "^7.2.0",
 		"eslint": "^10.6.0",
 		"typescript": "^7.0.2",
-		"vite": "^8.1.4"
+		"vite": "^8.1.5"
 	},
 	"files": [
 		"./source/**/*",
