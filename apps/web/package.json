@@ -32,7 +32,7 @@
 		"firebase-tools": "^15.24.0",
 		"postcss": "^8.5.23",
 		"rollup-plugin-visualizer": "^7.0.1",
-		"sass": "^1.101.7",
+		"sass": "^1.102.0",
 		"serve": "^14.2.6",
 		"svelte": "^5.55.5",
 		"svelte-preprocess": "^6.0.5",
