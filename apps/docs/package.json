@@ -12,7 +12,7 @@
 		"typeCheck": "astro check"
 	},
 	"devDependencies": {
-		"@astrojs/check": "^0.9.9",
+		"@astrojs/check": "^0.9.10",
 		"@astrojs/starlight": "^0.38.4",
 		"@tailwindcss/vite": "4.3.3",
 		"astro": "^7.1.3",
