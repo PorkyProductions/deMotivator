@@ -28,7 +28,7 @@
 		"@tailwindcss/vite": "^4.3.3",
 		"autoprefixer": "^10.5.4",
 		"browserslist-useragent-regexp": "^4.1.4",
-		"eslint": "^10.8.0",
+		"eslint": "^10.8.1",
 		"firebase-tools": "^15.26.0",
 		"postcss": "^8.5.24",
 		"rollup-plugin-visualizer": "^7.0.1",
