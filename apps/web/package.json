@@ -23,7 +23,7 @@
 		"push": "npx firebase-tools deploy"
 	},
 	"devDependencies": {
-		"@sveltejs/vite-plugin-svelte": "^7.3.0",
+		"@sveltejs/vite-plugin-svelte": "^7.3.1",
 		"@tailwindcss/postcss": "^4.3.3",
 		"@tailwindcss/vite": "^4.3.3",
 		"autoprefixer": "^10.6.1",
