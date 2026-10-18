@@ -3,6 +3,7 @@ version: 2
 updates:
   - package-ecosystem: "npm"
     directory: "/"
+    target-branch: "dev"
     schedule:
       interval: "weekly"
       day: "friday"
@@ -49,32 +50,5 @@ updates:
         update-types: ["version-update:semver-major"]
       - dependency-name: "lodash"
         update-types: ["version-update:semver-major"]
-
-    versioning-strategy: "increase"
-
-  - package-ecosystem: "npm"
-    directory: "/"
-    target-branch: "dev"
-    schedule:
-      interval: "weekly"
-      day: "friday"
-      time: "15:00"
-      timezone: "America/New_York"
-
-    open-pull-requests-limit: 10
-
-    allow:
-      - dependency-type: "development"
-
-    commit-message:
-      prefix: "Upgrade"
-      include: "scope"
-
-    labels:
-      - "dev-dependencies"
-      - "automated"
-      - "auto-merge"
-
-    groups: {}
 
     versioning-strategy: "increase"
