@@ -30,7 +30,7 @@
 	},
 	"homepage": "https://demotivator.web.app",
 	"devDependencies": {
-		"@types/lodash": "^4.17.26",
+		"@types/lodash": "^4.17.27",
 		"eslint": "^10.13.0",
 		"eslint-plugin-n": "^18.5.0",
 		"eslint-plugin-promise": "^7.3.0",
