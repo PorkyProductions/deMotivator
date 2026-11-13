@@ -85,8 +85,11 @@ jobs:
           MINOR_AUTO_PACKAGES="demotivator jquery uadetect @porkyproductions/hat bootstrap-icons lodash"
           
           # Check if we should auto-merge
-          if [[ "$TARGET_BRANCH" == "dev" ]]; then
-            # Dev branch: auto-merge everything
+          if [[ "$TARGET_BRANCH" == "dev" && "$UPDATE_TYPE" == "version-update:semver-major" ]]; then
+            # Dev branch: majors wait for a human (a TypeScript 7 major merged red and broke dev CI)
+            echo "should_merge=false" >> $GITHUB_OUTPUT
+          elif [[ "$TARGET_BRANCH" == "dev" ]]; then
+            # Dev branch: auto-merge patches and minors
             echo "should_merge=true" >> $GITHUB_OUTPUT
           elif [[ "$UPDATE_TYPE" == "version-update:semver-patch" ]]; then
             # Main branch: auto-merge all patches

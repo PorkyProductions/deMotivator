@@ -6,13 +6,13 @@ Part of the [(de)Motivator monorepo](https://github.com/PorkyProductions/deMotiv
 
 ![npm](https://img.shields.io/npm/v/demotivator?color=CB3837&logo=npm&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)
-![License](https://img.shields.io/badge/License-Apache%202.0-blue)
+![License](https://img.shields.io/badge/License-ISC-blue)
 
 ---
 
 ## Description
 
-`demotivator` is a TypeScript library containing 300+ hand-curated insults organized into themed packs, along with utilities to generate, search, and transform them.
+`demotivator` is a TypeScript library containing 500+ hand-curated insults organized into themed packs, along with utilities to generate, search, and transform them.
 
 ## Documentation
 
@@ -218,4 +218,4 @@ dm.generateInsult();
 
 ## License
 
-Apache License 2.0 — see the LICENSE file for details.
+ISC — see the LICENSE file for details.
