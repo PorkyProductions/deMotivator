@@ -33,7 +33,7 @@
 		"postcss": "^8.5.23",
 		"rollup-plugin-visualizer": "^7.0.1",
 		"sass": "^1.99.0",
-		"serve": "^14.2.6",
+		"serve": "^14.2.8",
 		"svelte": "^5.55.5",
 		"svelte-preprocess": "^6.0.4",
 		"tailwindcss": "^4.3.0",
